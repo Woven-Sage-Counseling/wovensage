@@ -1,0 +1,30 @@
+---
+import { siteConfig } from '../config/site';
+
+interface Props {
+  class?: string;
+  imgClass?: string;
+  flip?: boolean;
+}
+
+const {
+  class: className = '',
+  imgClass = 'w-48 opacity-[0.22] sm:w-64 sm:opacity-[0.26]',
+  flip = false,
+} = Astro.props;
+---
+
+<div
+  class:list={['pointer-events-none absolute z-0 select-none', className]}
+  aria-hidden="true"
+>
+  <img
+    src={siteConfig.logos.sageLeaves}
+    alt=""
+    width={320}
+    height={214}
+    class:list={['h-auto max-w-none', imgClass, flip && 'scale-x-[-1]']}
+    loading="lazy"
+    decoding="async"
+  />
+</div>

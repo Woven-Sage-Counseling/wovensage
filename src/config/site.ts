@@ -15,6 +15,7 @@ export const siteConfig = {
     monogram: '/images/logo-ws.jpg',
     monogramFooter: '/images/logo-ws-footer-transparent.png',
     leaf: '/images/logo-leaf.png',
+    sageLeaves: '/images/sage-leaves-transparent.png',
   },
 
   /** Replace with Michele's Headway profile URL when available */

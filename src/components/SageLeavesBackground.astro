@@ -1,0 +1,33 @@
+---
+import SageBranchDecor from './SageBranchDecor.astro';
+---
+
+<div class="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+  <SageBranchDecor
+    class="left-0 top-[8%] -translate-x-[22%] sm:top-[10%] sm:-translate-x-[15%]"
+    imgClass="w-36 opacity-[0.16] sm:w-48 sm:opacity-[0.2]"
+  />
+  <SageBranchDecor
+    class="left-0 top-1/2 -translate-x-[18%] -translate-y-1/2 sm:-translate-x-[10%]"
+    imgClass="w-44 opacity-[0.2] sm:w-60 sm:opacity-[0.24] md:w-72"
+  />
+  <SageBranchDecor
+    class="bottom-[6%] left-0 -translate-x-[28%] sm:bottom-[10%] sm:-translate-x-[18%]"
+    imgClass="w-32 opacity-[0.14] sm:w-40 sm:opacity-[0.18]"
+  />
+  <SageBranchDecor
+    flip
+    class="right-0 top-[14%] translate-x-[20%] sm:top-[18%] sm:translate-x-[12%]"
+    imgClass="w-36 opacity-[0.16] sm:w-52 sm:opacity-[0.2]"
+  />
+  <SageBranchDecor
+    flip
+    class="right-0 top-1/2 translate-x-[22%] -translate-y-1/3 hidden sm:block sm:translate-x-[14%]"
+    imgClass="w-40 opacity-[0.18] sm:w-56 sm:opacity-[0.22]"
+  />
+  <SageBranchDecor
+    flip
+    class="bottom-[8%] right-0 translate-x-[18%] sm:bottom-[12%] sm:translate-x-[10%]"
+    imgClass="w-32 opacity-[0.14] sm:w-44 sm:opacity-[0.18]"
+  />
+</div>

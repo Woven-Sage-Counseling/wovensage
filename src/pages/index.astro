@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import HeadwayButton from '../components/HeadwayButton.astro';
 import Logo from '../components/Logo.astro';
+import SageBranchDecor from '../components/SageBranchDecor.astro';
 import { siteConfig } from '../config/site';
 ---
 
@@ -11,6 +12,15 @@ import { siteConfig } from '../config/site';
   description={`${siteConfig.tagline}. Compassionate therapy in South Florida — in person and telehealth throughout Florida.`}
 >
   <section class="relative overflow-hidden bg-cream pb-12 pt-4 sm:pb-16 sm:pt-5">
+    <SageBranchDecor
+      class="left-0 top-1/2 -translate-x-[28%] -translate-y-1/2 sm:-translate-x-[22%] md:-translate-x-[18%]"
+      imgClass="w-[18rem] origin-left -rotate-[10deg] opacity-[0.24] sm:w-[24rem] sm:opacity-[0.28] md:w-[28rem] lg:w-[32rem]"
+    />
+    <SageBranchDecor
+      flip
+      class="right-0 top-1/2 -translate-y-1/2 translate-x-[28%] sm:translate-x-[22%] md:translate-x-[18%]"
+      imgClass="w-[18rem] origin-right rotate-[10deg] opacity-[0.24] sm:w-[24rem] sm:opacity-[0.28] md:w-[28rem] lg:w-[32rem]"
+    />
     <div class="container-page relative z-10">
       <div class="mx-auto max-w-3xl text-center">
         <div class="mb-5 flex w-full justify-center sm:mb-7">
@@ -34,14 +44,6 @@ import { siteConfig } from '../config/site';
         </div>
       </div>
     </div>
-    <div
-      class="pointer-events-none absolute -right-24 top-0 h-64 w-64 rounded-full bg-sage/20 blur-3xl"
-      aria-hidden="true"
-    ></div>
-    <div
-      class="pointer-events-none absolute -left-24 bottom-0 h-64 w-64 rounded-full bg-accent/20 blur-3xl"
-      aria-hidden="true"
-    ></div>
   </section>
 
   <Section title="Who we serve">

@@ -1,12 +1,15 @@
 ---
+import PsychologyTodayBadge from './PsychologyTodayBadge.astro';
+
 interface Props {
   name: string;
   title: string;
   subtitle?: string;
   bio: string;
+  showPsychologyTodayBadge?: boolean;
 }
 
-const { name, title, subtitle, bio } = Astro.props;
+const { name, title, subtitle, bio, showPsychologyTodayBadge = false } = Astro.props;
 ---
 
 <article class="card flex flex-col overflow-hidden sm:flex-row">
@@ -20,5 +23,10 @@ const { name, title, subtitle, bio } = Astro.props;
     <p class="mt-1 text-sm font-semibold text-sage-dark">{title}</p>
     {subtitle && <p class="mt-1 text-sm text-sage-dark/70">{subtitle}</p>}
     <p class="prose-content mt-4 text-sm">{bio}</p>
+    {showPsychologyTodayBadge && (
+      <div class="mt-4">
+        <PsychologyTodayBadge variant="light" />
+      </div>
+    )}
   </div>
 </article>

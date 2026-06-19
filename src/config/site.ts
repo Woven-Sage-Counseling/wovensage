@@ -8,6 +8,15 @@ export const siteConfig = {
   url: 'https://wovensage.com',
   contactEmail: 'admin@wovensage.com',
 
+  logos: {
+    main: '/images/logo-main-transparent.png',
+    text: '/images/logo-text.jpg',
+    textHeader: '/images/logo-text-header-transparent.png',
+    monogram: '/images/logo-ws.jpg',
+    monogramFooter: '/images/logo-ws-footer-transparent.png',
+    leaf: '/images/logo-leaf.png',
+  },
+
   /** Replace with Michele's Headway profile URL when available */
   headwayBaseUrl: 'https://headway.co/providers',
 

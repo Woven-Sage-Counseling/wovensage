@@ -49,6 +49,41 @@
   .prose-content {
     @apply space-y-4 leading-relaxed text-sage-dark/80;
   }
+
+  /* Crop baked-in padding from square JPEG logos */
+  .logo-header {
+    @apply flex shrink-0 items-center;
+    height: 2rem;
+    max-width: min(220px, 48vw);
+  }
+
+  .logo-header img {
+    @apply h-full w-auto max-w-full object-contain object-left;
+  }
+
+  @media (min-width: 640px) {
+    .logo-header {
+      height: 2.25rem;
+      max-width: none;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .logo-header {
+      height: 2.5rem;
+    }
+  }
+
+  .logo-hero {
+    @apply mx-auto flex w-full justify-center;
+  }
+
+  .logo-hero img {
+    @apply mx-auto block h-auto w-auto;
+    width: min(300px, 72vw);
+    max-width: 340px;
+    margin-top: -0.5rem;
+  }
 }
 
 /* Abstract botanical background pattern */

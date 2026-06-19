@@ -1,17 +1,16 @@
 ---
 import { siteConfig, navLinks } from '../config/site';
 import HeadwayButton from './HeadwayButton.astro';
+import Logo from './Logo.astro';
 
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-50 border-b border-accent/40 bg-cream/90 backdrop-blur-md">
-  <div class="container-page flex h-16 items-center justify-between gap-4 sm:h-18">
-    <a href="/" class="group flex min-w-0 flex-col leading-tight">
-      <span class="truncate font-serif text-lg font-semibold text-sage-dark group-hover:text-sage-dark sm:text-xl">
-        {siteConfig.name}
-      </span>
-      <span class="hidden truncate text-xs text-sage-dark/70 sm:block">{siteConfig.tagline}</span>
+<header class="sticky top-0 z-50 border-b border-accent/40 bg-cream/95 backdrop-blur-md">
+  <div class="container-page flex h-14 items-center justify-between gap-4 sm:h-16">
+    <a href="/" class="group flex shrink-0 items-center">
+      <Logo variant="text" />
+      <span class="sr-only">{siteConfig.name}</span>
     </a>
 
     <nav class="hidden items-center gap-6 lg:flex" aria-label="Main navigation">

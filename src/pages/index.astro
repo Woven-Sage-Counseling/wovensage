@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import HeadwayButton from '../components/HeadwayButton.astro';
+import Logo from '../components/Logo.astro';
 import { siteConfig } from '../config/site';
 ---
 
@@ -9,28 +10,36 @@ import { siteConfig } from '../config/site';
   title={siteConfig.name}
   description={`${siteConfig.tagline}. Compassionate therapy in South Florida — in person and telehealth throughout Florida.`}
 >
-  <section class="bg-nature relative overflow-hidden py-20 sm:py-28">
+  <section class="relative overflow-hidden bg-cream pb-12 pt-4 sm:pb-16 sm:pt-5">
     <div class="container-page relative z-10">
-      <div class="max-w-3xl">
-        <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-sage-dark">
+      <div class="mx-auto max-w-3xl text-center">
+        <div class="mb-5 flex w-full justify-center sm:mb-7">
+          <Logo variant="main" />
+        </div>
+
+        <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-sage-dark">
           South Florida · In person & telehealth
         </p>
-        <h1 class="font-serif text-4xl leading-tight sm:text-5xl lg:text-6xl">
+        <h1 class="font-serif text-4xl leading-tight sm:text-5xl">
           {siteConfig.tagline}
         </h1>
-        <p class="mt-6 text-lg leading-relaxed text-sage-dark/70 sm:text-xl">
+        <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-sage-dark/70 sm:text-xl">
           At {siteConfig.name}, we believe meaningful change begins with genuine connection.
           We offer thoughtful, personalized care for individuals, couples, and families across
           Palm Beach County and throughout Florida via telehealth.
         </p>
-        <div class="mt-10 flex flex-wrap gap-4">
+        <div class="mt-8 flex flex-wrap justify-center gap-4 sm:mt-10">
           <HeadwayButton source="hero" />
           <a href="/about" class="btn-secondary">Learn about us</a>
         </div>
       </div>
     </div>
     <div
-      class="pointer-events-none absolute -right-20 top-10 h-72 w-72 rounded-full bg-sage/30 blur-3xl"
+      class="pointer-events-none absolute -right-24 top-0 h-64 w-64 rounded-full bg-sage/20 blur-3xl"
+      aria-hidden="true"
+    ></div>
+    <div
+      class="pointer-events-none absolute -left-24 bottom-0 h-64 w-64 rounded-full bg-accent/20 blur-3xl"
       aria-hidden="true"
     ></div>
   </section>

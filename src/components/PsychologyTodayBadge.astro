@@ -1,0 +1,69 @@
+---
+import { siteConfig } from '../config/site';
+
+interface Props {
+  variant?: 'light' | 'dark';
+}
+
+const { variant = 'dark' } = Astro.props;
+const profileUrl = siteConfig.social.psychologyToday;
+
+const isLight = variant === 'light';
+const badgeClass = 'inline-flex items-center gap-2';
+const linkClass = `${badgeClass} transition opacity-90 hover:opacity-100`;
+
+const circleClass = isLight ? 'text-sage-dark/35' : 'text-cream/40';
+const checkClass = isLight ? 'text-sage-dark' : 'text-cream';
+const labelClass = isLight
+  ? 'block text-[0.5rem] font-semibold uppercase tracking-[0.12em] text-sage-dark/55'
+  : 'block text-[0.5rem] font-semibold uppercase tracking-[0.12em] text-cream/55';
+const titleClass = isLight
+  ? 'block font-serif text-sm font-medium text-sage-dark'
+  : 'block font-serif text-sm font-medium text-cream';
+---
+
+{
+  profileUrl ? (
+    <a
+      href={profileUrl}
+      class={linkClass}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="View Psychology Today profile"
+    >
+      <svg class="h-7 w-7 shrink-0" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+        <circle cx="18" cy="18" r="17" stroke="currentColor" stroke-width="1.5" class={circleClass} />
+        <path
+          d="M11 18.5l4.25 4.25L25 13"
+          stroke="currentColor"
+          stroke-width="2.25"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class={checkClass}
+        />
+      </svg>
+      <span class="text-left leading-tight">
+        <span class={labelClass}>Verified by</span>
+        <span class={titleClass}>Psychology Today</span>
+      </span>
+    </a>
+  ) : (
+    <div class={badgeClass} aria-label="Verified by Psychology Today">
+      <svg class="h-7 w-7 shrink-0" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+        <circle cx="18" cy="18" r="17" stroke="currentColor" stroke-width="1.5" class={circleClass} />
+        <path
+          d="M11 18.5l4.25 4.25L25 13"
+          stroke="currentColor"
+          stroke-width="2.25"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class={checkClass}
+        />
+      </svg>
+      <span class="text-left leading-tight">
+        <span class={labelClass}>Verified by</span>
+        <span class={titleClass}>Psychology Today</span>
+      </span>
+    </div>
+  )
+}

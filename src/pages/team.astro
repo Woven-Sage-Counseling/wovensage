@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+import TeamCard from '../components/TeamCard.astro';
+import { siteConfig } from '../config/site';
+
+const { founder, clinician } = siteConfig.team;
+---
+
+<BaseLayout
+  title="Meet the Team"
+  description="Meet the people behind Woven Sage Psychology — Christian Evans, Founder, and Michele Evans, Co-Founder & LMHC."
+>
+  <PageHero
+    title="Meet the team"
+    description="The people behind Woven Sage Psychology."
+    centered
+  />
+
+  <Section>
+    <div class="mx-auto max-w-3xl space-y-8">
+      <TeamCard
+        name={founder.name}
+        title={founder.title}
+        bio={founder.bio}
+      />
+
+      <TeamCard
+        name={clinician.name}
+        title={`${clinician.title} · ${clinician.credentials}`}
+        subtitle={`${clinician.pronouns} · ${clinician.languages.join(', ')} · ${clinician.license}`}
+        bio={`${clinician.bio} ${clinician.specialties}.`}
+      />
+    </div>
+
+    <div class="card mx-auto mt-12 max-w-3xl text-center">
+      <h3 class="font-serif text-xl">Growing our team</h3>
+      <p class="prose-content mt-3 text-sm">
+        Woven Sage is actively expanding. We are building a team of compassionate clinicians
+        to serve more clients across South Florida and beyond.
+      </p>
+      <a href="/careers" class="mt-4 inline-block text-sm font-semibold text-sage-dark hover:text-sage-dark">
+        View careers →
+      </a>
+    </div>
+  </Section>
+</BaseLayout>

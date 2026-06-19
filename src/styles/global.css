@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-cream font-sans text-sage-dark antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif font-medium tracking-tight text-sage-dark;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto max-w-6xl px-5 sm:px-8;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-sage-dark px-6 py-3 text-sm font-semibold text-cream shadow-sm transition hover:bg-sage focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage-dark;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border border-accent bg-cream px-6 py-3 text-sm font-semibold text-sage-dark transition hover:border-sage hover:bg-sage-light/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage-dark;
+  }
+
+  .card {
+    @apply rounded-2xl border border-accent/50 bg-cream/80 p-6 shadow-sm backdrop-blur-sm;
+  }
+
+  .section-heading {
+    @apply font-serif text-3xl sm:text-4xl;
+  }
+
+  .prose-content {
+    @apply space-y-4 leading-relaxed text-sage-dark/80;
+  }
+}
+
+/* Abstract botanical background pattern */
+.bg-nature {
+  background-color: theme('colors.cream.DEFAULT');
+  background-image:
+    radial-gradient(ellipse at 20% 50%, theme('colors.sage.light / 35%') 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, theme('colors.sage.DEFAULT / 20%') 0%, transparent 40%),
+    radial-gradient(ellipse at 60% 80%, theme('colors.accent.DEFAULT / 25%') 0%, transparent 45%);
+}

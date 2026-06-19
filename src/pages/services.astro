@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+import HeadwayButton from '../components/HeadwayButton.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout
+  title="Services"
+  description="Therapy services at Woven Sage Psychology — individual, couples, family, group therapy, assessments, and more."
+>
+  <PageHero
+    title="Services"
+    description="Personalized care for individuals, couples, families, and groups."
+    centered
+  />
+
+  <Section title="What we offer">
+    <div class="grid gap-4 sm:grid-cols-2">
+      {
+        siteConfig.services.map((service) => (
+          <div class="card">
+            <h3 class="font-serif text-lg">{service}</h3>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section title="Areas of focus" class="bg-accent/20">
+    <div class="flex flex-wrap gap-3">
+      {
+        siteConfig.specialties.map((item) => (
+          <span class="rounded-full border border-sage/40 bg-sage-light/30 px-4 py-2 text-sm">
+            {item}
+          </span>
+        ))
+      }
+      <span class="rounded-full border border-accent/50 px-4 py-2 text-sm text-sage-dark/70">
+        And more — expanding soon
+      </span>
+    </div>
+  </Section>
+
+  <Section title="Session details">
+    <div class="mx-auto max-w-3xl prose-content">
+      <p>
+        Session length is flexible and tailored to your needs and your clinician's availability.
+        Most sessions range from 45 to 60 minutes. We offer both in-person sessions in South
+        Florida and secure telehealth throughout Florida.
+      </p>
+      <p>
+        <strong>Approaches:</strong> Our clinicians draw from evidence-based modalities including
+        EMDR, with additional approaches listed as our team grows. [Detailed modalities coming soon]
+      </p>
+      <p>
+        <strong>Finding the right fit:</strong> During your initial consultation, we assess whether
+        our services are the right match for your needs. If another level or type of care would
+        serve you better, we will help connect you with appropriate resources.
+      </p>
+    </div>
+  </Section>
+
+  <section class="py-14">
+    <div class="container-page text-center">
+      <HeadwayButton source="services" />
+    </div>
+  </section>
+</BaseLayout>

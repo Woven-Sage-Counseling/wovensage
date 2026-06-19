@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+
+const faqs = [
+  {
+    q: 'How do I schedule my first appointment?',
+    a: 'Click "Book on Headway" anywhere on our site. Headway handles insurance verification and scheduling in one place. You can also contact us with general questions using the contact form.',
+  },
+  {
+    q: 'Do you accept insurance?',
+    a: 'Yes. We bill in-network insurance through Headway. We are actively credentialing additional plans — check Headway or contact us for the most current list.',
+  },
+  {
+    q: 'Do you offer private pay?',
+    a: 'Yes. Private pay is available alongside insurance options. Rates and payment are managed through Headway.',
+  },
+  {
+    q: 'Do you offer telehealth?',
+    a: 'Yes. Secure video sessions are available for clients located in Florida. In-person sessions are available in the South Florida area.',
+  },
+  {
+    q: 'What should I expect in the first session?',
+    a: 'Your first session is a chance to share what brings you in, discuss your goals, and get a feel for your therapist\'s approach. It\'s normal to feel nervous — we will meet you with warmth and without judgment.',
+  },
+  {
+    q: 'How long are sessions?',
+    a: 'Session length varies based on client preference and clinician availability, typically between 45 and 60 minutes.',
+  },
+  {
+    q: 'What if Woven Sage isn\'t the right fit?',
+    a: 'We assess fit during intake. If another level or type of care would serve you better, we will help connect you with appropriate resources.',
+  },
+];
+---
+
+<BaseLayout title="FAQ" description="Frequently asked questions about Woven Sage Psychology.">
+  <PageHero title="FAQ" description="Common questions about our practice." centered />
+
+  <Section>
+    <div class="mx-auto max-w-3xl divide-y divide-accent/40">
+      {
+        faqs.map((faq) => (
+          <details class="group py-6">
+            <summary class="cursor-pointer list-none font-serif text-lg font-medium marker:content-none">
+              <span class="flex items-center justify-between gap-4">
+                {faq.q}
+                <span class="text-sage-dark transition group-open:rotate-45">+</span>
+              </span>
+            </summary>
+            <p class="prose-content mt-4 text-sm">{faq.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </Section>
+</BaseLayout>

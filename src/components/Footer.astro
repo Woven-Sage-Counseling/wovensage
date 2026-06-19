@@ -1,0 +1,55 @@
+---
+import { siteConfig, footerLinks } from '../config/site';
+---
+
+<footer class="border-t border-accent/40 bg-sage-dark text-cream">
+  <div class="container-page py-12">
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="sm:col-span-2">
+        <p class="font-serif text-xl font-semibold">{siteConfig.name}</p>
+        <p class="mt-2 text-sm text-cream/80">{siteConfig.tagline}</p>
+        <p class="mt-4 text-sm text-cream/70">
+          Serving South Florida in person and via telehealth throughout Florida.
+        </p>
+      </div>
+
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-wider text-cream/60">Explore</p>
+        <ul class="mt-4 space-y-2">
+          {
+            footerLinks.map((link) => (
+              <li>
+                <a href={link.href} class="text-sm text-cream/80 hover:text-cream">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-wider text-cream/60">Contact</p>
+        <ul class="mt-4 space-y-2 text-sm text-cream/80">
+          <li>
+            <a href={`mailto:${siteConfig.contactEmail}`} class="hover:text-cream">
+              {siteConfig.contactEmail}
+            </a>
+          </li>
+        </ul>
+        <p class="mt-6 text-xs text-cream/50">Social links coming soon</p>
+      </div>
+    </div>
+
+    <div class="mt-10 border-t border-cream/10 pt-8">
+      <p class="text-xs leading-relaxed text-cream/60">
+        <strong class="text-cream/80">Crisis notice:</strong> This website is not monitored for emergencies.
+        If you or someone you know is in crisis, call or text <strong>988</strong> (Suicide & Crisis Lifeline)
+        or dial <strong>911</strong> for immediate help.
+      </p>
+      <p class="mt-4 text-xs text-cream/50">
+        &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>

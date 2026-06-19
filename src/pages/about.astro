@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout
+  title="About"
+  description="Learn about Woven Sage Psychology — our vision, approach, and commitment to connection-centered care in South Florida."
+>
+  <PageHero
+    title="About Woven Sage"
+    description="A group practice rooted in connection, clarity, and compassionate care."
+    centered
+  />
+
+  <Section>
+    <div class="mx-auto max-w-3xl prose-content">
+      <h2 class="font-serif text-2xl">Our vision</h2>
+      <p>
+        Woven Sage Psychology was founded with a simple belief: lasting change happens when people
+        feel truly seen and supported. We are building a practice where skilled clinicians work
+        together to provide thoughtful, accessible mental health care.
+      </p>
+
+      <h2 class="font-serif text-2xl pt-4">Our approach</h2>
+      <p class="italic text-sage-dark/70">[Practice philosophy coming soon]</p>
+      <p>
+        We integrate evidence-based methods with a relational, whole-person perspective. Every
+        client receives care that honors their unique story, strengths, and goals.
+      </p>
+
+      <h2 class="font-serif text-2xl pt-4">The name Woven Sage</h2>
+      <p class="italic text-sage-dark/70">[Name story coming soon]</p>
+      <p>
+        Like threads woven together, therapy weaves understanding, skill, and connection into
+        something stronger. Sage reflects both wisdom and the grounding calm we hope every client
+        finds here.
+      </p>
+
+      <h2 class="font-serif text-2xl pt-4">Where we serve</h2>
+      <p>
+        Our practice is based in South Florida, serving the{' '}
+        {siteConfig.serviceAreas.join(', ')} area and surrounding communities in person.
+        Telehealth is available throughout Florida, with multi-state expansion planned.
+      </p>
+    </div>
+  </Section>
+</BaseLayout>

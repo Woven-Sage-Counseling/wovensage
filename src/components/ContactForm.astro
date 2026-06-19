@@ -1,0 +1,63 @@
+---
+import { siteConfig, getFormspreeUrl } from '../config/site';
+
+const formspreeUrl = getFormspreeUrl();
+---
+
+<form
+  action={formspreeUrl}
+  method="POST"
+  class="card mx-auto max-w-xl space-y-5"
+>
+  <p class="text-sm text-sage-dark/70">
+    Please do not include clinical or health information in this form. For scheduling and insurance,
+    use the Book on Headway button.
+  </p>
+
+  <div>
+    <label for="name" class="mb-1 block text-sm font-medium">Name</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      required
+      autocomplete="name"
+      class="w-full rounded-xl border border-accent/50 bg-cream px-4 py-3 text-sm focus:border-sage-dark focus:outline-none focus:ring-2 focus:ring-sage/30"
+    />
+  </div>
+
+  <div>
+    <label for="email" class="mb-1 block text-sm font-medium">Email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      required
+      autocomplete="email"
+      class="w-full rounded-xl border border-accent/50 bg-cream px-4 py-3 text-sm focus:border-sage-dark focus:outline-none focus:ring-2 focus:ring-sage/30"
+    />
+  </div>
+
+  <div>
+    <label for="message" class="mb-1 block text-sm font-medium">Message</label>
+    <textarea
+      id="message"
+      name="message"
+      required
+      rows="5"
+      class="w-full rounded-xl border border-accent/50 bg-cream px-4 py-3 text-sm focus:border-sage-dark focus:outline-none focus:ring-2 focus:ring-sage/30"
+      placeholder="How can we help?"
+    ></textarea>
+  </div>
+
+  <input type="hidden" name="_subject" value={`New inquiry — ${siteConfig.name}`} />
+
+  <button type="submit" class="btn-primary w-full sm:w-auto">Send message</button>
+</form>
+
+<p class="mt-4 text-center text-xs text-sage-dark/70">
+  Messages are sent to{' '}
+  <a href={`mailto:${siteConfig.contactEmail}`} class="text-sage-dark underline hover:text-sage-dark">
+    {siteConfig.contactEmail}
+  </a>
+</p>

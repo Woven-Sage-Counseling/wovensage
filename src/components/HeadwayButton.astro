@@ -1,0 +1,31 @@
+---
+import { getHeadwayUrl } from '../config/site';
+
+interface Props {
+  source?: string;
+  variant?: 'primary' | 'secondary';
+  class?: string;
+  label?: string;
+}
+
+const {
+  source = 'cta',
+  variant = 'primary',
+  class: className = '',
+  label = 'Book on Headway',
+} = Astro.props;
+
+const url = getHeadwayUrl(source);
+const btnClass = variant === 'primary' ? 'btn-primary' : 'btn-secondary';
+---
+
+<a
+  href={url}
+  class:list={[btnClass, className]}
+  target="_blank"
+  rel="noopener noreferrer"
+  data-headway-cta={source}
+  onclick={`trackHeadwayClick('${source}');`}
+>
+  {label}
+</a>

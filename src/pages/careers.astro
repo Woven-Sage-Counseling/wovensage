@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout
+  title="Careers"
+  description="Join the Woven Sage Psychology team. We are growing and looking for compassionate clinicians."
+>
+  <PageHero
+    title="Careers"
+    description="Help us build a practice where connection and clarity come first."
+    centered
+  />
+
+  <Section>
+    <div class="mx-auto max-w-3xl prose-content">
+      <p>
+        Woven Sage Psychology is a growing group practice based in South Florida. We are building
+        a team of skilled, compassionate clinicians who share our commitment to connection-centered care.
+      </p>
+      <h2 class="font-serif text-xl pt-4">Open positions</h2>
+      <p class="italic text-sage-dark/70">
+        No open listings at this time — check back as we expand.
+      </p>
+      <p>
+        Interested in joining our team in the future? Send a brief introduction to{' '}
+        <a href={`mailto:${siteConfig.contactEmail}`} class="text-sage-dark hover:text-sage-dark">
+          {siteConfig.contactEmail}
+        </a>
+        .
+      </p>
+    </div>
+  </Section>
+</BaseLayout>

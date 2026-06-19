@@ -1,0 +1,22 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  subtitle?: string;
+  centered?: boolean;
+}
+
+const { title, description, subtitle, centered = false } = Astro.props;
+---
+
+<section class="bg-nature border-b border-accent/30 py-16 sm:py-20">
+  <div class:list={['container-page', centered && 'text-center']}>
+    {
+      subtitle && (
+        <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-sage-dark">{subtitle}</p>
+      )
+    }
+    <h1 class="section-heading">{title}</h1>
+    {description && <p class="mt-4 max-w-2xl text-lg text-sage-dark/70" class:list={[centered && 'mx-auto']}>{description}</p>}
+  </div>
+</section>

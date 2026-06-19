@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import HeadwayButton from '../components/HeadwayButton.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout
+  title={siteConfig.name}
+  description={`${siteConfig.tagline}. Compassionate therapy in South Florida — in person and telehealth throughout Florida.`}
+>
+  <section class="bg-nature relative overflow-hidden py-20 sm:py-28">
+    <div class="container-page relative z-10">
+      <div class="max-w-3xl">
+        <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-sage-dark">
+          South Florida · In person & telehealth
+        </p>
+        <h1 class="font-serif text-4xl leading-tight sm:text-5xl lg:text-6xl">
+          {siteConfig.tagline}
+        </h1>
+        <p class="mt-6 text-lg leading-relaxed text-sage-dark/70 sm:text-xl">
+          At {siteConfig.name}, we believe meaningful change begins with genuine connection.
+          We offer thoughtful, personalized care for individuals, couples, and families across
+          Palm Beach County and throughout Florida via telehealth.
+        </p>
+        <div class="mt-10 flex flex-wrap gap-4">
+          <HeadwayButton source="hero" />
+          <a href="/about" class="btn-secondary">Learn about us</a>
+        </div>
+      </div>
+    </div>
+    <div
+      class="pointer-events-none absolute -right-20 top-10 h-72 w-72 rounded-full bg-sage/30 blur-3xl"
+      aria-hidden="true"
+    ></div>
+  </section>
+
+  <Section title="Who we serve">
+    <div class="grid gap-8 md:grid-cols-2">
+      <div class="card">
+        <h3 class="font-serif text-xl">Everyone is welcome</h3>
+        <p class="prose-content mt-3 text-sm">
+          Woven Sage Psychology is building a group practice to serve a wide range of clients.
+          We meet you where you are — with warmth, respect, and care tailored to your goals.
+        </p>
+      </div>
+      <div class="card">
+        <h3 class="font-serif text-xl">Adults & young adults</h3>
+        <p class="prose-content mt-3 text-sm">
+          Our founding clinician, Michele Evans, brings particular strength working with adults
+          and young adults navigating anxiety, trauma, life transitions, and more.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <Section title="How we can help" class="bg-accent/20">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        siteConfig.specialties.slice(0, 6).map((item) => (
+          <div class="rounded-xl border border-accent/40 bg-cream px-5 py-4 text-sm font-medium">
+            {item}
+          </div>
+        ))
+      }
+    </div>
+    <p class="mt-6 text-sm text-sage-dark/70">
+      And more — our specialties continue to grow as our team expands.
+    </p>
+    <a href="/services" class="mt-6 inline-block text-sm font-semibold text-sage-dark hover:text-sage-dark">
+      View all services →
+    </a>
+  </Section>
+
+  <Section title="In person & telehealth">
+    <div class="grid gap-8 lg:grid-cols-2">
+      <div class="card">
+        <h3 class="font-serif text-xl">South Florida offices</h3>
+        <p class="prose-content mt-3 text-sm">
+          We serve clients in the {siteConfig.serviceAreas.join(', ')} area and surrounding
+          communities. Accessible in-person care with a calm, welcoming environment.
+        </p>
+      </div>
+      <div class="card">
+        <h3 class="font-serif text-xl">Telehealth throughout Florida</h3>
+        <p class="prose-content mt-3 text-sm">
+          Secure video sessions available for clients located in Florida. We are actively expanding
+          licensure to serve additional states — check back for updates.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <section class="bg-sage-light/40 py-16">
+    <div class="container-page text-center">
+      <h2 class="section-heading">Growing to serve you better</h2>
+      <p class="mx-auto mt-4 max-w-2xl text-sage-dark/70">
+        Woven Sage is a group practice in its early chapters. We are actively adding clinicians,
+        insurance plans, and services — including the upcoming WSP app for clients and practitioners.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <HeadwayButton source="home-cta" />
+        <a href="/wsp" class="btn-secondary">Learn about WSP</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

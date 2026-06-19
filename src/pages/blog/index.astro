@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Section from '../../components/Section.astro';
+---
+
+<BaseLayout title="Blog" description="Blog and insights from Woven Sage Psychology — coming soon.">
+  <PageHero title="Blog" description="Thoughts on mental health, connection, and wellbeing." centered />
+
+  <Section>
+    <div class="card mx-auto max-w-2xl text-center">
+      <p class="font-serif text-xl">Coming soon</p>
+      <p class="mt-4 text-sm text-sage-dark/70">
+        We are preparing articles on topics that matter to our community. Subscribe to updates
+        by reaching out through our contact page.
+      </p>
+      <a href="/contact" class="btn-secondary mt-6 inline-flex">Contact us</a>
+    </div>
+  </Section>
+</BaseLayout>

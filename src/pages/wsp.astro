@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout
+  title="WSP App"
+  description="WSP — the upcoming Woven Sage Psychology app for clients and practitioners. Coming soon."
+>
+  <PageHero
+    title="WSP App"
+    subtitle="Coming soon"
+    description="A dedicated app for Woven Sage clients and practitioners."
+    centered
+  />
+
+  <Section>
+    <div class="mx-auto max-w-3xl prose-content text-center">
+      <p>
+        We are developing <strong>WSP</strong> — a platform designed to support the Woven Sage
+        community with tools for clients and practitioners. From scheduling and communication to
+        resources and practice management, WSP will extend the care experience beyond the therapy room.
+      </p>
+      <p class="italic text-sage-dark/70">[Feature details coming soon]</p>
+      <p>
+        Want to stay updated? Reach out at{' '}
+        <a href={`mailto:${siteConfig.contactEmail}`} class="text-sage-dark hover:text-sage-dark">
+          {siteConfig.contactEmail}
+        </a>
+        .
+      </p>
+      <a href="/contact" class="btn-primary mt-8 inline-flex">Get in touch</a>
+    </div>
+  </Section>
+</BaseLayout>

@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+
+const resources = [
+  {
+    title: '988 Suicide & Crisis Lifeline',
+    description: 'Free, confidential support 24/7. Call or text 988.',
+    href: 'https://988lifeline.org',
+  },
+  {
+    title: 'Crisis Text Line',
+    description: 'Text HOME to 741741 to connect with a crisis counselor.',
+    href: 'https://www.crisistextline.org',
+  },
+  {
+    title: 'SAMHSA National Helpline',
+    description: '1-800-662-4357 — treatment referral and information service.',
+    href: 'https://www.samhsa.gov/find-help/national-helpline',
+  },
+];
+---
+
+<BaseLayout
+  title="Resources"
+  description="Mental health resources and crisis support information."
+>
+  <PageHero
+    title="Resources"
+    description="Helpful links and crisis support. More articles and guides coming soon."
+    centered
+  />
+
+  <Section title="Crisis support">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        resources.map((r) => (
+          <a
+            href={r.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card block transition hover:border-sage/50 hover:shadow-md"
+          >
+            <h3 class="font-serif text-lg">{r.title}</h3>
+            <p class="mt-2 text-sm text-sage-dark/70">{r.description}</p>
+          </a>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section title="Articles & guides" class="bg-accent/20">
+    <div class="card mx-auto max-w-2xl text-center">
+      <p class="text-sage-dark/70">
+        We are preparing thoughtful resources on mental health topics. Check back soon.
+      </p>
+    </div>
+  </Section>
+</BaseLayout>

@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+
+# build
+dist/
+.astro/
+
+# env
+.env
+.env.*
+
+# logs
+*.log
+
+# OS
+.DS_Store
+
+# wrangler
+.wrangler/

@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+import HeadwayButton from '../components/HeadwayButton.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout
+  title="Insurance & Fees"
+  description="Insurance and private pay options at Woven Sage Psychology. Billing through Headway with plans actively expanding."
+>
+  <PageHero
+    title="Insurance & fees"
+    description="Transparent care with insurance and private pay options."
+    centered
+  />
+
+  <Section>
+    <div class="mx-auto max-w-3xl space-y-8 prose-content">
+      <div class="card">
+        <h2 class="font-serif text-xl">Insurance</h2>
+        <p>
+          We bill in-network insurance through <strong>Headway</strong>, which handles eligibility
+          verification, claims, and billing on your behalf.
+        </p>
+        <p>{siteConfig.insurance.note}</p>
+        {
+          siteConfig.insurance.carriers.length > 0 ? (
+            <ul class="list-inside list-disc">
+              {siteConfig.insurance.carriers.map((carrier) => (
+                <li>{carrier}</li>
+              ))}
+            </ul>
+          ) : (
+            <p class="italic text-sage-dark/70">
+              [Accepted insurance plans list coming soon — update in site config]
+            </p>
+          )
+        }
+      </div>
+
+      <div class="card">
+        <h2 class="font-serif text-xl">Private pay</h2>
+        <p>
+          Private pay is available for clients who prefer to pay out of pocket or whose insurance
+          is not yet in network. Payment is processed through Headway.
+        </p>
+        <p class="italic text-sage-dark/70">
+          [Session rates coming soon — contact us or book via Headway for current rates]
+        </p>
+        <p class="italic text-sage-dark/70">
+          [Sliding scale availability — TBD]
+        </p>
+      </div>
+
+      <div class="card">
+        <h2 class="font-serif text-xl">Payment methods</h2>
+        <p>
+          We accept major credit and debit cards. HSA and FSA cards are typically accepted for
+          eligible mental health services — confirm with your card provider.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2 class="font-serif text-xl">Cancellation policy</h2>
+        <p>
+          We ask for at least 24 hours' notice if you need to cancel or reschedule an appointment.
+          Late cancellations or missed appointments may be subject to a fee. Please contact us
+          or manage your appointment through Headway.
+        </p>
+        <p class="text-xs text-sage-dark/70">
+          This is a general summary — final policy text pending review.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2 class="font-serif text-xl">Good faith estimate</h2>
+        <p>
+          Under the No Surprises Act, you have the right to receive a good faith estimate of
+          expected charges for healthcare services. Contact us or book through Headway to
+          discuss expected costs based on your insurance benefits or private pay rate before
+          your first session.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <section class="py-14">
+    <div class="container-page text-center">
+      <HeadwayButton source="insurance" label="Check availability on Headway" />
+    </div>
+  </section>
+</BaseLayout>

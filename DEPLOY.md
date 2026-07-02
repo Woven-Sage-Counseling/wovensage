@@ -4,7 +4,7 @@ Follow these steps once to connect your site to **wovensage.com**.
 
 ## 1. GitHub repository
 
-Repo: **https://github.com/freeroamon/wovensage** (production branch: `master`)
+Repo: **https://github.com/Woven-Sage-Counseling/wovensage** (production branch: `master`)
 
 ## 2. Automatic deploy on push (GitHub Actions)
 

@@ -2,35 +2,44 @@
 
 Follow these steps once to connect your site to **wovensage.com**.
 
-## 1. Push to GitHub
+## 1. GitHub repository
+
+Repo: **https://github.com/freeroamon/wovensage** (production branch: `master`)
+
+## 2. Automatic deploy on push (GitHub Actions)
+
+Pushes to `master` deploy to Cloudflare Pages via `.github/workflows/deploy.yml`.
+
+### One-time secret setup
+
+1. Create a Cloudflare API token:
+   - [Cloudflare Dashboard → API Tokens](https://dash.cloudflare.com/profile/api-tokens)
+   - **Create Token** → template **Edit Cloudflare Workers**
+   - Permissions: **Account → Cloudflare Pages → Edit**
+   - Create and copy the token
+
+2. Add GitHub secrets (repo → **Settings** → **Secrets and variables** → **Actions**):
+
+| Secret | Value |
+|--------|-------|
+| `CLOUDFLARE_API_TOKEN` | token from step 1 |
+| `CLOUDFLARE_ACCOUNT_ID` | `6b847212c32cfc59badb7935334d541a` |
+
+Or from the terminal:
 
 ```bash
-cd ~/Projects/wovensage
-git add .
-git commit -m "Initial Woven Sage Counseling website"
-git remote add origin git@github.com:YOUR_USERNAME/wovensage.git
-git push -u origin main
+gh secret set CLOUDFLARE_API_TOKEN
+gh secret set CLOUDFLARE_ACCOUNT_ID --body "6b847212c32cfc59badb7935334d541a"
 ```
 
-Create the repo at [github.com/new](https://github.com/new) first if needed.
+3. Push to `master` — GitHub Actions builds and deploys automatically.
 
-## 2. Create Cloudflare Pages project
+Manual deploy (optional):
 
-1. Log in to [Cloudflare Dashboard](https://dash.cloudflare.com)
-2. Go to **Workers & Pages** → **Create** → **Pages** → **Connect to Git**
-3. Select your `wovensage` repository
-4. Configure build:
-
-| Setting | Value |
-|---------|-------|
-| Production branch | `main` |
-| Build command | `npm run build` |
-| Build output directory | `dist` |
-
-5. Set environment variable (optional):
-   - `NODE_VERSION` = `20`
-
-6. Click **Save and Deploy**
+```bash
+npm run build
+npx wrangler pages deploy dist --project-name=wovensage
+```
 
 ## 3. Connect custom domain
 

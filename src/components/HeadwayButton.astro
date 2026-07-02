@@ -1,5 +1,5 @@
 ---
-import { getHeadwayUrl } from '../config/site';
+import { getHeadwayUrl, siteConfig } from '../config/site';
 
 interface Props {
   source?: string;
@@ -12,7 +12,7 @@ const {
   source = 'cta',
   variant = 'primary',
   class: className = '',
-  label = 'Book an appointment',
+  label = siteConfig.headwayCtaLabel,
 } = Astro.props;
 
 const url = getHeadwayUrl(source);

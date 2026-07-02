@@ -51,7 +51,11 @@ import { siteConfig } from '../config/site';
 
       <h2 class="font-serif text-xl pt-4">Contact</h2>
       <p>
-        Questions about this policy? Email{' '}
+        Questions about this policy? Call{' '}
+        <a href={siteConfig.contactPhoneHref} class="text-sage-dark hover:text-sage-dark">
+          {siteConfig.contactPhone}
+        </a>{' '}
+        or email{' '}
         <a href={`mailto:${siteConfig.contactEmail}`} class="text-sage-dark hover:text-sage-dark">
           {siteConfig.contactEmail}
         </a>

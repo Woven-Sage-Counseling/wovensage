@@ -7,7 +7,7 @@ Follow these steps once to connect your site to **wovensage.com**.
 ```bash
 cd ~/Projects/wovensage
 git add .
-git commit -m "Initial Woven Sage Psychology website"
+git commit -m "Initial Woven Sage Counseling website"
 git remote add origin git@github.com:YOUR_USERNAME/wovensage.git
 git push -u origin main
 ```

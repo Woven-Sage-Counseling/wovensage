@@ -9,7 +9,7 @@ import { siteConfig } from '../config/site';
 
 <BaseLayout
   title="Contact"
-  description={`Contact ${siteConfig.name}. Reach us at ${siteConfig.contactEmail} or book directly through Headway.`}
+  description={`Contact ${siteConfig.name}. Reach us at ${siteConfig.contactPhone} or ${siteConfig.contactEmail}, or book directly through Headway.`}
 >
   <PageHero
     title="Contact us"
@@ -22,7 +22,7 @@ import { siteConfig } from '../config/site';
       <div>
         <h2 class="font-serif text-2xl">Get in touch</h2>
         <p class="prose-content mt-4 text-sm">
-          Use the form for general inquiries about Woven Sage Psychology. Please do not include
+          Use the form for general inquiries about Woven Sage Counseling. Please do not include
           sensitive health information — this form is not a secure clinical channel.
         </p>
         <p class="mt-4 text-sm">
@@ -31,7 +31,12 @@ import { siteConfig } from '../config/site';
             {siteConfig.contactEmail}
           </a>
         </p>
-        <p class="mt-2 text-sm text-sage-dark/70">[Practice phone — coming soon]</p>
+        <p class="mt-2 text-sm">
+          <strong>Phone:</strong>{' '}
+          <a href={siteConfig.contactPhoneHref} class="text-sage-dark hover:text-sage-dark">
+            {siteConfig.contactPhone}
+          </a>
+        </p>
 
         <div class="mt-8">
           <h3 class="font-serif text-lg">Ready to schedule?</h3>

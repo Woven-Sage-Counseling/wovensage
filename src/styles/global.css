@@ -80,9 +80,8 @@
 
   .logo-hero img {
     @apply mx-auto block h-auto w-auto;
-    width: min(300px, 72vw);
-    max-width: 340px;
-    margin-top: -0.5rem;
+    width: min(155px, 38vw);
+    max-width: 180px;
   }
 }
 

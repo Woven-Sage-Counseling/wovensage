@@ -1,0 +1,14 @@
+---
+import HeadwayButton from './HeadwayButton.astro';
+import { siteConfig } from '../config/site';
+---
+
+<div class="mt-8 flex flex-col items-center sm:mt-10">
+  <div class="flex flex-wrap justify-center gap-4">
+    <HeadwayButton source="hero" />
+    <a href="/about" class="btn-secondary">Learn about us</a>
+  </div>
+  <p class="mt-4 max-w-md text-center text-sm leading-relaxed text-sage-dark/70">
+    {siteConfig.headwayTrustCopy}
+  </p>
+</div>

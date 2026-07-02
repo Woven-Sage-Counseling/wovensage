@@ -1,6 +1,6 @@
-# Woven Sage Psychology Website
+# Woven Sage Counseling Website
 
-Marketing site for [Woven Sage Psychology](https://wovensage.com) — built with Astro, Tailwind CSS, deployed on Cloudflare Pages.
+Marketing site for [Woven Sage Counseling](https://wovensage.com) — built with Astro, Tailwind CSS, deployed on Cloudflare Pages.
 
 ## Quick start
 

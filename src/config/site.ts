@@ -2,11 +2,13 @@
  * Central site configuration — update values here without touching page code.
  */
 export const siteConfig = {
-  name: 'Woven Sage Psychology',
+  name: 'Woven Sage Counseling',
   shortName: 'Woven Sage',
   tagline: 'Clarity through connection',
   url: 'https://wovensage.com',
   contactEmail: 'admin@wovensage.com',
+  contactPhone: '561-556-2229',
+  contactPhoneHref: 'tel:+15615562229',
 
   logos: {
     main: '/images/logo-main-transparent.png',
@@ -22,6 +24,8 @@ export const siteConfig = {
 
   /** Replace with Michele's Headway profile URL when available */
   headwayBaseUrl: 'https://headway.co/providers',
+  headwayCtaLabel: 'Check Insurance & Book',
+  headwayTrustCopy: 'Verify benefits and schedule securely through Headway.',
 
   /** Formspree form ID — sign up at formspree.io and paste your form ID here */
   formspreeFormId: 'YOUR_FORM_ID',
@@ -49,7 +53,7 @@ export const siteConfig = {
       name: 'Christian Evans',
       title: 'Founder',
       pronouns: '',
-      bio: 'Bio coming soon. Christian founded Woven Sage Psychology with a vision to make thoughtful, connection-centered mental health care accessible across South Florida and beyond.',
+      bio: 'Bio coming soon. Christian founded Woven Sage Counseling with a vision to make thoughtful, connection-centered mental health care accessible across South Florida and beyond.',
     },
     clinician: {
       name: 'Michele Evans',

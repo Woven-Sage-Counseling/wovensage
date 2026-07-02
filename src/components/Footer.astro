@@ -46,6 +46,11 @@ import WelcomeHereBadge from './WelcomeHereBadge.astro';
         <p class="text-sm font-semibold uppercase tracking-wider text-cream/60">Contact</p>
         <ul class="mt-4 space-y-2 text-sm text-cream/80">
           <li>
+            <a href={siteConfig.contactPhoneHref} class="hover:text-cream">
+              {siteConfig.contactPhone}
+            </a>
+          </li>
+          <li>
             <a href={`mailto:${siteConfig.contactEmail}`} class="hover:text-cream">
               {siteConfig.contactEmail}
             </a>

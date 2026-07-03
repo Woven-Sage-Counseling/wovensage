@@ -10,6 +10,15 @@ export const siteConfig = {
   contactPhone: '561-556-2229',
   contactPhoneHref: 'tel:+15615562229',
 
+  bookingCtaLabel: 'Express interest',
+  bookingTrustCopy:
+    'We are currently in prelaunch. Share your interest and we will reach out when we open officially.',
+
+  contactFormPrelaunchNote:
+    'We are currently in prelaunch and not yet accepting appointments. Submit this form to express your interest — we will contact you when we open officially. Please do not include clinical or health information.',
+
+  contactFormSubmitLabel: 'Express interest',
+
   logos: {
     main: '/images/logo-main-transparent.png',
     text: '/images/logo-text.jpg',
@@ -21,11 +30,6 @@ export const siteConfig = {
     sageBranchHero: '/images/sage-branch-hero-transparent.png',
     sageBranchHeroLeft: '/images/sage-branch-hero-left-transparent.png',
   },
-
-  /** Replace with Michele's Headway profile URL when available */
-  headwayBaseUrl: 'https://headway.co/providers',
-  headwayCtaLabel: 'Check Insurance & Book',
-  headwayTrustCopy: 'Verify benefits and schedule securely through Headway.',
 
   /** Formspree form ID — sign up at formspree.io and paste your form ID here */
   formspreeFormId: 'YOUR_FORM_ID',
@@ -45,7 +49,6 @@ export const siteConfig = {
     psychologyToday: '',
     instagram: '',
     linkedin: '',
-    headway: '',
   },
 
   team: {
@@ -68,7 +71,7 @@ export const siteConfig = {
   },
 
   insurance: {
-    note: 'We bill insurance through Headway and are actively credentialing additional plans.',
+    note: 'We are actively credentialing insurance plans and will share accepted carriers as we open.',
     carriers: [] as string[],
   },
 
@@ -92,13 +95,6 @@ export const siteConfig = {
     'Relationship issues',
   ],
 } as const;
-
-/** Headway URL with UTM tracking params */
-export function getHeadwayUrl(source = 'website'): string {
-  const base = siteConfig.headwayBaseUrl;
-  const separator = base.includes('?') ? '&' : '?';
-  return `${base}${separator}utm_source=wovensage&utm_medium=${source}&utm_campaign=book`;
-}
 
 /** Formspree endpoint for contact form */
 export function getFormspreeUrl(): string {

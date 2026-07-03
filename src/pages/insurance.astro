@@ -2,13 +2,13 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import Section from '../components/Section.astro';
-import HeadwayButton from '../components/HeadwayButton.astro';
+import BookingButton from '../components/BookingButton.astro';
 import { siteConfig } from '../config/site';
 ---
 
 <BaseLayout
   title="Insurance & Fees"
-  description="Insurance and private pay options at Woven Sage Counseling. Billing through Headway with plans actively expanding."
+  description="Insurance and private pay options at Woven Sage Counseling. Details coming as we open."
 >
   <PageHero
     title="Insurance & fees"
@@ -21,8 +21,8 @@ import { siteConfig } from '../config/site';
       <div class="card">
         <h2 class="font-serif text-xl">Insurance</h2>
         <p>
-          We bill in-network insurance through <strong>Headway</strong>, which handles eligibility
-          verification, claims, and billing on your behalf.
+          We plan to accept in-network insurance and are actively credentialing plans. Insurance
+          details and accepted carriers will be shared as we open.
         </p>
         <p>{siteConfig.insurance.note}</p>
         {
@@ -43,15 +43,11 @@ import { siteConfig } from '../config/site';
       <div class="card">
         <h2 class="font-serif text-xl">Private pay</h2>
         <p>
-          Private pay is available for clients who prefer to pay out of pocket or whose insurance
-          is not yet in network. Payment is processed through Headway.
+          Private pay will be available for clients who prefer to pay out of pocket or whose
+          insurance is not yet in network.
         </p>
-        <p class="italic text-sage-dark/70">
-          [Session rates coming soon — contact us or book via Headway for current rates]
-        </p>
-        <p class="italic text-sage-dark/70">
-          [Sliding scale availability — TBD]
-        </p>
+        <p class="italic text-sage-dark/70">[Session rates coming soon — contact us for updates]</p>
+        <p class="italic text-sage-dark/70">[Sliding scale availability — TBD]</p>
       </div>
 
       <div class="card">
@@ -66,8 +62,8 @@ import { siteConfig } from '../config/site';
         <h2 class="font-serif text-xl">Cancellation policy</h2>
         <p>
           We ask for at least 24 hours' notice if you need to cancel or reschedule an appointment.
-          Late cancellations or missed appointments may be subject to a fee. Please contact us
-          or manage your appointment through Headway.
+          Late cancellations or missed appointments may be subject to a fee. Final policy details
+          will be shared at launch.
         </p>
         <p class="text-xs text-sage-dark/70">
           This is a general summary — final policy text pending review.
@@ -78,9 +74,8 @@ import { siteConfig } from '../config/site';
         <h2 class="font-serif text-xl">Good faith estimate</h2>
         <p>
           Under the No Surprises Act, you have the right to receive a good faith estimate of
-          expected charges for healthcare services. Contact us or book through Headway to
-          discuss expected costs based on your insurance benefits or private pay rate before
-          your first session.
+          expected charges for healthcare services. Contact us to discuss expected costs based on
+          your insurance benefits or private pay rate before your first session once we open.
         </p>
       </div>
     </div>
@@ -88,7 +83,7 @@ import { siteConfig } from '../config/site';
 
   <section class="py-14">
     <div class="container-page text-center">
-      <HeadwayButton source="insurance" />
+      <BookingButton />
     </div>
   </section>
 </BaseLayout>

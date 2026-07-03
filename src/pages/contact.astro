@@ -3,17 +3,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import Section from '../components/Section.astro';
 import ContactForm from '../components/ContactForm.astro';
-import HeadwayButton from '../components/HeadwayButton.astro';
 import { siteConfig } from '../config/site';
 ---
 
 <BaseLayout
   title="Contact"
-  description={`Contact ${siteConfig.name}. Reach us at ${siteConfig.contactPhone} or ${siteConfig.contactEmail}, or book directly through Headway.`}
+  description={`Contact ${siteConfig.name}. Reach us at ${siteConfig.contactPhone} or ${siteConfig.contactEmail} to express your interest during prelaunch.`}
 >
   <PageHero
     title="Contact us"
-    description="Questions about our practice? Send us a message — for scheduling, book through Headway."
+    description="Share your interest — we are in prelaunch and will reach out when we open officially."
     centered
   />
 
@@ -22,8 +21,8 @@ import { siteConfig } from '../config/site';
       <div>
         <h2 class="font-serif text-2xl">Get in touch</h2>
         <p class="prose-content mt-4 text-sm">
-          Use the form for general inquiries about Woven Sage Counseling. Please do not include
-          sensitive health information — this form is not a secure clinical channel.
+          Use the form to express your interest in working with Woven Sage Counseling. We are
+          currently in prelaunch and will contact you when we begin accepting clients.
         </p>
         <p class="mt-4 text-sm">
           <strong>Email:</strong>{' '}
@@ -37,14 +36,6 @@ import { siteConfig } from '../config/site';
             {siteConfig.contactPhone}
           </a>
         </p>
-
-        <div class="mt-8">
-          <h3 class="font-serif text-lg">Ready to schedule?</h3>
-          <p class="mt-2 text-sm text-sage-dark/70">
-            New clients can book directly through Headway for insurance verification and scheduling.
-          </p>
-          <HeadwayButton source="contact" class="mt-4" />
-        </div>
       </div>
 
       <ContactForm />

@@ -2,7 +2,7 @@
 import { heroTypoVariant } from '../config/heroTypography';
 
 const lineOneClass =
-  'hero-line-one block font-saol text-[2rem] font-normal leading-[1.22] text-[#2E2D2A] sm:text-[2.75rem] md:text-[3rem]';
+  'hero-line-one block font-bodoni text-[2rem] font-normal leading-[1.22] text-[#2E2D2A] sm:text-[2.75rem] md:text-[3rem]';
 ---
 
 <h1 id="chapter-1-heading" class="tracking-tight" data-hero-typo={heroTypoVariant}>
@@ -10,7 +10,7 @@ const lineOneClass =
 
   {
     heroTypoVariant === 'A' && (
-      <span class="hero-line-two hero-line-two--editorial mt-1 block font-saol text-[2.25rem] font-medium leading-[1.14] text-sage sm:mt-1.5 sm:text-[3.25rem] md:text-[3.625rem]">
+      <span class="hero-line-two hero-line-two--editorial mt-1 block font-bodoni text-[2.25rem] font-semibold leading-[1.14] text-sage sm:mt-1.5 sm:text-[3.25rem] md:text-[3.625rem]">
         we're glad you made it.
       </span>
     )
@@ -18,7 +18,7 @@ const lineOneClass =
 
   {
     heroTypoVariant === 'B' && (
-      <span class="hero-line-two hero-line-two--signature mt-2 block font-saol text-[2.35rem] font-medium leading-[1.08] text-sage sm:mt-2.5 sm:text-[3.35rem] md:text-[3.75rem]">
+      <span class="hero-line-two hero-line-two--signature mt-2 block font-bodoni text-[2.35rem] font-semibold leading-[1.08] text-sage sm:mt-2.5 sm:text-[3.35rem] md:text-[3.75rem]">
         we're glad you made it.
       </span>
     )
@@ -26,9 +26,9 @@ const lineOneClass =
 
   {
     heroTypoVariant === 'C' && (
-      <span class="hero-line-two hero-line-two--hybrid mt-1 block font-saol text-[2.125rem] font-medium leading-[1.2] text-sage sm:mt-1.5 sm:text-[3rem] md:text-[3.25rem]">
+      <span class="hero-line-two hero-line-two--hybrid mt-1 block font-bodoni text-[2.125rem] font-semibold leading-[1.2] text-sage sm:mt-1.5 sm:text-[3rem] md:text-[3.25rem]">
         <span class="font-medium">we're glad you </span>
-        <span class="text-[1.06em] text-sage-dark">made it.</span>
+        <span class="font-semibold text-[1.06em] text-sage-dark">made it.</span>
       </span>
     )
   }

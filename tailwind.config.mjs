@@ -22,7 +22,7 @@ export default {
       fontFamily: {
         serif: ['Fraunces', 'Georgia', 'serif'],
         sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
-        saol: ['"Saol Display"', '"Cormorant Garamond"', 'Georgia', 'serif'],
+        bodoni: ['"Bodoni Moda"', '"Cormorant Garamond"', 'Georgia', 'serif'],
         editorial: ['"Cormorant Garamond"', 'Georgia', 'serif'],
         signature: ['Ruthie', 'cursive'],
       },

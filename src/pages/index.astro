@@ -20,16 +20,50 @@ import { siteConfig } from '../config/site';
     class="relative flex min-h-[calc(100vh-9rem)] justify-center overflow-hidden bg-cream pb-20 pt-[15vh] sm:min-h-[calc(100vh-8.5rem)] sm:pb-24 sm:pt-[17vh] md:pt-[18vh]"
     aria-labelledby="chapter-1-heading"
   >
-    <img
-      src={siteConfig.logos.main}
-      alt=""
-      width={586}
-      height={623}
-      class="pointer-events-none absolute left-0 top-1/2 z-0 w-[min(70vw,28rem)] -translate-x-1/2 -translate-y-1/2 select-none opacity-50 sm:w-[min(55vw,32rem)]"
+    <div
+      class="pointer-events-none absolute inset-y-0 left-0 z-0 flex w-[min(58vw,28rem)] items-center select-none"
       aria-hidden="true"
-      loading="eager"
-      decoding="async"
-    />
+    >
+      <svg
+        class="absolute left-0 top-1/2 h-[min(92vh,44rem)] w-[min(52vw,24rem)] -translate-y-1/2 text-sage-dark/30"
+        viewBox="0 0 120 240"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <!-- Thin, slightly imperfect half-circle (diameter on left, arc opens right) -->
+        <path
+          d="M 5 20
+             C 46 16, 86 46, 102 88
+             C 112 116, 113 144, 100 174
+             C 86 206, 48 228, 6 224"
+          stroke="currentColor"
+          stroke-width="0.7"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M 6 24
+             C 44 22, 84 50, 99 90
+             C 110 118, 110 146, 98 174
+             C 84 204, 46 224, 7 220"
+          stroke="currentColor"
+          stroke-width="0.35"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          opacity="0.55"
+        />
+      </svg>
+
+      <img
+        src={siteConfig.logos.sageBotanicalHero}
+        alt=""
+        width={682}
+        height={1024}
+        class="relative z-10 -ml-[4%] w-[min(48vw,21rem)] opacity-[0.88] sm:-ml-[1%] sm:w-[min(42vw,23rem)]"
+        loading="eager"
+        decoding="async"
+      />
+    </div>
 
     <div class="container-page relative z-10">
       <div class="mx-auto max-w-2xl text-center lg:max-w-3xl">

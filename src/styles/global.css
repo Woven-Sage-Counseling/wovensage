@@ -114,6 +114,32 @@
     display: inline-block;
     transform: translateY(0.06em);
   }
+
+  /* Gentle breeze on the hero botanical */
+  .sage-sway {
+    transform-origin: 45% 85%;
+    animation: sage-sway 9s ease-in-out infinite;
+    will-change: transform;
+  }
+}
+
+@keyframes sage-sway {
+  0%,
+  100% {
+    transform: rotate(-1.1deg) translate3d(0, 0, 0);
+  }
+  40% {
+    transform: rotate(1.3deg) translate3d(0.15%, -0.2%, 0);
+  }
+  70% {
+    transform: rotate(-0.6deg) translate3d(-0.1%, 0.1%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sage-sway {
+    animation: none;
+  }
 }
 
 /* Abstract botanical background pattern */

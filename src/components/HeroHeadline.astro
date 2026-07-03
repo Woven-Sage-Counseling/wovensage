@@ -2,7 +2,7 @@
 import { heroTypoVariant } from '../config/heroTypography';
 
 const lineOneClass =
-  'hero-line-one block font-serif text-[2rem] font-medium leading-[1.22] text-charcoal sm:text-[2.75rem] md:text-[3rem]';
+  'hero-line-one block font-serif text-[2rem] font-medium leading-[1.22] text-[#2E2D2A] sm:text-[2.75rem] md:text-[3rem]';
 ---
 
 <h1 id="chapter-1-heading" class="tracking-tight" data-hero-typo={heroTypoVariant}>
@@ -11,7 +11,7 @@ const lineOneClass =
   {
     heroTypoVariant === 'A' && (
       <span class="hero-line-two hero-line-two--editorial mt-1 block font-editorial text-[2.25rem] font-medium italic leading-[1.14] text-sage sm:mt-1.5 sm:text-[3.25rem] md:text-[3.625rem]">
-        We're glad you made it.
+        we're glad you made it.
       </span>
     )
   }
@@ -19,7 +19,7 @@ const lineOneClass =
   {
     heroTypoVariant === 'B' && (
       <span class="hero-line-two hero-line-two--signature mt-2 block font-signature text-[2.35rem] leading-[1.08] text-sage sm:mt-2.5 sm:text-[3.35rem] md:text-[3.75rem]">
-        We're glad you made it.
+        we're glad you made it.
       </span>
     )
   }
@@ -27,7 +27,7 @@ const lineOneClass =
   {
     heroTypoVariant === 'C' && (
       <span class="hero-line-two hero-line-two--hybrid mt-1 block text-[2.125rem] font-semibold leading-[1.2] text-sage sm:mt-1.5 sm:text-[3rem] md:text-[3.25rem]">
-        <span class="font-serif font-semibold">We're glad you </span>
+        <span class="font-serif font-semibold">we're glad you </span>
         <span class="font-signature text-[1.14em] font-normal leading-none text-sage-dark">
           made it.
         </span>

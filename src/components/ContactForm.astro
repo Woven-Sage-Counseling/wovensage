@@ -4,82 +4,147 @@ import { siteConfig, getFormspreeUrl } from '../config/site';
 const formspreeUrl = getFormspreeUrl();
 ---
 
-<form
-  id="contact-form"
-  action={formspreeUrl}
-  method="POST"
-  class="card mx-auto max-w-xl space-y-5"
->
-  <p class="rounded-xl border border-sage/30 bg-sage-light/25 px-4 py-3 text-sm text-sage-dark">
-    {siteConfig.contactFormPrelaunchNote}
+<div class="mx-auto max-w-xl">
+  <form
+    id="contact-form"
+    action={formspreeUrl}
+    method="POST"
+    class="card space-y-5"
+  >
+    <p class="rounded-xl border border-sage/30 bg-sage-light/25 px-4 py-3 text-sm text-sage-dark">
+      {siteConfig.contactFormPrelaunchNote}
+    </p>
+
+    <div>
+      <label for="name" class="mb-1 block text-sm font-medium">Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        autocomplete="name"
+        class="w-full rounded-xl border border-accent/50 bg-cream px-4 py-3 text-sm focus:border-sage-dark focus:outline-none focus:ring-2 focus:ring-sage/30"
+      />
+    </div>
+
+    <div>
+      <label for="email" class="mb-1 block text-sm font-medium">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        autocomplete="email"
+        class="w-full rounded-xl border border-accent/50 bg-cream px-4 py-3 text-sm focus:border-sage-dark focus:outline-none focus:ring-2 focus:ring-sage/30"
+      />
+    </div>
+
+    <div>
+      <label for="phone" class="mb-1 block text-sm font-medium">
+        Phone <span class="font-normal text-sage-dark/50">(optional)</span>
+      </label>
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        autocomplete="tel"
+        class="w-full rounded-xl border border-accent/50 bg-cream px-4 py-3 text-sm focus:border-sage-dark focus:outline-none focus:ring-2 focus:ring-sage/30"
+      />
+    </div>
+
+    <div>
+      <label for="message" class="mb-1 block text-sm font-medium">
+        Message <span class="font-normal text-sage-dark/50">(optional)</span>
+      </label>
+      <textarea
+        id="message"
+        name="message"
+        rows="5"
+        class="w-full rounded-xl border border-accent/50 bg-cream px-4 py-3 text-sm focus:border-sage-dark focus:outline-none focus:ring-2 focus:ring-sage/30"
+        placeholder="Anything you would like us to know?"
+      ></textarea>
+    </div>
+
+    <input type="hidden" name="inquiry_type" value="interest-list" />
+    <input type="hidden" name="_subject" value={`Interest list — ${siteConfig.name}`} />
+
+    <p id="contact-form-error" class="hidden rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800" role="alert">
+      {siteConfig.contactFormErrorMessage}
+    </p>
+
+    <button type="submit" id="contact-form-submit" class="btn-primary w-full sm:w-auto">
+      {siteConfig.contactFormSubmitLabel}
+    </button>
+  </form>
+
+  <div id="contact-form-success" class="card hidden text-center" role="status" aria-live="polite">
+    <p class="font-serif text-2xl text-sage-dark">{siteConfig.contactFormSuccessTitle}</p>
+    <p class="prose-content mx-auto mt-4 max-w-md text-sm">
+      {siteConfig.contactFormSuccessMessage}
+    </p>
+    <p class="mt-6 text-sm text-sage-dark/70">
+      Questions? Call{' '}
+      <a href={siteConfig.contactPhoneHref} class="text-sage-dark underline hover:text-sage-dark">
+        {siteConfig.contactPhone}
+      </a>{' '}
+      or email{' '}
+      <a href={`mailto:${siteConfig.contactEmail}`} class="text-sage-dark underline hover:text-sage-dark">
+        {siteConfig.contactEmail}
+      </a>
+      .
+    </p>
+  </div>
+
+  <p id="contact-form-footer" class="mt-4 text-center text-xs text-sage-dark/70">
+    Prefer to reach out directly? Call{' '}
+    <a href={siteConfig.contactPhoneHref} class="text-sage-dark underline hover:text-sage-dark">
+      {siteConfig.contactPhone}
+    </a>{' '}
+    or email{' '}
+    <a href={`mailto:${siteConfig.contactEmail}`} class="text-sage-dark underline hover:text-sage-dark">
+      {siteConfig.contactEmail}
+    </a>
+    .
   </p>
+</div>
 
-  <div>
-    <label for="name" class="mb-1 block text-sm font-medium">Name</label>
-    <input
-      type="text"
-      id="name"
-      name="name"
-      required
-      autocomplete="name"
-      class="w-full rounded-xl border border-accent/50 bg-cream px-4 py-3 text-sm focus:border-sage-dark focus:outline-none focus:ring-2 focus:ring-sage/30"
-    />
-  </div>
+<script>
+  const form = document.getElementById('contact-form');
+  const submitBtn = document.getElementById('contact-form-submit');
+  const successPanel = document.getElementById('contact-form-success');
+  const errorPanel = document.getElementById('contact-form-error');
+  const footer = document.getElementById('contact-form-footer');
+  const defaultLabel = submitBtn?.textContent?.trim() || 'Express interest';
 
-  <div>
-    <label for="email" class="mb-1 block text-sm font-medium">Email</label>
-    <input
-      type="email"
-      id="email"
-      name="email"
-      required
-      autocomplete="email"
-      class="w-full rounded-xl border border-accent/50 bg-cream px-4 py-3 text-sm focus:border-sage-dark focus:outline-none focus:ring-2 focus:ring-sage/30"
-    />
-  </div>
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!(form instanceof HTMLFormElement) || !(submitBtn instanceof HTMLButtonElement)) return;
 
-  <div>
-    <label for="phone" class="mb-1 block text-sm font-medium">
-      Phone <span class="font-normal text-sage-dark/50">(optional)</span>
-    </label>
-    <input
-      type="tel"
-      id="phone"
-      name="phone"
-      autocomplete="tel"
-      class="w-full rounded-xl border border-accent/50 bg-cream px-4 py-3 text-sm focus:border-sage-dark focus:outline-none focus:ring-2 focus:ring-sage/30"
-    />
-  </div>
+    errorPanel?.classList.add('hidden');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
 
-  <div>
-    <label for="message" class="mb-1 block text-sm font-medium">
-      Message <span class="font-normal text-sage-dark/50">(optional)</span>
-    </label>
-    <textarea
-      id="message"
-      name="message"
-      rows="5"
-      class="w-full rounded-xl border border-accent/50 bg-cream px-4 py-3 text-sm focus:border-sage-dark focus:outline-none focus:ring-2 focus:ring-sage/30"
-      placeholder="Anything you would like us to know?"
-    ></textarea>
-  </div>
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
 
-  <input type="hidden" name="inquiry_type" value="interest-list" />
-  <input type="hidden" name="_subject" value={`Interest list — ${siteConfig.name}`} />
+      if (response.ok) {
+        form.classList.add('hidden');
+        footer?.classList.add('hidden');
+        successPanel?.classList.remove('hidden');
+        successPanel?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
 
-  <button type="submit" class="btn-primary w-full sm:w-auto">
-    {siteConfig.contactFormSubmitLabel}
-  </button>
-</form>
-
-<p class="mt-4 text-center text-xs text-sage-dark/70">
-  Prefer to reach out directly? Call{' '}
-  <a href={siteConfig.contactPhoneHref} class="text-sage-dark underline hover:text-sage-dark">
-    {siteConfig.contactPhone}
-  </a>{' '}
-  or email{' '}
-  <a href={`mailto:${siteConfig.contactEmail}`} class="text-sage-dark underline hover:text-sage-dark">
-    {siteConfig.contactEmail}
-  </a>
-  .
-</p>
+      errorPanel?.classList.remove('hidden');
+    } catch {
+      errorPanel?.classList.remove('hidden');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = defaultLabel;
+    }
+  });
+</script>

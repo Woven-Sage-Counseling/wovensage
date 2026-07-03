@@ -18,6 +18,11 @@ export const siteConfig = {
     'We are currently in prelaunch and not yet accepting appointments. Submit this form to express your interest — we will contact you when we open officially. Please do not include clinical or health information.',
 
   contactFormSubmitLabel: 'Express interest',
+  contactFormSuccessTitle: 'Thank you — we received your interest.',
+  contactFormSuccessMessage:
+    'We will contact you at the email you provided when Woven Sage Counseling opens officially.',
+  contactFormErrorMessage:
+    'Something went wrong sending your message. Please try again or reach us by phone or email.',
 
   logos: {
     main: '/images/logo-main-transparent.png',

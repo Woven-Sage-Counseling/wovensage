@@ -24,26 +24,15 @@ import { siteConfig } from '../config/site';
       class="pointer-events-none absolute inset-y-0 left-0 z-0 flex items-center select-none"
       aria-hidden="true"
     >
-      <div class="sage-botanical -ml-[18%] translate-y-6 sm:-ml-[14%] sm:translate-y-8">
-        {
-          [
-            { src: siteConfig.logos.sageBotanicalHeroBase, layer: 'base' },
-            { src: siteConfig.logos.sageBotanicalHeroLeft, layer: 'left' },
-            { src: siteConfig.logos.sageBotanicalHeroRight, layer: 'right' },
-            { src: siteConfig.logos.sageBotanicalHeroTips, layer: 'tips' },
-          ].map(({ src, layer }) => (
-            <img
-              src={src}
-              alt=""
-              width={682}
-              height={1024}
-              class:list={['sage-sway', `sage-sway--${layer}`]}
-              loading="eager"
-              decoding="async"
-            />
-          ))
-        }
-      </div>
+      <img
+        src={siteConfig.logos.sageBotanicalHero}
+        alt=""
+        width={682}
+        height={1024}
+        class="-ml-[18%] block h-[130vh] w-auto max-w-none translate-y-6 opacity-30 sm:-ml-[14%] sm:translate-y-8"
+        loading="eager"
+        decoding="async"
+      />
     </div>
 
     <div class="container-page relative z-10 pl-[min(40vw,12rem)] sm:pl-[min(36vw,16rem)] md:pl-[min(32vw,18rem)] lg:pl-[min(28vw,20rem)]">

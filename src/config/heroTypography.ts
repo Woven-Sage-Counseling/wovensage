@@ -7,4 +7,4 @@
  */
 export type HeroTypoVariant = 'A' | 'B' | 'C';
 
-export const heroTypoVariant: HeroTypoVariant = 'B';
+export const heroTypoVariant: HeroTypoVariant = 'C';

@@ -32,7 +32,7 @@ export const siteConfig = {
   },
 
   /** Formspree form ID — sign up at formspree.io and paste your form ID here */
-  formspreeFormId: 'YOUR_FORM_ID',
+  formspreeFormId: 'xjgqplvy',
 
   /** Optional: Cloudflare Web Analytics token from dashboard */
   cloudflareAnalyticsToken: '',

@@ -117,12 +117,12 @@
 
 }
 
-/* Hero background — soft cream-to-white gradient that gently breathes */
+/* Hero background — cream into a slightly deeper warm tone, gently breathing */
 .hero-breathe {
   background:
-    radial-gradient(ellipse 90% 70% at 30% 40%, #ffffff 0%, transparent 58%),
-    radial-gradient(ellipse 80% 60% at 78% 70%, #ffffff 0%, transparent 55%),
-    linear-gradient(165deg, #ffffff 0%, #f7f4ee 48%, #ffffff 100%);
+    radial-gradient(ellipse 90% 70% at 28% 38%, #f7f4ee 0%, transparent 60%),
+    radial-gradient(ellipse 80% 60% at 78% 72%, #e8e2d6 0%, transparent 58%),
+    linear-gradient(165deg, #f7f4ee 0%, #efe9df 42%, #e5dfd2 100%);
   background-size: 140% 140%, 130% 130%, 100% 100%;
   background-position: 20% 30%, 80% 70%, center;
   animation: hero-breathe 9s ease-in-out infinite;
@@ -132,7 +132,7 @@
   0%,
   100% {
     background-position: 18% 28%, 82% 72%, center;
-    opacity: 0.88;
+    opacity: 0.92;
   }
   50% {
     background-position: 42% 48%, 62% 52%, center;

@@ -22,6 +22,8 @@ export default {
       fontFamily: {
         serif: ['Fraunces', 'Georgia', 'serif'],
         sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+        editorial: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        signature: ['Ruthie', 'cursive'],
       },
     },
   },

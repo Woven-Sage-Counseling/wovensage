@@ -3,6 +3,9 @@ import { heroTypoVariant } from '../config/heroTypography';
 
 const lineOneClass =
   'hero-line-one block font-display text-[2rem] font-normal leading-[1.22] text-[#2E2D2A] sm:text-[2.75rem] md:text-[3rem]';
+
+const lineTwoClass =
+  'hero-line-two mt-1 block w-fit ml-auto font-display text-[2.25rem] font-bold leading-[1.14] text-sage sm:mt-1.5 sm:text-[3.25rem] md:text-[3.625rem]';
 ---
 
 <h1 id="chapter-1-heading" class="tracking-tight" data-hero-typo={heroTypoVariant}>
@@ -10,40 +13,21 @@ const lineOneClass =
 
   {
     heroTypoVariant === 'A' && (
-      <span class="hero-line-two hero-line-two--editorial mt-1 block w-fit ml-auto text-left font-display text-sage sm:mt-1.5">
-        <span class="block text-[1.9rem] font-bold leading-[1.02] sm:text-[2.7rem] md:text-[2.95rem]">
-          we're glad
-        </span>
-        <span class="block text-[2.2rem] font-bold leading-[0.96] sm:text-[3.2rem] md:text-[3.55rem]">
-          you made it.
-        </span>
-      </span>
+      <span class:list={[lineTwoClass, 'hero-line-two--editorial']}>we're glad you made it.</span>
     )
   }
 
   {
     heroTypoVariant === 'B' && (
-      <span class="hero-line-two hero-line-two--signature mt-2 block w-fit ml-auto text-left font-display text-sage sm:mt-2.5">
-        <span class="block text-[1.95rem] font-bold leading-[1.02] sm:text-[2.8rem] md:text-[3.1rem]">
-          we're glad
-        </span>
-        <span class="block text-[2.28rem] font-bold leading-[0.96] sm:text-[3.35rem] md:text-[3.7rem]">
-          you made it.
-        </span>
+      <span class:list={[lineTwoClass, 'hero-line-two--signature mt-2 sm:mt-2.5']}>
+        we're glad you made it.
       </span>
     )
   }
 
   {
     heroTypoVariant === 'C' && (
-      <span class="hero-line-two hero-line-two--hybrid mt-1 block w-fit ml-auto text-left font-display text-sage sm:mt-1.5">
-        <span class="block text-[1.9rem] font-bold leading-[1.02] sm:text-[2.7rem] md:text-[2.95rem]">
-          we're glad
-        </span>
-        <span class="block text-[2.2rem] font-bold leading-[0.96] text-sage-dark sm:text-[3.2rem] md:text-[3.55rem]">
-          you made it.
-        </span>
-      </span>
+      <span class:list={[lineTwoClass, 'hero-line-two--hybrid']}>we're glad you made it.</span>
     )
   }
 </h1>

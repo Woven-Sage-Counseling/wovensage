@@ -107,6 +107,7 @@ export function getFormspreeUrl(): string {
 }
 
 export const navLinks = [
+  { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
   { href: '/team', label: 'Team' },
   { href: '/services', label: 'Services' },

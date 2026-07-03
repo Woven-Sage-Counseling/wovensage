@@ -175,31 +175,31 @@
 
 /*
  * Hero entrance timeline — paced so each line can be read:
- *   sage   0.05s → 1.05s  (slide + fade from left, with line 1)
- *   line1  0.15s → 1.05s  (fade, then hold for reading)
- *   line2  1.90s → 2.80s  (fade after line 1 has been readable)
- *   rest   3.50s → 4.40s  (subtext, CTA, trust)
+ *   sage   0.05s → 0.95s  (slide + fade from left, with line 1)
+ *   line1  0.12s → 0.92s  (fade, then hold for reading)
+ *   line2  1.60s → 2.40s  (fade after line 1 has been readable)
+ *   rest   2.90s → 3.70s  (subtext, CTA, trust)
  */
 .sage-enter {
   opacity: 0;
-  animation: sage-enter 1s ease-out 0.05s forwards;
+  animation: sage-enter 0.9s ease-out 0.05s forwards;
 }
 
 .hero-fade {
   opacity: 0;
-  animation: hero-fade 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: hero-fade 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .hero-fade--line1 {
-  animation-delay: 0.15s;
+  animation-delay: 0.12s;
 }
 
 .hero-fade--line2 {
-  animation-delay: 1.9s;
+  animation-delay: 1.6s;
 }
 
 .hero-fade--rest {
-  animation-delay: 3.5s;
+  animation-delay: 2.9s;
 }
 
 @keyframes sage-enter {

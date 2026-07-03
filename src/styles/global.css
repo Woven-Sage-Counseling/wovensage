@@ -208,7 +208,7 @@
     transform: translateX(-4rem);
   }
   to {
-    opacity: 0.3;
+    opacity: 0.38;
     transform: translateX(0);
   }
 }
@@ -233,7 +233,7 @@
 
   .sage-enter {
     animation: none;
-    opacity: 0.3;
+    opacity: 0.38;
     transform: none;
   }
 

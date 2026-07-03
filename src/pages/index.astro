@@ -3,12 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import BookingButton from '../components/BookingButton.astro';
 import SageBranchDecor from '../components/SageBranchDecor.astro';
 import { siteConfig } from '../config/site';
-
-const trustItems = [
-  'Licensed Florida clinicians',
-  'Secure telehealth',
-  'Inclusive & affirming care',
-] as const;
 ---
 
 <BaseLayout
@@ -18,60 +12,79 @@ const trustItems = [
 >
   <!-- CHAPTER 1 — ARRIVAL -->
   <section
-    class="relative flex min-h-[calc(100vh-12rem)] items-center overflow-hidden bg-cream py-20 sm:min-h-[calc(100vh-11rem)] sm:py-28 md:py-32"
+    class="relative flex min-h-[calc(100vh-9.5rem)] justify-center overflow-hidden bg-cream pb-20 pt-[15vh] sm:min-h-[calc(100vh-9rem)] sm:pb-24 sm:pt-[17vh] md:pt-[18vh]"
     aria-labelledby="chapter-1-heading"
   >
+    <img
+      src={siteConfig.logos.main}
+      alt=""
+      width={586}
+      height={623}
+      class="pointer-events-none absolute left-1/2 top-[36%] z-0 w-[min(88vw,34rem)] -translate-x-1/2 -translate-y-1/2 select-none opacity-[0.025] blur-[1.5px] sm:w-[min(72vw,38rem)] md:top-[38%]"
+      aria-hidden="true"
+      loading="eager"
+      decoding="async"
+    />
+
     <SageBranchDecor
       src={siteConfig.logos.sageBranchHeroLeft}
       width={198}
       height={504}
       class="left-0 top-1/2 -translate-y-1/2"
-      imgClass="w-28 opacity-[0.14] sm:w-32 md:w-36 md:opacity-[0.16]"
+      imgClass="w-28 opacity-[0.07] sm:w-32 md:w-36 md:opacity-[0.08]"
     />
     <SageBranchDecor
       src={siteConfig.logos.sageBranchHero}
       width={198}
       height={504}
       class="right-0 top-1/2 -translate-y-1/2 translate-x-4 sm:translate-x-6"
-      imgClass="w-28 opacity-[0.14] sm:w-32 md:w-36 md:opacity-[0.16]"
+      imgClass="w-28 opacity-[0.07] sm:w-32 md:w-36 md:opacity-[0.08]"
     />
 
     <div
-      class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,theme(colors.sage.light/12%),transparent_65%)]"
+      class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_38%,theme(colors.sage.light/10%),transparent_68%)]"
       aria-hidden="true"
     />
 
     <div class="container-page relative z-10">
       <div class="mx-auto max-w-2xl text-center lg:max-w-3xl">
-        <h1
-          id="chapter-1-heading"
-          class="font-serif text-[2rem] leading-[1.2] tracking-tight text-sage-dark sm:text-5xl sm:leading-[1.15] md:text-[3.25rem]"
-        >
-          Whatever brought you here…
-          <br />
-          <span class="text-sage-dark/90">we're glad you're here.</span>
+        <h1 id="chapter-1-heading" class="font-serif tracking-tight">
+          <span class="block text-[2rem] font-medium leading-[1.22] text-charcoal sm:text-[2.75rem] md:text-[3rem]">
+            Whatever brought you here…
+          </span>
+          <span
+            class="mt-1 block text-[2.125rem] font-semibold leading-[1.18] text-sage sm:mt-1.5 sm:text-[3.125rem] md:text-[3.375rem]"
+          >
+            we're glad you're here.
+          </span>
         </h1>
 
-        <p class="mx-auto mt-8 max-w-lg text-lg leading-relaxed text-sage-dark/65 sm:mt-10 sm:text-xl sm:leading-relaxed">
-          You don't have to carry everything alone. When you're ready, we'll be here to listen.
+        <p class="mx-auto mt-8 max-w-md text-lg leading-relaxed text-sage-dark/60 sm:mt-9 sm:text-xl">
+          You don't have to carry everything by yourself anymore.
         </p>
 
-        <div class="mt-10 sm:mt-12">
+        <div class="mt-10 sm:mt-11">
           <BookingButton class="!px-7 !py-3.5" />
 
-          <ul
-            class="mx-auto mt-6 flex max-w-md flex-col items-center gap-2 text-[0.8125rem] tracking-wide text-sage-dark/50 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-5 sm:gap-y-2"
+          <p
+            class="mx-auto mt-5 flex max-w-lg flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[0.6875rem] tracking-[0.06em] text-sage-dark/45 sm:mt-6 sm:flex-nowrap sm:gap-x-4"
             aria-label="Practice highlights"
           >
-            {
-              trustItems.map((item) => (
-                <li class="inline-flex items-center gap-1.5">
-                  <span class="text-sage/80" aria-hidden="true">✓</span>
-                  {item}
-                </li>
-              ))
-            }
-          </ul>
+            <span class="inline-flex items-center gap-1 whitespace-nowrap">
+              <span class="text-sage/70" aria-hidden="true">✓</span>
+              Licensed in Florida
+            </span>
+            <span class="hidden text-sage-dark/20 sm:inline" aria-hidden="true">·</span>
+            <span class="inline-flex items-center gap-1 whitespace-nowrap">
+              <span class="text-sage/70" aria-hidden="true">✓</span>
+              Secure telehealth
+            </span>
+            <span class="hidden text-sage-dark/20 sm:inline" aria-hidden="true">·</span>
+            <span class="inline-flex items-center gap-1 whitespace-nowrap">
+              <span class="text-sage/70" aria-hidden="true">✓</span>
+              Inclusive & affirming
+            </span>
+          </p>
         </div>
       </div>
     </div>

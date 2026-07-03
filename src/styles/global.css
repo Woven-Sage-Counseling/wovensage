@@ -35,7 +35,7 @@
   }
 
   .header-cta.btn-primary {
-    @apply px-3.5 py-1.5 text-xs font-medium shadow-none;
+    @apply px-3 py-1 text-[0.6875rem] font-medium leading-tight shadow-none;
   }
 
   .btn-secondary {
@@ -61,8 +61,8 @@
   /* Crop baked-in padding from square JPEG logos */
   .logo-header {
     @apply flex shrink-0 items-center;
-    height: 1.375rem;
-    max-width: min(180px, 44vw);
+    height: 1.1875rem;
+    max-width: min(160px, 40vw);
   }
 
   .logo-header img {
@@ -71,14 +71,14 @@
 
   @media (min-width: 640px) {
     .logo-header {
-      height: 1.5rem;
+      height: 1.3125rem;
       max-width: none;
     }
   }
 
   @media (min-width: 1024px) {
     .logo-header {
-      height: 1.625rem;
+      height: 1.375rem;
     }
   }
 

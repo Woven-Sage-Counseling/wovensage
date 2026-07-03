@@ -6,20 +6,20 @@ import Logo from './Logo.astro';
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-50 border-b border-accent/20 bg-cream/80 backdrop-blur-sm">
-  <div class="container-page flex h-11 items-center justify-between gap-3 sm:h-12">
+<header class="sticky top-0 z-50 border-b border-accent/15 bg-cream/75 backdrop-blur-sm">
+  <div class="container-page flex h-10 items-center justify-between gap-3 sm:h-11">
     <a href="/" class="group flex shrink-0 items-center opacity-90 transition hover:opacity-100">
       <Logo variant="text" />
       <span class="sr-only">{siteConfig.name}</span>
     </a>
 
-    <nav class="hidden items-center gap-5 lg:flex" aria-label="Main navigation">
+    <nav class="hidden items-center gap-4 lg:flex" aria-label="Main navigation">
       {
         navLinks.map((link) => (
           <a
             href={link.href}
             class:list={[
-              'text-[0.8125rem] font-normal tracking-wide transition-colors',
+              'text-xs font-normal tracking-wide transition-colors',
               currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href + '/'))
                 ? 'text-sage-dark/85'
                 : 'text-sage-dark/50 hover:text-sage-dark/75',

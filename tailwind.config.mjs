@@ -15,6 +15,9 @@ export default {
         accent: {
           DEFAULT: '#B9B5AE',
         },
+        charcoal: {
+          DEFAULT: '#3A3A38',
+        },
       },
       fontFamily: {
         serif: ['Fraunces', 'Georgia', 'serif'],

@@ -35,7 +35,7 @@
   }
 
   .header-cta.btn-primary {
-    @apply px-2.5 py-0.5 text-[0.625rem] font-medium leading-tight shadow-none;
+    @apply px-3.5 py-1.5 text-[0.625rem] font-medium leading-tight shadow-none;
   }
 
   .btn-secondary {

@@ -22,8 +22,8 @@ export default {
       fontFamily: {
         serif: ['Fraunces', 'Georgia', 'serif'],
         sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+        saol: ['"Saol Display"', '"Cormorant Garamond"', 'Georgia', 'serif'],
         editorial: ['"Cormorant Garamond"', 'Georgia', 'serif'],
-        canela: ['Canela', '"Cormorant Garamond"', 'Georgia', 'serif'],
         signature: ['Ruthie', 'cursive'],
       },
     },

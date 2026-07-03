@@ -1,7 +1,7 @@
 /**
  * Hero typography experiment — switch variant here to preview on the homepage.
  *
- * A — Editorial (Cormorant Garamond line 1, Canela Medium line 2)
+ * A — Saol Display (line 2 slightly larger, sage)
  * B — Signature (Ruthie handwritten on line 2)
  * C — Hybrid (serif + signature on "made it.")
  */

@@ -8,9 +8,11 @@ import SageLeavesBackground from '../components/SageLeavesBackground.astro';
 interface Props {
   title: string;
   description?: string;
+  /** Hide the site-wide sage leaf background pattern (e.g. minimal homepage chapters) */
+  botanicalBg?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, botanicalBg = true } = Astro.props;
 const fullTitle = title === siteConfig.name ? title : `${title} | ${siteConfig.name}`;
 const metaDescription =
   description ||
@@ -48,7 +50,7 @@ const metaDescription =
   <body class="flex min-h-screen flex-col">
     <Header />
     <main class="relative flex-1 overflow-x-hidden">
-      <SageLeavesBackground />
+      {botanicalBg && <SageLeavesBackground />}
       <div class="relative z-10">
         <slot />
       </div>

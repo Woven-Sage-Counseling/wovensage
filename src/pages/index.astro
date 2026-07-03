@@ -1,141 +1,83 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Section from '../components/Section.astro';
 import BookingButton from '../components/BookingButton.astro';
-import HeroCta from '../components/HeroCta.astro';
-import HeroLeafDrift from '../components/HeroLeafDrift.astro';
-import Logo from '../components/Logo.astro';
 import SageBranchDecor from '../components/SageBranchDecor.astro';
 import { siteConfig } from '../config/site';
+
+const trustItems = [
+  'Licensed Florida clinicians',
+  'Secure telehealth',
+  'Inclusive & affirming care',
+] as const;
 ---
 
 <BaseLayout
   title={siteConfig.name}
-  description={`${siteConfig.tagline}. Compassionate therapy in South Florida — in person and telehealth throughout Florida.`}
+  description="Whatever brought you here — we're glad you're here. Woven Sage Counseling is opening soon in South Florida with secure telehealth throughout Florida."
+  botanicalBg={false}
 >
-  <section class="relative overflow-hidden bg-cream pb-14 pt-10 sm:pb-16 sm:pt-14 md:pt-16">
-    <HeroLeafDrift />
+  <!-- CHAPTER 1 — ARRIVAL -->
+  <section
+    class="relative flex min-h-[calc(100vh-12rem)] items-center overflow-hidden bg-cream py-20 sm:min-h-[calc(100vh-11rem)] sm:py-28 md:py-32"
+    aria-labelledby="chapter-1-heading"
+  >
     <SageBranchDecor
       src={siteConfig.logos.sageBranchHeroLeft}
       width={198}
       height={504}
       class="left-0 top-1/2 -translate-y-1/2"
-      imgClass="w-32 opacity-95 sm:w-36 md:w-40"
+      imgClass="w-28 opacity-[0.14] sm:w-32 md:w-36 md:opacity-[0.16]"
     />
     <SageBranchDecor
       src={siteConfig.logos.sageBranchHero}
       width={198}
       height={504}
-      class="right-0 top-1/2 -translate-y-1/2 translate-x-6 sm:translate-x-8"
-      imgClass="w-32 opacity-95 sm:w-36 md:w-40"
+      class="right-0 top-1/2 -translate-y-1/2 translate-x-4 sm:translate-x-6"
+      imgClass="w-28 opacity-[0.14] sm:w-32 md:w-36 md:opacity-[0.16]"
     />
+
+    <div
+      class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,theme(colors.sage.light/12%),transparent_65%)]"
+      aria-hidden="true"
+    />
+
     <div class="container-page relative z-10">
-      <div class="mx-auto flex max-w-3xl flex-col items-center text-center">
-        <div class="mb-6 flex w-full justify-center sm:mb-8">
-          <Logo variant="main" />
-        </div>
-
-        <p class="mb-4 text-sm font-semibold uppercase tracking-widest text-sage-dark">
-          Personalized therapy · In-person & telehealth
-        </p>
-        <h1 class="font-serif text-4xl leading-tight sm:text-5xl">
-          {siteConfig.tagline}
+      <div class="mx-auto max-w-2xl text-center lg:max-w-3xl">
+        <h1
+          id="chapter-1-heading"
+          class="font-serif text-[2rem] leading-[1.2] tracking-tight text-sage-dark sm:text-5xl sm:leading-[1.15] md:text-[3.25rem]"
+        >
+          Whatever brought you here…
+          <br />
+          <span class="text-sage-dark/90">we're glad you're here.</span>
         </h1>
-        <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-sage-dark/70 sm:mt-7 sm:text-xl">
-          Woven Sage Counseling offers personalized therapy for adults, couples, and families.
-          Meet with us in person in Palm Beach County or connect from anywhere in Florida through
-          secure telehealth.
+
+        <p class="mx-auto mt-8 max-w-lg text-lg leading-relaxed text-sage-dark/65 sm:mt-10 sm:text-xl sm:leading-relaxed">
+          You don't have to carry everything alone. When you're ready, we'll be here to listen.
         </p>
-        <HeroCta />
+
+        <div class="mt-10 sm:mt-12">
+          <BookingButton class="!px-7 !py-3.5" />
+
+          <ul
+            class="mx-auto mt-6 flex max-w-md flex-col items-center gap-2 text-[0.8125rem] tracking-wide text-sage-dark/50 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-5 sm:gap-y-2"
+            aria-label="Practice highlights"
+          >
+            {
+              trustItems.map((item) => (
+                <li class="inline-flex items-center gap-1.5">
+                  <span class="text-sage/80" aria-hidden="true">✓</span>
+                  {item}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
-  <Section title="Our philosophy" class="border-b border-accent/30 bg-cream/50 py-16 sm:py-20">
-    <div class="mx-auto max-w-3xl text-center">
-      <p class="font-serif text-xl leading-relaxed text-sage-dark sm:text-2xl">
-        Our approach begins with being truly heard.
-      </p>
-      <div class="prose-content mx-auto mt-6 max-w-2xl text-base sm:text-lg">
-        <p>
-          At Woven Sage Counseling, therapy is not one-size-fits-all. We believe every person
-          deserves a space where they feel understood, respected, and supported. Our clinicians meet
-          clients with warmth, curiosity, and genuine human connection, helping each person move
-          toward clarity, healing, and meaningful change.
-        </p>
-      </div>
-    </div>
-  </Section>
-
-  <Section title="Who we serve" class="py-16 sm:py-20">
-    <div class="grid gap-10 md:grid-cols-2 md:gap-12">
-      <div class="card-premium">
-        <h3 class="font-serif text-xl sm:text-2xl">Everyone is welcome</h3>
-        <p class="prose-content mt-5 text-sm sm:text-base">
-          Woven Sage Counseling is building a group practice to serve a wide range of clients.
-          We meet you where you are — with warmth, respect, and care tailored to your goals.
-        </p>
-      </div>
-      <div class="card-premium">
-        <h3 class="font-serif text-xl sm:text-2xl">Adults & young adults</h3>
-        <p class="prose-content mt-5 text-sm sm:text-base">
-          Our founding clinician, Michele Evans, brings particular strength working with adults
-          and young adults navigating anxiety, trauma, life transitions, and more.
-        </p>
-      </div>
-    </div>
-  </Section>
-
-  <Section title="How we can help" class="bg-accent/20">
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        siteConfig.specialties.slice(0, 6).map((item) => (
-          <div class="rounded-xl border border-accent/40 bg-cream px-5 py-4 text-sm font-medium">
-            {item}
-          </div>
-        ))
-      }
-    </div>
-    <p class="mt-6 text-sm text-sage-dark/70">
-      And more — our specialties continue to grow as our team expands.
-    </p>
-    <a href="/services" class="mt-6 inline-block text-sm font-semibold text-sage-dark hover:text-sage-dark">
-      View all services →
-    </a>
-  </Section>
-
-  <Section title="In person & telehealth">
-    <div class="grid gap-8 lg:grid-cols-2">
-      <div class="card">
-        <h3 class="font-serif text-xl">South Florida offices</h3>
-        <p class="prose-content mt-3 text-sm">
-          We serve clients in the {siteConfig.serviceAreas.join(', ')} area and surrounding
-          communities. Accessible in-person care with a calm, welcoming environment.
-        </p>
-      </div>
-      <div class="card">
-        <h3 class="font-serif text-xl">Telehealth throughout Florida</h3>
-        <p class="prose-content mt-3 text-sm">
-          Secure video sessions available for clients located in Florida. We are actively expanding
-          licensure to serve additional states — check back for updates.
-        </p>
-      </div>
-    </div>
-  </Section>
-
-  <section class="bg-sage-light/40 py-16 sm:py-20">
-    <div class="container-page text-center">
-      <h2 class="section-heading">We are building Woven Sage intentionally.</h2>
-      <p class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-sage-dark/70 sm:text-lg">
-        Every clinician who joins our team is selected not only for professional skill, but for
-        warmth, compassion, and genuine care for others. As we expand our services, insurance
-        options, and availability, our commitment remains the same: helping every client feel seen,
-        supported, and cared for.
-      </p>
-      <div class="mt-10 flex flex-wrap justify-center gap-4">
-        <BookingButton />
-        <a href="/wsp" class="btn-secondary">Learn about WSP</a>
-      </div>
-    </div>
-  </section>
+  <!-- CHAPTER 2 — placeholder -->
+  <!-- CHAPTER 3 — placeholder -->
+  <!-- CHAPTER 4 — placeholder -->
 </BaseLayout>

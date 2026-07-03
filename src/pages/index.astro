@@ -21,49 +21,52 @@ import { siteConfig } from '../config/site';
     aria-labelledby="chapter-1-heading"
   >
     <div
-      class="pointer-events-none absolute inset-y-0 left-0 z-0 flex w-[min(72vw,36rem)] items-center select-none"
+      class="pointer-events-none absolute left-0 top-1/2 z-0 translate-x-[4%] -translate-y-1/2 select-none"
       aria-hidden="true"
     >
-      <svg
-        class="absolute left-0 top-1/2 h-[min(96vh,48rem)] w-[min(62vw,30rem)] -translate-y-1/2 overflow-visible text-sage-dark/30"
-        viewBox="0 0 120 240"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="xMinYMid meet"
-      >
-        <!-- Thin, slightly imperfect half-circle — endpoints meet the left screen edge -->
-        <path
-          d="M 0 18
-             C 48 14, 90 44, 106 88
-             C 116 116, 117 144, 104 174
-             C 90 208, 48 230, 0 226"
-          stroke="currentColor"
-          stroke-width="0.7"
-          stroke-linecap="butt"
-          stroke-linejoin="round"
+      <div class="relative">
+        <img
+          src={siteConfig.logos.sageBotanicalHero}
+          alt=""
+          width={682}
+          height={1024}
+          class="relative z-10 block h-[min(78vh,36rem)] w-auto opacity-[0.88] sm:h-[min(80vh,40rem)]"
+          loading="eager"
+          decoding="async"
         />
-        <path
-          d="M 0 22
-             C 46 20, 88 48, 103 90
-             C 114 118, 114 146, 102 174
-             C 88 206, 46 226, 0 222"
-          stroke="currentColor"
-          stroke-width="0.35"
-          stroke-linecap="butt"
-          stroke-linejoin="round"
-          opacity="0.55"
-        />
-      </svg>
 
-      <img
-        src={siteConfig.logos.sageBotanicalHero}
-        alt=""
-        width={682}
-        height={1024}
-        class="relative z-10 -ml-[18%] w-[min(64vw,30rem)] opacity-[0.88] sm:-ml-[14%] sm:w-[min(56vw,34rem)]"
-        loading="eager"
-        decoding="async"
-      />
+        <!-- Slightly smaller hand-drawn circle, centered on the sage -->
+        <svg
+          class="absolute left-1/2 top-1/2 z-0 aspect-square h-[82%] -translate-x-1/2 -translate-y-1/2 text-sage-dark/30"
+          viewBox="0 0 100 100"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M 50 6
+               C 71 5, 92 24, 94 48
+               C 96 72, 76 93, 52 94
+               C 28 95, 7 76, 6 52
+               C 5 28, 26 7, 50 6 Z"
+            stroke="currentColor"
+            stroke-width="0.55"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M 50 7.5
+               C 70 6.5, 90.5 25, 92.5 48.5
+               C 94.5 71.5, 75 91.5, 51.5 92.5
+               C 29 93.5, 8.5 75, 7.5 51.5
+               C 6.5 29, 27.5 8.5, 50 7.5 Z"
+            stroke="currentColor"
+            stroke-width="0.28"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            opacity="0.55"
+          />
+        </svg>
+      </div>
     </div>
 
     <div class="container-page relative z-10 pl-[min(40vw,12rem)] sm:pl-[min(36vw,16rem)] md:pl-[min(32vw,18rem)] lg:pl-[min(28vw,20rem)]">

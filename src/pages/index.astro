@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import BookingButton from '../components/BookingButton.astro';
 import HeroCta from '../components/HeroCta.astro';
+import HeroLeafDrift from '../components/HeroLeafDrift.astro';
 import Logo from '../components/Logo.astro';
 import SageBranchDecor from '../components/SageBranchDecor.astro';
 import { siteConfig } from '../config/site';
@@ -12,7 +13,8 @@ import { siteConfig } from '../config/site';
   title={siteConfig.name}
   description={`${siteConfig.tagline}. Compassionate therapy in South Florida — in person and telehealth throughout Florida.`}
 >
-  <section class="relative bg-cream pb-14 pt-10 sm:pb-16 sm:pt-14 md:pt-16">
+  <section class="relative overflow-hidden bg-cream pb-14 pt-10 sm:pb-16 sm:pt-14 md:pt-16">
+    <HeroLeafDrift />
     <SageBranchDecor
       src={siteConfig.logos.sageBranchHeroLeft}
       width={198}
@@ -49,18 +51,34 @@ import { siteConfig } from '../config/site';
     </div>
   </section>
 
-  <Section title="Who we serve">
-    <div class="grid gap-8 md:grid-cols-2">
-      <div class="card">
-        <h3 class="font-serif text-xl">Everyone is welcome</h3>
-        <p class="prose-content mt-3 text-sm">
+  <Section title="Our philosophy" class="border-b border-accent/30 bg-cream/50 py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="font-serif text-xl leading-relaxed text-sage-dark sm:text-2xl">
+        Our approach begins with being truly heard.
+      </p>
+      <div class="prose-content mx-auto mt-6 max-w-2xl text-base sm:text-lg">
+        <p>
+          At Woven Sage Counseling, therapy is not one-size-fits-all. We believe every person
+          deserves a space where they feel understood, respected, and supported. Our clinicians meet
+          clients with warmth, curiosity, and genuine human connection, helping each person move
+          toward clarity, healing, and meaningful change.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <Section title="Who we serve" class="py-16 sm:py-20">
+    <div class="grid gap-10 md:grid-cols-2 md:gap-12">
+      <div class="card-premium">
+        <h3 class="font-serif text-xl sm:text-2xl">Everyone is welcome</h3>
+        <p class="prose-content mt-5 text-sm sm:text-base">
           Woven Sage Counseling is building a group practice to serve a wide range of clients.
           We meet you where you are — with warmth, respect, and care tailored to your goals.
         </p>
       </div>
-      <div class="card">
-        <h3 class="font-serif text-xl">Adults & young adults</h3>
-        <p class="prose-content mt-3 text-sm">
+      <div class="card-premium">
+        <h3 class="font-serif text-xl sm:text-2xl">Adults & young adults</h3>
+        <p class="prose-content mt-5 text-sm sm:text-base">
           Our founding clinician, Michele Evans, brings particular strength working with adults
           and young adults navigating anxiety, trauma, life transitions, and more.
         </p>
@@ -105,14 +123,16 @@ import { siteConfig } from '../config/site';
     </div>
   </Section>
 
-  <section class="bg-sage-light/40 py-16">
+  <section class="bg-sage-light/40 py-16 sm:py-20">
     <div class="container-page text-center">
-      <h2 class="section-heading">Growing to serve you better</h2>
-      <p class="mx-auto mt-4 max-w-2xl text-sage-dark/70">
-        Woven Sage is a group practice in its early chapters. We are actively adding clinicians,
-        insurance plans, and services — including the upcoming WSP app for clients and practitioners.
+      <h2 class="section-heading">We are building Woven Sage intentionally.</h2>
+      <p class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-sage-dark/70 sm:text-lg">
+        Every clinician who joins our team is selected not only for professional skill, but for
+        warmth, compassion, and genuine care for others. As we expand our services, insurance
+        options, and availability, our commitment remains the same: helping every client feel seen,
+        supported, and cared for.
       </p>
-      <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <div class="mt-10 flex flex-wrap justify-center gap-4">
         <BookingButton />
         <a href="/wsp" class="btn-secondary">Learn about WSP</a>
       </div>

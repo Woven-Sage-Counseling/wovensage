@@ -42,6 +42,10 @@
     @apply rounded-2xl border border-accent/50 bg-cream/80 p-6 shadow-sm backdrop-blur-sm;
   }
 
+  .card-premium {
+    @apply card min-h-[12.5rem] p-8 sm:min-h-[13.5rem] sm:p-10;
+  }
+
   .section-heading {
     @apply font-serif text-3xl sm:text-4xl;
   }

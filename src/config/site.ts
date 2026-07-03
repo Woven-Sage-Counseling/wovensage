@@ -10,14 +10,14 @@ export const siteConfig = {
   contactPhone: '561-556-2229',
   contactPhoneHref: 'tel:+15615562229',
 
-  bookingCtaLabel: 'Express interest',
+  bookingCtaLabel: 'Join our waitlist',
   bookingTrustCopy:
     'We are currently in prelaunch. Share your interest and we will reach out when we open officially.',
 
   contactFormPrelaunchNote:
     'We are currently in prelaunch and not yet accepting appointments. Submit this form to express your interest — we will contact you when we open officially. Please do not include clinical or health information.',
 
-  contactFormSubmitLabel: 'Express interest',
+  contactFormSubmitLabel: 'Join our waitlist',
   contactFormSuccessTitle: 'Thank you — we received your interest.',
   contactFormSuccessMessage:
     'We will contact you at the email you provided when Woven Sage Counseling opens officially.',

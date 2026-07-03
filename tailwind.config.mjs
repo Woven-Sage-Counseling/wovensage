@@ -23,6 +23,7 @@ export default {
         serif: ['Fraunces', 'Georgia', 'serif'],
         sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
         editorial: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        canela: ['Canela', '"Cormorant Garamond"', 'Georgia', 'serif'],
         signature: ['Ruthie', 'cursive'],
       },
     },

@@ -2,7 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BookingButton from '../components/BookingButton.astro';
 import HeroHeadline from '../components/HeroHeadline.astro';
-import SageBranchDecor from '../components/SageBranchDecor.astro';
 import { siteConfig } from '../config/site';
 
 /**
@@ -26,30 +25,10 @@ import { siteConfig } from '../config/site';
       alt=""
       width={586}
       height={623}
-      class="pointer-events-none absolute left-1/2 top-[36%] z-0 w-[min(88vw,34rem)] -translate-x-1/2 -translate-y-1/2 select-none opacity-[0.038] blur-[1.5px] sm:w-[min(72vw,38rem)] md:top-[38%]"
+      class="pointer-events-none absolute left-0 top-1/2 z-0 w-[min(70vw,28rem)] -translate-x-1/2 -translate-y-1/2 select-none opacity-50 sm:w-[min(55vw,32rem)]"
       aria-hidden="true"
       loading="eager"
       decoding="async"
-    />
-
-    <SageBranchDecor
-      src={siteConfig.logos.sageBranchHeroLeft}
-      width={198}
-      height={504}
-      class="left-0 top-1/2 -translate-y-1/2"
-      imgClass="w-28 opacity-[0.05] sm:w-32 md:w-36 md:opacity-[0.055]"
-    />
-    <SageBranchDecor
-      src={siteConfig.logos.sageBranchHero}
-      width={198}
-      height={504}
-      class="right-0 top-1/2 -translate-y-1/2 translate-x-4 sm:translate-x-6"
-      imgClass="w-28 opacity-[0.05] sm:w-32 md:w-36 md:opacity-[0.055]"
-    />
-
-    <div
-      class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_38%,theme(colors.sage.light/10%),transparent_68%)]"
-      aria-hidden="true"
     />
 
     <div class="container-page relative z-10">

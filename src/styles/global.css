@@ -115,96 +115,91 @@
     transform: translateY(0.06em);
   }
 
-  /* Layered hero botanical — auto-split leaf/stalk groups sway independently */
-  .sage-botanical {
-    position: relative;
-    width: fit-content;
-    opacity: 0.3;
-  }
+}
 
-  .sage-botanical .sage-sway {
-    display: block;
-    height: 130vh;
-    width: auto;
-    max-width: none;
-    will-change: transform;
-  }
+/* Layered hero botanical — outside @layer so animations aren't diluted */
+.sage-botanical {
+  position: relative;
+  width: fit-content;
+  opacity: 0.3;
+}
 
-  .sage-botanical .sage-sway:not(:first-child) {
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
+.sage-botanical .sage-sway {
+  display: block;
+  height: 130vh;
+  width: auto;
+  max-width: none;
+  will-change: transform;
+  backface-visibility: hidden;
+}
 
-  .sage-sway--base {
-    transform-origin: 45% 92%;
-    animation: sage-sway-base 11s ease-in-out infinite;
-  }
+.sage-botanical .sage-sway:not(:first-child) {
+  position: absolute;
+  inset: 0;
+  height: 130vh;
+  width: auto;
+  max-width: none;
+}
 
-  .sage-sway--left {
-    transform-origin: 38% 88%;
-    animation: sage-sway-left 8.5s ease-in-out infinite;
-  }
+.sage-sway--base {
+  transform-origin: 45% 95%;
+  animation: sage-sway-base 6s ease-in-out infinite;
+}
 
-  .sage-sway--right {
-    transform-origin: 58% 88%;
-    animation: sage-sway-right 9.5s ease-in-out infinite;
-    animation-delay: -2.2s;
-  }
+.sage-sway--left {
+  transform-origin: 32% 90%;
+  animation: sage-sway-left 5s ease-in-out infinite;
+}
 
-  .sage-sway--tips {
-    transform-origin: 48% 78%;
-    animation: sage-sway-tips 7s ease-in-out infinite;
-    animation-delay: -1.1s;
-  }
+.sage-sway--right {
+  transform-origin: 68% 90%;
+  animation: sage-sway-right 5.5s ease-in-out infinite;
+  animation-delay: -1.4s;
+}
+
+.sage-sway--tips {
+  transform-origin: 50% 70%;
+  animation: sage-sway-tips 4s ease-in-out infinite;
+  animation-delay: -0.7s;
 }
 
 @keyframes sage-sway-base {
   0%,
   100% {
-    transform: rotate(-0.5deg);
+    transform: rotate(-1.5deg) translateX(-4px);
   }
   50% {
-    transform: rotate(0.6deg) translate3d(0.1%, 0, 0);
+    transform: rotate(1.8deg) translateX(5px);
   }
 }
 
 @keyframes sage-sway-left {
   0%,
   100% {
-    transform: rotate(-1.4deg) translate3d(-0.15%, 0, 0);
+    transform: rotate(-4deg) translateX(-10px);
   }
-  45% {
-    transform: rotate(1.8deg) translate3d(0.25%, -0.15%, 0);
-  }
-  75% {
-    transform: rotate(-0.8deg) translate3d(-0.1%, 0.05%, 0);
+  50% {
+    transform: rotate(5deg) translateX(12px);
   }
 }
 
 @keyframes sage-sway-right {
   0%,
   100% {
-    transform: rotate(1.2deg) translate3d(0.15%, 0, 0);
+    transform: rotate(4deg) translateX(10px);
   }
-  40% {
-    transform: rotate(-1.6deg) translate3d(-0.2%, -0.1%, 0);
-  }
-  70% {
-    transform: rotate(0.9deg) translate3d(0.1%, 0.08%, 0);
+  50% {
+    transform: rotate(-5deg) translateX(-12px);
   }
 }
 
 @keyframes sage-sway-tips {
   0%,
   100% {
-    transform: rotate(-2deg) translate3d(-0.2%, 0.1%, 0);
+    transform: rotate(-6deg) translateX(-14px) translateY(4px);
   }
-  35% {
-    transform: rotate(2.4deg) translate3d(0.3%, -0.25%, 0);
-  }
-  65% {
-    transform: rotate(-1.2deg) translate3d(-0.15%, 0.15%, 0);
+  50% {
+    transform: rotate(7deg) translateX(16px) translateY(-6px);
   }
 }
 

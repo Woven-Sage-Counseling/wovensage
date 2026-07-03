@@ -27,15 +27,17 @@ import { siteConfig } from '../config/site';
       aria-hidden="true"
     >
       <div class="-ml-[18%] translate-y-6 sm:-ml-[14%] sm:translate-y-8">
-        <img
-          src={siteConfig.logos.sageBotanicalHero}
-          alt=""
-          width={682}
-          height={1024}
-          class="sage-enter block h-[130vh] w-auto max-w-none"
-          loading="eager"
-          decoding="async"
-        />
+        <div id="sage-parallax" class="sage-parallax will-change-transform">
+          <img
+            src={siteConfig.logos.sageBotanicalHero}
+            alt=""
+            width={682}
+            height={1024}
+            class="sage-enter block h-[130vh] w-auto max-w-none"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
       </div>
     </div>
 
@@ -78,3 +80,22 @@ import { siteConfig } from '../config/site';
   <!-- CHAPTER 3 — placeholder -->
   <!-- CHAPTER 4 — placeholder -->
 </BaseLayout>
+
+<script>
+  const sageParallax = document.getElementById('sage-parallax');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (sageParallax && !reduceMotion) {
+    const maxShiftPx = 28;
+    const maxScrollPx = Math.min(520, window.innerHeight * 0.7);
+
+    const updateSageParallax = () => {
+      const progress = Math.min(Math.max(window.scrollY / maxScrollPx, 0), 1);
+      sageParallax.style.transform = `translate3d(${-maxShiftPx * progress}px, 0, 0)`;
+    };
+
+    updateSageParallax();
+    window.addEventListener('scroll', updateSageParallax, { passive: true });
+    window.addEventListener('resize', updateSageParallax, { passive: true });
+  }
+</script>

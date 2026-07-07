@@ -120,6 +120,92 @@ const chapter3Cards = [
     </div>
   </section>
 
+  <script is:inline>
+    (function () {
+      const mobileQuery = window.matchMedia('(max-width: 639px)');
+      const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      function initMobileHeroMotion() {
+        if (!mobileQuery.matches || reduceMotionQuery.matches) return;
+
+        const hero = document.querySelector('.chapter-1-hero');
+        if (!hero || hero.dataset.mobileMotionInit === 'true') return;
+        hero.dataset.mobileMotionInit = 'true';
+
+        const revealTargets = [
+          { selector: '.hero-fade--line1', delay: 80 },
+          { selector: '.hero-fade--line2', delay: 1200 },
+          { selector: '.hero-fade--rest', delay: 2200 },
+        ];
+
+        revealTargets.forEach(({ selector, delay }) => {
+          const el = hero.querySelector(selector);
+          if (!el) return;
+
+          el.style.setProperty('opacity', '0', 'important');
+          el.style.setProperty('transform', 'translateY(0.4rem)', 'important');
+
+          window.setTimeout(() => {
+            el.style.transition =
+              'opacity 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1)';
+            window.requestAnimationFrame(() => {
+              el.style.setProperty('opacity', '1', 'important');
+              el.style.setProperty('transform', 'translateY(0)', 'important');
+            });
+          }, delay);
+        });
+
+        const parallaxTarget = document.getElementById('sage-parallax');
+        if (!parallaxTarget) return;
+
+        const maxShiftPx = 28;
+        const getMaxScrollPx = () => Math.min(520, window.innerHeight * 0.7);
+
+        const updateParallax = () => {
+          const scrollY =
+            window.scrollY ||
+            window.pageYOffset ||
+            document.documentElement.scrollTop ||
+            document.body.scrollTop ||
+            0;
+          const progress = Math.min(Math.max(scrollY / getMaxScrollPx(), 0), 1);
+          parallaxTarget.style.setProperty(
+            'transform',
+            `translate3d(${-maxShiftPx * progress}px, 0, 0)`,
+            'important',
+          );
+        };
+
+        let ticking = false;
+        const onScroll = () => {
+          if (ticking) return;
+          ticking = true;
+          window.requestAnimationFrame(() => {
+            updateParallax();
+            ticking = false;
+          });
+        };
+
+        updateParallax();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', updateParallax, { passive: true });
+
+        if (window.visualViewport) {
+          window.visualViewport.addEventListener('scroll', onScroll, { passive: true });
+          window.visualViewport.addEventListener('resize', updateParallax, { passive: true });
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMobileHeroMotion);
+      } else {
+        initMobileHeroMotion();
+      }
+
+      mobileQuery.addEventListener('change', initMobileHeroMotion);
+    })();
+  </script>
+
   <!-- CHAPTER 2 — REST -->
   <section id="chapter-2" class="chapter-2 relative w-full" aria-labelledby="chapter-2-heading">
     <div class="chapter-2__media relative w-full overflow-hidden">
@@ -231,13 +317,10 @@ const chapter3Cards = [
 
 <script>
   import { initChapter2Messages } from '../scripts/chapter2-messages';
-  import { initHeroMobileMotion } from '../scripts/hero-mobile-motion';
   import { initScrollReveal } from '../scripts/scroll-reveal';
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isMobileHero = window.matchMedia('(max-width: 639px)').matches;
-
-  initHeroMobileMotion(reduceMotion);
 
   const sageParallax = document.getElementById('sage-parallax');
 

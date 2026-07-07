@@ -283,17 +283,11 @@
   }
 
   .chapter-1-hero .hero-fade {
-    opacity: 0;
-    transform: translateY(0.4rem);
-    animation: none;
+    animation: none !important;
   }
 
-  .chapter-1-hero .hero-fade.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition:
-      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  .chapter-1-hero #sage-parallax {
+    will-change: transform;
   }
 
   .chapter-1-hero .hero-breathe {

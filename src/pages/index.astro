@@ -58,23 +58,23 @@ const chapter3Cards = [
 >
   <!-- CHAPTER 1 — ARRIVAL -->
   <section
-    class="relative flex min-h-[calc(100vh-9rem)] justify-center overflow-hidden bg-cream pb-16 pt-[14vh] sm:min-h-[calc(100vh-8.5rem)] sm:pb-24 sm:pt-[20vh] md:pt-[21vh]"
+    class="chapter-1-hero relative flex min-h-[calc(100svh-9rem)] items-center justify-center overflow-hidden bg-cream sm:min-h-[calc(100vh-8.5rem)] sm:items-stretch sm:justify-center sm:pb-24 sm:pt-[20vh] md:pt-[21vh]"
     aria-labelledby="chapter-1-heading"
   >
     <div class="hero-breathe pointer-events-none absolute inset-0 z-0" aria-hidden="true"></div>
 
     <div
-      class="pointer-events-none absolute inset-y-0 left-0 z-0 flex items-center select-none"
+      class="chapter-1-hero__sage pointer-events-none absolute inset-0 z-0 select-none sm:inset-x-auto sm:left-0 sm:flex sm:items-center"
       aria-hidden="true"
     >
-      <div class="-ml-[32%] translate-y-2 sm:-ml-[14%] sm:translate-y-8">
+      <div class="chapter-1-hero__sage-inner -ml-[32%] sm:-ml-[14%] sm:translate-y-8">
         <div id="sage-parallax" class="sage-parallax will-change-transform">
           <img
             src={siteConfig.logos.sageBotanicalHero}
             alt=""
             width={682}
             height={1024}
-            class="sage-enter block h-[88vh] w-auto max-w-none sm:h-[130vh]"
+            class="sage-enter block w-auto max-w-none"
             loading="eager"
             decoding="async"
           />

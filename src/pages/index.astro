@@ -22,6 +22,33 @@ const chapter2Messages = [
     line2: 'Sometimes it’s about asking for help.',
   },
 ];
+
+const chapter3Cards = [
+  {
+    headline: 'When your mind won’t slow down.',
+    category: 'Anxiety & Stress',
+    description:
+      'Constant worry, overthinking, burnout, or feeling overwhelmed by life’s demands.',
+  },
+  {
+    headline: 'When the past still feels present.',
+    category: 'Trauma & Healing',
+    description:
+      'Processing difficult experiences, rebuilding safety, and moving forward at your own pace.',
+  },
+  {
+    headline: 'When connection feels complicated.',
+    category: 'Relationships',
+    description:
+      'Strengthening communication, repairing trust, or navigating life’s most important relationships.',
+  },
+  {
+    headline: 'When everything is changing.',
+    category: 'Life Transitions',
+    description:
+      'New beginnings, grief, identity, career changes, parenthood, or simply figuring out what’s next.',
+  },
+];
 ---
 
 <BaseLayout
@@ -133,12 +160,68 @@ const chapter2Messages = [
     </div>
   </section>
 
-  <!-- CHAPTER 3 — placeholder -->
+  <!-- CHAPTER 3 — BELONGING -->
+  <section
+    id="chapter-3"
+    class="chapter-3 bg-[#F8F5F0] px-5 py-24 sm:px-8 sm:py-28 md:py-32"
+    aria-labelledby="chapter-3-heading"
+  >
+    <div class="container-page">
+      <header class="chapter-3__intro mx-auto max-w-3xl text-center">
+        <h2
+          id="chapter-3-heading"
+          class="scroll-reveal font-display text-[2rem] font-normal leading-[1.2] tracking-tight text-[#2E2D2A] sm:text-[2.5rem] md:text-[3rem]"
+        >
+          <span class="block">Whatever you’re carrying...</span>
+          <span class="mt-2 block sm:mt-3">...you don’t have to carry it alone.</span>
+        </h2>
+
+        <p
+          class="scroll-reveal scroll-reveal--delay-1 mx-auto mt-8 max-w-2xl text-base leading-relaxed text-sage-dark/70 sm:mt-10 sm:text-lg"
+        >
+          Therapy isn’t only for moments of crisis. Sometimes it’s about finding clarity, healing old
+          wounds, strengthening relationships, or creating space to breathe again.
+        </p>
+      </header>
+
+      <div class="chapter-3__grid mx-auto mt-16 grid max-w-5xl gap-5 sm:mt-20 sm:grid-cols-2 sm:gap-6 lg:gap-8">
+        {
+          chapter3Cards.map((card, index) => (
+            <article
+              class:list={[
+                'chapter-3__card scroll-reveal',
+                index % 2 === 1 ? 'scroll-reveal--delay-1' : '',
+                index >= 2 ? 'scroll-reveal--delay-2' : '',
+              ]}
+            >
+              <h3 class="chapter-3__card-headline font-display text-[1.5rem] font-normal leading-snug tracking-tight text-[#2E2D2A] sm:text-[1.75rem]">
+                {card.headline}
+              </h3>
+              <p class="chapter-3__card-category mt-4 text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-sage sm:mt-5">
+                {card.category}
+              </p>
+              <p class="chapter-3__card-description mt-4 text-sm leading-relaxed text-sage-dark/65 sm:mt-5 sm:text-[0.9375rem]">
+                {card.description}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="scroll-reveal scroll-reveal--delay-2 mt-16 text-center sm:mt-20">
+        <a href="/services" class="btn-primary hero-cta inline-flex">
+          Explore how we can support you →
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- CHAPTER 4 — placeholder -->
 </BaseLayout>
 
 <script>
   import { initChapter2Messages } from '../scripts/chapter2-messages';
+  import { initScrollReveal } from '../scripts/scroll-reveal';
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -180,4 +263,5 @@ const chapter2Messages = [
   }
 
   initChapter2Messages(reduceMotion);
+  initScrollReveal(reduceMotion);
 </script>

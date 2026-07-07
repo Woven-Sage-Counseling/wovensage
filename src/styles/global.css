@@ -41,8 +41,8 @@
   /* Homepage hero CTA — soft, Apple-like */
   .btn-primary.hero-cta {
     border-radius: 9999px;
-    padding: 1.05rem 2.1rem;
-    font-size: 0.9375rem;
+  padding: 0.95rem 1.65rem;
+  font-size: 0.875rem;
     font-weight: 600;
     letter-spacing: 0.01em;
     background-image: linear-gradient(180deg, #768676 0%, #6f7f6c 55%, #687668 100%);
@@ -55,6 +55,13 @@
       box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
       filter 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   }
+
+@media (min-width: 640px) {
+  .btn-primary.hero-cta {
+    padding: 1.05rem 2.1rem;
+    font-size: 0.9375rem;
+  }
+}
 
   .btn-primary.hero-cta:hover {
     background-color: #6f7f6c;
@@ -279,6 +286,13 @@
     0 1px 1px rgb(36 35 32 / 0.08);
 }
 
+@media (max-width: 639px) {
+  .chapter-2__heading {
+    max-width: 16rem;
+    margin-inline: auto;
+  }
+}
+
 .chapter-2__messages {
   display: grid;
   grid-template-areas: 'stack';
@@ -367,6 +381,12 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: #98a995;
+}
+
+@media (max-width: 639px) {
+  .chapter-3__card {
+    padding: 1.6rem;
+  }
 }
 
 @media (min-width: 640px) {

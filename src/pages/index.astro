@@ -58,7 +58,7 @@ const chapter3Cards = [
 >
   <!-- CHAPTER 1 — ARRIVAL -->
   <section
-    class="relative flex min-h-[calc(100vh-9rem)] justify-center overflow-hidden bg-cream pb-20 pt-[18vh] sm:min-h-[calc(100vh-8.5rem)] sm:pb-24 sm:pt-[20vh] md:pt-[21vh]"
+    class="relative flex min-h-[calc(100vh-9rem)] justify-center overflow-hidden bg-cream pb-16 pt-[14vh] sm:min-h-[calc(100vh-8.5rem)] sm:pb-24 sm:pt-[20vh] md:pt-[21vh]"
     aria-labelledby="chapter-1-heading"
   >
     <div class="hero-breathe pointer-events-none absolute inset-0 z-0" aria-hidden="true"></div>
@@ -67,14 +67,14 @@ const chapter3Cards = [
       class="pointer-events-none absolute inset-y-0 left-0 z-0 flex items-center select-none"
       aria-hidden="true"
     >
-      <div class="-ml-[18%] translate-y-6 sm:-ml-[14%] sm:translate-y-8">
+      <div class="-ml-[32%] translate-y-2 sm:-ml-[14%] sm:translate-y-8">
         <div id="sage-parallax" class="sage-parallax will-change-transform">
           <img
             src={siteConfig.logos.sageBotanicalHero}
             alt=""
             width={682}
             height={1024}
-            class="sage-enter block h-[130vh] w-auto max-w-none"
+            class="sage-enter block h-[88vh] w-auto max-w-none sm:h-[130vh]"
             loading="eager"
             decoding="async"
           />
@@ -82,21 +82,21 @@ const chapter3Cards = [
       </div>
     </div>
 
-    <div class="container-page relative z-10 pl-[min(40vw,12rem)] sm:pl-[min(36vw,16rem)] md:pl-[min(32vw,18rem)] lg:pl-[min(28vw,20rem)]">
-      <div class="ml-auto max-w-2xl text-center lg:max-w-3xl">
+    <div class="container-page relative z-10 sm:pl-[min(36vw,16rem)] md:pl-[min(32vw,18rem)] lg:pl-[min(28vw,20rem)]">
+      <div class="mx-auto max-w-[20rem] text-center sm:ml-auto sm:max-w-2xl lg:max-w-3xl">
         <HeroHeadline />
 
         <div class="hero-fade hero-fade--rest">
-          <p class="mx-auto mt-10 max-w-md text-lg leading-relaxed text-sage-dark/60 sm:mt-11 sm:text-xl">
+          <p class="mx-auto mt-8 max-w-[16rem] text-base leading-relaxed text-sage-dark/65 sm:mt-11 sm:max-w-md sm:text-xl">
             <span class="block">You’ve already taken the first step.</span>
             <span class="block">We’ll take the next ones together.</span>
           </p>
 
-          <div class="mt-6 sm:mt-7">
+          <div class="mt-5 sm:mt-7">
             <BookingButton class="hero-cta" />
 
             <p
-              class="mx-auto mt-5 flex max-w-xl flex-nowrap items-center justify-center gap-x-2.5 overflow-x-auto text-[0.625rem] tracking-[0.05em] text-sage-dark/45 sm:mt-6 sm:gap-x-3 sm:text-[0.6875rem] sm:tracking-[0.06em]"
+              class="mx-auto mt-5 flex max-w-[15rem] flex-col items-center justify-center gap-y-2 text-[0.625rem] tracking-[0.05em] text-sage-dark/50 sm:mt-6 sm:max-w-xl sm:flex-row sm:flex-nowrap sm:gap-x-3 sm:gap-y-0 sm:overflow-x-auto sm:text-[0.6875rem] sm:tracking-[0.06em]"
               aria-label="Practice highlights"
             >
               <span class="inline-flex shrink-0 items-center gap-1 whitespace-nowrap">
@@ -139,14 +139,14 @@ const chapter3Cards = [
     <div class="chapter-2__vignette pointer-events-none absolute inset-0" aria-hidden="true"></div>
     <div class="chapter-2__grain pointer-events-none absolute inset-0" aria-hidden="true"></div>
 
-    <div class="absolute inset-0 flex items-center justify-center px-6 py-12 sm:px-8">
+    <div class="absolute inset-0 flex items-center justify-center px-5 py-8 sm:px-8 sm:py-12">
       <div id="chapter-2-messages" class="chapter-2__messages w-full max-w-3xl">
         {
           chapter2Messages.map((message, index) => (
             <h2
               id={index === 0 ? 'chapter-2-heading' : undefined}
               class:list={[
-                'chapter-2__heading chapter-2__message text-center font-display text-[1.75rem] font-normal leading-snug tracking-tight text-cream sm:text-[2.25rem] md:text-[2.75rem]',
+                'chapter-2__heading chapter-2__message text-center font-display text-[1.375rem] font-normal leading-snug tracking-tight text-cream sm:text-[2.25rem] md:text-[2.75rem]',
               ]}
               aria-hidden={index === 0 ? 'false' : 'true'}
               data-message-index={index}
@@ -163,7 +163,7 @@ const chapter3Cards = [
   <!-- CHAPTER 3 — BELONGING -->
   <section
     id="chapter-3"
-    class="chapter-3 relative bg-cream px-5 py-24 sm:px-8 sm:py-28 md:py-32"
+    class="chapter-3 relative bg-cream px-5 py-20 sm:px-8 sm:py-28 md:py-32"
     aria-labelledby="chapter-3-heading"
   >
     <div class="hero-breathe pointer-events-none absolute inset-0 z-0" aria-hidden="true"></div>
@@ -172,14 +172,14 @@ const chapter3Cards = [
       <header class="chapter-3__intro mx-auto max-w-3xl text-center">
         <h2
           id="chapter-3-heading"
-          class="scroll-reveal font-display text-[1.7rem] font-normal leading-[1.2] tracking-tight text-[#2E2D2A] sm:text-[2.125rem] md:text-[2.55rem]"
+          class="scroll-reveal font-display text-[1.45rem] font-normal leading-[1.2] tracking-tight text-[#2E2D2A] sm:text-[2.125rem] md:text-[2.55rem]"
         >
           <span class="block">Whatever you’re carrying...</span>
           <span class="mt-2 block sm:mt-3">...you don’t have to carry it alone.</span>
         </h2>
 
         <p
-          class="scroll-reveal scroll-reveal--delay-1 mx-auto mt-8 max-w-2xl text-base leading-relaxed text-sage-dark/78 sm:mt-10 sm:text-lg"
+          class="scroll-reveal scroll-reveal--delay-1 mx-auto mt-6 max-w-[19rem] text-[0.9375rem] leading-relaxed text-sage-dark/78 sm:mt-10 sm:max-w-2xl sm:text-lg"
         >
           <span class="block">Therapy isn’t only for moments of crisis.</span>
           <span class="block sm:mt-1">
@@ -189,7 +189,7 @@ const chapter3Cards = [
         </p>
       </header>
 
-      <div class="chapter-3__grid mx-auto mt-16 grid max-w-5xl gap-5 sm:mt-20 sm:grid-cols-2 sm:gap-6 lg:gap-8">
+      <div class="chapter-3__grid mx-auto mt-14 grid max-w-5xl gap-4 sm:mt-20 sm:grid-cols-2 sm:gap-6 lg:gap-8">
         {
           chapter3Cards.map((card, index) => (
             <article
@@ -199,7 +199,7 @@ const chapter3Cards = [
                 index >= 2 ? 'scroll-reveal--delay-2' : '',
               ]}
             >
-              <h3 class="chapter-3__card-headline font-display text-[1.5rem] font-normal leading-snug tracking-tight text-[#2E2D2A] sm:text-[1.75rem]">
+              <h3 class="chapter-3__card-headline font-display text-[1.3rem] font-normal leading-snug tracking-tight text-[#2E2D2A] sm:text-[1.75rem]">
                 <span class="block">{card.headline[0]}</span>
                 <span class="block">{card.headline[1]}</span>
               </h3>
@@ -214,8 +214,8 @@ const chapter3Cards = [
         }
       </div>
 
-      <div class="scroll-reveal scroll-reveal--delay-2 mt-16 text-center sm:mt-20">
-        <p class="chapter-3__cta-prelude mx-auto mb-8 max-w-md font-display text-lg leading-relaxed text-sage-dark/72 sm:mb-9 sm:text-xl">
+      <div class="scroll-reveal scroll-reveal--delay-2 mt-14 text-center sm:mt-20">
+        <p class="chapter-3__cta-prelude mx-auto mb-7 max-w-[18rem] font-display text-[1.0625rem] leading-relaxed text-sage-dark/72 sm:mb-9 sm:max-w-md sm:text-xl">
           <span class="block">You don’t need to know exactly where to begin.</span>
           <span class="mt-2 block">We’ll meet you where you are.</span>
         </p>

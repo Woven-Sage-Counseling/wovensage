@@ -231,13 +231,17 @@ const chapter3Cards = [
 
 <script>
   import { initChapter2Messages } from '../scripts/chapter2-messages';
+  import { initHeroMobileMotion } from '../scripts/hero-mobile-motion';
   import { initScrollReveal } from '../scripts/scroll-reveal';
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobileHero = window.matchMedia('(max-width: 639px)').matches;
+
+  initHeroMobileMotion(reduceMotion);
 
   const sageParallax = document.getElementById('sage-parallax');
 
-  if (sageParallax && !reduceMotion) {
+  if (sageParallax && !reduceMotion && !isMobileHero) {
     const maxShiftPx = 28;
     const maxScrollPx = Math.min(520, window.innerHeight * 0.7);
 

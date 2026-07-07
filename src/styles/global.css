@@ -282,8 +282,19 @@
     animation: sage-enter-mobile 0.8s ease-out 0.05s forwards;
   }
 
-  .chapter-1-hero .hero-fade {
-    animation: none !important;
+  .chapter-1-hero .hero-fade--line1 {
+    opacity: 0;
+    animation: hero-fade 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.08s forwards;
+  }
+
+  .chapter-1-hero .hero-fade--line2 {
+    opacity: 0;
+    animation: hero-fade 0.7s cubic-bezier(0.22, 1, 0.36, 1) 1.2s forwards;
+  }
+
+  .chapter-1-hero .hero-fade--rest {
+    opacity: 0;
+    animation: hero-fade 0.7s cubic-bezier(0.22, 1, 0.36, 1) 2.2s forwards;
   }
 
   .chapter-1-hero #sage-parallax {

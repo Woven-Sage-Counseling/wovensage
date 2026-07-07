@@ -500,9 +500,23 @@
 }
 
 @media (max-width: 639px) {
-  .chapter-2__heading {
-    max-width: 16rem;
+  .chapter-2__messages {
+    width: 100%;
+    max-width: min(20rem, 90vw);
     margin-inline: auto;
+    text-align: center;
+    justify-items: center;
+  }
+
+  .chapter-2__heading {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .chapter-2__heading .block {
+    text-align: center;
   }
 }
 

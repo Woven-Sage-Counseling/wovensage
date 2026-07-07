@@ -279,7 +279,28 @@
     min-height: 28rem;
     width: auto;
     max-width: none;
-    animation-name: sage-enter-mobile;
+    animation: sage-enter-mobile 0.8s ease-out 0.05s forwards;
+  }
+
+  .chapter-1-hero .hero-fade {
+    opacity: 0;
+    animation: hero-fade 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .chapter-1-hero .hero-fade--line1 {
+    animation-delay: 0.08s;
+  }
+
+  .chapter-1-hero .hero-fade--line2 {
+    animation-delay: 1.2s;
+  }
+
+  .chapter-1-hero .hero-fade--rest {
+    animation-delay: 2.2s;
+  }
+
+  .chapter-1-hero .hero-breathe {
+    animation: hero-breathe 9s ease-in-out infinite;
   }
 
   .chapter-1-hero .container-page {
@@ -426,6 +447,20 @@
 @media (prefers-reduced-motion: reduce) and (max-width: 639px) {
   .chapter-1-hero__sage .sage-enter {
     opacity: 0.26;
+  }
+
+  .chapter-1-hero .hero-fade,
+  .chapter-1-hero .hero-fade--line1,
+  .chapter-1-hero .hero-fade--line2,
+  .chapter-1-hero .hero-fade--rest {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .chapter-1-hero .hero-breathe {
+    animation: none;
+    opacity: 1;
   }
 }
 

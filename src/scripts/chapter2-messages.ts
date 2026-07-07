@@ -7,7 +7,6 @@ export function initChapter2Messages(reduceMotion: boolean): void {
 
   const fadeMs = 1500;
   const holdMs = 8000;
-  const cycleMs = holdMs + fadeMs;
   let currentIndex = 0;
 
   const setActiveMessage = (nextIndex: number) => {
@@ -19,27 +18,20 @@ export function initChapter2Messages(reduceMotion: boolean): void {
     currentIndex = nextIndex;
   };
 
-  const crossfadeTo = (nextIndex: number) => {
-    if (nextIndex === currentIndex) return;
-
+  const advanceMessage = () => {
+    const nextIndex = (currentIndex + 1) % messageEls.length;
     const previousIndex = currentIndex;
 
-    messageEls[nextIndex].classList.add('is-active');
-    messageEls[nextIndex].setAttribute('aria-hidden', 'false');
+    messageEls[previousIndex].classList.remove('is-active');
+    messageEls[previousIndex].setAttribute('aria-hidden', 'true');
 
     window.setTimeout(() => {
-      messageEls[previousIndex].classList.remove('is-active');
-      messageEls[previousIndex].setAttribute('aria-hidden', 'true');
+      messageEls[nextIndex].classList.add('is-active');
+      messageEls[nextIndex].setAttribute('aria-hidden', 'false');
       currentIndex = nextIndex;
-    }, fadeMs);
-  };
 
-  const scheduleNextMessage = () => {
-    window.setTimeout(() => {
-      const nextIndex = (currentIndex + 1) % messageEls.length;
-      crossfadeTo(nextIndex);
-      scheduleNextMessage();
-    }, cycleMs);
+      window.setTimeout(advanceMessage, holdMs);
+    }, fadeMs);
   };
 
   if (reduceMotion || messageEls.length < 2) {
@@ -55,6 +47,6 @@ export function initChapter2Messages(reduceMotion: boolean): void {
   });
 
   window.setTimeout(() => {
-    scheduleNextMessage();
-  }, cycleMs);
+    advanceMessage();
+  }, fadeMs + holdMs);
 }

@@ -293,6 +293,17 @@
     margin-left: 0;
     margin-right: 0;
   }
+
+  .chapter-1-hero__subtext {
+    max-width: none;
+    width: max-content;
+  }
+
+  .chapter-1-hero__subline-one {
+    white-space: nowrap;
+    font-size: clamp(0.875rem, 3.2vw, 1rem);
+    letter-spacing: -0.01em;
+  }
 }
 
 @media (min-width: 640px) {

@@ -231,7 +231,7 @@
   }
 }
 
-/* Chapter 1 hero — mobile: center copy, clip sage top and bottom */
+/* Chapter 1 hero — mobile: desktop-like layout, clip sage top and bottom */
 @media (max-width: 639px) {
   .chapter-1-hero__sage {
     overflow: hidden;
@@ -242,6 +242,7 @@
     inset: 0;
     display: flex;
     align-items: center;
+    margin-left: -68%;
   }
 
   .chapter-1-hero__sage .sage-enter {
@@ -249,6 +250,26 @@
     min-height: 28rem;
     width: auto;
     max-width: none;
+  }
+
+  .chapter-1-hero__content {
+    margin-left: auto;
+    margin-right: 0;
+    max-width: min(19.5rem, 78vw);
+    text-align: right;
+  }
+
+  .chapter-1-hero h1 {
+    margin-left: auto;
+    margin-right: 0;
+    width: max-content;
+    max-width: none;
+  }
+
+  .chapter-1-hero .hero-line-one {
+    white-space: nowrap;
+    font-size: clamp(1rem, 3.55vw, 1.5rem);
+    letter-spacing: -0.02em;
   }
 }
 

@@ -58,7 +58,7 @@ const chapter3Cards = [
 >
   <!-- CHAPTER 1 — ARRIVAL -->
   <section
-    class="chapter-1-hero relative flex min-h-[calc(100svh-9rem)] items-center justify-center overflow-hidden bg-cream sm:min-h-[calc(100vh-8.5rem)] sm:items-stretch sm:justify-center sm:pb-24 sm:pt-[20vh] md:pt-[21vh]"
+    class="chapter-1-hero relative flex min-h-[calc(100svh-9rem)] items-center justify-end overflow-hidden bg-cream max-sm:px-4 sm:min-h-[calc(100vh-8.5rem)] sm:items-stretch sm:justify-center sm:px-0 sm:pb-24 sm:pt-[20vh] md:pt-[21vh]"
     aria-labelledby="chapter-1-heading"
   >
     <div class="hero-breathe pointer-events-none absolute inset-0 z-0" aria-hidden="true"></div>
@@ -67,7 +67,7 @@ const chapter3Cards = [
       class="chapter-1-hero__sage pointer-events-none absolute inset-0 z-0 select-none sm:inset-x-auto sm:left-0 sm:flex sm:items-center"
       aria-hidden="true"
     >
-      <div class="chapter-1-hero__sage-inner -ml-[32%] sm:-ml-[14%] sm:translate-y-8">
+      <div class="chapter-1-hero__sage-inner sm:-ml-[14%] sm:translate-y-8">
         <div id="sage-parallax" class="sage-parallax will-change-transform">
           <img
             src={siteConfig.logos.sageBotanicalHero}
@@ -83,11 +83,11 @@ const chapter3Cards = [
     </div>
 
     <div class="container-page relative z-10 sm:pl-[min(36vw,16rem)] md:pl-[min(32vw,18rem)] lg:pl-[min(28vw,20rem)]">
-      <div class="mx-auto max-w-[20rem] text-center sm:ml-auto sm:max-w-2xl lg:max-w-3xl">
+      <div class="chapter-1-hero__content sm:ml-auto sm:max-w-2xl lg:max-w-3xl">
         <HeroHeadline />
 
-        <div class="hero-fade hero-fade--rest">
-          <p class="mx-auto mt-8 max-w-[16rem] text-base leading-relaxed text-sage-dark/65 sm:mt-11 sm:max-w-md sm:text-xl">
+        <div class="hero-fade hero-fade--rest chapter-1-hero__rest">
+          <p class="mx-auto mt-8 max-w-[16rem] text-base leading-relaxed text-sage-dark/65 max-sm:mx-0 max-sm:ml-auto max-sm:text-right sm:mt-11 sm:max-w-md sm:text-xl">
             <span class="block">You’ve already taken the first step.</span>
             <span class="block">We’ll take the next ones together.</span>
           </p>
@@ -96,7 +96,7 @@ const chapter3Cards = [
             <BookingButton class="hero-cta" />
 
             <p
-              class="mx-auto mt-5 flex max-w-[15rem] flex-col items-center justify-center gap-y-2 text-[0.625rem] tracking-[0.05em] text-sage-dark/50 sm:mt-6 sm:max-w-xl sm:flex-row sm:flex-nowrap sm:gap-x-3 sm:gap-y-0 sm:overflow-x-auto sm:text-[0.6875rem] sm:tracking-[0.06em]"
+              class="chapter-1-hero__trust mx-auto mt-5 flex max-w-[15rem] flex-col items-center justify-center gap-y-2 text-[0.625rem] tracking-[0.05em] text-sage-dark/50 max-sm:mx-0 max-sm:ml-auto max-sm:items-end sm:mt-6 sm:max-w-xl sm:flex-row sm:flex-nowrap sm:items-center sm:gap-x-3 sm:gap-y-0 sm:overflow-x-auto sm:text-[0.6875rem] sm:tracking-[0.06em]"
               aria-label="Practice highlights"
             >
               <span class="inline-flex shrink-0 items-center gap-1 whitespace-nowrap">

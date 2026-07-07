@@ -233,6 +233,10 @@
 
 /* Chapter 1 hero — mobile: desktop-like layout, clip sage top and bottom */
 @media (max-width: 639px) {
+  .chapter-1-hero {
+    overflow-x: visible;
+  }
+
   .chapter-1-hero__sage {
     overflow: hidden;
   }
@@ -282,7 +286,7 @@
   .chapter-1-hero .hero-line-one,
   .chapter-1-hero .hero-line-two {
     width: 100%;
-    font-size: clamp(0.875rem, 3.9vw, 1.625rem);
+    font-size: 1.625rem;
     letter-spacing: -0.02em;
     text-align: right;
   }

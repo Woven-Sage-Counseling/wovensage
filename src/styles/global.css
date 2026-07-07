@@ -525,8 +525,6 @@
 
   .chapter-3__cta-line-one {
     white-space: nowrap;
-    font-size: clamp(0.75rem, 3.2vw, 1.0625rem);
-    letter-spacing: -0.01em;
   }
 }
 

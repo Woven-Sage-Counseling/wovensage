@@ -233,8 +233,22 @@
 
 /* Chapter 1 hero — mobile: desktop-like layout, clip sage top and bottom */
 @media (max-width: 639px) {
-  .chapter-1-hero {
+  main:has(.chapter-1-hero) {
     overflow-x: visible;
+  }
+
+  main:has(.chapter-1-hero) > .relative {
+    overflow: visible;
+  }
+
+  .chapter-1-hero {
+    overflow: visible;
+  }
+
+  .chapter-1-hero .container-page,
+  .chapter-1-hero__content,
+  .chapter-1-hero h1 {
+    overflow: visible;
   }
 
   .chapter-1-hero__sage {
@@ -285,14 +299,23 @@
 
   .chapter-1-hero .hero-line-one,
   .chapter-1-hero .hero-line-two {
-    width: 100%;
     font-size: 1.625rem;
     letter-spacing: -0.02em;
     text-align: right;
   }
 
   .chapter-1-hero .hero-line-one {
+    display: block;
+    width: max-content;
+    max-width: none;
+    margin-left: auto;
+    margin-right: 0;
     white-space: nowrap;
+    overflow: visible;
+  }
+
+  .chapter-1-hero .hero-line-two {
+    width: 100%;
   }
 
   .chapter-1-hero__cta-group {

@@ -279,11 +279,42 @@
     0 1px 1px rgb(36 35 32 / 0.08);
 }
 
+.chapter-2__messages {
+  display: grid;
+  grid-template-areas: 'stack';
+  text-align: center;
+}
+
+.chapter-2__message {
+  grid-area: stack;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  pointer-events: none;
+}
+
+.chapter-2__message.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .chapter-2__parallax {
     margin-top: 0;
     margin-bottom: 0;
     transform: none !important;
+  }
+
+  .chapter-2__message {
+    transition: none;
+  }
+
+  .chapter-2__message:not(:first-child) {
+    display: none;
+  }
+
+  .chapter-2__message:first-child {
+    opacity: 1;
   }
 }
 

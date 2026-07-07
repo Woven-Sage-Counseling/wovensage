@@ -8,6 +8,20 @@ import { siteConfig } from '../config/site';
  * Typography experiment: change variant in src/config/heroTypography.ts
  *   A = Editorial  |  B = Signature  |  C = Hybrid
  */
+const chapter2Messages = [
+  {
+    line1: 'Healing doesn’t always begin with answers.',
+    line2: 'Sometimes it begins with finally feeling safe enough to rest.',
+  },
+  {
+    line1: 'Healing doesn’t have to happen all at once.',
+    line2: 'Sometimes it begins with a single honest conversation.',
+  },
+  {
+    line1: 'Healing isn’t about having all the answers.',
+    line2: 'Sometimes it’s about asking for help.',
+  },
+];
 ---
 
 <BaseLayout
@@ -99,13 +113,23 @@ import { siteConfig } from '../config/site';
     <div class="chapter-2__grain pointer-events-none absolute inset-0" aria-hidden="true"></div>
 
     <div class="absolute inset-0 flex items-center justify-center px-6 py-12 sm:px-8">
-      <h2
-        id="chapter-2-heading"
-        class="chapter-2__heading max-w-3xl text-center font-display text-[1.75rem] font-normal leading-snug tracking-tight text-cream sm:text-[2.25rem] md:text-[2.75rem]"
-      >
-        <span class="block">Healing doesn’t always begin with answers.</span>
-        <span class="mt-3 block sm:mt-4">Sometimes it begins with finally feeling safe enough to rest.</span>
-      </h2>
+      <div id="chapter-2-messages" class="chapter-2__messages w-full max-w-3xl">
+        {
+          chapter2Messages.map((message, index) => (
+            <h2
+              id={index === 0 ? 'chapter-2-heading' : undefined}
+              class:list={[
+                'chapter-2__heading chapter-2__message text-center font-display text-[1.75rem] font-normal leading-snug tracking-tight text-cream sm:text-[2.25rem] md:text-[2.75rem]',
+              ]}
+              aria-hidden={index === 0 ? 'false' : 'true'}
+              data-message-index={index}
+            >
+              <span class="block">{message.line1}</span>
+              <span class="mt-3 block sm:mt-4">{message.line2}</span>
+            </h2>
+          ))
+        }
+      </div>
     </div>
   </section>
 
@@ -114,6 +138,8 @@ import { siteConfig } from '../config/site';
 </BaseLayout>
 
 <script>
+  import { initChapter2Messages } from '../scripts/chapter2-messages';
+
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const sageParallax = document.getElementById('sage-parallax');
@@ -152,4 +178,6 @@ import { siteConfig } from '../config/site';
     window.addEventListener('scroll', updateChapter2Parallax, { passive: true });
     window.addEventListener('resize', updateChapter2Parallax, { passive: true });
   }
+
+  initChapter2Messages(reduceMotion);
 </script>

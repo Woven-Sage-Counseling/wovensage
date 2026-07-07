@@ -621,6 +621,13 @@
 @media (max-width: 639px) {
   .chapter-3__card {
     padding: 1.6rem;
+    text-align: center;
+  }
+
+  .chapter-3__card-headline,
+  .chapter-3__card-category,
+  .chapter-3__card-description {
+    text-align: center;
   }
 }
 

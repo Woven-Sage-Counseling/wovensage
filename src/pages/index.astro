@@ -29,28 +29,24 @@ const chapter3Cards = [
     category: 'Anxiety & Stress',
     description:
       'Constant worry, overthinking, burnout, or feeling overwhelmed by life’s demands.',
-    layout: 'chapter-3__card--1',
   },
   {
     headline: ['When the past', 'still feels present.'],
     category: 'Trauma & Healing',
     description:
       'Processing difficult experiences, rebuilding safety, and moving forward at your own pace.',
-    layout: 'chapter-3__card--2',
   },
   {
     headline: ['When connection', 'feels complicated.'],
     category: 'Relationships',
     description:
       'Strengthening communication, repairing trust, or navigating life’s most important relationships.',
-    layout: 'chapter-3__card--3',
   },
   {
     headline: ['When life no longer', 'feels like yours.'],
     category: 'Life Transitions',
     description:
       'New beginnings, grief, identity, career changes, parenthood, or simply figuring out what’s next.',
-    layout: 'chapter-3__card--4',
   },
 ];
 ---
@@ -193,13 +189,12 @@ const chapter3Cards = [
         </p>
       </header>
 
-      <div class="chapter-3__grid mx-auto mt-16 max-w-6xl sm:mt-20">
+      <div class="chapter-3__grid mx-auto mt-16 grid max-w-5xl gap-5 sm:mt-20 sm:grid-cols-2 sm:gap-6 lg:gap-8">
         {
           chapter3Cards.map((card, index) => (
             <article
               class:list={[
                 'chapter-3__card scroll-reveal',
-                card.layout,
                 index % 2 === 1 ? 'scroll-reveal--delay-1' : '',
                 index >= 2 ? 'scroll-reveal--delay-2' : '',
               ]}

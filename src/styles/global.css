@@ -349,11 +349,6 @@
 }
 
 /* Chapter 3 — editorial belonging */
-.chapter-3__grid {
-  display: grid;
-  gap: 1.25rem;
-}
-
 .chapter-3__card {
   border-radius: 1.25rem;
   border: 1px solid rgb(185 181 174 / 0.28);
@@ -375,70 +370,16 @@
 }
 
 @media (min-width: 640px) {
-  .chapter-3__grid {
-    grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
-    grid-template-areas:
-      'card1 card2'
-      'card3 card4';
-    column-gap: 1.75rem;
-    row-gap: 1.5rem;
-  }
-
   .chapter-3__card {
-    padding: 2.35rem;
-  }
-
-  .chapter-3__card--1 {
-    grid-area: card1;
-    min-height: 16.5rem;
-  }
-
-  .chapter-3__card--2 {
-    grid-area: card2;
-    margin-top: 2.75rem;
-    min-height: 14.5rem;
-    padding-top: 2.15rem;
-    padding-bottom: 2.65rem;
-  }
-
-  .chapter-3__card--3 {
-    grid-area: card3;
-    margin-top: -0.5rem;
-    margin-right: 0.75rem;
-    min-height: 15.25rem;
-  }
-
-  .chapter-3__card--4 {
-    grid-area: card4;
-    margin-top: 1.25rem;
-    min-height: 17.5rem;
-    padding: 2.65rem 2.85rem;
+    padding: 2.5rem;
+    min-height: 16rem;
   }
 }
 
 @media (min-width: 1024px) {
-  .chapter-3__grid {
-    column-gap: 2.25rem;
-    row-gap: 2rem;
-  }
-
   .chapter-3__card {
-    padding: 2.65rem;
-  }
-
-  .chapter-3__card--2 {
-    margin-top: 3.5rem;
-  }
-
-  .chapter-3__card--3 {
-    margin-top: -1rem;
-    margin-right: 1.25rem;
-  }
-
-  .chapter-3__card--4 {
-    margin-top: 1.75rem;
-    min-height: 18.5rem;
-    padding: 3rem 3.15rem;
+    padding: 2.75rem;
+    min-height: 16.5rem;
   }
 }
 
@@ -456,13 +397,6 @@
   .chapter-3__card:hover {
     transform: none;
     box-shadow: 0 6px 22px rgb(58 58 56 / 0.045);
-  }
-
-  .chapter-3__card--2,
-  .chapter-3__card--3,
-  .chapter-3__card--4 {
-    margin-top: 0;
-    margin-right: 0;
   }
 }
 

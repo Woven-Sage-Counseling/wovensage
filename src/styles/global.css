@@ -1135,26 +1135,9 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   gap: 0;
 }
 
-.why-name__part--woven {
-  width: 100%;
-}
-
+.why-name__part--woven,
 .why-name__part--sage {
   width: 100%;
-}
-
-@media (min-width: 640px) {
-  .why-name__part--woven {
-    width: 86%;
-    margin-right: auto;
-    padding-right: 6%;
-  }
-
-  .why-name__part--sage {
-    width: 86%;
-    margin-left: auto;
-    padding-left: 6%;
-  }
 }
 
 .why-name__divider {
@@ -1171,10 +1154,33 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   );
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
+  .why-name__parts {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 2.5rem;
+  }
+
+  .why-name__part--woven,
+  .why-name__part--sage {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+
   .why-name__divider {
-    width: min(6rem, 22%);
-    margin: 2.75rem 0 2.75rem 8%;
+    width: 1px;
+    height: auto;
+    min-height: 100%;
+    margin: 0;
+    align-self: stretch;
+    background: linear-gradient(
+      to bottom,
+      rgb(185 181 174 / 0.12),
+      rgb(185 181 174 / 0.5) 18%,
+      rgb(185 181 174 / 0.5) 82%,
+      rgb(185 181 174 / 0.12)
+    );
   }
 }
 

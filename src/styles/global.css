@@ -1014,6 +1014,61 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   border-top: 1px solid rgb(185 181 174 / 0.22);
 }
 
+.why-promise__grid {
+  display: grid;
+  gap: 2.5rem 2rem;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 640px) {
+  .why-promise__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3.5rem 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-promise__grid {
+    gap: 4rem 4.5rem;
+  }
+}
+
+.why-promise__item {
+  margin: 0;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgb(185 181 174 / 0.35);
+}
+
+@media (min-width: 640px) {
+  .why-promise__item {
+    padding-top: 2rem;
+  }
+}
+
+.why-promise__text {
+  margin: 0;
+  font-family: theme('fontFamily.display');
+  font-size: 1.35rem;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: -0.015em;
+  color: #2e2d2a;
+}
+
+@media (min-width: 640px) {
+  .why-promise__text {
+    font-size: 1.5rem;
+    line-height: 1.42;
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-promise__text {
+    font-size: 1.625rem;
+  }
+}
+
 /* Abstract botanical background pattern */
 .bg-nature {
   background-color: theme('colors.cream.DEFAULT');

@@ -8,6 +8,13 @@ const beliefPairs = [
   { less: 'Less perfection.', more: 'More progress.' },
   { less: 'Less pretending.', more: 'More honesty.' },
 ] as const;
+
+const promises = [
+  "We'll meet you where you are.",
+  "We'll move at your pace.",
+  "We'll listen before we lead.",
+  "We'll make space for every part of your story.",
+] as const;
 ---
 
 <BaseLayout
@@ -136,6 +143,36 @@ const beliefPairs = [
             Together, the name is less a promise and more a direction — toward strength woven from
             many threads, and growth that does not rush to explain itself.
           </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Promise -->
+    <section class="why-promise why-section bg-cream" aria-labelledby="why-promise-heading">
+      <div class="container-page">
+        <div class="why-promise__inner mx-auto max-w-4xl">
+          <h2
+            id="why-promise-heading"
+            class="scroll-reveal why-promise__title text-center font-display text-[1.75rem] font-normal tracking-tight text-[#2E2D2A] sm:text-[2.125rem]"
+          >
+            Our Promise
+          </h2>
+
+          <ul class="why-promise__grid mt-16 sm:mt-20" role="list">
+            {
+              promises.map((promise, index) => (
+                <li
+                  class:list={[
+                    'why-promise__item scroll-reveal',
+                    index % 2 === 1 ? 'scroll-reveal--delay-1' : '',
+                    index >= 2 ? 'scroll-reveal--delay-2' : '',
+                  ]}
+                >
+                  <p class="why-promise__text">{promise}</p>
+                </li>
+              ))
+            }
+          </ul>
         </div>
       </div>
     </section>

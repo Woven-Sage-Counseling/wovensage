@@ -676,12 +676,26 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 }
 
 .why-hero__kicker {
-  margin-bottom: 1.25rem;
+  position: absolute;
+  top: 2.75rem;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  margin: 0;
+  text-align: center;
+  padding-inline: 1.25rem;
 }
 
 @media (min-width: 640px) {
   .why-hero__kicker {
-    margin-bottom: 1.5rem;
+    top: 3.25rem;
+    padding-inline: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-hero__kicker {
+    top: 3.5rem;
   }
 }
 
@@ -907,7 +921,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .why-hero {
   min-height: min(88vh, 52rem);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .why-hero__grain {
@@ -924,18 +938,18 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 }
 
 .why-hero__inner {
-  padding-block: 3.75rem 5.5rem;
+  padding-block: 6.5rem 5.5rem;
 }
 
 @media (min-width: 640px) {
   .why-hero__inner {
-    padding-block: 4.75rem 7rem;
+    padding-block: 8.5rem 7rem;
   }
 }
 
 @media (min-width: 1024px) {
   .why-hero__inner {
-    padding-block: 5.25rem 8rem;
+    padding-block: 9.5rem 8rem;
   }
 }
 

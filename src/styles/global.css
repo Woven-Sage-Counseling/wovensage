@@ -418,15 +418,13 @@
   }
 
   .chapter-1-hero__content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: min(58vh, 34rem);
-    text-align: center;
+    margin-right: 0;
+    text-align: right;
   }
 
   .chapter-1-hero h1 {
-    margin-inline: auto;
+    margin-inline: 0;
+    margin-left: auto;
     width: fit-content;
     max-width: 100%;
   }
@@ -435,26 +433,26 @@
   .chapter-1-hero .hero-line-two {
     width: auto;
     max-width: 100%;
-    text-align: center;
+    text-align: right;
   }
 
   .chapter-1-hero__rest {
     display: flex;
-    flex: 1;
     flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    width: 100%;
+    align-items: flex-end;
+    margin-left: auto;
+    width: auto;
     max-width: 100%;
-    padding-top: 3rem;
   }
 
   .chapter-1-hero__subtext {
     display: block;
+    align-items: stretch;
+    align-self: auto;
     width: auto;
     max-width: 28rem;
-    margin-inline: auto;
-    text-align: center;
+    margin-inline: 0;
+    text-align: right;
   }
 
   .chapter-1-hero__subtext .block {
@@ -469,14 +467,14 @@
   .chapter-1-hero__cta-group {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     width: 100%;
-    margin-inline: auto;
+    margin-inline: 0;
   }
 
   .chapter-1-hero__trust {
-    margin-inline: auto;
-    justify-content: center;
+    margin-inline: 0;
+    justify-content: flex-end;
   }
 }
 

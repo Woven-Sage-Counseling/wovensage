@@ -933,6 +933,10 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   }
 }
 
+.why-hero__copy p + p:not(.why-hero__copy-close) {
+  margin-top: 1.15rem;
+}
+
 .why-hero__copy-close {
   margin-top: 1.75rem;
   color: rgb(152 169 149 / 0.88);

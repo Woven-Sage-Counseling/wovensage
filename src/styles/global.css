@@ -670,9 +670,19 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .why-kicker {
   font-size: 0.5625rem;
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #98a995;
+  color: rgb(152 169 149 / 0.78);
+}
+
+.why-hero__kicker {
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .why-hero__kicker {
+    margin-bottom: 1.5rem;
+  }
 }
 
 .why-section {

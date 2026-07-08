@@ -907,7 +907,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .why-hero {
   min-height: min(88vh, 52rem);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .why-hero__grain {
@@ -924,18 +924,18 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 }
 
 .why-hero__inner {
-  padding-block: 6.5rem 5.5rem;
+  padding-block: 3.75rem 5.5rem;
 }
 
 @media (min-width: 640px) {
   .why-hero__inner {
-    padding-block: 8.5rem 7rem;
+    padding-block: 4.75rem 7rem;
   }
 }
 
 @media (min-width: 1024px) {
   .why-hero__inner {
-    padding-block: 9.5rem 8rem;
+    padding-block: 5.25rem 8rem;
   }
 }
 

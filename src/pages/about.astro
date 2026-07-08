@@ -71,18 +71,22 @@ const promises = [
     </section>
 
     <!-- What we believe -->
-    <section class="why-beliefs" aria-labelledby="why-beliefs-heading">
+    <section id="why-beliefs" class="why-beliefs" aria-labelledby="why-beliefs-heading">
       <div class="why-beliefs__frame">
-        <img
-          class="why-beliefs__image"
-          src="/images/sage-leaves-beliefs.jpg"
-          alt=""
-          width={1024}
-          height={560}
-          loading="eager"
-          fetchpriority="low"
-          decoding="async"
-        />
+        <div class="why-beliefs__media">
+          <div id="why-beliefs-parallax" class="why-beliefs__parallax">
+            <img
+              class="why-beliefs__image"
+              src="/images/sage-leaves-beliefs.jpg"
+              alt=""
+              width={1024}
+              height={560}
+              loading="eager"
+              fetchpriority="low"
+              decoding="async"
+            />
+          </div>
+        </div>
 
         <div class="why-beliefs__content">
           <div class="container-page">
@@ -226,6 +230,28 @@ const promises = [
     import { initScrollReveal } from '../scripts/scroll-reveal';
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const whyBeliefs = document.getElementById('why-beliefs');
+    const whyBeliefsParallax = document.getElementById('why-beliefs-parallax');
+
+    if (whyBeliefs && whyBeliefsParallax && !reduceMotion) {
+      const maxShiftPx = 16;
+
+      const updateWhyBeliefsParallax = () => {
+        const rect = whyBeliefs.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const progress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
+        const clamped = Math.min(Math.max(progress, 0), 1);
+        const offset = (clamped - 0.5) * maxShiftPx * 2;
+
+        whyBeliefsParallax.style.transform = `translate3d(0, ${offset.toFixed(2)}px, 0)`;
+      };
+
+      updateWhyBeliefsParallax();
+      window.addEventListener('scroll', updateWhyBeliefsParallax, { passive: true });
+      window.addEventListener('resize', updateWhyBeliefsParallax, { passive: true });
+    }
+
     initScrollReveal(reduceMotion);
   </script>
 </BaseLayout>

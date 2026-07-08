@@ -226,7 +226,7 @@
     transform: translateX(-4rem);
   }
   to {
-    opacity: 0.18;
+    opacity: 0.15;
     transform: translateX(0);
   }
 }
@@ -443,7 +443,7 @@
 
 @media (prefers-reduced-motion: reduce) and (max-width: 639px) {
   .chapter-1-hero__sage .sage-enter {
-    opacity: 0.18;
+    opacity: 0.15;
   }
 
   .chapter-1-hero .hero-fade,

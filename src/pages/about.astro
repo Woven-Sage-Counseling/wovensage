@@ -64,9 +64,10 @@ const promises = [
     </section>
 
     <!-- What we believe -->
-    <section class="why-beliefs why-section relative overflow-hidden" aria-labelledby="why-beliefs-heading">
-      <div class="why-beliefs__bg" aria-hidden="true">
+    <section class="why-beliefs" aria-labelledby="why-beliefs-heading">
+      <div class="why-beliefs__frame">
         <img
+          class="why-beliefs__image"
           src="/images/sage-leaves-beliefs.jpg"
           alt=""
           width={1024}
@@ -75,31 +76,31 @@ const promises = [
           fetchpriority="low"
           decoding="async"
         />
-      </div>
-      <div class="why-beliefs__scrim" aria-hidden="true"></div>
-      <div class="why-beliefs__vignette" aria-hidden="true"></div>
 
-      <div class="container-page relative z-10">
-        <div class="why-beliefs__inner mx-auto max-w-xl text-center">
-          <h2 id="why-beliefs-heading" class="scroll-reveal why-beliefs__title font-display text-[1.75rem] font-normal tracking-tight text-[#2E2D2A] sm:text-[2.125rem]">
-            What we believe.
-          </h2>
+        <div class="why-beliefs__content">
+          <div class="container-page">
+            <div class="why-beliefs__inner mx-auto max-w-xl text-center">
+              <h2 id="why-beliefs-heading" class="scroll-reveal why-beliefs__title font-display text-[1.75rem] font-normal tracking-tight text-[#2E2D2A] sm:text-[2.125rem]">
+                What we believe.
+              </h2>
 
-          <div class="why-beliefs__list mt-12 sm:mt-14" role="list">
-            {
-              beliefPairs.map((pair, index) => (
-                <div
-                  class:list={[
-                    'why-beliefs__pair scroll-reveal',
-                    index > 0 ? 'scroll-reveal--delay-1' : '',
-                  ]}
-                  role="listitem"
-                >
-                  <p class="why-beliefs__less">{pair.less}</p>
-                  <p class="why-beliefs__more">{pair.more}</p>
-                </div>
-              ))
-            }
+              <div class="why-beliefs__list mt-12 sm:mt-14" role="list">
+                {
+                  beliefPairs.map((pair, index) => (
+                    <div
+                      class:list={[
+                        'why-beliefs__pair scroll-reveal',
+                        index > 0 ? 'scroll-reveal--delay-1' : '',
+                      ]}
+                      role="listitem"
+                    >
+                      <p class="why-beliefs__less">{pair.less}</p>
+                      <p class="why-beliefs__more">{pair.more}</p>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
           </div>
         </div>
       </div>

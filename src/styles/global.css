@@ -418,13 +418,15 @@
   }
 
   .chapter-1-hero__content {
-    margin-right: 0;
-    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: min(58vh, 34rem);
+    text-align: center;
   }
 
   .chapter-1-hero h1 {
-    margin-inline: 0;
-    margin-left: auto;
+    margin-inline: auto;
     width: fit-content;
     max-width: 100%;
   }
@@ -433,26 +435,26 @@
   .chapter-1-hero .hero-line-two {
     width: auto;
     max-width: 100%;
-    text-align: right;
+    text-align: center;
   }
 
   .chapter-1-hero__rest {
     display: flex;
+    flex: 1;
     flex-direction: column;
-    align-items: flex-end;
-    margin-left: auto;
-    width: auto;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
     max-width: 100%;
+    padding-top: 3rem;
   }
 
   .chapter-1-hero__subtext {
     display: block;
-    align-items: stretch;
-    align-self: auto;
     width: auto;
     max-width: 28rem;
-    margin-inline: 0;
-    text-align: right;
+    margin-inline: auto;
+    text-align: center;
   }
 
   .chapter-1-hero__subtext .block {
@@ -467,14 +469,14 @@
   .chapter-1-hero__cta-group {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
     width: 100%;
-    margin-inline: 0;
+    margin-inline: auto;
   }
 
   .chapter-1-hero__trust {
-    margin-inline: 0;
-    justify-content: flex-end;
+    margin-inline: auto;
+    justify-content: center;
   }
 }
 

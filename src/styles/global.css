@@ -306,31 +306,27 @@
   }
 
   .chapter-1-hero .container-page {
-    margin-left: auto;
-    margin-right: 0;
+    margin-inline: auto;
     width: 100%;
     max-width: none;
-    padding-left: min(40vw, 10.5rem);
-    padding-right: 0.75rem;
+    padding-inline: 1.25rem;
   }
 
   .chapter-1-hero__content {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    margin-left: auto;
-    margin-right: 0;
+    align-items: center;
+    margin-inline: auto;
     width: 100%;
     max-width: 100%;
-    text-align: right;
+    text-align: center;
   }
 
   .chapter-1-hero h1 {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    margin-left: 0;
-    margin-right: 0;
+    align-items: center;
+    margin-inline: auto;
     width: 100%;
     max-width: 100%;
   }
@@ -342,7 +338,7 @@
     margin: 0;
     font-size: 2rem;
     letter-spacing: -0.02em;
-    text-align: right;
+    text-align: center;
   }
 
   .chapter-1-hero .hero-line-one {
@@ -356,20 +352,19 @@
     align-items: center;
     width: max-content;
     max-width: 100%;
-    margin-left: auto;
-    margin-right: 0;
+    margin-inline: auto;
   }
 
   .chapter-1-hero__subtext {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    align-self: flex-end;
+    align-items: center;
+    align-self: center;
     width: max-content;
     max-width: 100%;
     margin-top: 1.5rem;
-    margin-left: 0;
-    margin-right: 0;
+    margin-inline: auto;
+    text-align: center;
   }
 
   .chapter-1-hero__subtext .block {

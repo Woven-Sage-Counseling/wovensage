@@ -54,8 +54,10 @@ export const siteConfig = {
 
   social: {
     psychologyToday: '',
-    instagram: '',
     linkedin: '',
+    instagram: '',
+    tiktok: '',
+    facebook: '',
   },
 
   team: {
@@ -123,4 +125,11 @@ export const footerLinks = [
   { href: '/careers', label: 'Careers' },
   { href: '/wsp', label: 'WSP App' },
   { href: '/privacy', label: 'Privacy Policy' },
+] as const;
+
+export const socialLinks = [
+  { key: 'linkedin', label: 'LinkedIn' },
+  { key: 'instagram', label: 'Instagram' },
+  { key: 'tiktok', label: 'TikTok' },
+  { key: 'facebook', label: 'Facebook' },
 ] as const;

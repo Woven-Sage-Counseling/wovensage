@@ -1,6 +1,7 @@
 ---
 import { siteConfig, footerLinks } from '../config/site';
 import PsychologyTodayBadge from './PsychologyTodayBadge.astro';
+import SocialLinks from './SocialLinks.astro';
 import WelcomeHereBadge from './WelcomeHereBadge.astro';
 ---
 
@@ -24,6 +25,12 @@ import WelcomeHereBadge from './WelcomeHereBadge.astro';
         <div class="mt-6 flex flex-wrap items-center gap-8 sm:gap-10">
           <PsychologyTodayBadge />
           <WelcomeHereBadge />
+        </div>
+        <div class="mt-8">
+          <p class="text-sm font-semibold uppercase tracking-wider text-cream/60">Follow</p>
+          <div class="mt-4">
+            <SocialLinks />
+          </div>
         </div>
       </div>
 

@@ -779,6 +779,70 @@
   background-color: rgb(152 169 149 / 0.65);
 }
 
+.why-beliefs {
+  padding-block: 5.5rem;
+}
+
+@media (min-width: 640px) {
+  .why-beliefs {
+    padding-block: 7rem;
+  }
+}
+
+.why-beliefs__list {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+@media (min-width: 640px) {
+  .why-beliefs__list {
+    gap: 4.5rem;
+  }
+}
+
+.why-beliefs__pair {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+@media (min-width: 640px) {
+  .why-beliefs__pair {
+    gap: 0.75rem;
+  }
+}
+
+.why-beliefs__less {
+  margin: 0;
+  font-family: theme('fontFamily.display');
+  font-size: 1.35rem;
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: rgb(111 127 108 / 0.52);
+}
+
+.why-beliefs__more {
+  margin: 0;
+  font-family: theme('fontFamily.display');
+  font-size: 1.65rem;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: #2e2d2a;
+}
+
+@media (min-width: 640px) {
+  .why-beliefs__less {
+    font-size: 1.5rem;
+  }
+
+  .why-beliefs__more {
+    font-size: 1.875rem;
+  }
+}
+
 .why-hero {
   min-height: min(88vh, 52rem);
   display: flex;

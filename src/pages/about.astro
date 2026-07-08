@@ -2,6 +2,12 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BookingButton from '../components/BookingButton.astro';
 import { siteConfig } from '../config/site';
+const beliefPairs = [
+  { less: 'Less pressure.', more: 'More presence.' },
+  { less: 'Less judgment.', more: 'More curiosity.' },
+  { less: 'Less perfection.', more: 'More progress.' },
+  { less: 'Less pretending.', more: 'More honesty.' },
+] as const;
 ---
 
 <BaseLayout
@@ -51,45 +57,30 @@ import { siteConfig } from '../config/site';
       </div>
     </section>
 
-    <!-- Essay: the gap -->
-    <section class="why-section bg-cream" aria-labelledby="why-gap-heading">
+    <!-- What we believe -->
+    <section class="why-beliefs why-section bg-cream" aria-labelledby="why-beliefs-heading">
       <div class="container-page">
-        <div class="why-essay mx-auto max-w-2xl">
-          <p class="scroll-reveal why-lead">
-            Something in you brought you here. Maybe it’s a weight you’ve carried too long. Maybe it’s
-            a relationship that keeps circling the same painful place. Maybe you simply need somewhere
-            quiet to think — out loud, with someone who won’t hurry you toward a fix.
-          </p>
-
-          <h2 id="why-gap-heading" class="scroll-reveal why-heading mt-16 sm:mt-20">
-            The room most people are looking for
+        <div class="why-beliefs__inner mx-auto max-w-xl text-center">
+          <h2 id="why-beliefs-heading" class="scroll-reveal why-beliefs__title font-display text-[1.75rem] font-normal tracking-tight text-[#2E2D2A] sm:text-[2.125rem]">
+            What we believe.
           </h2>
 
-          <p class="scroll-reveal">
-            By the time someone reaches out, they’ve usually been holding it together for a while.
-            They’ve explained themselves to partners, managers, friends. They’ve tried to reason
-            through feelings that don’t respond to reason. They’ve wondered — more than once —
-            whether they’re asking for too much, or whether anyone would understand if they said the
-            truth out loud.
-          </p>
-
-          <p class="scroll-reveal">
-            Woven Sage exists because that experience is more common than people admit. And because
-            therapy, as it’s often delivered — hurried, impersonal, reduced to a label and a
-            protocol — doesn’t always meet people where they actually are.
-          </p>
-
-          <blockquote class="scroll-reveal why-pullquote">
-            <p>
-              We wanted something slower. More attentive. A place where the relationship itself is
-              treated as the work — not a formality on the way to something else.
-            </p>
-          </blockquote>
-
-          <p class="scroll-reveal">
-            That’s the gap Woven Sage was built to fill. Not to be the loudest practice in South
-            Florida. To be a practice where showing up honestly is enough to begin.
-          </p>
+          <div class="why-beliefs__list mt-16 sm:mt-20" role="list">
+            {
+              beliefPairs.map((pair, index) => (
+                <div
+                  class:list={[
+                    'why-beliefs__pair scroll-reveal',
+                    index > 0 ? 'scroll-reveal--delay-1' : '',
+                  ]}
+                  role="listitem"
+                >
+                  <p class="why-beliefs__less">{pair.less}</p>
+                  <p class="why-beliefs__more">{pair.more}</p>
+                </div>
+              ))
+            }
+          </div>
         </div>
       </div>
     </section>

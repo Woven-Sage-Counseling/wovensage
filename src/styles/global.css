@@ -1137,7 +1137,50 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .why-name__part--woven,
 .why-name__part--sage {
+  position: relative;
+  isolation: isolate;
   width: 100%;
+}
+
+.why-name__part--woven > *,
+.why-name__part--sage > * {
+  position: relative;
+  z-index: 1;
+}
+
+.why-name__part--woven::before {
+  content: '';
+  position: absolute;
+  inset: -0.35rem -0.65rem;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.038;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgb(152 169 149 / 0.7) 0 0.5px,
+      transparent 0.5px 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgb(152 169 149 / 0.7) 0 0.5px,
+      transparent 0.5px 4px
+    );
+  background-size: 4px 4px;
+  -webkit-mask-image: radial-gradient(ellipse 88% 78% at 46% 42%, #000 18%, transparent 74%);
+  mask-image: radial-gradient(ellipse 88% 78% at 46% 42%, #000 18%, transparent 74%);
+}
+
+.why-name__part--sage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.048;
+  background: url('/images/logo-leaf.png') no-repeat 88% 6% / min(40%, 9.5rem);
+  -webkit-mask-image: radial-gradient(ellipse 72% 62% at 80% 22%, #000 14%, transparent 72%);
+  mask-image: radial-gradient(ellipse 72% 62% at 80% 22%, #000 14%, transparent 72%);
 }
 
 .why-name__divider {

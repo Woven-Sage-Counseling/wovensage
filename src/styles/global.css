@@ -451,8 +451,8 @@
     align-self: auto;
     width: auto;
     max-width: 28rem;
-    margin-inline: 0;
-    text-align: right;
+    margin-inline: auto;
+    text-align: center;
   }
 
   .chapter-1-hero__subtext .block {
@@ -467,14 +467,14 @@
   .chapter-1-hero__cta-group {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
     width: 100%;
-    margin-inline: 0;
+    margin-inline: auto;
   }
 
   .chapter-1-hero__trust {
-    margin-inline: 0;
-    justify-content: flex-end;
+    margin-inline: auto;
+    justify-content: center;
   }
 }
 

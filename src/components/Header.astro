@@ -7,7 +7,7 @@ const currentPath = Astro.url.pathname;
 ---
 
 <header class="sticky top-0 z-50 border-b border-accent/15 bg-cream/75 backdrop-blur-sm">
-  <div class="site-header__inner container-page flex items-center justify-between gap-3">
+  <div class="container-page flex h-10 items-center justify-between gap-3 sm:h-11">
     <a href="/" class="group flex shrink-0 items-center opacity-90 transition hover:opacity-100">
       <Logo variant="text" />
       <span class="sr-only">{siteConfig.name}</span>
@@ -19,7 +19,7 @@ const currentPath = Astro.url.pathname;
           <a
             href={link.href}
             class:list={[
-              'site-header__nav-link font-normal leading-none tracking-wide transition-colors',
+              'text-[0.8125rem] font-normal leading-none tracking-wide transition-colors',
               currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href + '/'))
                 ? 'text-sage-dark/85'
                 : 'text-sage-dark/50 hover:text-sage-dark/75',
@@ -42,7 +42,7 @@ const currentPath = Astro.url.pathname;
         aria-expanded="false"
         aria-controls="mobile-menu"
       >
-        <svg class="site-header__menu-btn" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
         </svg>
       </button>
@@ -56,7 +56,7 @@ const currentPath = Astro.url.pathname;
           <a
             href={link.href}
             class:list={[
-              'site-header__menu-link rounded-md px-2.5 py-2 font-normal tracking-wide',
+              'rounded-md px-2.5 py-2 text-sm font-normal tracking-wide',
               currentPath === link.href
                 ? 'text-sage-dark/85'
                 : 'text-sage-dark/55 hover:bg-sage-light/25 hover:text-sage-dark/75',

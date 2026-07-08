@@ -35,32 +35,7 @@
   }
 
   .header-cta.btn-primary {
-    padding: 0.3975rem 0.9275rem;
-    font-size: 0.6625rem;
-    @apply font-medium leading-tight shadow-none;
-  }
-
-  .site-header__inner {
-    height: 2.65rem;
-  }
-
-  @media (min-width: 640px) {
-    .site-header__inner {
-      height: 2.915rem;
-    }
-  }
-
-  .site-header__nav-link {
-    font-size: 0.86125rem;
-  }
-
-  .site-header__menu-link {
-    font-size: 0.9275rem;
-  }
-
-  .site-header__menu-btn {
-    width: 1.325rem;
-    height: 1.325rem;
+    @apply px-3.5 py-1.5 text-[0.625rem] font-medium leading-tight shadow-none;
   }
 
   /* Homepage hero CTA — soft, Apple-like */
@@ -126,8 +101,8 @@
   /* Crop baked-in padding from square JPEG logos */
   .logo-header {
     @apply flex shrink-0 items-center;
-    height: 1.12625rem;
-    max-width: min(156.88px, 40.28vw);
+    height: 1.0625rem;
+    max-width: min(148px, 38vw);
   }
 
   .logo-header img {
@@ -136,14 +111,14 @@
 
   @media (min-width: 640px) {
     .logo-header {
-      height: 1.25875rem;
+      height: 1.1875rem;
       max-width: none;
     }
   }
 
   @media (min-width: 1024px) {
     .logo-header {
-      height: 1.325rem;
+      height: 1.25rem;
     }
   }
 

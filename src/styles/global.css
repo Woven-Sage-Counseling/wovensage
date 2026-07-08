@@ -1148,39 +1148,50 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   z-index: 1;
 }
 
-.why-name__part--woven::before {
-  content: '';
+.why-name__texture {
   position: absolute;
-  inset: -0.35rem -0.65rem;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.038;
+}
+
+.why-name__texture--woven {
+  inset: 0.25rem 0;
+  background-color: rgb(152 169 149 / 0.025);
   background-image:
     repeating-linear-gradient(
+      45deg,
+      rgb(152 169 149 / 0.28) 0 1px,
+      transparent 1px 8px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgb(152 169 149 / 0.22) 0 1px,
+      transparent 1px 8px
+    ),
+    repeating-linear-gradient(
       0deg,
-      rgb(152 169 149 / 0.7) 0 0.5px,
-      transparent 0.5px 4px
+      rgb(185 181 174 / 0.16) 0 1px,
+      transparent 1px 10px
     ),
     repeating-linear-gradient(
       90deg,
-      rgb(152 169 149 / 0.7) 0 0.5px,
-      transparent 0.5px 4px
+      rgb(185 181 174 / 0.14) 0 1px,
+      transparent 1px 10px
     );
-  background-size: 4px 4px;
-  -webkit-mask-image: radial-gradient(ellipse 88% 78% at 46% 42%, #000 18%, transparent 74%);
-  mask-image: radial-gradient(ellipse 88% 78% at 46% 42%, #000 18%, transparent 74%);
+  -webkit-mask-image: radial-gradient(ellipse 94% 88% at 50% 46%, #000 35%, transparent 92%);
+  mask-image: radial-gradient(ellipse 94% 88% at 50% 46%, #000 35%, transparent 92%);
 }
 
-.why-name__part--sage::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.048;
-  background: url('/images/logo-leaf.png') no-repeat 88% 6% / min(40%, 9.5rem);
-  -webkit-mask-image: radial-gradient(ellipse 72% 62% at 80% 22%, #000 14%, transparent 72%);
-  mask-image: radial-gradient(ellipse 72% 62% at 80% 22%, #000 14%, transparent 72%);
+.why-name__texture--sage {
+  right: -10%;
+  top: 50%;
+  width: min(82%, 16.5rem);
+  height: auto;
+  max-width: none;
+  transform: translateY(-46%);
+  opacity: 0.11;
+  -webkit-mask-image: radial-gradient(ellipse 72% 68% at 68% 50%, #000 30%, transparent 88%);
+  mask-image: radial-gradient(ellipse 72% 68% at 68% 50%, #000 30%, transparent 88%);
 }
 
 .why-name__divider {

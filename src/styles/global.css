@@ -923,7 +923,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .why-hero__copy {
   font-size: 1.0625rem;
   line-height: 1.8;
-  color: rgb(90 104 88 / 0.92);
+  color: #98a995;
 }
 
 @media (min-width: 640px) {
@@ -935,7 +935,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .why-hero__copy-close {
   margin-top: 1.75rem;
-  color: rgb(90 104 88 / 0.82);
+  color: rgb(152 169 149 / 0.88);
 }
 
 @media (min-width: 640px) {

@@ -806,28 +806,6 @@
   max-height: 85vh;
 }
 
-.why-interlude {
-  min-height: 22rem;
-}
-
-@media (min-width: 640px) {
-  .why-interlude {
-    min-height: 26rem;
-  }
-}
-
-.why-interlude__media {
-  position: absolute;
-  inset: 0;
-}
-
-.why-interlude__media img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  object-position: center 42%;
-}
-
 .why-name-card {
   padding: 2rem 0;
   border-top: 1px solid rgb(185 181 174 / 0.35);

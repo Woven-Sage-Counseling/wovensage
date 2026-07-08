@@ -1130,68 +1130,36 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 }
 
 .why-name__parts {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0;
 }
 
-.why-name__part--woven,
-.why-name__part--sage {
-  position: relative;
-  isolation: isolate;
-  width: 100%;
-}
-
-.why-name__part--woven > *,
-.why-name__part--sage > * {
-  position: relative;
-  z-index: 1;
-}
-
-.why-name__texture {
+.why-name__emblem {
   position: absolute;
+  left: 50%;
+  top: 50%;
   z-index: 0;
+  width: 4.5rem;
+  height: auto;
+  transform: translate(-50%, -50%);
+  opacity: 0.17;
   pointer-events: none;
 }
 
-.why-name__texture--woven {
-  inset: 0.25rem 0;
-  background-color: rgb(152 169 149 / 0.025);
-  background-image:
-    repeating-linear-gradient(
-      45deg,
-      rgb(152 169 149 / 0.28) 0 1px,
-      transparent 1px 8px
-    ),
-    repeating-linear-gradient(
-      -45deg,
-      rgb(152 169 149 / 0.22) 0 1px,
-      transparent 1px 8px
-    ),
-    repeating-linear-gradient(
-      0deg,
-      rgb(185 181 174 / 0.16) 0 1px,
-      transparent 1px 10px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgb(185 181 174 / 0.14) 0 1px,
-      transparent 1px 10px
-    );
-  -webkit-mask-image: radial-gradient(ellipse 94% 88% at 50% 46%, #000 35%, transparent 92%);
-  mask-image: radial-gradient(ellipse 94% 88% at 50% 46%, #000 35%, transparent 92%);
+@media (min-width: 640px) {
+  .why-name__emblem {
+    width: 5.25rem;
+    opacity: 0.19;
+  }
 }
 
-.why-name__texture--sage {
-  right: -10%;
-  top: 50%;
-  width: min(82%, 16.5rem);
-  height: auto;
-  max-width: none;
-  transform: translateY(-46%);
-  opacity: 0.11;
-  -webkit-mask-image: radial-gradient(ellipse 72% 68% at 68% 50%, #000 30%, transparent 88%);
-  mask-image: radial-gradient(ellipse 72% 68% at 68% 50%, #000 30%, transparent 88%);
+.why-name__part--woven,
+.why-name__part--sage {
+  position: relative;
+  z-index: 1;
+  width: 100%;
 }
 
 .why-name__divider {

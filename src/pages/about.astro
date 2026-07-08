@@ -202,11 +202,11 @@ const beliefPairs = [
       </div>
     </section>
   </article>
+
+  <script>
+    import { initScrollReveal } from '../scripts/scroll-reveal';
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    initScrollReveal(reduceMotion);
+  </script>
 </BaseLayout>
-
-<script>
-  import { initScrollReveal } from '../scripts/scroll-reveal';
-
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  initScrollReveal(reduceMotion);
-</script>

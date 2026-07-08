@@ -562,8 +562,13 @@
   }
 }
 
-/* Scroll reveal — subtle fade-in on enter */
+/* Scroll reveal — visible by default; animate only once JS is ready */
 .scroll-reveal {
+  opacity: 1;
+  transform: none;
+}
+
+html.scroll-reveal-enabled .scroll-reveal:not(.is-visible) {
   opacity: 0;
   transform: translateY(1.25rem);
   transition:
@@ -571,16 +576,16 @@
     transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.scroll-reveal.is-visible {
+html.scroll-reveal-enabled .scroll-reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-.scroll-reveal--delay-1 {
+html.scroll-reveal-enabled .scroll-reveal--delay-1 {
   transition-delay: 0.12s;
 }
 
-.scroll-reveal--delay-2 {
+html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   transition-delay: 0.24s;
 }
 

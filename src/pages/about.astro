@@ -1,9 +1,248 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import BookingButton from '../components/BookingButton.astro';
+import { siteConfig } from '../config/site';
 ---
 
 <BaseLayout
   title="Why Woven Sage"
-  description="Learn about Woven Sage Counseling."
+  description="Why Woven Sage Counseling exists — and what makes therapy here feel different. An editorial reflection on connection, clarity, and care in South Florida."
+  botanicalBg={false}
 >
+  <article class="why-page">
+    <!-- Opening -->
+    <section class="why-hero relative overflow-hidden bg-cream" aria-labelledby="why-hero-heading">
+      <div class="hero-breathe pointer-events-none absolute inset-0" aria-hidden="true"></div>
+
+      <div
+        class="why-hero__botanical pointer-events-none absolute bottom-0 left-0 z-0 select-none"
+        aria-hidden="true"
+      >
+        <img
+          src={siteConfig.logos.sageBotanicalHero}
+          alt=""
+          width={682}
+          height={1024}
+          class="why-hero__botanical-img block h-auto w-auto max-w-none"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+
+      <div class="container-page relative z-10">
+        <div class="why-hero__inner mx-auto max-w-3xl pt-24 pb-20 text-center sm:pt-32 sm:pb-28 md:pt-36 md:pb-32">
+          <p class="why-kicker scroll-reveal">Why Woven Sage</p>
+
+          <h1
+            id="why-hero-heading"
+            class="scroll-reveal scroll-reveal--delay-1 mt-6 font-display text-[2rem] font-normal leading-[1.18] tracking-tight text-[#2E2D2A] sm:text-[2.75rem] md:text-[3.25rem]"
+          >
+            <span class="block">Some practices begin</span>
+            <span class="mt-2 block text-sage sm:mt-3">with a business plan.</span>
+            <span class="mt-5 block sm:mt-6">This one began with a question.</span>
+          </h1>
+
+          <p
+            class="scroll-reveal scroll-reveal--delay-2 mx-auto mt-10 max-w-xl text-[1.0625rem] leading-relaxed text-sage-dark/72 sm:mt-12 sm:text-lg"
+          >
+            What would it look like if therapy felt less like navigating a system — and more like
+            finally being heard?
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Essay: the gap -->
+    <section class="why-section bg-cream" aria-labelledby="why-gap-heading">
+      <div class="container-page">
+        <div class="why-essay mx-auto max-w-2xl">
+          <p class="scroll-reveal why-lead">
+            Something in you brought you here. Maybe it’s a weight you’ve carried too long. Maybe it’s
+            a relationship that keeps circling the same painful place. Maybe you simply need somewhere
+            quiet to think — out loud, with someone who won’t hurry you toward a fix.
+          </p>
+
+          <h2 id="why-gap-heading" class="scroll-reveal why-heading mt-16 sm:mt-20">
+            The room most people are looking for
+          </h2>
+
+          <p class="scroll-reveal">
+            By the time someone reaches out, they’ve usually been holding it together for a while.
+            They’ve explained themselves to partners, managers, friends. They’ve tried to reason
+            through feelings that don’t respond to reason. They’ve wondered — more than once —
+            whether they’re asking for too much, or whether anyone would understand if they said the
+            truth out loud.
+          </p>
+
+          <p class="scroll-reveal">
+            Woven Sage exists because that experience is more common than people admit. And because
+            therapy, as it’s often delivered — hurried, impersonal, reduced to a label and a
+            protocol — doesn’t always meet people where they actually are.
+          </p>
+
+          <blockquote class="scroll-reveal why-pullquote">
+            <p>
+              We wanted something slower. More attentive. A place where the relationship itself is
+              treated as the work — not a formality on the way to something else.
+            </p>
+          </blockquote>
+
+          <p class="scroll-reveal">
+            That’s the gap Woven Sage was built to fill. Not to be the loudest practice in South
+            Florida. To be a practice where showing up honestly is enough to begin.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interlude -->
+    <section class="why-interlude relative w-full overflow-hidden" aria-label="A moment of rest">
+      <div class="why-interlude__media relative w-full overflow-hidden">
+        <img
+          src={siteConfig.logos.chapter2Rest}
+          alt="A white cat resting peacefully among sage and lavender in warm light"
+          width={1024}
+          height={538}
+          class="block h-auto w-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="chapter-2__vignette pointer-events-none absolute inset-0" aria-hidden="true"></div>
+      <div class="chapter-2__grain pointer-events-none absolute inset-0" aria-hidden="true"></div>
+
+      <div class="absolute inset-0 flex items-center justify-center px-5 py-16 sm:px-8 sm:py-20">
+        <blockquote class="scroll-reveal why-interlude__quote mx-auto max-w-2xl text-center">
+          <p class="chapter-2__heading font-display text-[1.375rem] font-normal leading-snug tracking-tight text-cream sm:text-[2rem] md:text-[2.35rem]">
+            <span class="block">Healing doesn’t always begin with answers.</span>
+            <span class="mt-3 block sm:mt-4">Sometimes it begins with finally feeling safe enough to rest.</span>
+          </p>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- Essay: what feels different -->
+    <section class="why-section bg-cream" aria-labelledby="why-different-heading">
+      <div class="container-page">
+        <div class="why-essay mx-auto max-w-2xl">
+          <p class="why-kicker scroll-reveal">What therapy here feels like</p>
+
+          <h2 id="why-different-heading" class="scroll-reveal why-heading mt-5">
+            Not a checklist.<br class="hidden sm:block" />
+            <span class="text-sage-dark/75">A conversation.</span>
+          </h2>
+
+          <p class="scroll-reveal why-lead mt-8 sm:mt-10">
+            Therapy at Woven Sage isn’t about performing progress or saying the right thing. It’s
+            about building enough trust that honesty becomes possible — gradually, and on your
+            terms.
+          </p>
+
+          <ul class="scroll-reveal why-list mt-10 sm:mt-12" role="list">
+            <li>Space that doesn’t rush toward conclusions</li>
+            <li>Language that belongs in your actual life, not a textbook</li>
+            <li>Clinicians who hold your whole story — not just the part that fits a form</li>
+            <li>A practice small enough to feel known, careful enough to feel safe</li>
+          </ul>
+
+          <p class="scroll-reveal mt-10 sm:mt-12">
+            We’re not trying to be everything to everyone. We’re trying to do one thing well: show
+            up with skill, warmth, and steadiness — session after session — so that change, when it
+            comes, feels like yours.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- The name -->
+    <section class="why-section why-section--soft bg-cream" aria-labelledby="why-name-heading">
+      <div class="container-page">
+        <div class="mx-auto max-w-4xl">
+          <h2 id="why-name-heading" class="sr-only">The meaning behind our name</h2>
+
+          <div class="why-name-grid grid gap-12 sm:grid-cols-2 sm:gap-10 lg:gap-16">
+            <div class="scroll-reveal why-name-card">
+              <p class="why-kicker">Woven</p>
+              <p class="mt-5 font-display text-[1.5rem] leading-snug tracking-tight text-[#2E2D2A] sm:text-[1.75rem]">
+                Therapy rarely moves in a straight line.
+              </p>
+              <p class="mt-5 text-[1.0625rem] leading-relaxed text-sage-dark/72 sm:text-lg">
+                It loops, deepens, surprises you. Themes return. Old wounds sit beside new strengths.
+                Over time, understanding, skill, and connection begin to weave together into
+                something sturdier than what you brought in.
+              </p>
+              <p class="mt-5 text-[1.0625rem] leading-relaxed text-sage-dark/65 sm:text-lg">
+                Not a quick fix. A gradual becoming.
+              </p>
+            </div>
+
+            <div class="scroll-reveal scroll-reveal--delay-1 why-name-card">
+              <p class="why-kicker">Sage</p>
+              <p class="mt-5 font-display text-[1.5rem] leading-snug tracking-tight text-[#2E2D2A] sm:text-[1.75rem]">
+                The herb grows without demanding attention.
+              </p>
+              <p class="mt-5 text-[1.0625rem] leading-relaxed text-sage-dark/72 sm:text-lg">
+                It has been used for centuries — quietly, reliably — to soothe and clarify. We chose
+                <em class="font-display not-italic text-sage-dark">sage</em> for that quality of calm
+                wisdom: the grounded feeling of finally being somewhere you don’t have to explain
+                yourself from scratch.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Where we are -->
+    <section class="why-section bg-cream" aria-labelledby="why-here-heading">
+      <div class="container-page">
+        <div class="why-essay mx-auto max-w-2xl text-center">
+          <h2 id="why-here-heading" class="scroll-reveal why-heading">
+            Who we are becoming
+          </h2>
+
+          <p class="scroll-reveal mt-8 text-[1.0625rem] leading-relaxed text-sage-dark/72 sm:text-lg">
+            Woven Sage is a group practice based in South Florida — serving{' '}
+            {siteConfig.serviceAreas.join(', ')}, and nearby communities in person. Secure telehealth
+            is available throughout Florida.
+          </p>
+
+          <p class="scroll-reveal mt-6 text-[1.0625rem] leading-relaxed text-sage-dark/65 sm:text-lg">
+            We’re opening intentionally, not quickly. Building a team of clinicians who share a
+            particular temperament: curious, careful, and genuinely present with the people in their
+            care.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Closing -->
+    <section class="why-closing relative overflow-hidden bg-cream pb-24 pt-8 sm:pb-32 sm:pt-12">
+      <div class="hero-breathe pointer-events-none absolute inset-0 opacity-60" aria-hidden="true"></div>
+
+      <div class="container-page relative z-10">
+        <div class="scroll-reveal scroll-reveal--delay-1 mx-auto max-w-xl text-center">
+          <p class="font-display text-[1.35rem] leading-relaxed text-sage-dark/80 sm:text-[1.65rem]">
+            If something here resonated — even if you’re not ready to say much yet — that’s enough to
+            begin.
+          </p>
+
+          <p class="mx-auto mt-5 max-w-md text-sm leading-relaxed text-sage-dark/58 sm:text-[0.9375rem]">
+            {siteConfig.bookingTrustCopy}
+          </p>
+
+          <div class="mt-9 sm:mt-10">
+            <BookingButton class="hero-cta" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
 </BaseLayout>
+
+<script>
+  import { initScrollReveal } from '../scripts/scroll-reveal';
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  initScrollReveal(reduceMotion);
+</script>

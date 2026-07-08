@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BookingButton from '../components/BookingButton.astro';
 import { siteConfig } from '../config/site';
 const beliefPairs = [
   { less: 'Less pressure.', more: 'More presence.' },
@@ -201,22 +200,25 @@ const promises = [
     </section>
 
     <!-- Closing -->
-    <section class="why-closing relative overflow-hidden bg-cream pb-24 pt-8 sm:pb-32 sm:pt-12">
+    <section class="why-closing relative overflow-hidden bg-cream pb-24 pt-8 sm:pb-32 sm:pt-12" aria-labelledby="why-closing-heading">
       <div class="hero-breathe pointer-events-none absolute inset-0 opacity-60" aria-hidden="true"></div>
 
       <div class="container-page relative z-10">
-        <div class="scroll-reveal scroll-reveal--delay-1 mx-auto max-w-xl text-center">
-          <p class="font-display text-[1.35rem] leading-relaxed text-sage-dark/80 sm:text-[1.65rem]">
-            If something here resonated — even if you’re not ready to say much yet — that’s enough to
-            begin.
+        <div class="mx-auto max-w-xl text-center">
+          <h2 id="why-closing-heading" class="sr-only">Take the first step</h2>
+
+          <p class="scroll-reveal font-display text-[1.35rem] leading-relaxed text-sage-dark/85 sm:text-[1.65rem]">
+            You don&apos;t have to have everything figured out before you begin.
           </p>
 
-          <p class="mx-auto mt-5 max-w-md text-sm leading-relaxed text-sage-dark/58 sm:text-[0.9375rem]">
-            {siteConfig.bookingTrustCopy}
+          <p class="scroll-reveal scroll-reveal--delay-1 mt-4 font-display text-[1.35rem] leading-relaxed text-sage-dark/72 sm:mt-5 sm:text-[1.65rem]">
+            You only have to take the first step.
           </p>
 
-          <div class="mt-9 sm:mt-10">
-            <BookingButton class="hero-cta" />
+          <div class="scroll-reveal scroll-reveal--delay-2 mt-9 sm:mt-10">
+            <a href="/services" class="btn-primary hero-cta inline-flex">
+              Explore Our Services →
+            </a>
           </div>
         </div>
       </div>

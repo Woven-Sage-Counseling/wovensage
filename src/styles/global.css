@@ -1160,6 +1160,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   position: relative;
   z-index: 1;
   width: 100%;
+  text-align: center;
 }
 
 .why-name__divider {

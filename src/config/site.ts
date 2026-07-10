@@ -113,8 +113,8 @@ export function getFormspreeUrl(): string {
 export const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'Why Woven Sage' },
-  { href: '/team', label: 'Team' },
   { href: '/services', label: 'Services' },
+  { href: '/team', label: 'Team' },
   { href: '/insurance', label: 'Insurance' },
   { href: '/faq', label: 'FAQ' },
 ] as const;

@@ -1364,7 +1364,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .why-promise__number {
   position: absolute;
   top: 50%;
-  right: -0.12em;
+  right: 0.02em;
   z-index: 0;
   display: block;
   margin: 0;
@@ -1374,7 +1374,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   line-height: 0.75;
   letter-spacing: -0.08em;
   color: #98a995;
-  opacity: 0.24;
+  opacity: 0.16;
   pointer-events: none;
   user-select: none;
   transform: translateY(-52%);
@@ -1385,7 +1385,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 @media (min-width: 640px) {
   .why-promise__number {
-    right: -0.18em;
+    right: -0.04em;
     font-size: 20rem;
   }
 }

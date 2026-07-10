@@ -52,24 +52,21 @@ const sessionNotes = [
 >
   <article class="services-page why-page">
     <!-- Hero -->
-    <section class="why-hero relative overflow-hidden bg-cream" aria-labelledby="services-hero-heading">
-      <div class="hero-breathe pointer-events-none absolute inset-0" aria-hidden="true"></div>
-      <div class="why-hero__grain pointer-events-none absolute inset-0" aria-hidden="true"></div>
-
-      <div
-        class="why-hero__botanical pointer-events-none absolute bottom-0 left-0 z-0 select-none"
-        aria-hidden="true"
-      >
+    <section class="why-hero why-hero--photo relative overflow-hidden" aria-labelledby="services-hero-heading">
+      <div class="why-hero__media pointer-events-none absolute inset-0" aria-hidden="true">
         <img
-          src={siteConfig.logos.sageBotanicalHero}
+          src={siteConfig.logos.servicesHero}
           alt=""
-          width={682}
+          width={1536}
           height={1024}
-          class="why-hero__botanical-img sage-enter block h-auto w-auto max-w-none"
+          class="why-hero__media-img"
           loading="eager"
           decoding="async"
+          fetchpriority="high"
         />
       </div>
+      <div class="why-hero__scrim pointer-events-none absolute inset-0" aria-hidden="true"></div>
+      <div class="why-hero__grain pointer-events-none absolute inset-0" aria-hidden="true"></div>
 
       <p class="scroll-reveal why-kicker why-hero__kicker">Services</p>
 

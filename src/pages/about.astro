@@ -221,10 +221,12 @@ const promises = [
               promises.map((promise, index) => (
                 <li class="why-promise__item scroll-reveal">
                   <article class="why-promise__card" tabindex="0">
-                    <span class="why-promise__number" aria-hidden="true">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <p class="why-promise__text">{promise.title}</p>
+                    <div class="why-promise__front">
+                      <span class="why-promise__number" aria-hidden="true">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <p class="why-promise__text">{promise.title}</p>
+                    </div>
                     <p class="why-promise__detail">{promise.detail}</p>
                   </article>
                 </li>

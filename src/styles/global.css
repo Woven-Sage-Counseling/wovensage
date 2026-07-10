@@ -1177,23 +1177,6 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   }
 }
 
-.why-name__divider {
-  position: absolute;
-  left: 50%;
-  flex-shrink: 0;
-  border: 0;
-  transform: translateX(-50%);
-  width: min(4.5rem, 28%);
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgb(185 181 174 / 0.5) 20%,
-    rgb(185 181 174 / 0.5) 80%,
-    transparent
-  );
-}
-
 @media (min-width: 768px) {
   .why-name__parts {
     display: grid;
@@ -1218,21 +1201,6 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   .why-name__part--sage {
     grid-column: 3;
     grid-row: 1;
-  }
-
-  .why-name__divider {
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    height: auto;
-    transform: translateX(-50%);
-    background: linear-gradient(
-      to bottom,
-      rgb(185 181 174 / 0.12),
-      rgb(185 181 174 / 0.5) 18%,
-      rgb(185 181 174 / 0.5) 82%,
-      rgb(185 181 174 / 0.12)
-    );
   }
 }
 

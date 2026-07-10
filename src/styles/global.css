@@ -1063,7 +1063,14 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 }
 
 .why-hero--photo .why-hero__copy-close {
+  margin-top: 0.9rem;
   color: rgb(46 45 42 / 0.88);
+}
+
+@media (min-width: 640px) {
+  .why-hero--photo .why-hero__copy-close {
+    margin-top: 1.1rem;
+  }
 }
 
 .why-hero__grain {

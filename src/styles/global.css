@@ -1412,6 +1412,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   line-height: 1.5;
   letter-spacing: -0.01em;
   color: rgb(111 127 108 / 0.88);
+  white-space: pre-line;
   opacity: 0;
   transform: translateY(0.45rem);
   pointer-events: none;

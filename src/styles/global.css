@@ -775,6 +775,24 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
     theme('colors.cream.DEFAULT');
 }
 
+.why-name.why-section {
+  padding-bottom: 2.75rem;
+}
+
+.why-promise.why-section {
+  padding-top: 2.75rem;
+}
+
+@media (min-width: 640px) {
+  .why-name.why-section {
+    padding-bottom: 3.5rem;
+  }
+
+  .why-promise.why-section {
+    padding-top: 3.5rem;
+  }
+}
+
 .why-essay {
   font-size: 1.0625rem;
   line-height: 1.75;

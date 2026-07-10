@@ -9,10 +9,26 @@ const beliefPairs = [
 ] as const;
 
 const promises = [
-  "We'll meet you where you are.",
-  "We'll move at your pace.",
-  "We'll listen before we lead.",
-  "We'll make space for every part of your story.",
+  {
+    title: "We'll meet you where you are.",
+    detail:
+      'No need to arrive polished or prepared. We start with whatever feels true for you today.',
+  },
+  {
+    title: "We'll move at your pace.",
+    detail:
+      'Therapy here isn’t rushed. We follow your readiness, not a predetermined timeline.',
+  },
+  {
+    title: "We'll listen before we lead.",
+    detail:
+      'Understanding comes first. Guidance only follows once you’ve been fully heard.',
+  },
+  {
+    title: "We'll make space for every part of your story.",
+    detail:
+      'The complicated, unfinished, and hard-to-name pieces belong here too.',
+  },
 ] as const;
 ---
 
@@ -200,11 +216,17 @@ const promises = [
             What you can expect
           </h2>
 
-          <ul class="why-promise__grid mt-14 sm:mt-16" role="list">
+          <ul class="why-promise__grid mt-12 sm:mt-14" role="list">
             {
-              promises.map((promise) => (
+              promises.map((promise, index) => (
                 <li class="why-promise__item scroll-reveal">
-                  <p class="why-promise__text">{promise}</p>
+                  <article class="why-promise__card" tabindex="0">
+                    <span class="why-promise__number" aria-hidden="true">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <p class="why-promise__text">{promise.title}</p>
+                    <p class="why-promise__detail">{promise.detail}</p>
+                  </article>
                 </li>
               ))
             }

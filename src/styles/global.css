@@ -1363,7 +1363,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .why-promise__number {
   position: absolute;
-  inset: 0;
+  inset: -18% -8% -6%;
   z-index: 0;
   display: flex;
   align-items: center;

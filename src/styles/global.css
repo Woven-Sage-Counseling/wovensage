@@ -1363,14 +1363,13 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .why-promise__number {
   position: absolute;
-  inset: -32% -8% 4%;
+  top: 50%;
+  right: -0.12em;
   z-index: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   margin: 0;
   font-family: theme('fontFamily.sans');
-  font-size: 22rem;
+  font-size: 18rem;
   font-weight: 500;
   line-height: 0.75;
   letter-spacing: -0.08em;
@@ -1378,6 +1377,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   opacity: 0.16;
   pointer-events: none;
   user-select: none;
+  transform: translateY(-52%);
   transition:
     opacity 320ms cubic-bezier(0.22, 1, 0.36, 1),
     transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -1385,7 +1385,8 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 @media (min-width: 640px) {
   .why-promise__number {
-    font-size: 26rem;
+    right: -0.18em;
+    font-size: 20rem;
   }
 }
 
@@ -1447,12 +1448,16 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   }
 
   .why-promise__card:hover .why-promise__front,
-  .why-promise__card:hover .why-promise__number,
-  .why-promise__card:focus-visible .why-promise__front,
-  .why-promise__card:focus-visible .why-promise__number {
+  .why-promise__card:focus-visible .why-promise__front {
     opacity: 0;
     transform: translateY(-0.35rem);
     pointer-events: none;
+  }
+
+  .why-promise__card:hover .why-promise__number,
+  .why-promise__card:focus-visible .why-promise__number {
+    opacity: 0;
+    transform: translateY(calc(-52% - 0.35rem));
   }
 
   .why-promise__card:hover .why-promise__detail,
@@ -1464,12 +1469,16 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 @media (hover: none), (pointer: coarse) {
   .why-promise__card:focus .why-promise__front,
-  .why-promise__card:focus .why-promise__number,
-  .why-promise__card:focus-within .why-promise__front,
-  .why-promise__card:focus-within .why-promise__number {
+  .why-promise__card:focus-within .why-promise__front {
     opacity: 0;
     transform: translateY(-0.35rem);
     pointer-events: none;
+  }
+
+  .why-promise__card:focus .why-promise__number,
+  .why-promise__card:focus-within .why-promise__number {
+    opacity: 0;
+    transform: translateY(calc(-52% - 0.35rem));
   }
 
   .why-promise__card:focus .why-promise__detail,

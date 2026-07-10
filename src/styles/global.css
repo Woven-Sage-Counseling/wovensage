@@ -1370,10 +1370,10 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   justify-content: center;
   margin: 0;
   font-family: theme('fontFamily.display');
-  font-size: 14rem;
+  font-size: 22rem;
   font-weight: 400;
-  line-height: 1;
-  letter-spacing: -0.06em;
+  line-height: 0.75;
+  letter-spacing: -0.08em;
   color: #98a995;
   opacity: 0.16;
   pointer-events: none;
@@ -1385,7 +1385,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 @media (min-width: 640px) {
   .why-promise__number {
-    font-size: 16rem;
+    font-size: 26rem;
   }
 }
 

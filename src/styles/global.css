@@ -1390,6 +1390,16 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   }
 }
 
+.why-promise__number--one {
+  right: 0.28em;
+}
+
+@media (min-width: 640px) {
+  .why-promise__number--one {
+    right: 0.22em;
+  }
+}
+
 .why-promise__front {
   display: flex;
   align-items: center;

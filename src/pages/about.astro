@@ -218,7 +218,13 @@ const promises = [
               promises.map((promise, index) => (
                 <li class="why-promise__item scroll-reveal">
                   <article class="why-promise__card" tabindex="0">
-                    <span class="why-promise__number" aria-hidden="true">
+                    <span
+                      class:list={[
+                        'why-promise__number',
+                        index === 0 && 'why-promise__number--one',
+                      ]}
+                      aria-hidden="true"
+                    >
                       {index + 1}
                     </span>
                     <div class="why-promise__front">

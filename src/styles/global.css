@@ -1369,7 +1369,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   align-items: center;
   justify-content: center;
   margin: 0;
-  font-family: theme('fontFamily.serif');
+  font-family: theme('fontFamily.sans');
   font-size: 22rem;
   font-weight: 500;
   line-height: 0.75;

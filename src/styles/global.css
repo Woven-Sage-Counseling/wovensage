@@ -1248,6 +1248,11 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   font-style: italic;
 }
 
+.why-name__close-emphasis {
+  font-weight: 700;
+  font-style: italic;
+}
+
 @media (min-width: 640px) {
   .why-name__close {
     font-size: 1.375rem;

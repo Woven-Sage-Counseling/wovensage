@@ -1251,9 +1251,9 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .why-name__close-emphasis {
   display: inline-block;
   margin-top: 0.35em;
-  font-weight: 700;
+  font-weight: 500;
   font-style: italic;
-  color: rgb(46 45 42 / 0.88);
+  color: rgb(111 127 108 / 0.82);
 }
 
 @media (min-width: 640px) {

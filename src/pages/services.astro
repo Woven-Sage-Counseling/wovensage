@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import BookingButton from '../components/BookingButton.astro';
 import { siteConfig } from '../config/site';
 
 const serviceCards = [
@@ -209,7 +208,9 @@ const sessionNotes = [
           </p>
 
           <div class="scroll-reveal scroll-reveal--delay-2 mt-9 sm:mt-10">
-            <BookingButton class="hero-cta why-closing__cta" />
+            <a href="/team" class="btn-primary hero-cta why-closing__cta inline-flex">
+              Meet our team →
+            </a>
           </div>
         </div>
       </div>

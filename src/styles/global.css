@@ -1409,7 +1409,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   min-height: 100%;
   font-family: theme('fontFamily.display');
   font-size: 1.15rem;
-  line-height: 1.5;
+  line-height: 1.35;
   letter-spacing: -0.01em;
   color: rgb(111 127 108 / 0.88);
   white-space: pre-line;
@@ -1421,7 +1421,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 @media (min-width: 640px) {
   .why-promise__detail {
     font-size: 1.25rem;
-    line-height: 1.48;
+    line-height: 1.35;
   }
 }
 

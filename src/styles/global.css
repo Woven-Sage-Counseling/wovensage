@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Ruthie&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Ruthie&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -1249,8 +1249,11 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 }
 
 .why-name__close-emphasis {
+  display: inline-block;
+  margin-top: 0.35em;
   font-weight: 700;
   font-style: italic;
+  color: rgb(46 45 42 / 0.88);
 }
 
 @media (min-width: 640px) {

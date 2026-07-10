@@ -1058,6 +1058,14 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   z-index: 2;
 }
 
+.why-hero--photo .why-hero__copy {
+  color: #2e2d2a;
+}
+
+.why-hero--photo .why-hero__copy-close {
+  color: rgb(46 45 42 / 0.88);
+}
+
 .why-hero__grain {
   z-index: 1;
   opacity: 0.042;

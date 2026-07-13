@@ -1583,6 +1583,24 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   max-width: 36rem;
 }
 
+.team-clinician.why-section {
+  padding-bottom: 2.25rem;
+}
+
+.team-leadership.why-section {
+  padding-top: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .team-clinician.why-section {
+    padding-bottom: 2.75rem;
+  }
+
+  .team-leadership.why-section {
+    padding-top: 2rem;
+  }
+}
+
 .team-growing {
   background-color: theme('colors.cream.DEFAULT');
 }

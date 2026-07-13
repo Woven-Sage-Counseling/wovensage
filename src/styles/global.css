@@ -1586,11 +1586,12 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 }
 
 .team-clinician.why-section {
-  padding-bottom: 4rem;
+  padding-bottom: 2.25rem;
 }
 
 .team-leadership.why-section {
-  padding-block: 4rem;
+  padding-top: 1.5rem;
+  padding-bottom: 4rem;
 }
 
 .team-growing.why-section {
@@ -1599,11 +1600,12 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 @media (min-width: 640px) {
   .team-clinician.why-section {
-    padding-bottom: 5rem;
+    padding-bottom: 2.75rem;
   }
 
   .team-leadership.why-section {
-    padding-block: 5rem;
+    padding-top: 2rem;
+    padding-bottom: 5rem;
   }
 
   .team-growing.why-section {

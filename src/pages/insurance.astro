@@ -113,9 +113,11 @@ const statusLabel = (status: string) => {
                                 alt={`${carrier.name} logo`}
                                 class:list={[
                                   'insurance-carriers__badge-logo',
-                                  carrier.id === 'blue-cross-blue-shield' || carrier.id === 'cigna'
-                                    ? 'insurance-carriers__badge-logo--large'
-                                    : '',
+                                  carrier.id === 'blue-cross-blue-shield'
+                                    ? 'insurance-carriers__badge-logo--bcbs'
+                                    : carrier.id === 'cigna'
+                                      ? 'insurance-carriers__badge-logo--large'
+                                      : '',
                                 ]}
                                 width={160}
                                 height={56}

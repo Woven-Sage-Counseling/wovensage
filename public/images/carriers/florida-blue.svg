@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 48" role="img" aria-label="Florida Blue">
+  <title>Florida Blue</title>
+  <g fill="#003DA5">
+    <path d="M18 10c0-1.1.9-2 2-2h8c1.1 0 2 .9 2 2v8c0 1.1-.9 2-2 2h-3v3c0 1.1-.9 2-2 2h-1c-1.1 0-2-.9-2-2v-3h-2c-1.1 0-2-.9-2-2v-8z"/>
+    <path d="M14 24c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2v-3h3c1.1 0 2-.9 2-2v-1c0-1.1-.9-2-2-2h-3v-2c0-1.1-.9-2-2-2h-8z" opacity=".85"/>
+  </g>
+  <text
+    x="48"
+    y="31"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="20"
+    font-weight="700"
+    fill="#003DA5"
+    letter-spacing="-0.02em"
+  >Florida Blue</text>
+</svg>

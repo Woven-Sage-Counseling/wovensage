@@ -91,6 +91,7 @@ export const siteConfig = {
         aliases: ['BCBS', 'Blue Cross', 'Blue Shield', 'BlueCross'],
         featured: true,
         status: 'credentialing',
+        logo: '/images/carriers/florida-blue.svg',
       },
       {
         id: 'aetna',
@@ -98,6 +99,7 @@ export const siteConfig = {
         aliases: ['Aetna Better Health'],
         featured: true,
         status: 'credentialing',
+        logo: '/images/carriers/aetna.svg',
       },
       {
         id: 'cigna',
@@ -105,6 +107,7 @@ export const siteConfig = {
         aliases: ['Evernorth'],
         featured: true,
         status: 'credentialing',
+        logo: '/images/carriers/cigna.png',
       },
       {
         id: 'unitedhealthcare',
@@ -112,6 +115,7 @@ export const siteConfig = {
         aliases: ['UHC', 'United', 'United Healthcare', 'Optum'],
         featured: true,
         status: 'credentialing',
+        logo: '/images/carriers/unitedhealthcare.svg',
       },
       {
         id: 'humana',
@@ -119,6 +123,7 @@ export const siteConfig = {
         aliases: [],
         featured: true,
         status: 'credentialing',
+        logo: '/images/carriers/humana.svg',
       },
       {
         id: 'oscar',
@@ -126,6 +131,7 @@ export const siteConfig = {
         aliases: ['Oscar'],
         featured: true,
         status: 'credentialing',
+        logo: '/images/carriers/oscar.svg',
       },
       {
         id: 'magellan',
@@ -133,6 +139,7 @@ export const siteConfig = {
         aliases: ['Magellan Health'],
         featured: false,
         status: 'credentialing',
+        logo: '',
       },
       {
         id: 'tricare',
@@ -140,6 +147,7 @@ export const siteConfig = {
         aliases: [],
         featured: false,
         status: 'credentialing',
+        logo: '',
       },
       {
         id: 'medicaid',
@@ -147,6 +155,7 @@ export const siteConfig = {
         aliases: ['Medicaid'],
         featured: false,
         status: 'credentialing',
+        logo: '',
       },
       {
         id: 'medicare',
@@ -154,6 +163,7 @@ export const siteConfig = {
         aliases: [],
         featured: false,
         status: 'credentialing',
+        logo: '',
       },
     ] as Array<{
       id: string;
@@ -161,6 +171,7 @@ export const siteConfig = {
       aliases: string[];
       featured: boolean;
       status: 'credentialing' | 'in-network' | 'out-of-network';
+      logo: string;
     }>,
   },
 

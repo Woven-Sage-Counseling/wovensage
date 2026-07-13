@@ -107,7 +107,19 @@ const statusLabel = (status: string) => {
                       {featuredCarriers.map((carrier) => (
                         <li>
                           <span class="insurance-carriers__badge">
-                            <span class="insurance-carriers__badge-name">{carrier.name}</span>
+                            {carrier.logo ? (
+                              <img
+                                src={carrier.logo}
+                                alt={`${carrier.name} logo`}
+                                class="insurance-carriers__badge-logo"
+                                width={140}
+                                height={48}
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            ) : (
+                              <span class="insurance-carriers__badge-name">{carrier.name}</span>
+                            )}
                             <span class="insurance-carriers__badge-status">
                               {statusLabel(carrier.status)}
                             </span>

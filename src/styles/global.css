@@ -1696,13 +1696,25 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.35rem;
-  min-width: 7.5rem;
-  padding: 0.95rem 1.15rem;
+  justify-content: center;
+  gap: 0.55rem;
+  width: 9.5rem;
+  min-height: 6.25rem;
+  padding: 1rem 0.9rem 0.85rem;
   border-radius: 1rem;
   border: 1px solid rgb(152 169 149 / 0.28);
-  background-color: color-mix(in srgb, theme('colors.sage.light') 14%, theme('colors.cream.DEFAULT'));
+  background-color: #faf6f0;
   box-shadow: 0 4px 14px rgb(58 58 56 / 0.03);
+}
+
+.insurance-carriers__badge-logo {
+  display: block;
+  width: auto;
+  max-width: 7.5rem;
+  height: auto;
+  max-height: 2.6rem;
+  object-fit: contain;
+  object-position: center;
 }
 
 .insurance-carriers__badge-name {

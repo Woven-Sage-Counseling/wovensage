@@ -108,7 +108,7 @@ export const siteConfig = {
     'Self-Esteem',
     'Grief & Loss',
     'Young Adults',
-    'Communication Skills',
+    'Communication & Boundaries',
   ],
 } as const;
 

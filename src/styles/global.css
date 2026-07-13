@@ -1569,8 +1569,8 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .team-member--leadership.chapter-3__card {
   padding: 1.6rem 1.75rem;
-  background-color: color-mix(in srgb, theme('colors.sage.light') 28%, theme('colors.cream.DEFAULT'));
-  border-color: rgb(152 169 149 / 0.28);
+  background-color: color-mix(in srgb, theme('colors.sage.light') 16%, theme('colors.cream.DEFAULT'));
+  border-color: rgb(152 169 149 / 0.2);
   box-shadow: 0 4px 16px rgb(58 58 56 / 0.03);
 }
 

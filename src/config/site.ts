@@ -101,7 +101,7 @@ export const siteConfig = {
     'EMDR',
     'LGBTQ+ Affirming Care',
     'Gender Identity',
-    'Women’s Issues',
+    'Women’s Mental Health',
     'Relationship Challenges',
     'Stress & Burnout',
     'Life Transitions',

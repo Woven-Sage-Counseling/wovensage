@@ -1569,7 +1569,9 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .team-member--leadership.chapter-3__card {
   padding: 1.6rem 1.75rem;
-  box-shadow: 0 4px 16px rgb(58 58 56 / 0.035);
+  background-color: rgb(250 246 240 / 0.92);
+  border-color: rgb(185 181 174 / 0.22);
+  box-shadow: 0 4px 16px rgb(58 58 56 / 0.03);
 }
 
 @media (min-width: 640px) {
@@ -1584,20 +1586,29 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 }
 
 .team-clinician.why-section {
-  padding-bottom: 2.25rem;
+  padding-bottom: 4rem;
 }
 
 .team-leadership.why-section {
-  padding-top: 1.5rem;
+  background-color: #f5f8f3;
+  padding-block: 4rem;
+}
+
+.team-growing.why-section {
+  padding-block: 4.5rem;
 }
 
 @media (min-width: 640px) {
   .team-clinician.why-section {
-    padding-bottom: 2.75rem;
+    padding-bottom: 5rem;
   }
 
   .team-leadership.why-section {
-    padding-top: 2rem;
+    padding-block: 5rem;
+  }
+
+  .team-growing.why-section {
+    padding-block: 5.5rem;
   }
 }
 
@@ -1615,15 +1626,16 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   height: 100%;
   object-fit: cover;
   object-position: center;
+  opacity: 0.86;
 }
 
 .team-growing__scrim {
   z-index: 1;
   background: radial-gradient(
-    ellipse 70% 58% at 50% 48%,
-    rgb(247 244 238 / 0.62) 0%,
-    rgb(247 244 238 / 0.28) 55%,
-    rgb(247 244 238 / 0.12) 100%
+    ellipse 72% 60% at 50% 48%,
+    rgb(247 244 238 / 0.72) 0%,
+    rgb(247 244 238 / 0.38) 55%,
+    rgb(247 244 238 / 0.18) 100%
   );
 }
 

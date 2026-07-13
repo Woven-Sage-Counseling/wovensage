@@ -77,7 +77,7 @@ export const siteConfig = {
       pronouns: 'she/her/hers',
       languages: ['English'],
       license: 'Florida',
-      bio: 'Michele believes therapy should feel collaborative, compassionate, and grounded in genuine connection. She works with adults and young adults navigating anxiety, trauma, depression, life transitions, relationship challenges, and substance use concerns. Her approach integrates evidence-based care with warmth and curiosity to help clients move toward meaningful, lasting change.',
+      bio: 'Michele provides collaborative, compassionate therapy for adults and young adults navigating anxiety, trauma, depression, relationship challenges, life transitions, and substance use concerns. Her approach combines evidence-based care with warmth, curiosity, and genuine connection.',
       specialties: 'Adults · Young Adults',
     },
   },

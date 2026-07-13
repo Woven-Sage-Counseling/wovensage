@@ -111,18 +111,20 @@ const statusLabel = (status: string) => {
                               <img
                                 src={carrier.logo}
                                 alt={`${carrier.name} logo`}
-                                class="insurance-carriers__badge-logo"
-                                width={140}
-                                height={48}
+                                class:list={[
+                                  'insurance-carriers__badge-logo',
+                                  carrier.id === 'blue-cross-blue-shield' || carrier.id === 'cigna'
+                                    ? 'insurance-carriers__badge-logo--large'
+                                    : '',
+                                ]}
+                                width={160}
+                                height={56}
                                 loading="lazy"
                                 decoding="async"
                               />
                             ) : (
                               <span class="insurance-carriers__badge-name">{carrier.name}</span>
                             )}
-                            <span class="insurance-carriers__badge-status">
-                              {statusLabel(carrier.status)}
-                            </span>
                           </span>
                         </li>
                       ))}

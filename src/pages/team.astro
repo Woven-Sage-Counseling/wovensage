@@ -31,55 +31,17 @@ const members = [
   botanicalBg={false}
 >
   <article class="team-page why-page">
-    <!-- Hero -->
-    <section class="why-hero relative overflow-hidden bg-cream" aria-labelledby="team-hero-heading">
-      <div class="hero-breathe pointer-events-none absolute inset-0" aria-hidden="true"></div>
-      <div class="why-hero__grain pointer-events-none absolute inset-0" aria-hidden="true"></div>
-
-      <div
-        class="why-hero__botanical pointer-events-none absolute bottom-0 left-0 z-0 select-none"
-        aria-hidden="true"
-      >
-        <img
-          src={siteConfig.logos.sageBotanicalHero}
-          alt=""
-          width={682}
-          height={1024}
-          class="why-hero__botanical-img sage-enter block h-auto w-auto max-w-none"
-          loading="eager"
-          decoding="async"
-        />
-      </div>
-
-      <p class="scroll-reveal why-kicker why-hero__kicker">Team</p>
-
-      <div class="container-page relative z-10">
-        <div class="why-hero__inner mx-auto max-w-2xl text-center">
-          <h1
-            id="team-hero-heading"
-            class="scroll-reveal font-display text-[2.385rem] font-normal leading-[1.14] tracking-tight text-[#2E2D2A] sm:text-[3.18rem] md:text-[3.71rem]"
-          >
-            The people behind the <em class="italic text-sage">care</em>.
-          </h1>
-
-          <div class="scroll-reveal scroll-reveal--delay-1 why-hero__copy mx-auto mt-12 max-w-xl sm:mt-14 md:mt-16">
-            <p>
-              Thoughtful therapy begins with the people who offer it.
-            </p>
-            <p class="why-hero__copy-close">
-              A small team, growing carefully.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Members -->
     <section class="why-section why-section--soft bg-cream" aria-labelledby="team-members-heading">
       <div class="container-page">
-        <h2 id="team-members-heading" class="sr-only">Our team</h2>
+        <h1
+          id="team-members-heading"
+          class="scroll-reveal text-center font-display text-[1.75rem] font-normal tracking-tight text-[#2E2D2A] sm:text-[2.125rem]"
+        >
+          Meet the team
+        </h1>
 
-        <div class="mx-auto flex max-w-3xl flex-col gap-6 sm:gap-8">
+        <div class="mx-auto mt-12 flex max-w-3xl flex-col gap-6 sm:mt-14 sm:gap-8">
           {
             members.map((member, index) => (
               <article
@@ -89,9 +51,9 @@ const members = [
                 ]}
               >
                 <p class="why-kicker">{member.role}</p>
-                <h3 class="mt-4 font-display text-[1.75rem] font-normal leading-snug tracking-tight text-[#2E2D2A] sm:text-[2.125rem]">
+                <h2 class="mt-4 font-display text-[1.75rem] font-normal leading-snug tracking-tight text-[#2E2D2A] sm:text-[2.125rem]">
                   {member.name}
-                </h3>
+                </h2>
                 {member.meta && (
                   <p class="team-member__meta mt-3 text-sm leading-relaxed text-sage-dark/65 sm:text-[0.9375rem]">
                     {member.meta}

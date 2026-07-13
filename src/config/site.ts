@@ -64,19 +64,19 @@ export const siteConfig = {
   team: {
     founder: {
       name: 'Christian Evans',
-      title: 'Founder',
+      title: 'Founder & Operations Director',
       pronouns: '',
-      bio: 'Bio coming soon. Christian founded Woven Sage Counseling with a vision to make thoughtful, connection-centered mental health care accessible across South Florida and beyond.',
+      bio: 'Christian founded Woven Sage Counseling with a vision to build a thoughtful, connection-centered practice serving clients across South Florida and throughout the state. He leads the practice’s operations, growth, brand, and client experience.',
     },
     clinician: {
       name: 'Michele Evans',
       title: 'Co-Founder & LMHC',
-      credentials: 'LMHC, MMHC, MCAR, EMDR trained',
+      credentials: 'LMHC · MCAP · EMDR Trained',
       pronouns: 'she/her/hers',
       languages: ['English'],
-      license: 'Florida license — coming soon',
-      bio: 'Bio coming soon. Michele brings a warm, integrative approach to therapy with specialized training in EMDR and addiction counseling.',
-      specialties: 'Strengths working with adults and young adults',
+      license: 'Florida',
+      bio: 'Michele believes therapy should feel collaborative, compassionate, and grounded in genuine connection. She works with adults and young adults navigating anxiety, trauma, depression, life transitions, relationship challenges, and substance use concerns. Her approach integrates evidence-based care with warmth and curiosity to help clients move toward meaningful, lasting change.',
+      specialties: 'Adults · Young Adults',
     },
   },
 

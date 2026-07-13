@@ -1,37 +1,29 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PsychologyTodayBadge from '../components/PsychologyTodayBadge.astro';
-import { siteConfig } from '../config/site';
 
-const { founder, clinician } = siteConfig.team;
+const clinician = {
+  role: 'Co-Founder & LMHC',
+  name: 'Michele Evans',
+  credentials: 'LMHC · MCAP · EMDR Trained',
+  focus: 'Adults · Young Adults · English · Florida',
+  bio: 'Michele believes therapy should feel collaborative, compassionate, and grounded in genuine connection. She works with adults and young adults navigating anxiety, trauma, depression, life transitions, relationship challenges, and substance use concerns. Her approach integrates evidence-based care with warmth and curiosity to help clients move toward meaningful, lasting change.',
+} as const;
 
-const members = [
-  {
-    name: founder.name,
-    role: founder.title,
-    meta: '',
-    bio: founder.bio,
-    showPsychologyTodayBadge: false,
-  },
-  {
-    name: clinician.name,
-    role: clinician.title,
-    meta: [clinician.credentials, clinician.pronouns, clinician.languages.join(', '), clinician.license]
-      .filter(Boolean)
-      .join(' · '),
-    bio: `${clinician.bio} ${clinician.specialties}.`,
-    showPsychologyTodayBadge: true,
-  },
-] as const;
+const founder = {
+  role: 'Founder & Operations Director',
+  name: 'Christian Evans',
+  bio: 'Christian founded Woven Sage Counseling with a vision to build a thoughtful, connection-centered practice serving clients across South Florida and throughout the state. He leads the practice’s operations, growth, brand, and client experience.',
+} as const;
 ---
 
 <BaseLayout
   title="Meet the Team"
-  description="Meet the people behind Woven Sage Counseling — Christian Evans, Founder, and Michele Evans, Co-Founder & LMHC."
+  description="Meet Michele Evans, Co-Founder & LMHC, and Christian Evans, Founder & Operations Director, at Woven Sage Counseling."
   botanicalBg={false}
 >
   <article class="team-page why-page">
-    <!-- Members -->
+    <!-- Clinician -->
     <section class="why-section why-section--soft bg-cream" aria-labelledby="team-members-heading">
       <div class="container-page">
         <h1
@@ -41,41 +33,59 @@ const members = [
           Meet the team
         </h1>
 
-        <div class="mx-auto mt-12 flex max-w-3xl flex-col gap-6 sm:mt-14 sm:gap-8">
-          {
-            members.map((member, index) => (
-              <article
-                class:list={[
-                  'chapter-3__card team-member scroll-reveal',
-                  index > 0 ? 'scroll-reveal--delay-1' : '',
-                ]}
-              >
-                <p class="why-kicker">{member.role}</p>
-                <h2 class="mt-4 font-display text-[1.75rem] font-normal leading-snug tracking-tight text-[#2E2D2A] sm:text-[2.125rem]">
-                  {member.name}
-                </h2>
-                {member.meta && (
-                  <p class="team-member__meta mt-3 text-sm leading-relaxed text-sage-dark/65 sm:text-[0.9375rem]">
-                    {member.meta}
-                  </p>
-                )}
-                <p class="mt-5 text-[1.0625rem] leading-relaxed text-sage-dark/78 sm:mt-6 sm:text-lg">
-                  {member.bio}
-                </p>
-                {member.showPsychologyTodayBadge && (
-                  <div class="mt-6">
-                    <PsychologyTodayBadge variant="light" />
-                  </div>
-                )}
-              </article>
-            ))
-          }
+        <p class="scroll-reveal scroll-reveal--delay-1 mx-auto mt-6 max-w-2xl text-center text-[1.0625rem] leading-relaxed text-sage-dark/72 sm:mt-8 sm:text-lg">
+          Every clinician at Woven Sage is selected not only for their clinical expertise, but for their warmth, integrity, and commitment to personalized care.
+        </p>
+
+        <div class="mx-auto mt-12 max-w-3xl sm:mt-14">
+          <article class="chapter-3__card team-member scroll-reveal scroll-reveal--delay-1">
+            <p class="why-kicker">{clinician.role}</p>
+            <h2 class="mt-4 font-display text-[1.75rem] font-normal leading-snug tracking-tight text-[#2E2D2A] sm:text-[2.125rem]">
+              {clinician.name}
+            </h2>
+            <p class="team-member__meta mt-3 text-sm leading-relaxed text-sage-dark/65 sm:text-[0.9375rem]">
+              {clinician.credentials}
+            </p>
+            <p class="team-member__meta mt-1 text-sm leading-relaxed text-sage-dark/65 sm:text-[0.9375rem]">
+              {clinician.focus}
+            </p>
+            <p class="mt-5 text-[1.0625rem] leading-relaxed text-sage-dark/78 sm:mt-6 sm:text-lg">
+              {clinician.bio}
+            </p>
+            <div class="mt-6">
+              <PsychologyTodayBadge variant="light" />
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Leadership -->
+    <section class="why-section bg-cream" aria-labelledby="team-leadership-heading">
+      <div class="container-page">
+        <h2
+          id="team-leadership-heading"
+          class="scroll-reveal text-center font-display text-[1.75rem] font-normal tracking-tight text-[#2E2D2A] sm:text-[2.125rem]"
+        >
+          Leadership
+        </h2>
+
+        <div class="mx-auto mt-10 max-w-2xl sm:mt-12">
+          <article class="chapter-3__card team-member team-member--leadership scroll-reveal scroll-reveal--delay-1">
+            <p class="why-kicker">{founder.role}</p>
+            <h3 class="mt-3 font-display text-[1.45rem] font-normal leading-snug tracking-tight text-[#2E2D2A] sm:mt-4 sm:text-[1.75rem]">
+              {founder.name}
+            </h3>
+            <p class="mt-4 text-[1.0625rem] leading-relaxed text-sage-dark/78 sm:mt-5 sm:text-lg">
+              {founder.bio}
+            </p>
+          </article>
         </div>
       </div>
     </section>
 
     <!-- Growing -->
-    <section class="why-section bg-cream" aria-labelledby="team-careers-heading">
+    <section class="why-section why-section--soft bg-cream" aria-labelledby="team-careers-heading">
       <div class="container-page">
         <div class="mx-auto max-w-2xl text-center">
           <h2
@@ -86,7 +96,7 @@ const members = [
           </h2>
 
           <p class="scroll-reveal scroll-reveal--delay-1 mx-auto mt-6 max-w-xl text-[1.0625rem] leading-relaxed text-sage-dark/72 sm:mt-8 sm:text-lg">
-            We&apos;re growing carefully — looking for compassionate clinicians who want to offer thoughtful, connection-centered care across South Florida and beyond.
+            We&apos;re thoughtfully growing our team and looking for compassionate clinicians who share our commitment to connection-centered care.
           </p>
 
           <p class="scroll-reveal scroll-reveal--delay-1 mx-auto mt-4 max-w-xl text-[1.0625rem] leading-relaxed text-sage-dark/72 sm:text-lg">
@@ -95,7 +105,7 @@ const members = [
 
           <div class="scroll-reveal scroll-reveal--delay-2 mt-8 sm:mt-10">
             <a href="/careers" class="text-sm font-medium tracking-wide text-sage-dark transition hover:text-sage">
-              View careers →
+              Join our team →
             </a>
           </div>
         </div>
@@ -111,11 +121,11 @@ const members = [
           <h2 id="team-closing-heading" class="sr-only">Insurance and fees</h2>
 
           <p class="scroll-reveal font-display text-[1.35rem] leading-relaxed text-sage-dark/85 sm:text-[1.65rem]">
-            Wondering how care gets covered?
+            Questions about insurance or payment?
           </p>
 
           <p class="scroll-reveal scroll-reveal--delay-1 mt-2 font-display text-[1.35rem] leading-relaxed text-sage-dark/85 sm:mt-2.5 sm:text-[1.65rem]">
-            We&apos;ll walk you through insurance and private pay options.
+            We&apos;ll walk you through insurance, out-of-network benefits, and private pay options.
           </p>
 
           <div class="scroll-reveal scroll-reveal--delay-2 mt-9 sm:mt-10">

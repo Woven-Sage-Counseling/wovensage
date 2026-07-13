@@ -99,7 +99,7 @@ export const siteConfig = {
     'Depression',
     'Trauma & PTSD',
     'EMDR',
-    'LGBTQ+ Concerns',
+    'LGBTQ+ Affirming Care',
     'Gender Identity',
     'Women’s Issues',
     'Relationship Challenges',

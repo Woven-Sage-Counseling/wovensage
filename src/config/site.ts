@@ -66,6 +66,7 @@ export const siteConfig = {
     founder: {
       name: 'Christian Evans',
       title: 'Founder & Operations Director',
+      credentials: 'BS · MMHC',
       pronouns: '',
       bio: 'Christian founded Woven Sage Counseling with a vision to build a thoughtful, connection-centered practice serving clients across South Florida and throughout the state. He leads the practice’s operations, growth, brand, and client experience.',
     },

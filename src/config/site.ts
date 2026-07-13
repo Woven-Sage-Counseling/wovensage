@@ -86,12 +86,12 @@ export const siteConfig = {
     note: 'We are actively credentialing insurance plans and will share accepted carriers as we open. Featured carriers below are among those we plan to work with — confirm your plan with us before your first session.',
     carriers: [
       {
-        id: 'florida-blue',
-        name: 'Florida Blue',
-        aliases: ['BCBS', 'Blue Cross', 'Blue Shield', 'BlueCross'],
+        id: 'blue-cross-blue-shield',
+        name: 'Blue Cross Blue Shield',
+        aliases: ['Florida Blue', 'BCBS', 'Blue Cross', 'Blue Shield', 'BlueCross', 'BlueShield'],
         featured: true,
         status: 'credentialing',
-        logo: '/images/carriers/florida-blue.svg',
+        logo: '/images/carriers/blue-cross-blue-shield.svg',
       },
       {
         id: 'aetna',

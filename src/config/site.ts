@@ -83,8 +83,85 @@ export const siteConfig = {
   },
 
   insurance: {
-    note: 'We are actively credentialing insurance plans and will share accepted carriers as we open.',
-    carriers: [] as string[],
+    note: 'We are actively credentialing insurance plans and will share accepted carriers as we open. Featured carriers below are among those we plan to work with — confirm your plan with us before your first session.',
+    carriers: [
+      {
+        id: 'florida-blue',
+        name: 'Florida Blue',
+        aliases: ['BCBS', 'Blue Cross', 'Blue Shield', 'BlueCross'],
+        featured: true,
+        status: 'credentialing',
+      },
+      {
+        id: 'aetna',
+        name: 'Aetna',
+        aliases: ['Aetna Better Health'],
+        featured: true,
+        status: 'credentialing',
+      },
+      {
+        id: 'cigna',
+        name: 'Cigna',
+        aliases: ['Evernorth'],
+        featured: true,
+        status: 'credentialing',
+      },
+      {
+        id: 'unitedhealthcare',
+        name: 'UnitedHealthcare',
+        aliases: ['UHC', 'United', 'United Healthcare', 'Optum'],
+        featured: true,
+        status: 'credentialing',
+      },
+      {
+        id: 'humana',
+        name: 'Humana',
+        aliases: [],
+        featured: true,
+        status: 'credentialing',
+      },
+      {
+        id: 'oscar',
+        name: 'Oscar Health',
+        aliases: ['Oscar'],
+        featured: true,
+        status: 'credentialing',
+      },
+      {
+        id: 'magellan',
+        name: 'Magellan',
+        aliases: ['Magellan Health'],
+        featured: false,
+        status: 'credentialing',
+      },
+      {
+        id: 'tricare',
+        name: 'TRICARE',
+        aliases: [],
+        featured: false,
+        status: 'credentialing',
+      },
+      {
+        id: 'medicaid',
+        name: 'Florida Medicaid',
+        aliases: ['Medicaid'],
+        featured: false,
+        status: 'credentialing',
+      },
+      {
+        id: 'medicare',
+        name: 'Medicare',
+        aliases: [],
+        featured: false,
+        status: 'credentialing',
+      },
+    ] as Array<{
+      id: string;
+      name: string;
+      aliases: string[];
+      featured: boolean;
+      status: 'credentialing' | 'in-network' | 'out-of-network';
+    }>,
   },
 
   services: [

@@ -1,89 +1,267 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
-import Section from '../components/Section.astro';
-import BookingButton from '../components/BookingButton.astro';
 import { siteConfig } from '../config/site';
+
+const { note, carriers } = siteConfig.insurance;
+const featuredCarriers = carriers.filter((carrier) => carrier.featured);
+const searchableCarriers = carriers;
+
+const detailCards = [
+  {
+    title: 'Private pay',
+    body: 'Private pay is available for clients who prefer to pay out of pocket or whose insurance is not yet in network. Session rates and sliding-scale options will be shared as we open — contact us for the latest details.',
+  },
+  {
+    title: 'Payment methods',
+    body: 'We accept major credit and debit cards. HSA and FSA cards are typically accepted for eligible mental health services — confirm with your card provider.',
+  },
+  {
+    title: 'Cancellation policy',
+    body: 'We ask for at least 24 hours’ notice if you need to cancel or reschedule. Late cancellations or missed appointments may be subject to a fee. Final policy details will be shared at launch.',
+  },
+  {
+    title: 'Good faith estimate',
+    body: 'Under the No Surprises Act, you have the right to receive a good faith estimate of expected charges. Contact us to discuss expected costs based on your insurance benefits or private pay rate before your first session.',
+  },
+] as const;
+
+const statusLabel = (status: string) => {
+  if (status === 'in-network') return 'In network';
+  if (status === 'out-of-network') return 'Out of network';
+  return 'Credentialing';
+};
 ---
 
 <BaseLayout
   title="Insurance & Fees"
-  description="Insurance and private pay options at Woven Sage Counseling. Details coming as we open."
+  description="Insurance, private pay, and payment options at Woven Sage Counseling. Search accepted carriers and learn how care can be covered."
+  botanicalBg={false}
 >
-  <PageHero
-    title="Insurance & fees"
-    description="Transparent care with insurance and private pay options."
-    centered
-  />
+  <article class="insurance-page why-page">
+    <!-- Hero -->
+    <section class="why-hero relative overflow-hidden bg-cream" aria-labelledby="insurance-hero-heading">
+      <div class="hero-breathe pointer-events-none absolute inset-0" aria-hidden="true"></div>
+      <div class="why-hero__grain pointer-events-none absolute inset-0" aria-hidden="true"></div>
 
-  <Section>
-    <div class="mx-auto max-w-3xl space-y-8 prose-content">
-      <div class="card">
-        <h2 class="font-serif text-xl">Insurance</h2>
-        <p>
-          We plan to accept in-network insurance and are actively credentialing plans. Insurance
-          details and accepted carriers will be shared as we open.
-        </p>
-        <p>{siteConfig.insurance.note}</p>
-        {
-          siteConfig.insurance.carriers.length > 0 ? (
-            <ul class="list-inside list-disc">
-              {siteConfig.insurance.carriers.map((carrier) => (
-                <li>{carrier}</li>
-              ))}
-            </ul>
-          ) : (
-            <p class="italic text-sage-dark/70">
-              [Accepted insurance plans list coming soon — update in site config]
+      <div
+        class="why-hero__botanical pointer-events-none absolute bottom-0 left-0 z-0 select-none"
+        aria-hidden="true"
+      >
+        <img
+          src={siteConfig.logos.sageBotanicalHero}
+          alt=""
+          width={682}
+          height={1024}
+          class="why-hero__botanical-img sage-enter block h-auto w-auto max-w-none"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+
+      <p class="scroll-reveal why-kicker why-hero__kicker">Insurance &amp; fees</p>
+
+      <div class="container-page relative z-10">
+        <div class="why-hero__inner mx-auto max-w-2xl text-center">
+          <h1
+            id="insurance-hero-heading"
+            class="scroll-reveal font-display text-[2.385rem] font-normal leading-[1.14] tracking-tight text-[#2E2D2A] sm:text-[3.18rem] md:text-[3.71rem]"
+          >
+            Care that stays <em class="italic text-sage">clear</em> about cost.
+          </h1>
+
+          <div class="scroll-reveal scroll-reveal--delay-1 why-hero__copy mx-auto mt-12 max-w-xl sm:mt-14 md:mt-16">
+            <p>
+              Insurance, private pay, and transparent next steps — so you can focus on beginning.
             </p>
-          )
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Carriers -->
+    <section class="why-section why-section--soft bg-cream" aria-labelledby="insurance-carriers-heading">
+      <div class="container-page">
+        <div class="mx-auto max-w-3xl">
+          <h2
+            id="insurance-carriers-heading"
+            class="scroll-reveal text-center font-display text-[1.75rem] font-normal tracking-tight text-[#2E2D2A] sm:text-[2.125rem]"
+          >
+            Insurance
+          </h2>
+
+          <p class="scroll-reveal scroll-reveal--delay-1 mx-auto mt-6 max-w-2xl text-center text-[1.0625rem] leading-relaxed text-sage-dark/72 sm:mt-8 sm:text-lg">
+            {note}
+          </p>
+
+          {
+            carriers.length === 0 ? (
+              <p class="scroll-reveal scroll-reveal--delay-1 mt-10 text-center italic text-sage-dark/65 sm:mt-12">
+                Accepted insurance plans will appear here as credentialing is completed.
+              </p>
+            ) : (
+              <div class="insurance-carriers mt-12 sm:mt-14">
+                {featuredCarriers.length > 0 && (
+                  <div class="scroll-reveal">
+                    <p class="why-kicker text-center">Major carriers</p>
+                    <ul class="insurance-carriers__featured mt-6" role="list">
+                      {featuredCarriers.map((carrier) => (
+                        <li>
+                          <span class="insurance-carriers__badge">
+                            <span class="insurance-carriers__badge-name">{carrier.name}</span>
+                            <span class="insurance-carriers__badge-status">
+                              {statusLabel(carrier.status)}
+                            </span>
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                <div class="scroll-reveal scroll-reveal--delay-1 mt-12 sm:mt-14">
+                  <label for="carrier-search" class="why-kicker block text-center">
+                    Search all carriers
+                  </label>
+                  <div class="insurance-carriers__search mt-5">
+                    <input
+                      id="carrier-search"
+                      type="search"
+                      name="carrier-search"
+                      placeholder="Search by carrier name…"
+                      autocomplete="off"
+                      spellcheck="false"
+                      aria-controls="carrier-results"
+                    />
+                  </div>
+
+                  <ul
+                    id="carrier-results"
+                    class="insurance-carriers__list mt-6"
+                    role="list"
+                    data-carrier-list
+                  >
+                    {searchableCarriers.map((carrier) => (
+                      <li
+                        class="insurance-carriers__item"
+                        data-carrier-item
+                        data-name={carrier.name.toLowerCase()}
+                        data-aliases={carrier.aliases.join(' ').toLowerCase()}
+                      >
+                        <span class="insurance-carriers__item-name">{carrier.name}</span>
+                        <span class="insurance-carriers__item-status">
+                          {statusLabel(carrier.status)}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <p
+                    id="carrier-empty"
+                    class="insurance-carriers__empty mt-6 hidden text-center text-sm text-sage-dark/65"
+                    hidden
+                  >
+                    No carriers match your search. Contact us and we&apos;ll help you check coverage.
+                  </p>
+                </div>
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Details -->
+    <section class="why-section bg-cream" aria-labelledby="insurance-details-heading">
+      <div class="container-page">
+        <h2
+          id="insurance-details-heading"
+          class="scroll-reveal text-center font-display text-[1.75rem] font-normal tracking-tight text-[#2E2D2A] sm:text-[2.125rem]"
+        >
+          Fees &amp; policies
+        </h2>
+
+        <div class="mx-auto mt-12 grid max-w-5xl gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:gap-8">
+          {
+            detailCards.map((card, index) => (
+              <article
+                class:list={[
+                  'chapter-3__card scroll-reveal',
+                  index % 2 === 1 ? 'scroll-reveal--delay-1' : '',
+                  index >= 2 ? 'scroll-reveal--delay-2' : '',
+                ]}
+              >
+                <h3 class="font-display text-[1.3rem] font-normal leading-snug tracking-tight text-[#2E2D2A] sm:text-[1.75rem]">
+                  {card.title}
+                </h3>
+                <p class="mt-4 text-sm leading-relaxed text-sage-dark/65 sm:mt-5 sm:text-[0.9375rem]">
+                  {card.body}
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Closing -->
+    <section class="why-closing relative overflow-hidden bg-cream pb-24 pt-16 sm:pb-32 sm:pt-20" aria-labelledby="insurance-closing-heading">
+      <div class="hero-breathe pointer-events-none absolute inset-0 opacity-60" aria-hidden="true"></div>
+
+      <div class="container-page relative z-10">
+        <div class="mx-auto max-w-xl text-center">
+          <h2 id="insurance-closing-heading" class="sr-only">Questions about coverage</h2>
+
+          <p class="scroll-reveal font-display text-[1.35rem] leading-relaxed text-sage-dark/85 sm:text-[1.65rem]">
+            Not sure how your plan works with us?
+          </p>
+
+          <p class="scroll-reveal scroll-reveal--delay-1 mt-2 font-display text-[1.35rem] leading-relaxed text-sage-dark/85 sm:mt-2.5 sm:text-[1.65rem]">
+            Reach out and we&apos;ll help you sort through the details.
+          </p>
+
+          <div class="scroll-reveal scroll-reveal--delay-2 mt-9 sm:mt-10">
+            <a href="/contact#contact-form" class="btn-primary hero-cta why-closing__cta inline-flex">
+              Join our waitlist →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <script>
+    import { initScrollReveal } from '../scripts/scroll-reveal';
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    initScrollReveal(reduceMotion);
+
+    const searchInput = document.getElementById('carrier-search') as HTMLInputElement | null;
+    const items = Array.from(document.querySelectorAll<HTMLElement>('[data-carrier-item]'));
+    const emptyState = document.getElementById('carrier-empty');
+
+    if (searchInput && items.length > 0) {
+      const filterCarriers = () => {
+        const query = searchInput.value.trim().toLowerCase();
+        let visibleCount = 0;
+
+        for (const item of items) {
+          const name = item.dataset.name ?? '';
+          const aliases = item.dataset.aliases ?? '';
+          const matches = !query || name.includes(query) || aliases.includes(query);
+          item.hidden = !matches;
+          item.classList.toggle('is-hidden', !matches);
+          if (matches) visibleCount += 1;
         }
-      </div>
 
-      <div class="card">
-        <h2 class="font-serif text-xl">Private pay</h2>
-        <p>
-          Private pay will be available for clients who prefer to pay out of pocket or whose
-          insurance is not yet in network.
-        </p>
-        <p class="italic text-sage-dark/70">[Session rates coming soon — contact us for updates]</p>
-        <p class="italic text-sage-dark/70">[Sliding scale availability — TBD]</p>
-      </div>
+        if (emptyState) {
+          const showEmpty = visibleCount === 0;
+          emptyState.hidden = !showEmpty;
+          emptyState.classList.toggle('hidden', !showEmpty);
+        }
+      };
 
-      <div class="card">
-        <h2 class="font-serif text-xl">Payment methods</h2>
-        <p>
-          We accept major credit and debit cards. HSA and FSA cards are typically accepted for
-          eligible mental health services — confirm with your card provider.
-        </p>
-      </div>
-
-      <div class="card">
-        <h2 class="font-serif text-xl">Cancellation policy</h2>
-        <p>
-          We ask for at least 24 hours' notice if you need to cancel or reschedule an appointment.
-          Late cancellations or missed appointments may be subject to a fee. Final policy details
-          will be shared at launch.
-        </p>
-        <p class="text-xs text-sage-dark/70">
-          This is a general summary — final policy text pending review.
-        </p>
-      </div>
-
-      <div class="card">
-        <h2 class="font-serif text-xl">Good faith estimate</h2>
-        <p>
-          Under the No Surprises Act, you have the right to receive a good faith estimate of
-          expected charges for healthcare services. Contact us to discuss expected costs based on
-          your insurance benefits or private pay rate before your first session once we open.
-        </p>
-      </div>
-    </div>
-  </Section>
-
-  <section class="py-14">
-    <div class="container-page text-center">
-      <BookingButton />
-    </div>
-  </section>
+      searchInput.addEventListener('input', filterCarriers);
+      searchInput.addEventListener('search', filterCarriers);
+    }
+  </script>
 </BaseLayout>

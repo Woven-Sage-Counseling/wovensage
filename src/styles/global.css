@@ -1683,6 +1683,122 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   }
 }
 
+.insurance-carriers__featured {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.insurance-carriers__badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 7.5rem;
+  padding: 0.95rem 1.15rem;
+  border-radius: 1rem;
+  border: 1px solid rgb(152 169 149 / 0.28);
+  background-color: color-mix(in srgb, theme('colors.sage.light') 14%, theme('colors.cream.DEFAULT'));
+  box-shadow: 0 4px 14px rgb(58 58 56 / 0.03);
+}
+
+.insurance-carriers__badge-name {
+  font-family: theme('fontFamily.display');
+  font-size: 1.15rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #2e2d2a;
+  text-align: center;
+}
+
+.insurance-carriers__badge-status {
+  font-size: 0.5625rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: rgb(111 127 108 / 0.72);
+  text-transform: uppercase;
+}
+
+.insurance-carriers__search input {
+  display: block;
+  width: 100%;
+  max-width: 28rem;
+  margin-inline: auto;
+  padding: 0.9rem 1.15rem;
+  border: 1px solid rgb(185 181 174 / 0.42);
+  border-radius: 999px;
+  background-color: #faf6f0;
+  color: #2e2d2a;
+  font-size: 0.9875rem;
+  line-height: 1.4;
+  outline: none;
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.insurance-carriers__search input::placeholder {
+  color: rgb(111 127 108 / 0.55);
+}
+
+.insurance-carriers__search input:focus {
+  border-color: rgb(152 169 149 / 0.55);
+  box-shadow: 0 0 0 3px rgb(152 169 149 / 0.14);
+}
+
+.insurance-carriers__list {
+  display: grid;
+  gap: 0.65rem;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 640px) {
+  .insurance-carriers__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem 1rem;
+  }
+}
+
+.insurance-carriers__item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgb(185 181 174 / 0.22);
+  border-radius: 0.9rem;
+  background-color: #faf6f0;
+}
+
+.insurance-carriers__item.is-hidden,
+.insurance-carriers__item[hidden] {
+  display: none;
+}
+
+.insurance-carriers__item-name {
+  font-family: theme('fontFamily.display');
+  font-size: 1.1rem;
+  line-height: 1.3;
+  color: rgb(46 45 42 / 0.9);
+}
+
+.insurance-carriers__item-status {
+  flex-shrink: 0;
+  font-size: 0.5625rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: rgb(111 127 108 / 0.68);
+  text-transform: uppercase;
+}
+
+.insurance-carriers__empty[hidden] {
+  display: none;
+}
+
 /* Abstract botanical background pattern */
 .bg-nature {
   background-color: theme('colors.cream.DEFAULT');

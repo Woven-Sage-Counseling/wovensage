@@ -1723,9 +1723,9 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 }
 
 .insurance-carriers__badge-logo--bcbs {
-  width: 100%;
-  max-width: 9.1rem;
-  max-height: 4.9rem;
+  width: auto;
+  max-width: 7.25rem;
+  max-height: 3.35rem;
 }
 
 .insurance-carriers__badge-name {

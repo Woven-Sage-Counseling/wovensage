@@ -37,6 +37,7 @@ export const siteConfig = {
     sageBotanicalHero: '/images/sage-botanical-hero.png',
     chapter2Rest: '/images/chapter-2-rest-cropped.jpg',
     servicesHero: '/images/services-hero-matcha.jpg',
+    teamGrowing: '/images/team-growing-bg.jpg',
   },
 
   /** Formspree form ID — sign up at formspree.io and paste your form ID here */

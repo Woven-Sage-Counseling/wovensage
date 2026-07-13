@@ -1,49 +1,147 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
-import Section from '../components/Section.astro';
-import TeamCard from '../components/TeamCard.astro';
+import PsychologyTodayBadge from '../components/PsychologyTodayBadge.astro';
 import { siteConfig } from '../config/site';
 
 const { founder, clinician } = siteConfig.team;
+
+const members = [
+  {
+    name: founder.name,
+    role: founder.title,
+    meta: '',
+    bio: founder.bio,
+    showPsychologyTodayBadge: false,
+  },
+  {
+    name: clinician.name,
+    role: clinician.title,
+    meta: [clinician.credentials, clinician.pronouns, clinician.languages.join(', '), clinician.license]
+      .filter(Boolean)
+      .join(' · '),
+    bio: `${clinician.bio} ${clinician.specialties}.`,
+    showPsychologyTodayBadge: true,
+  },
+] as const;
 ---
 
 <BaseLayout
   title="Meet the Team"
   description="Meet the people behind Woven Sage Counseling — Christian Evans, Founder, and Michele Evans, Co-Founder & LMHC."
+  botanicalBg={false}
 >
-  <PageHero
-    title="Meet the team"
-    description="The people behind Woven Sage Counseling."
-    centered
-  />
+  <article class="team-page why-page">
+    <!-- Hero -->
+    <section class="why-hero relative overflow-hidden bg-cream" aria-labelledby="team-hero-heading">
+      <div class="hero-breathe pointer-events-none absolute inset-0" aria-hidden="true"></div>
+      <div class="why-hero__grain pointer-events-none absolute inset-0" aria-hidden="true"></div>
 
-  <Section>
-    <div class="mx-auto max-w-3xl space-y-8">
-      <TeamCard
-        name={founder.name}
-        title={founder.title}
-        bio={founder.bio}
-      />
+      <div
+        class="why-hero__botanical pointer-events-none absolute bottom-0 left-0 z-0 select-none"
+        aria-hidden="true"
+      >
+        <img
+          src={siteConfig.logos.sageBotanicalHero}
+          alt=""
+          width={682}
+          height={1024}
+          class="why-hero__botanical-img sage-enter block h-auto w-auto max-w-none"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
 
-      <TeamCard
-        name={clinician.name}
-        title={`${clinician.title} · ${clinician.credentials}`}
-        subtitle={`${clinician.pronouns} · ${clinician.languages.join(', ')} · ${clinician.license}`}
-        bio={`${clinician.bio} ${clinician.specialties}.`}
-        showPsychologyTodayBadge
-      />
-    </div>
+      <p class="scroll-reveal why-kicker why-hero__kicker">Team</p>
 
-    <div class="card mx-auto mt-12 max-w-3xl text-center">
-      <h3 class="font-serif text-xl">Growing our team</h3>
-      <p class="prose-content mt-3 text-sm">
-        Woven Sage is actively expanding. We are building a team of compassionate clinicians
-        to serve more clients across South Florida and beyond.
-      </p>
-      <a href="/careers" class="mt-4 inline-block text-sm font-semibold text-sage-dark hover:text-sage-dark">
-        View careers →
-      </a>
-    </div>
-  </Section>
+      <div class="container-page relative z-10">
+        <div class="why-hero__inner mx-auto max-w-2xl text-center">
+          <h1
+            id="team-hero-heading"
+            class="scroll-reveal font-display text-[2.385rem] font-normal leading-[1.14] tracking-tight text-[#2E2D2A] sm:text-[3.18rem] md:text-[3.71rem]"
+          >
+            The people behind the <em class="italic text-sage">care</em>.
+          </h1>
+
+          <div class="scroll-reveal scroll-reveal--delay-1 why-hero__copy mx-auto mt-12 max-w-xl sm:mt-14 md:mt-16">
+            <p>
+              Thoughtful therapy begins with the people who offer it.
+            </p>
+            <p class="why-hero__copy-close">
+              A small team, growing carefully.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Members -->
+    <section class="why-section why-section--soft bg-cream" aria-labelledby="team-members-heading">
+      <div class="container-page">
+        <h2 id="team-members-heading" class="sr-only">Our team</h2>
+
+        <div class="mx-auto flex max-w-3xl flex-col gap-6 sm:gap-8">
+          {
+            members.map((member, index) => (
+              <article
+                class:list={[
+                  'chapter-3__card team-member scroll-reveal',
+                  index > 0 ? 'scroll-reveal--delay-1' : '',
+                ]}
+              >
+                <p class="why-kicker">{member.role}</p>
+                <h3 class="mt-4 font-display text-[1.75rem] font-normal leading-snug tracking-tight text-[#2E2D2A] sm:text-[2.125rem]">
+                  {member.name}
+                </h3>
+                {member.meta && (
+                  <p class="team-member__meta mt-3 text-sm leading-relaxed text-sage-dark/65 sm:text-[0.9375rem]">
+                    {member.meta}
+                  </p>
+                )}
+                <p class="mt-5 text-[1.0625rem] leading-relaxed text-sage-dark/78 sm:mt-6 sm:text-lg">
+                  {member.bio}
+                </p>
+                {member.showPsychologyTodayBadge && (
+                  <div class="mt-6">
+                    <PsychologyTodayBadge variant="light" />
+                  </div>
+                )}
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Closing -->
+    <section class="why-closing relative overflow-hidden bg-cream pb-24 pt-8 sm:pb-32 sm:pt-12" aria-labelledby="team-closing-heading">
+      <div class="hero-breathe pointer-events-none absolute inset-0 opacity-60" aria-hidden="true"></div>
+
+      <div class="container-page relative z-10">
+        <div class="mx-auto max-w-xl text-center">
+          <h2 id="team-closing-heading" class="sr-only">Growing our team</h2>
+
+          <p class="scroll-reveal font-display text-[1.35rem] leading-relaxed text-sage-dark/85 sm:text-[1.65rem]">
+            We&apos;re growing our team with intention.
+          </p>
+
+          <p class="scroll-reveal scroll-reveal--delay-1 mt-2 font-display text-[1.35rem] leading-relaxed text-sage-dark/85 sm:mt-2.5 sm:text-[1.65rem]">
+            If you&apos;re a clinician looking for a place to belong, we&apos;d love to hear from you.
+          </p>
+
+          <div class="scroll-reveal scroll-reveal--delay-2 mt-9 sm:mt-10">
+            <a href="/careers" class="btn-primary hero-cta why-closing__cta inline-flex">
+              View careers →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <script>
+    import { initScrollReveal } from '../scripts/scroll-reveal';
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    initScrollReveal(reduceMotion);
+  </script>
 </BaseLayout>

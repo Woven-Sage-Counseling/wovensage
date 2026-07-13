@@ -1559,6 +1559,24 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   }
 }
 
+.services-offer.why-section {
+  padding-bottom: 2.5rem;
+}
+
+.services-focus-section.why-section {
+  padding-top: 1.75rem;
+}
+
+@media (min-width: 640px) {
+  .services-offer.why-section {
+    padding-bottom: 3rem;
+  }
+
+  .services-focus-section.why-section {
+    padding-top: 2.25rem;
+  }
+}
+
 .services-focus__list {
   display: grid;
   gap: 0.85rem 1.5rem;

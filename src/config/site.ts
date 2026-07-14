@@ -83,7 +83,7 @@ export const siteConfig = {
   },
 
   insurance: {
-    note: 'We are actively credentialing insurance plans and will share accepted carriers as we open. Featured carriers below are among those we plan to work with — confirm your plan with us before your first session.',
+    note: 'We are actively credentialing with major insurance plans. Coverage varies by plan, so please confirm your benefits with us before your first session.',
     carriers: [
       {
         id: 'blue-cross-blue-shield',

@@ -38,56 +38,16 @@ const statusLabel = (status: string) => {
   botanicalBg={false}
 >
   <article class="insurance-page why-page">
-    <!-- Hero -->
-    <section class="why-hero relative overflow-hidden bg-cream" aria-labelledby="insurance-hero-heading">
-      <div class="hero-breathe pointer-events-none absolute inset-0" aria-hidden="true"></div>
-      <div class="why-hero__grain pointer-events-none absolute inset-0" aria-hidden="true"></div>
-
-      <div
-        class="why-hero__botanical pointer-events-none absolute bottom-0 left-0 z-0 select-none"
-        aria-hidden="true"
-      >
-        <img
-          src={siteConfig.logos.sageBotanicalHero}
-          alt=""
-          width={682}
-          height={1024}
-          class="why-hero__botanical-img sage-enter block h-auto w-auto max-w-none"
-          loading="eager"
-          decoding="async"
-        />
-      </div>
-
-      <p class="scroll-reveal why-kicker why-hero__kicker">Insurance &amp; fees</p>
-
-      <div class="container-page relative z-10">
-        <div class="why-hero__inner mx-auto max-w-2xl text-center">
-          <h1
-            id="insurance-hero-heading"
-            class="scroll-reveal font-display text-[2.385rem] font-normal leading-[1.14] tracking-tight text-[#2E2D2A] sm:text-[3.18rem] md:text-[3.71rem]"
-          >
-            Care that stays <em class="italic text-sage">clear</em> about cost.
-          </h1>
-
-          <div class="scroll-reveal scroll-reveal--delay-1 why-hero__copy mx-auto mt-12 max-w-xl sm:mt-14 md:mt-16">
-            <p>
-              Insurance, private pay, and transparent next steps — so you can focus on beginning.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Carriers -->
     <section class="why-section why-section--soft bg-cream" aria-labelledby="insurance-carriers-heading">
       <div class="container-page">
         <div class="mx-auto max-w-3xl">
-          <h2
+          <h1
             id="insurance-carriers-heading"
             class="scroll-reveal text-center font-display text-[1.75rem] font-normal tracking-tight text-[#2E2D2A] sm:text-[2.125rem]"
           >
             Insurance
-          </h2>
+          </h1>
 
           <p class="scroll-reveal scroll-reveal--delay-1 mx-auto mt-6 max-w-2xl text-center text-[1.0625rem] leading-relaxed text-sage-dark/72 sm:mt-8 sm:text-lg">
             {note}

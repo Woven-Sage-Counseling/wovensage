@@ -3,7 +3,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../config/site';
 
 const { note, carriers } = siteConfig.insurance;
-const featuredCarriers = carriers.filter((carrier) => carrier.featured);
+const featuredOrder = [
+  'unitedhealthcare',
+  'blue-cross-blue-shield',
+  'aetna',
+  'cigna',
+  'humana',
+  'oscar',
+] as const;
+const featuredCarriers = featuredOrder
+  .map((id) => carriers.find((carrier) => carrier.id === id))
+  .filter((carrier): carrier is (typeof carriers)[number] => Boolean(carrier));
 const searchableCarriers = carriers;
 
 const detailCards = [
@@ -41,7 +51,7 @@ const statusLabel = (status: string) => {
     <!-- Carriers -->
     <section class="why-section why-section--soft bg-cream" aria-labelledby="insurance-carriers-heading">
       <div class="container-page">
-        <div class="mx-auto max-w-3xl">
+        <div class="mx-auto max-w-5xl">
           <h1
             id="insurance-carriers-heading"
             class="scroll-reveal text-center font-display text-[1.75rem] font-normal tracking-tight text-[#2E2D2A] sm:text-[2.125rem]"
@@ -61,37 +71,34 @@ const statusLabel = (status: string) => {
             ) : (
               <div class="insurance-carriers mt-12 sm:mt-14">
                 {featuredCarriers.length > 0 && (
-                  <div class="scroll-reveal">
-                    <p class="why-kicker text-center">Major carriers</p>
-                    <ul class="insurance-carriers__featured mt-6" role="list">
-                      {featuredCarriers.map((carrier) => (
-                        <li>
-                          <span class="insurance-carriers__badge">
-                            {carrier.logo ? (
-                              <img
-                                src={carrier.logo}
-                                alt={`${carrier.name} logo`}
-                                class:list={[
-                                  'insurance-carriers__badge-logo',
-                                  carrier.id === 'blue-cross-blue-shield'
-                                    ? 'insurance-carriers__badge-logo--bcbs'
-                                    : carrier.id === 'cigna'
-                                      ? 'insurance-carriers__badge-logo--large'
-                                      : '',
-                                ]}
-                                width={160}
-                                height={56}
-                                loading="lazy"
-                                decoding="async"
-                              />
-                            ) : (
-                              <span class="insurance-carriers__badge-name">{carrier.name}</span>
-                            )}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <ul class="insurance-carriers__row scroll-reveal" role="list">
+                    {featuredCarriers.map((carrier) => (
+                      <li class="insurance-carriers__row-item">
+                        {carrier.logo ? (
+                          <img
+                            src={carrier.logo}
+                            alt={`${carrier.name} logo`}
+                            class:list={[
+                              'insurance-carriers__row-logo',
+                              carrier.id === 'blue-cross-blue-shield'
+                                ? 'insurance-carriers__row-logo--bcbs'
+                                : carrier.id === 'cigna'
+                                  ? 'insurance-carriers__row-logo--cigna'
+                                  : carrier.id === 'unitedhealthcare'
+                                    ? 'insurance-carriers__row-logo--uhc'
+                                    : '',
+                            ]}
+                            width={160}
+                            height={48}
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        ) : (
+                          <span class="insurance-carriers__row-name">{carrier.name}</span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
                 )}
 
                 <div class="scroll-reveal scroll-reveal--delay-1 mt-12 sm:mt-14">

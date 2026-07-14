@@ -1683,58 +1683,66 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   }
 }
 
-.insurance-carriers__featured {
+.insurance-carriers__row {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 1.5rem 2.25rem;
   padding: 0;
   list-style: none;
 }
 
-.insurance-carriers__badge {
-  display: inline-flex;
-  flex-direction: column;
+@media (min-width: 768px) {
+  .insurance-carriers__row {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 1.75rem;
+  }
+}
+
+.insurance-carriers__row-item {
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 10rem;
-  min-height: 5.5rem;
-  padding: 0.7rem 0.55rem;
-  border-radius: 1rem;
-  border: 1px solid rgb(152 169 149 / 0.28);
-  background-color: #faf6f0;
-  box-shadow: 0 4px 14px rgb(58 58 56 / 0.03);
+  flex: 0 1 auto;
 }
 
-.insurance-carriers__badge-logo {
+.insurance-carriers__row-logo {
   display: block;
+  height: 1.75rem;
   width: auto;
-  max-width: 8.25rem;
-  height: auto;
-  max-height: 3rem;
+  max-width: 6.5rem;
   object-fit: contain;
   object-position: center;
+  opacity: 0.9;
+  filter: brightness(0) saturate(100%) invert(54%) sepia(10%) saturate(560%) hue-rotate(73deg)
+    brightness(94%) contrast(88%);
 }
 
-.insurance-carriers__badge-logo--large {
-  width: 100%;
-  max-width: 9rem;
-  max-height: 4.6rem;
+.insurance-carriers__row-logo--uhc {
+  height: 1.65rem;
+  max-width: 7.25rem;
 }
 
-.insurance-carriers__badge-logo--bcbs {
-  width: auto;
-  max-width: 5.25rem;
-  max-height: 2.35rem;
+.insurance-carriers__row-logo--bcbs {
+  height: 1.9rem;
+  max-width: 5.75rem;
 }
 
-.insurance-carriers__badge-name {
+.insurance-carriers__row-logo--cigna {
+  height: 2.35rem;
+  max-width: 4.75rem;
+}
+
+.insurance-carriers__row-name {
   font-family: theme('fontFamily.display');
-  font-size: 1.15rem;
+  font-size: 1rem;
   line-height: 1.2;
   letter-spacing: -0.01em;
-  color: #2e2d2a;
+  color: rgb(111 127 108 / 0.88);
   text-align: center;
+  white-space: nowrap;
 }
 
 .insurance-carriers__search input {

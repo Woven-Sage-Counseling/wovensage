@@ -1688,7 +1688,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 0.875rem 1.125rem;
+  gap: 1.125rem 1.5rem;
   padding: 0;
   list-style: none;
 }
@@ -1697,7 +1697,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   .insurance-carriers__row {
     flex-wrap: nowrap;
     justify-content: center;
-    gap: 1.125rem;
+    gap: 1.625rem;
   }
 }
 
@@ -1725,9 +1725,46 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   max-width: 7.25rem;
 }
 
-.insurance-carriers__row-logo--bcbs {
-  height: 2.15rem;
-  max-width: 9.5rem;
+.insurance-carriers__bcbs {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(111 127 108 / 0.9);
+}
+
+.insurance-carriers__bcbs-main {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.insurance-carriers__bcbs-icons {
+  display: block;
+  height: 1.45rem;
+  width: 2.25rem;
+  flex-shrink: 0;
+}
+
+.insurance-carriers__bcbs-wordmark {
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.insurance-carriers__bcbs-disclaimer {
+  margin-top: 0.2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.36rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: rgb(111 127 108 / 0.72);
+  white-space: nowrap;
 }
 
 .insurance-carriers__row-logo--cigna {

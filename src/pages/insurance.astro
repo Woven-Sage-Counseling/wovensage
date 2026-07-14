@@ -74,19 +74,42 @@ const statusLabel = (status: string) => {
                   <ul class="insurance-carriers__row scroll-reveal" role="list">
                     {featuredCarriers.map((carrier) => (
                       <li class="insurance-carriers__row-item">
-                        {carrier.logo ? (
+                        {carrier.id === 'blue-cross-blue-shield' ? (
+                          <span class="insurance-carriers__bcbs" role="img" aria-label="Blue Cross Blue Shield">
+                            <span class="insurance-carriers__bcbs-main">
+                              <svg
+                                class="insurance-carriers__bcbs-icons"
+                                viewBox="0 0 44 28"
+                                aria-hidden="true"
+                                focusable="false"
+                              >
+                                <rect x="0" y="10" width="22" height="7" rx="1" fill="currentColor" />
+                                <rect x="7.5" y="3" width="7" height="21" rx="1" fill="currentColor" />
+                                <path
+                                  d="M27 2.5c4.5 1.5 7.5 2 10 2v9.5c0 3.7-2.6 6.6-10 9.8C19.5 20.6 17 17.7 17 14V4.5c2.5 0 5.5-.5 10-2z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                              <span class="insurance-carriers__bcbs-wordmark">
+                                <span>BlueCross</span>
+                                <span>BlueShield</span>
+                              </span>
+                            </span>
+                            <span class="insurance-carriers__bcbs-disclaimer">
+                              Check local plan for coverage
+                            </span>
+                          </span>
+                        ) : carrier.logo ? (
                           <img
                             src={carrier.logo}
                             alt={`${carrier.name} logo`}
                             class:list={[
                               'insurance-carriers__row-logo',
-                              carrier.id === 'blue-cross-blue-shield'
-                                ? 'insurance-carriers__row-logo--bcbs'
-                                : carrier.id === 'cigna'
-                                  ? 'insurance-carriers__row-logo--cigna'
-                                  : carrier.id === 'unitedhealthcare'
-                                    ? 'insurance-carriers__row-logo--uhc'
-                                    : '',
+                              carrier.id === 'cigna'
+                                ? 'insurance-carriers__row-logo--cigna'
+                                : carrier.id === 'unitedhealthcare'
+                                  ? 'insurance-carriers__row-logo--uhc'
+                                  : '',
                             ]}
                             width={160}
                             height={48}

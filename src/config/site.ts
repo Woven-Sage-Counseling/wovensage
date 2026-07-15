@@ -90,7 +90,7 @@ export const siteConfig = {
         name: 'Blue Cross Blue Shield',
         aliases: ['Florida Blue', 'BCBS', 'Blue Cross', 'Blue Shield', 'BlueCross', 'BlueShield'],
         featured: true,
-        status: 'credentialing',
+        status: 'coming-soon',
         logo: '/images/carriers/blue-cross-blue-shield.svg',
       },
       {
@@ -98,7 +98,7 @@ export const siteConfig = {
         name: 'Aetna',
         aliases: ['Aetna Better Health'],
         featured: true,
-        status: 'credentialing',
+        status: 'coming-soon',
         logo: '/images/carriers/aetna.svg',
       },
       {
@@ -106,7 +106,7 @@ export const siteConfig = {
         name: 'Cigna',
         aliases: ['Evernorth'],
         featured: true,
-        status: 'credentialing',
+        status: 'coming-soon',
         logo: '/images/carriers/cigna.png',
       },
       {
@@ -114,7 +114,7 @@ export const siteConfig = {
         name: 'UnitedHealthcare',
         aliases: ['UHC', 'United', 'United Healthcare', 'Optum'],
         featured: true,
-        status: 'credentialing',
+        status: 'coming-soon',
         logo: '/images/carriers/unitedhealthcare.svg',
       },
       {
@@ -122,7 +122,7 @@ export const siteConfig = {
         name: 'Humana',
         aliases: [],
         featured: true,
-        status: 'credentialing',
+        status: 'coming-soon',
         logo: '/images/carriers/humana.svg',
       },
       {
@@ -130,7 +130,7 @@ export const siteConfig = {
         name: 'Oscar Health',
         aliases: ['Oscar'],
         featured: true,
-        status: 'credentialing',
+        status: 'coming-soon',
         logo: '/images/carriers/oscar.svg',
       },
       {
@@ -138,7 +138,7 @@ export const siteConfig = {
         name: 'Magellan',
         aliases: ['Magellan Health'],
         featured: false,
-        status: 'credentialing',
+        status: 'coming-soon',
         logo: '',
       },
       {
@@ -146,7 +146,7 @@ export const siteConfig = {
         name: 'TRICARE',
         aliases: [],
         featured: false,
-        status: 'credentialing',
+        status: 'coming-soon',
         logo: '',
       },
       {
@@ -154,7 +154,7 @@ export const siteConfig = {
         name: 'Florida Medicaid',
         aliases: ['Medicaid'],
         featured: false,
-        status: 'credentialing',
+        status: 'coming-soon',
         logo: '',
       },
       {
@@ -162,7 +162,7 @@ export const siteConfig = {
         name: 'Medicare',
         aliases: [],
         featured: false,
-        status: 'credentialing',
+        status: 'coming-soon',
         logo: '',
       },
     ] as Array<{
@@ -170,7 +170,7 @@ export const siteConfig = {
       name: string;
       aliases: string[];
       featured: boolean;
-      status: 'credentialing' | 'in-network' | 'out-of-network';
+      status: 'active' | 'coming-soon';
       logo: string;
     }>,
   },

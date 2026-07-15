@@ -36,9 +36,8 @@ const detailCards = [
 ] as const;
 
 const statusLabel = (status: string) => {
-  if (status === 'in-network') return 'In network';
-  if (status === 'out-of-network') return 'Out of network';
-  return 'Credentialing';
+  if (status === 'active') return 'Active';
+  return 'Coming soon';
 };
 ---
 

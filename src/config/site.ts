@@ -2385,7 +2385,6 @@ export const footerLinks = [
   { href: '/resources', label: 'Resources' },
   { href: '/blog', label: 'Blog' },
   { href: '/careers', label: 'Careers' },
-  { href: '/wsp', label: 'WSP App' },
   { href: '/privacy', label: 'Privacy Policy' },
 ] as const;
 

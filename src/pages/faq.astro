@@ -3,39 +3,75 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const faqs = [
   {
-    q: 'How do I schedule my first appointment?',
-    a: 'Join our waitlist through the contact form and we will reach out when a session time is available. If you have questions before then, we are happy to help.',
-  },
-  {
     q: 'Do you accept insurance?',
-    a: 'Yes. We accept many major insurance plans and related networks. Coverage varies by plan, so please confirm your benefits with us before your first session. You can explore accepted carriers on our insurance page.',
+    a: 'Yes. We are in network with many major insurance plans and are continually expanding our network. Visit our Insurance page for the most up-to-date list of accepted plans.',
+    link: { href: '/insurance', label: 'Insurance page' },
   },
   {
-    q: 'Do you offer private pay?',
-    a: 'Yes. Private pay is available for clients who prefer to pay out of pocket or whose insurance is not in network. Contact us for current session rates and availability.',
+    q: 'Do you offer self-pay appointments?',
+    a: 'Yes. We welcome both insurance and self-pay clients. Please contact us for current private-pay rates.',
   },
   {
-    q: 'Do you offer telehealth?',
-    a: 'Yes. Secure video sessions are available for clients located in Florida. In-person sessions are available in the South Florida area.',
+    q: 'Do you offer virtual therapy?',
+    a: 'Yes. We provide secure telehealth appointments to clients anywhere in Florida, as well as in-person sessions in Palm Beach County.',
   },
   {
-    q: 'What should I expect in the first session?',
-    a: "Your first session is a chance to share what brings you in, discuss your goals, and get a feel for your therapist's approach. It's normal to feel nervous — we will meet you with warmth and without judgment.",
+    q: 'What issues do you help with?',
+    a: 'We work with adults and couples experiencing concerns such as:',
+    items: [
+      'Anxiety',
+      'Depression',
+      'Trauma & PTSD',
+      'Relationship challenges',
+      'Stress & burnout',
+      'Life transitions',
+      'Grief & loss',
+      'Women’s issues',
+      'Self-esteem',
+      'Addiction & recovery',
+    ],
   },
   {
-    q: 'How long are sessions?',
-    a: 'Session length varies based on client preference and clinician availability, typically between 45 and 60 minutes.',
+    q: 'How long are therapy sessions?',
+    a: 'Most therapy sessions last approximately 50–60 minutes.',
   },
   {
-    q: "What if Woven Sage isn't the right fit?",
-    a: 'We assess fit during intake. If another level or type of care would serve you better, we will help connect you with appropriate resources.',
+    q: 'How soon can I get an appointment?',
+    a: 'Appointment availability varies throughout the week. Contact us to discuss current openings and we’ll work to schedule you as soon as possible.',
+  },
+  {
+    q: 'What is your cancellation policy?',
+    a: 'If you need to cancel or reschedule, we ask for at least 24 hours’ notice to avoid a late cancellation fee.',
+  },
+  {
+    q: 'Is therapy confidential?',
+    a: 'Yes. Your privacy is extremely important. All services are provided in accordance with HIPAA and applicable Florida confidentiality laws, with limited legal exceptions.',
+  },
+  {
+    q: 'What should I expect during my first session?',
+    a: 'Your first appointment focuses on getting to know you, discussing your goals, reviewing your history, and developing a treatment plan tailored to your needs.',
+  },
+  {
+    q: 'Do you prescribe medication?',
+    a: 'No. We provide psychotherapy and counseling services only. If medication may be beneficial, we’re happy to coordinate with your primary care physician or psychiatrist.',
+  },
+  {
+    q: 'How do I schedule an appointment?',
+    a: 'You can request an appointment online, call our office, or send us a message through our website. We’ll guide you through the next steps and answer any questions before your first visit.',
   },
 ] as const;
+
+function renderAnswer(text: string, link?: { href: string; label: string }) {
+  if (!link) return text;
+  const parts = text.split(link.label);
+  if (parts.length < 2) return text;
+  return { before: parts[0], after: parts.slice(1).join(link.label), link };
+}
 ---
 
 <BaseLayout
   title="FAQ"
-  description="Frequently asked questions about scheduling, insurance, telehealth, and what to expect at Woven Sage Counseling."
+  description="Frequently asked questions about insurance, self-pay, telehealth, scheduling, and what to expect at Woven Sage Counseling."
   botanicalBg={false}
 >
   <article class="faq-page why-page">
@@ -55,23 +91,45 @@ const faqs = [
 
           <div class="faq-list mt-12 sm:mt-14">
             {
-              faqs.map((faq, index) => (
-                <details
-                  class:list={[
-                    'faq-item scroll-reveal',
-                    index % 2 === 1 ? 'scroll-reveal--delay-1' : '',
-                    index >= 2 ? 'scroll-reveal--delay-2' : '',
-                  ]}
-                >
-                  <summary class="faq-item__question">
-                    <span>{faq.q}</span>
-                    <span class="faq-item__icon" aria-hidden="true"></span>
-                  </summary>
-                  <div class="faq-item__answer">
-                    <p>{faq.a}</p>
-                  </div>
-                </details>
-              ))
+              faqs.map((faq, index) => {
+                const linked =
+                  'link' in faq && faq.link ? renderAnswer(faq.a, faq.link) : null;
+
+                return (
+                  <details
+                    class:list={[
+                      'faq-item scroll-reveal',
+                      index % 2 === 1 ? 'scroll-reveal--delay-1' : '',
+                      index >= 2 ? 'scroll-reveal--delay-2' : '',
+                    ]}
+                  >
+                    <summary class="faq-item__question">
+                      <span>{faq.q}</span>
+                      <span class="faq-item__icon" aria-hidden="true"></span>
+                    </summary>
+                    <div class="faq-item__answer">
+                      {typeof linked === 'object' && linked ? (
+                        <p>
+                          {linked.before}
+                          <a href={linked.link.href} class="faq-item__link">
+                            {linked.link.label}
+                          </a>
+                          {linked.after}
+                        </p>
+                      ) : (
+                        <p>{faq.a}</p>
+                      )}
+                      {'items' in faq && faq.items && (
+                        <ul class="faq-item__list">
+                          {faq.items.map((item) => (
+                            <li>{item}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </details>
+                );
+              })
             }
           </div>
         </div>
@@ -90,7 +148,7 @@ const faqs = [
           </p>
 
           <div class="scroll-reveal scroll-reveal--delay-1 mt-9 sm:mt-10">
-            <a href="/contact#contact-form" class="btn-primary hero-cta why-closing__cta inline-flex">
+            <a href="/contact" class="btn-primary hero-cta why-closing__cta inline-flex">
               Contact us →
             </a>
           </div>

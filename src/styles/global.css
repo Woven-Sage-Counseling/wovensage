@@ -2047,6 +2047,33 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   color: rgb(111 127 108 / 0.78);
 }
 
+.faq-item__link {
+  color: rgb(111 127 108 / 0.95);
+  text-decoration: underline;
+  text-decoration-color: rgb(152 169 149 / 0.45);
+  text-underline-offset: 0.18em;
+  transition: color 200ms ease, text-decoration-color 200ms ease;
+}
+
+.faq-item__link:hover {
+  color: rgb(46 45 42 / 0.9);
+  text-decoration-color: rgb(152 169 149 / 0.8);
+}
+
+.faq-item__list {
+  margin: 0.85rem 0 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: rgb(111 127 108 / 0.78);
+}
+
+.faq-item__list li::marker {
+  color: rgb(152 169 149 / 0.85);
+}
+
 @media (min-width: 640px) {
   .faq-item__question {
     padding: 1.25rem 1.5rem;

@@ -1809,6 +1809,12 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   box-shadow: 0 0 0 3px rgb(152 169 149 / 0.14);
 }
 
+.insurance-carriers__list-panel {
+  position: relative;
+  max-width: 32rem;
+  margin-inline: auto;
+}
+
 .insurance-carriers__list-wrap {
   max-height: 18rem;
   overflow-x: hidden;
@@ -1821,6 +1827,10 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   scrollbar-gutter: stable;
   scrollbar-width: thin;
   scrollbar-color: rgb(152 169 149 / 0.45) transparent;
+}
+
+.insurance-carriers__list-wrap.is-scrollable {
+  padding-bottom: 2.5rem;
 }
 
 .insurance-carriers__list-wrap::-webkit-scrollbar {
@@ -1840,25 +1850,87 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   outline: none;
 }
 
+.insurance-carriers__list-fade {
+  pointer-events: none;
+  position: absolute;
+  inset: auto 0 0;
+  height: 3.5rem;
+  border-radius: 0 0 1rem 1rem;
+  background: linear-gradient(
+    to bottom,
+    rgb(250 246 240 / 0%) 0%,
+    rgb(250 246 240 / 88%) 55%,
+    rgb(250 246 240 / 98%) 100%
+  );
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.insurance-carriers__list-fade.is-visible {
+  opacity: 1;
+}
+
+.insurance-carriers__list-hint {
+  pointer-events: none;
+  position: absolute;
+  inset: auto 0 0.55rem;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  margin: 0;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(111 127 108 / 0.82);
+  opacity: 0;
+  transform: translateY(0.2rem);
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+}
+
+.insurance-carriers__list-hint svg {
+  width: 0.85rem;
+  height: 0.85rem;
+  animation: insurance-carriers-scroll-bounce 1.6s ease-in-out infinite;
+}
+
+.insurance-carriers__list-hint.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes insurance-carriers-scroll-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(0.18rem);
+  }
+}
+
 @media (min-width: 640px) {
   .insurance-carriers__list-wrap {
     max-height: 22rem;
     padding: 0.85rem 1rem;
   }
+
+  .insurance-carriers__list-wrap.is-scrollable {
+    padding-bottom: 2.75rem;
+  }
 }
 
 .insurance-carriers__list {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.65rem;
   padding: 0;
   list-style: none;
-}
-
-@media (min-width: 640px) {
-  .insurance-carriers__list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.75rem 1rem;
-  }
 }
 
 .insurance-carriers__item {

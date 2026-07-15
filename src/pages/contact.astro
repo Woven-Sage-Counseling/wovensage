@@ -17,25 +17,11 @@ import { siteConfig } from '../config/site';
 
   <Section>
     <div class="mx-auto max-w-xl">
-      <div class="mb-8 text-center">
-        <p class="prose-content text-sm">
-          Use the form to request a complimentary 15-minute consult or get in touch with
-          Woven Sage Counseling. We’ll follow up, answer your questions, and guide you through
-          the next steps.
-        </p>
-        <p class="mt-4 text-sm">
-          <strong>Email:</strong>{' '}
-          <a href={`mailto:${siteConfig.contactEmail}`} class="text-sage-dark hover:text-sage-dark">
-            {siteConfig.contactEmail}
-          </a>
-        </p>
-        <p class="mt-2 text-sm">
-          <strong>Phone:</strong>{' '}
-          <a href={siteConfig.contactPhoneHref} class="text-sage-dark hover:text-sage-dark">
-            {siteConfig.contactPhone}
-          </a>
-        </p>
-      </div>
+      <p class="prose-content mb-8 text-center text-sm">
+        Use the form to request a complimentary 15-minute consult or get in touch with
+        Woven Sage Counseling. We’ll follow up, answer your questions, and guide you through
+        the next steps.
+      </p>
 
       <ContactForm />
     </div>

@@ -112,26 +112,33 @@ const statusLabel = (status: string) => {
                     />
                   </div>
 
-                  <ul
-                    id="carrier-results"
-                    class="insurance-carriers__list mt-6"
-                    role="list"
-                    data-carrier-list
+                  <div
+                    class="insurance-carriers__list-wrap mt-6"
+                    tabindex="0"
+                    role="region"
+                    aria-label="Insurance carrier results"
                   >
-                    {searchableCarriers.map((carrier) => (
-                      <li
-                        class="insurance-carriers__item"
-                        data-carrier-item
-                        data-name={carrier.name.toLowerCase()}
-                        data-aliases={carrier.aliases.join(' ').toLowerCase()}
-                      >
-                        <span class="insurance-carriers__item-name">{carrier.name}</span>
-                        <span class="insurance-carriers__item-status">
-                          {statusLabel(carrier.status)}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                    <ul
+                      id="carrier-results"
+                      class="insurance-carriers__list"
+                      role="list"
+                      data-carrier-list
+                    >
+                      {searchableCarriers.map((carrier) => (
+                        <li
+                          class="insurance-carriers__item"
+                          data-carrier-item
+                          data-name={carrier.name.toLowerCase()}
+                          data-aliases={carrier.aliases.join(' ').toLowerCase()}
+                        >
+                          <span class="insurance-carriers__item-name">{carrier.name}</span>
+                          <span class="insurance-carriers__item-status">
+                            {statusLabel(carrier.status)}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
                   <p
                     id="carrier-empty"
@@ -210,6 +217,7 @@ const statusLabel = (status: string) => {
     initScrollReveal(reduceMotion);
 
     const searchInput = document.getElementById('carrier-search') as HTMLInputElement | null;
+    const listWrap = document.querySelector<HTMLElement>('.insurance-carriers__list-wrap');
     const items = Array.from(document.querySelectorAll<HTMLElement>('[data-carrier-item]'));
     const emptyState = document.getElementById('carrier-empty');
 
@@ -225,6 +233,10 @@ const statusLabel = (status: string) => {
           item.hidden = !matches;
           item.classList.toggle('is-hidden', !matches);
           if (matches) visibleCount += 1;
+        }
+
+        if (listWrap) {
+          listWrap.scrollTop = 0;
         }
 
         if (emptyState) {

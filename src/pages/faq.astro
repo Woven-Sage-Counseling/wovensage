@@ -1,20 +1,18 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
-import Section from '../components/Section.astro';
 
 const faqs = [
   {
     q: 'How do I schedule my first appointment?',
-    a: 'We are currently in prelaunch. Click "Join our waitlist" anywhere on our site or use the contact form — we will reach out when we begin accepting clients.',
+    a: 'Join our waitlist through the contact form and we will reach out when a session time is available. If you have questions before then, we are happy to help.',
   },
   {
     q: 'Do you accept insurance?',
-    a: 'We plan to accept in-network insurance and are actively credentialing plans. Contact us for the most current list as we open.',
+    a: 'Yes. We accept many major insurance plans and related networks. Coverage varies by plan, so please confirm your benefits with us before your first session. You can explore accepted carriers on our insurance page.',
   },
   {
     q: 'Do you offer private pay?',
-    a: 'Yes. Private pay will be available alongside insurance options. Rates will be shared at launch.',
+    a: 'Yes. Private pay is available for clients who prefer to pay out of pocket or whose insurance is not in network. Contact us for current session rates and availability.',
   },
   {
     q: 'Do you offer telehealth?',
@@ -22,37 +20,89 @@ const faqs = [
   },
   {
     q: 'What should I expect in the first session?',
-    a: 'Your first session is a chance to share what brings you in, discuss your goals, and get a feel for your therapist\'s approach. It\'s normal to feel nervous — we will meet you with warmth and without judgment.',
+    a: "Your first session is a chance to share what brings you in, discuss your goals, and get a feel for your therapist's approach. It's normal to feel nervous — we will meet you with warmth and without judgment.",
   },
   {
     q: 'How long are sessions?',
     a: 'Session length varies based on client preference and clinician availability, typically between 45 and 60 minutes.',
   },
   {
-    q: 'What if Woven Sage isn\'t the right fit?',
+    q: "What if Woven Sage isn't the right fit?",
     a: 'We assess fit during intake. If another level or type of care would serve you better, we will help connect you with appropriate resources.',
   },
-];
+] as const;
 ---
 
-<BaseLayout title="FAQ" description="Frequently asked questions about Woven Sage Counseling.">
-  <PageHero title="FAQ" description="Common questions about our practice." centered />
+<BaseLayout
+  title="FAQ"
+  description="Frequently asked questions about scheduling, insurance, telehealth, and what to expect at Woven Sage Counseling."
+  botanicalBg={false}
+>
+  <article class="faq-page why-page">
+    <section class="why-section why-section--soft bg-cream" aria-labelledby="faq-heading">
+      <div class="container-page">
+        <div class="mx-auto max-w-3xl">
+          <h1
+            id="faq-heading"
+            class="scroll-reveal text-center font-display text-[1.75rem] font-normal tracking-tight text-[#2E2D2A] sm:text-[2.125rem]"
+          >
+            FAQ
+          </h1>
 
-  <Section>
-    <div class="mx-auto max-w-3xl divide-y divide-accent/40">
-      {
-        faqs.map((faq) => (
-          <details class="group py-6">
-            <summary class="cursor-pointer list-none font-serif text-lg font-medium marker:content-none">
-              <span class="flex items-center justify-between gap-4">
-                {faq.q}
-                <span class="text-sage-dark transition group-open:rotate-45">+</span>
-              </span>
-            </summary>
-            <p class="prose-content mt-4 text-sm">{faq.a}</p>
-          </details>
-        ))
-      }
-    </div>
-  </Section>
+          <p class="scroll-reveal scroll-reveal--delay-1 mx-auto mt-6 max-w-2xl text-center text-[1.0625rem] leading-relaxed text-sage-dark/72 sm:mt-8 sm:text-lg">
+            Common questions about getting started, coverage, and what care with us looks like.
+          </p>
+
+          <div class="faq-list mt-12 sm:mt-14">
+            {
+              faqs.map((faq, index) => (
+                <details
+                  class:list={[
+                    'faq-item scroll-reveal',
+                    index % 2 === 1 ? 'scroll-reveal--delay-1' : '',
+                    index >= 2 ? 'scroll-reveal--delay-2' : '',
+                  ]}
+                >
+                  <summary class="faq-item__question">
+                    <span>{faq.q}</span>
+                    <span class="faq-item__icon" aria-hidden="true"></span>
+                  </summary>
+                  <div class="faq-item__answer">
+                    <p>{faq.a}</p>
+                  </div>
+                </details>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="why-closing relative overflow-hidden bg-cream pb-24 pt-16 sm:pb-32 sm:pt-20" aria-labelledby="faq-closing-heading">
+      <div class="hero-breathe pointer-events-none absolute inset-0 opacity-60" aria-hidden="true"></div>
+
+      <div class="container-page relative z-10">
+        <div class="mx-auto max-w-xl text-center">
+          <h2 id="faq-closing-heading" class="sr-only">Contact us</h2>
+
+          <p class="scroll-reveal font-display text-[1.35rem] leading-relaxed text-sage-dark/85 sm:text-[1.65rem]">
+            Still have a question we didn&apos;t cover?
+          </p>
+
+          <div class="scroll-reveal scroll-reveal--delay-1 mt-9 sm:mt-10">
+            <a href="/contact#contact-form" class="btn-primary hero-cta why-closing__cta inline-flex">
+              Contact us →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <script>
+    import { initScrollReveal } from '../scripts/scroll-reveal';
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    initScrollReveal(reduceMotion);
+  </script>
 </BaseLayout>

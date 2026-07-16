@@ -2085,6 +2085,28 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   }
 }
 
+.book-widget {
+  width: 100%;
+}
+
+.book-widget iframe {
+  display: block;
+  width: 100%;
+  min-height: 40rem;
+  border: 0;
+  border-radius: 1rem;
+}
+
+.book-widget--placeholder {
+  padding: 2rem 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .book-widget--placeholder {
+    padding: 2.5rem 2rem;
+  }
+}
+
 /* Abstract botanical background pattern */
 .bg-nature {
   background-color: theme('colors.cream.DEFAULT');

@@ -11,14 +11,19 @@ export const siteConfig = {
   contactPhoneHref: 'tel:+15615562229',
   contactFax: '(561) 328-4833',
 
-  bookingCtaLabel: 'Join our waitlist',
-  bookingTrustCopy:
-    'We are currently in prelaunch. Share your interest and we will reach out when we open officially.',
+  bookingCtaLabel: 'Book a consult',
+  /** Destination for appointment / consult CTAs — SimplePractice booking page or widget host */
+  bookingUrl: '/book',
+  /**
+   * Optional SimplePractice embed snippet (iframe HTML). When set, the /book page
+   * renders it in place of the placeholder. Paste the full iframe from SimplePractice.
+   */
+  simplePracticeEmbedHtml: '',
 
-  contactFormSubmitLabel: 'Join our waitlist',
-  contactFormSuccessTitle: 'Thank you — we received your interest.',
+  contactFormSubmitLabel: 'Send message',
+  contactFormSuccessTitle: 'Thank you — we received your message.',
   contactFormSuccessMessage:
-    'We will contact you at the email you provided when Woven Sage Counseling opens officially.',
+    'We will follow up at the email you provided as soon as we can.',
   contactFormErrorMessage:
     'Something went wrong sending your message. Please try again or reach us by phone or email.',
 

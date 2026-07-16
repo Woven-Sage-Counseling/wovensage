@@ -14,7 +14,7 @@ const {
 } = Astro.props;
 
 const btnClass = variant === 'primary' ? 'btn-primary' : 'btn-secondary';
-const href = '/contact#contact-form';
+const href = siteConfig.bookingUrl;
 ---
 
 <a href={href} class:list={[btnClass, className]}>

@@ -4,12 +4,11 @@ import { siteConfig, getFormspreeUrl } from '../config/site';
 const formspreeUrl = getFormspreeUrl();
 
 const contactReasons = [
-  { value: 'schedule-appointment', label: 'Schedule an Appointment' },
-  { value: 'complimentary-consult', label: 'Complimentary 15-Minute Consult' },
   { value: 'insurance-billing', label: 'Insurance or Billing Question' },
   { value: 'general-question', label: 'General Question' },
   { value: 'technical-issue', label: 'Technical Issue' },
   { value: 'careers', label: 'Careers / Joining the Team' },
+  { value: 'other', label: 'Other' },
 ] as const;
 ---
 
@@ -126,6 +125,14 @@ const contactReasons = [
     , fax {siteConfig.contactFax}, or email{' '}
     <a href={`mailto:${siteConfig.contactEmail}`} class="text-sage-dark underline hover:text-sage-dark">
       {siteConfig.contactEmail}
+    </a>
+    .
+  </p>
+
+  <p class="mt-3 text-center text-xs text-sage-dark/60">
+    Looking to schedule?{' '}
+    <a href={siteConfig.bookingUrl} class="text-sage-dark underline hover:text-sage-dark">
+      Book a consult or appointment
     </a>
     .
   </p>

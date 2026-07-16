@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+
+const embedHtml = siteConfig.simplePracticeEmbedHtml?.trim() ?? '';
+const hasEmbed = embedHtml.length > 0;
+---
+
+<BaseLayout
+  title="Book a Consult"
+  description={`Schedule a complimentary 15-minute consult or appointment with ${siteConfig.name}.`}
+  botanicalBg={false}
+>
+  <article class="book-page why-page">
+    <section class="why-section why-section--soft bg-cream" aria-labelledby="book-heading">
+      <div class="container-page">
+        <div class="mx-auto max-w-3xl">
+          <h1
+            id="book-heading"
+            class="scroll-reveal text-center font-display text-[1.75rem] font-normal tracking-tight text-[#2E2D2A] sm:text-[2.125rem]"
+          >
+            Book a consult
+          </h1>
+
+          <p class="scroll-reveal scroll-reveal--delay-1 mx-auto mt-6 max-w-2xl text-center text-[1.0625rem] leading-relaxed text-sage-dark/72 sm:mt-8 sm:text-lg">
+            Schedule a complimentary 15-minute consult or request an appointment. We&apos;ll help
+            you take the next step.
+          </p>
+
+          <div class="scroll-reveal scroll-reveal--delay-1 mt-12 sm:mt-14">
+            {
+              hasEmbed ? (
+                <div class="book-widget" set:html={embedHtml} />
+              ) : (
+                <div class="book-widget book-widget--placeholder card mx-auto max-w-xl text-center">
+                  <p class="font-display text-[1.25rem] text-[#2E2D2A]">
+                    Online scheduling coming soon
+                  </p>
+                  <p class="prose-content mt-4 text-sm">
+                    Our SimplePractice booking form will appear here shortly. In the meantime,
+                    call{' '}
+                    <a
+                      href={siteConfig.contactPhoneHref}
+                      class="text-sage-dark underline hover:text-sage-dark"
+                    >
+                      {siteConfig.contactPhone}
+                    </a>{' '}
+                    or email{' '}
+                    <a
+                      href={`mailto:${siteConfig.contactEmail}`}
+                      class="text-sage-dark underline hover:text-sage-dark"
+                    >
+                      {siteConfig.contactEmail}
+                    </a>{' '}
+                    to schedule.
+                  </p>
+                </div>
+              )
+            }
+          </div>
+
+          <p class="scroll-reveal scroll-reveal--delay-2 mt-10 text-center text-sm text-sage-dark/65">
+            Have a general question instead?{' '}
+            <a href="/contact" class="text-sage-dark underline hover:text-sage-dark">
+              Contact us
+            </a>
+            .
+          </p>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <script>
+    import { initScrollReveal } from '../scripts/scroll-reveal';
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    initScrollReveal(reduceMotion);
+  </script>
+</BaseLayout>

@@ -8,7 +8,7 @@ import { siteConfig } from '../config/site';
 
 <BaseLayout
   title="Contact"
-  description={`Contact ${siteConfig.name}. Reach us at ${siteConfig.contactPhone} or ${siteConfig.contactEmail} to book a complimentary 15-minute consult or ask a question.`}
+  description={`Contact ${siteConfig.name}. Reach us at ${siteConfig.contactPhone} or ${siteConfig.contactEmail} with a general question, insurance inquiry, or other request.`}
 >
   <PageHero
     title="Contact us"
@@ -18,9 +18,13 @@ import { siteConfig } from '../config/site';
   <Section>
     <div class="mx-auto max-w-xl">
       <p class="prose-content mb-8 text-center text-sm">
-        Use the form to request a complimentary 15-minute consult or get in touch with
-        Woven Sage Counseling. We’ll follow up, answer your questions, and guide you through
-        the next steps.
+        Have a general question, insurance or billing inquiry, or another request?
+        Send us a message and we&apos;ll get back to you. To schedule an appointment or
+        complimentary consult, please use our{' '}
+        <a href={siteConfig.bookingUrl} class="text-sage-dark underline hover:text-sage-dark">
+          booking page
+        </a>
+        .
       </p>
 
       <ContactForm />

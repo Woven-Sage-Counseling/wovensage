@@ -9,6 +9,7 @@ export const siteConfig = {
   contactEmail: 'admin@wovensage.com',
   contactPhone: '561-556-2229',
   contactPhoneHref: 'tel:+15615562229',
+  contactFax: '(561) 328-4833',
 
   bookingCtaLabel: 'Join our waitlist',
   bookingTrustCopy:

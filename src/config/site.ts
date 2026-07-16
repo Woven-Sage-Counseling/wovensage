@@ -12,13 +12,16 @@ export const siteConfig = {
   contactFax: '(561) 328-4833',
 
   bookingCtaLabel: 'Book a consult',
-  /** Destination for appointment / consult CTAs — SimplePractice booking page or widget host */
+  /** Destination for appointment / consult CTAs */
   bookingUrl: '/book',
-  /**
-   * Optional SimplePractice embed snippet (iframe HTML). When set, the /book page
-   * renders it in place of the placeholder. Paste the full iframe from SimplePractice.
-   */
-  simplePracticeEmbedHtml: '',
+  /** SimplePractice online appointment request widget */
+  simplePractice: {
+    portalUrl: 'https://michele-evans.clientsecure.me',
+    scopeId: '2ada73f0-b0d1-4088-ac15-f70a7635fd22',
+    scopeUri: 'michele-evans',
+    applicationId: '7c72cb9f9a9b913654bb89d6c7b4e71a77911b30192051da35384b4d0c6d505b',
+    buttonLabel: 'Request Appointment',
+  },
 
   contactFormSubmitLabel: 'Send message',
   contactFormSuccessTitle: 'Thank you — we received your message.',

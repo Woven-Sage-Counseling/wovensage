@@ -2,8 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../config/site';
 
-const embedHtml = siteConfig.simplePracticeEmbedHtml?.trim() ?? '';
-const hasEmbed = embedHtml.length > 0;
+const { simplePractice } = siteConfig;
 ---
 
 <BaseLayout
@@ -28,35 +27,40 @@ const hasEmbed = embedHtml.length > 0;
           </p>
 
           <div class="scroll-reveal scroll-reveal--delay-1 mt-12 sm:mt-14">
-            {
-              hasEmbed ? (
-                <div class="book-widget" set:html={embedHtml} />
-              ) : (
-                <div class="book-widget book-widget--placeholder card mx-auto max-w-xl text-center">
-                  <p class="font-display text-[1.25rem] text-[#2E2D2A]">
-                    Online scheduling coming soon
-                  </p>
-                  <p class="prose-content mt-4 text-sm">
-                    Our SimplePractice booking form will appear here shortly. In the meantime,
-                    call{' '}
-                    <a
-                      href={siteConfig.contactPhoneHref}
-                      class="text-sage-dark underline hover:text-sage-dark"
-                    >
-                      {siteConfig.contactPhone}
-                    </a>{' '}
-                    or email{' '}
-                    <a
-                      href={`mailto:${siteConfig.contactEmail}`}
-                      class="text-sage-dark underline hover:text-sage-dark"
-                    >
-                      {siteConfig.contactEmail}
-                    </a>{' '}
-                    to schedule.
-                  </p>
-                </div>
-              )
-            }
+            <div class="book-widget mx-auto max-w-xl text-center">
+              <div class="spwidget-button-wrapper">
+                <a
+                  href={simplePractice.portalUrl}
+                  class="spwidget-button btn-primary hero-cta"
+                  data-spwidget-scope-id={simplePractice.scopeId}
+                  data-spwidget-scope-uri={simplePractice.scopeUri}
+                  data-spwidget-application-id={simplePractice.applicationId}
+                  data-spwidget-type="OAR"
+                  data-spwidget-scope-global
+                  data-spwidget-autobind
+                >
+                  {simplePractice.buttonLabel}
+                </a>
+              </div>
+
+              <p class="mt-6 text-sm leading-relaxed text-sage-dark/65">
+                Prefer not to use the form? Call{' '}
+                <a
+                  href={siteConfig.contactPhoneHref}
+                  class="text-sage-dark underline hover:text-sage-dark"
+                >
+                  {siteConfig.contactPhone}
+                </a>{' '}
+                or email{' '}
+                <a
+                  href={`mailto:${siteConfig.contactEmail}`}
+                  class="text-sage-dark underline hover:text-sage-dark"
+                >
+                  {siteConfig.contactEmail}
+                </a>
+                .
+              </p>
+            </div>
           </div>
 
           <p class="scroll-reveal scroll-reveal--delay-2 mt-10 text-center text-sm text-sage-dark/65">
@@ -70,6 +74,8 @@ const hasEmbed = embedHtml.length > 0;
       </div>
     </section>
   </article>
+
+  <script is:inline src="https://widget-cdn.simplepractice.com/assets/integration-1.0.js"></script>
 
   <script>
     import { initScrollReveal } from '../scripts/scroll-reveal';

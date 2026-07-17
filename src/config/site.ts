@@ -11,7 +11,7 @@ export const siteConfig = {
   contactPhoneHref: 'tel:+15615562229',
   contactFax: '(561) 328-4833',
 
-  bookingCtaLabel: 'Book a consult',
+  bookingCtaLabel: 'Request an Appointment',
   /** Destination for appointment / consult CTAs */
   bookingUrl: '/book',
   /** SimplePractice online appointment request widget */
@@ -20,7 +20,7 @@ export const siteConfig = {
     scopeId: '2ada73f0-b0d1-4088-ac15-f70a7635fd22',
     scopeUri: 'michele-evans',
     applicationId: '7c72cb9f9a9b913654bb89d6c7b4e71a77911b30192051da35384b4d0c6d505b',
-    buttonLabel: 'Request Appointment',
+    buttonLabel: 'Request an Appointment',
   },
 
   contactFormSubmitLabel: 'Send message',

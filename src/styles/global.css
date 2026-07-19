@@ -2064,8 +2064,17 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .insurance-carriers__filters {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
   gap: 0.5rem;
+}
+
+.insurance-carriers__filters-label {
+  margin-right: 0.15rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgb(111 127 108 / 0.72);
 }
 
 .insurance-carriers__filter {

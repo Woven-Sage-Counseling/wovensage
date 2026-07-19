@@ -1234,9 +1234,9 @@ export const siteConfig = {
       {
         id: 'curative-health-plan',
         name: 'Curative Health Plan',
-        aliases: [],
+        aliases: ['Curative'],
         featured: false,
-        status: 'coming-soon',
+        status: 'active',
         logo: '',
       },
       {

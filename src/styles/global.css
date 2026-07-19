@@ -429,11 +429,16 @@
     max-width: 100%;
   }
 
-  .chapter-1-hero .hero-line-one,
-  .chapter-1-hero .hero-line-two {
+  .chapter-1-hero .hero-line-one {
     width: auto;
     max-width: 100%;
     text-align: right;
+  }
+
+  .chapter-1-hero .hero-line-two {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
   }
 
   .chapter-1-hero__rest {

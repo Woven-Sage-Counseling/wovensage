@@ -112,6 +112,23 @@ const statusLabel = (status: string) => {
                     />
                   </div>
 
+                  <div
+                    class="insurance-carriers__filters mt-5"
+                    role="group"
+                    aria-label="Filter carriers by status"
+                    data-carrier-filters
+                  >
+                    <button type="button" class="insurance-carriers__filter is-active" data-status-filter="all" aria-pressed="true">
+                      All
+                    </button>
+                    <button type="button" class="insurance-carriers__filter" data-status-filter="active" aria-pressed="false">
+                      Active
+                    </button>
+                    <button type="button" class="insurance-carriers__filter" data-status-filter="coming-soon" aria-pressed="false">
+                      Coming soon
+                    </button>
+                  </div>
+
                   <div class="insurance-carriers__list-panel mt-6">
                     <div
                       class="insurance-carriers__list-wrap"
@@ -132,6 +149,7 @@ const statusLabel = (status: string) => {
                             data-carrier-item
                             data-name={carrier.name.toLowerCase()}
                             data-aliases={carrier.aliases.join(' ').toLowerCase()}
+                            data-status={carrier.status}
                           >
                             <span class="insurance-carriers__item-name">{carrier.name}</span>
                             <span class="insurance-carriers__item-status">
@@ -236,8 +254,12 @@ const statusLabel = (status: string) => {
     const listWrap = document.querySelector<HTMLElement>('[data-carrier-scroll]');
     const scrollHint = document.querySelector<HTMLElement>('[data-carrier-hint]');
     const scrollFade = document.querySelector<HTMLElement>('[data-carrier-fade]');
+    const filterButtons = Array.from(
+      document.querySelectorAll<HTMLButtonElement>('[data-status-filter]')
+    );
     const items = Array.from(document.querySelectorAll<HTMLElement>('[data-carrier-item]'));
     const emptyState = document.getElementById('carrier-empty');
+    let activeStatusFilter = 'all';
 
     const updateScrollHint = () => {
       if (!listWrap) return;
@@ -258,35 +280,52 @@ const statusLabel = (status: string) => {
       updateScrollHint();
     }
 
-    if (searchInput && items.length > 0) {
-      const filterCarriers = () => {
-        const query = searchInput.value.trim().toLowerCase();
-        let visibleCount = 0;
+    const filterCarriers = () => {
+      const query = searchInput?.value.trim().toLowerCase() ?? '';
+      let visibleCount = 0;
 
-        for (const item of items) {
-          const name = item.dataset.name ?? '';
-          const aliases = item.dataset.aliases ?? '';
-          const matches = !query || name.includes(query) || aliases.includes(query);
-          item.hidden = !matches;
-          item.classList.toggle('is-hidden', !matches);
-          if (matches) visibleCount += 1;
+      for (const item of items) {
+        const name = item.dataset.name ?? '';
+        const aliases = item.dataset.aliases ?? '';
+        const status = item.dataset.status ?? '';
+        const matchesQuery = !query || name.includes(query) || aliases.includes(query);
+        const matchesStatus = activeStatusFilter === 'all' || status === activeStatusFilter;
+        const matches = matchesQuery && matchesStatus;
+        item.hidden = !matches;
+        item.classList.toggle('is-hidden', !matches);
+        if (matches) visibleCount += 1;
+      }
+
+      if (listWrap) {
+        listWrap.scrollTop = 0;
+      }
+
+      requestAnimationFrame(updateScrollHint);
+
+      if (emptyState) {
+        const showEmpty = visibleCount === 0;
+        emptyState.hidden = !showEmpty;
+        emptyState.classList.toggle('hidden', !showEmpty);
+      }
+    };
+
+    for (const button of filterButtons) {
+      button.addEventListener('click', () => {
+        activeStatusFilter = button.dataset.statusFilter ?? 'all';
+
+        for (const other of filterButtons) {
+          const isActive = other === button;
+          other.classList.toggle('is-active', isActive);
+          other.setAttribute('aria-pressed', isActive ? 'true' : 'false');
         }
 
-        if (listWrap) {
-          listWrap.scrollTop = 0;
-        }
+        filterCarriers();
+      });
+    }
 
-        requestAnimationFrame(updateScrollHint);
-
-        if (emptyState) {
-          const showEmpty = visibleCount === 0;
-          emptyState.hidden = !showEmpty;
-          emptyState.classList.toggle('hidden', !showEmpty);
-        }
-      };
-
-      searchInput.addEventListener('input', filterCarriers);
-      searchInput.addEventListener('search', filterCarriers);
+    if (items.length > 0) {
+      searchInput?.addEventListener('input', filterCarriers);
+      searchInput?.addEventListener('search', filterCarriers);
     }
   </script>
 </BaseLayout>

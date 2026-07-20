@@ -1,0 +1,13 @@
+---
+description: Always commit and push after completing site changes
+alwaysApply: true
+---
+
+# Commit and push
+
+After completing requested site changes (and a successful build when applicable):
+
+1. Create a git commit with a concise message focused on why
+2. Push to the remote tracking branch (`git push -u origin HEAD` if needed)
+
+Do this without waiting to be asked. Skip only if the user explicitly says not to commit or push for that change.

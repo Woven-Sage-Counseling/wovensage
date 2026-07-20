@@ -1820,24 +1820,56 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   padding-bottom: 2.5rem;
 }
 
-.team-member.chapter-3__card {
-  min-height: 0;
+.team-member__meta {
+  max-width: 36rem;
 }
 
-.team-member__layout {
+/* Featured clinician — portrait breaks the card edge */
+.team-member--featured {
+  position: relative;
+  overflow: visible;
+  border-radius: 1.35rem;
+  border: 1px solid rgb(185 181 174 / 0.28);
+  background-color: #faf6f0;
+  padding: 1.75rem 1.6rem 1.85rem;
+  box-shadow: 0 8px 28px rgb(58 58 56 / 0.05);
+}
+
+.team-member--featured .team-member__layout {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.75rem;
+}
+
+.team-member__photo-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 12rem;
+  margin-top: -2.75rem;
+}
+
+.team-member__photo-accent {
+  position: absolute;
+  inset: 0.65rem -0.55rem -0.55rem 0.65rem;
+  border-radius: 1.1rem;
+  background: color-mix(in srgb, theme('colors.sage.DEFAULT') 28%, theme('colors.cream.DEFAULT'));
+  transform: rotate(4deg);
 }
 
 .team-member__photo {
-  flex-shrink: 0;
-  width: 11.5rem;
+  position: relative;
+  z-index: 1;
   overflow: hidden;
-  border-radius: 1rem;
+  width: 100%;
   aspect-ratio: 3 / 4;
+  border-radius: 1.05rem;
   background-color: color-mix(in srgb, theme('colors.sage.light') 22%, theme('colors.cream.DEFAULT'));
+  box-shadow:
+    0 14px 34px rgb(58 58 56 / 0.16),
+    0 2px 8px rgb(58 58 56 / 0.06);
+  transform: rotate(-2.75deg);
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .team-member__photo img {
@@ -1845,54 +1877,107 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 55% 20%;
+  object-position: 55% 18%;
 }
 
-.team-member__body {
+.team-member--featured .team-member__body {
   min-width: 0;
   width: 100%;
+  text-align: center;
 }
 
 @media (min-width: 640px) {
-  .team-member__layout {
+  .team-member--featured {
+    padding: 2.15rem 2.35rem 2.25rem 1.35rem;
+  }
+
+  .team-member--featured .team-member__layout {
     flex-direction: row;
-    align-items: flex-start;
-    gap: 2rem;
+    align-items: center;
+    gap: 2.15rem;
     text-align: left;
   }
 
-  .team-member__photo {
-    width: 13.5rem;
+  .team-member__photo-wrap {
+    width: 14.25rem;
+    margin-top: -2.35rem;
+    margin-bottom: -1.35rem;
+    margin-left: -3.1rem;
   }
 
-  .team-member__body .why-kicker,
-  .team-member__body h2,
-  .team-member__body .team-member__meta,
-  .team-member__body p {
+  .team-member__photo-accent {
+    inset: 0.75rem -0.7rem -0.7rem 0.75rem;
+    transform: rotate(5deg);
+  }
+
+  .team-member--featured:hover .team-member__photo {
+    transform: rotate(-1.25deg) translateY(-3px);
+  }
+
+  .team-member--featured .team-member__body {
     text-align: left;
+  }
+
+  .team-member--featured .team-member__body .why-kicker,
+  .team-member--featured .team-member__body h2,
+  .team-member--featured .team-member__body .team-member__meta,
+  .team-member--featured .team-member__body p {
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .team-member__photo,
+  .team-member--featured:hover .team-member__photo {
+    transition: none;
+    transform: none;
+  }
+
+  .team-member__photo-accent {
+    transform: none;
   }
 }
 
 .team-member--leadership.chapter-3__card {
-  padding: 1.6rem 1.75rem;
+  position: relative;
+  overflow: hidden;
+  padding: 1.6rem 1.75rem 1.6rem 1.9rem;
   background-color: color-mix(in srgb, theme('colors.sage.light') 16%, theme('colors.cream.DEFAULT'));
   border-color: rgb(152 169 149 / 0.2);
   box-shadow: 0 4px 16px rgb(58 58 56 / 0.03);
 }
 
-@media (min-width: 640px) {
-  .team-member--leadership.chapter-3__card {
-    padding: 2rem 2.25rem;
-    min-height: 0;
-  }
+.team-member--leadership.chapter-3__card::before {
+  content: '';
+  position: absolute;
+  top: 1.15rem;
+  bottom: 1.15rem;
+  left: 0;
+  width: 3px;
+  border-radius: 999px;
+  background: color-mix(in srgb, theme('colors.sage.DEFAULT') 55%, transparent);
 }
 
-.team-member__meta {
-  max-width: 36rem;
+@media (min-width: 640px) {
+  .team-member--leadership.chapter-3__card {
+    padding: 2rem 2.25rem 2rem 2.4rem;
+    min-height: 0;
+  }
+
+  .team-member--leadership.chapter-3__card::before {
+    top: 1.4rem;
+    bottom: 1.4rem;
+  }
 }
 
 .team-clinician.why-section {
   padding-bottom: 2.25rem;
+  padding-top: 3.25rem;
+  overflow: visible;
+}
+
+.team-clinician .container-page {
+  overflow: visible;
 }
 
 .team-leadership.why-section {

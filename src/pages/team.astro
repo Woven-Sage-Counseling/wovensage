@@ -40,18 +40,21 @@ const founder = {
           Every clinician at Woven Sage is selected not only for their clinical expertise, but for their warmth, integrity, and commitment to personalized care.
         </p>
 
-        <div class="mx-auto mt-12 max-w-3xl sm:mt-14">
-          <article class="chapter-3__card team-member scroll-reveal scroll-reveal--delay-1">
+        <div class="mx-auto mt-12 max-w-3xl sm:mt-16">
+          <article class="team-member team-member--featured scroll-reveal scroll-reveal--delay-1">
             <div class="team-member__layout">
-              <div class="team-member__photo">
-                <img
-                  src={clinician.photo}
-                  alt={`${clinician.name}, ${clinician.role} at Woven Sage Counseling`}
-                  width={560}
-                  height={746}
-                  loading="eager"
-                  decoding="async"
-                />
+              <div class="team-member__photo-wrap">
+                <div class="team-member__photo-accent" aria-hidden="true"></div>
+                <div class="team-member__photo">
+                  <img
+                    src={clinician.photo}
+                    alt={`${clinician.name}, ${clinician.role} at Woven Sage Counseling`}
+                    width={560}
+                    height={746}
+                    loading="eager"
+                    decoding="async"
+                  />
+                </div>
               </div>
               <div class="team-member__body">
                 <p class="why-kicker">{clinician.role}</p>

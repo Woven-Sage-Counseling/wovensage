@@ -1880,6 +1880,20 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   object-position: 55% 18%;
 }
 
+.team-member--featured-alt .team-member__photo img {
+  object-position: center 12%;
+}
+
+.team-member--featured-alt .team-member__photo {
+  transform: rotate(2.75deg);
+}
+
+.team-member--featured-alt .team-member__photo-accent {
+  inset: 0.65rem 0.65rem -0.55rem -0.55rem;
+  background: color-mix(in srgb, theme('colors.sage.light') 42%, theme('colors.cream.DEFAULT'));
+  transform: rotate(-4deg);
+}
+
 .team-member--featured .team-member__body {
   min-width: 0;
   width: 100%;
@@ -1891,11 +1905,20 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
     padding: 2.15rem 2.35rem 2.25rem 1.35rem;
   }
 
+  .team-member--featured-alt {
+    padding: 2.15rem 1.35rem 2.25rem 2.35rem;
+    background-color: color-mix(in srgb, theme('colors.sage.light') 14%, #faf6f0);
+  }
+
   .team-member--featured .team-member__layout {
     flex-direction: row;
     align-items: center;
     gap: 2.15rem;
     text-align: left;
+  }
+
+  .team-member--featured-alt .team-member__layout {
+    flex-direction: row-reverse;
   }
 
   .team-member__photo-wrap {
@@ -1905,13 +1928,27 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
     margin-left: -3.1rem;
   }
 
+  .team-member--featured-alt .team-member__photo-wrap {
+    margin-left: 0;
+    margin-right: -3.1rem;
+  }
+
   .team-member__photo-accent {
     inset: 0.75rem -0.7rem -0.7rem 0.75rem;
     transform: rotate(5deg);
   }
 
+  .team-member--featured-alt .team-member__photo-accent {
+    inset: 0.75rem 0.75rem -0.7rem -0.7rem;
+    transform: rotate(-5deg);
+  }
+
   .team-member--featured:hover .team-member__photo {
     transform: rotate(-1.25deg) translateY(-3px);
+  }
+
+  .team-member--featured-alt:hover .team-member__photo {
+    transform: rotate(1.25deg) translateY(-3px);
   }
 
   .team-member--featured .team-member__body {
@@ -1920,6 +1957,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
   .team-member--featured .team-member__body .why-kicker,
   .team-member--featured .team-member__body h2,
+  .team-member--featured .team-member__body h3,
   .team-member--featured .team-member__body .team-member__meta,
   .team-member--featured .team-member__body p {
     text-align: left;
@@ -1928,7 +1966,8 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 @media (prefers-reduced-motion: reduce) {
   .team-member__photo,
-  .team-member--featured:hover .team-member__photo {
+  .team-member--featured:hover .team-member__photo,
+  .team-member--featured-alt:hover .team-member__photo {
     transition: none;
     transform: none;
   }
@@ -1981,8 +2020,13 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 }
 
 .team-leadership.why-section {
-  padding-top: 1.5rem;
+  padding-top: 2.5rem;
   padding-bottom: 4rem;
+  overflow: visible;
+}
+
+.team-leadership .container-page {
+  overflow: visible;
 }
 
 .team-growing.why-section {

@@ -9,6 +9,7 @@ const clinician = {
   credentials: 'LMHC · MCAP · EMDR Trained',
   focus: 'Adults · Young Adults · English · Florida',
   bio: 'Michele provides collaborative, compassionate therapy for adults and young adults navigating anxiety, trauma, depression, relationship challenges, life transitions, and substance use concerns. Her approach combines evidence-based care with warmth, curiosity, and genuine connection.',
+  photo: '/images/michele-evans.jpg',
 } as const;
 
 const founder = {
@@ -41,21 +42,35 @@ const founder = {
 
         <div class="mx-auto mt-12 max-w-3xl sm:mt-14">
           <article class="chapter-3__card team-member scroll-reveal scroll-reveal--delay-1">
-            <p class="why-kicker">{clinician.role}</p>
-            <h2 class="mt-4 font-display text-[1.75rem] font-normal leading-snug tracking-tight text-[#2E2D2A] sm:text-[2.125rem]">
-              {clinician.name}
-            </h2>
-            <p class="team-member__meta mt-3 text-sm leading-relaxed text-sage-dark/65 sm:text-[0.9375rem]">
-              {clinician.credentials}
-            </p>
-            <p class="team-member__meta mt-1 text-sm leading-relaxed text-sage-dark/65 sm:text-[0.9375rem]">
-              {clinician.focus}
-            </p>
-            <p class="mt-5 text-[1.0625rem] leading-relaxed text-sage-dark/78 sm:mt-6 sm:text-lg">
-              {clinician.bio}
-            </p>
-            <div class="mt-6">
-              <PsychologyTodayBadge variant="light" />
+            <div class="team-member__layout">
+              <div class="team-member__photo">
+                <img
+                  src={clinician.photo}
+                  alt={`${clinician.name}, ${clinician.role} at Woven Sage Counseling`}
+                  width={768}
+                  height={1024}
+                  loading="eager"
+                  decoding="async"
+                />
+              </div>
+              <div class="team-member__body">
+                <p class="why-kicker">{clinician.role}</p>
+                <h2 class="mt-4 font-display text-[1.75rem] font-normal leading-snug tracking-tight text-[#2E2D2A] sm:text-[2.125rem]">
+                  {clinician.name}
+                </h2>
+                <p class="team-member__meta mt-3 text-sm leading-relaxed text-sage-dark/65 sm:text-[0.9375rem]">
+                  {clinician.credentials}
+                </p>
+                <p class="team-member__meta mt-1 text-sm leading-relaxed text-sage-dark/65 sm:text-[0.9375rem]">
+                  {clinician.focus}
+                </p>
+                <p class="mt-5 text-[1.0625rem] leading-relaxed text-sage-dark/78 sm:mt-6 sm:text-lg">
+                  {clinician.bio}
+                </p>
+                <div class="mt-6">
+                  <PsychologyTodayBadge variant="light" />
+                </div>
+              </div>
             </div>
           </article>
         </div>

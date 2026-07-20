@@ -1824,6 +1824,55 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   min-height: 0;
 }
 
+.team-member__layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.team-member__photo {
+  flex-shrink: 0;
+  width: 11.5rem;
+  overflow: hidden;
+  border-radius: 1rem;
+  aspect-ratio: 3 / 4;
+  background-color: color-mix(in srgb, theme('colors.sage.light') 22%, theme('colors.cream.DEFAULT'));
+}
+
+.team-member__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+.team-member__body {
+  min-width: 0;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .team-member__layout {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2rem;
+    text-align: left;
+  }
+
+  .team-member__photo {
+    width: 13.5rem;
+  }
+
+  .team-member__body .why-kicker,
+  .team-member__body h2,
+  .team-member__body .team-member__meta,
+  .team-member__body p {
+    text-align: left;
+  }
+}
+
 .team-member--leadership.chapter-3__card {
   padding: 1.6rem 1.75rem;
   background-color: color-mix(in srgb, theme('colors.sage.light') 16%, theme('colors.cream.DEFAULT'));

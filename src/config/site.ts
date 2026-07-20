@@ -77,7 +77,7 @@ export const siteConfig = {
       bio: 'Christian founded Woven Sage Counseling with a vision to build a thoughtful, connection-centered practice serving clients across South Florida and throughout the state. He leads the practice’s operations, growth, brand, and client experience.',
     },
     clinician: {
-      name: 'Michele Evans',
+      name: 'Michele L. Evans',
       title: 'Co-Founder & LMHC',
       credentials: 'LMHC · MCAP · EMDR Trained',
       pronouns: 'she/her/hers',

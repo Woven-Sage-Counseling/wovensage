@@ -49,6 +49,14 @@ const shortLabels: Record<string, string> = {
     </nav>
 
     <div class="site-header__actions">
+      <a
+        href={siteConfig.clientPortalUrl}
+        class="site-header__portal"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {siteConfig.clientPortalLabel}
+      </a>
       <BookingButton class="header-cta site-header__cta" />
     </div>
   </div>

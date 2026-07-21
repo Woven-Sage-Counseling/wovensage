@@ -14,6 +14,9 @@ export const siteConfig = {
   bookingCtaLabel: 'Request an Appointment',
   /** Destination for appointment / consult CTAs */
   bookingUrl: '/book',
+  /** Existing-client SimplePractice client portal */
+  clientPortalUrl: 'https://wovensage.clientsecure.me',
+  clientPortalLabel: 'Client portal',
   /** SimplePractice online appointment request widget */
   simplePractice: {
     portalUrl: 'https://michele-evans.clientsecure.me',

@@ -2391,6 +2391,7 @@ export const navLinks = [
 ] as const;
 
 export const footerLinks = [
+  { href: '/contact', label: 'Contact' },
   { href: '/resources', label: 'Resources' },
   { href: '/blog', label: 'Blog' },
   { href: '/careers', label: 'Careers' },

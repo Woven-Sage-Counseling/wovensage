@@ -38,6 +38,26 @@
     @apply px-3.5 py-1.5 text-[0.625rem] font-medium leading-tight shadow-none;
   }
 
+  .site-header {
+    isolation: isolate;
+  }
+
+  .site-header__nav {
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 1100px) {
+    .site-header__nav {
+      gap: 1.75rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .site-header__nav {
+      gap: 2rem;
+    }
+  }
+
   /* Homepage hero CTA — soft, Apple-like */
   .btn-primary.hero-cta {
     border-radius: 9999px;

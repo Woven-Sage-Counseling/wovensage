@@ -6,24 +6,24 @@ import Logo from './Logo.astro';
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-50 border-b border-accent/15 bg-cream/75 backdrop-blur-sm">
-  <div class="container-page flex h-10 items-center justify-between gap-3 sm:h-11">
+<header class="site-header sticky top-0 z-[100] border-b border-accent/20 bg-cream/90 backdrop-blur-md">
+  <div class="container-page flex h-11 items-center justify-between gap-4 sm:h-12">
     <a href="/" class="group flex shrink-0 items-center opacity-90 transition hover:opacity-100">
       <Logo variant="text" />
       <span class="sr-only">{siteConfig.name}</span>
     </a>
 
-    <nav class="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
+    <nav class="site-header__nav hidden items-center lg:flex" aria-label="Main navigation">
       {
         navLinks.map((link) => (
           <a
             href={link.href}
             class:list={[
-              'text-[0.8125rem] font-normal leading-none tracking-wide transition-colors',
+              'whitespace-nowrap text-[0.8125rem] font-normal leading-none tracking-wide transition-colors',
               currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href + '/'))
-                ? 'text-sage-dark/85'
-                : 'text-sage-dark/50 hover:text-sage-dark/75',
-              link.href === '/' && currentPath === '/' && 'text-sage-dark/85',
+                ? 'text-sage-dark/90'
+                : 'text-sage-dark/60 hover:text-sage-dark/85',
+              link.href === '/' && currentPath === '/' && 'text-sage-dark/90',
             ]}
           >
             {link.label}
@@ -37,7 +37,7 @@ const currentPath = Astro.url.pathname;
       <button
         type="button"
         id="mobile-menu-btn"
-        class="inline-flex items-center justify-center rounded-md p-1.5 text-sage-dark/60 hover:bg-sage-light/30 hover:text-sage-dark lg:hidden"
+        class="inline-flex items-center justify-center rounded-md p-1.5 text-sage-dark/70 hover:bg-sage-light/30 hover:text-sage-dark lg:hidden"
         aria-label="Open menu"
         aria-expanded="false"
         aria-controls="mobile-menu"

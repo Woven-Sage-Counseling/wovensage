@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout
+  title="Sign in"
+  description={`Sign in to the ${siteConfig.name} client portal or provider portal.`}
+  botanicalBg={false}
+>
+  <article class="sign-in-page why-page">
+    <section class="why-section why-section--soft bg-cream" aria-labelledby="sign-in-heading">
+      <div class="container-page">
+        <div class="mx-auto max-w-2xl text-center">
+          <h1
+            id="sign-in-heading"
+            class="scroll-reveal font-display text-[1.75rem] font-normal tracking-tight text-[#2E2D2A] sm:text-[2.125rem]"
+          >
+            Sign in
+          </h1>
+
+          <p class="scroll-reveal scroll-reveal--delay-1 mx-auto mt-6 max-w-xl text-[1.0625rem] leading-relaxed text-sage-dark/72 sm:mt-8 sm:text-lg">
+            Choose the portal that applies to you.
+          </p>
+
+          <div class="scroll-reveal scroll-reveal--delay-1 mt-12 flex flex-col items-stretch gap-4 sm:mt-14 sm:gap-5">
+            <a
+              href={siteConfig.clientPortalUrl}
+              class="sign-in-option sign-in-option--primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="sign-in-option__label">{siteConfig.clientPortalLabel}</span>
+              <span class="sign-in-option__hint">For existing clients</span>
+            </a>
+
+            {
+              siteConfig.providerPortalComingSoon || !siteConfig.providerPortalUrl ? (
+                <button type="button" class="sign-in-option sign-in-option--placeholder" disabled>
+                  <span class="sign-in-option__label">{siteConfig.providerPortalLabel}</span>
+                  <span class="sign-in-option__hint">Coming soon</span>
+                </button>
+              ) : (
+                <a
+                  href={siteConfig.providerPortalUrl}
+                  class="sign-in-option sign-in-option--secondary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span class="sign-in-option__label">{siteConfig.providerPortalLabel}</span>
+                  <span class="sign-in-option__hint">For clinicians and staff</span>
+                </a>
+              )
+            }
+          </div>
+
+          <p class="scroll-reveal scroll-reveal--delay-2 mt-10 text-sm text-sage-dark/65">
+            Need to schedule a first appointment?{' '}
+            <a href={siteConfig.bookingUrl} class="text-sage-dark underline hover:text-sage-dark">
+              Request an appointment
+            </a>
+            .
+          </p>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <script>
+    import { initScrollReveal } from '../scripts/scroll-reveal';
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    initScrollReveal(reduceMotion);
+  </script>
+</BaseLayout>

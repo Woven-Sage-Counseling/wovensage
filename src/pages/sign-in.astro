@@ -24,15 +24,21 @@ import { siteConfig } from '../config/site';
           </p>
 
           <div class="scroll-reveal scroll-reveal--delay-1 mt-12 flex flex-col items-stretch gap-4 sm:mt-14 sm:gap-5">
-            <a
-              href={siteConfig.clientPortalUrl}
-              class="sign-in-option sign-in-option--primary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="sign-in-option__label">{siteConfig.clientPortalLabel}</span>
-              <span class="sign-in-option__hint">For existing clients</span>
-            </a>
+            <div class="sign-in-option-group mx-auto w-full max-w-[22rem]">
+              <a
+                href={siteConfig.clientPortalUrl}
+                class="sign-in-option sign-in-option--primary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span class="sign-in-option__label">{siteConfig.clientPortalLabel}</span>
+                <span class="sign-in-option__hint">For existing clients</span>
+              </a>
+              <p class="mt-3 text-left text-xs leading-relaxed text-sage-dark/60 sm:text-[0.8125rem]">
+                Your portal may differ depending on your insurance plan. If you are unable to log in
+                here, your therapist should let you know where to find your portal.
+              </p>
+            </div>
 
             {
               siteConfig.providerPortalComingSoon || !siteConfig.providerPortalUrl ? (

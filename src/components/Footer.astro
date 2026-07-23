@@ -47,6 +47,14 @@ import WelcomeHereBadge from './WelcomeHereBadge.astro';
             ))
           }
         </ul>
+        <a
+          href={siteConfig.clientPortalUrl}
+          class="footer-portal-btn mt-5 inline-flex"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {siteConfig.clientPortalLabel}
+        </a>
       </div>
 
       <div>
@@ -65,16 +73,6 @@ import WelcomeHereBadge from './WelcomeHereBadge.astro';
           <li>
             <a href={`mailto:${siteConfig.contactEmail}`} class="hover:text-cream">
               {siteConfig.contactEmail}
-            </a>
-          </li>
-          <li>
-            <a
-              href={siteConfig.clientPortalUrl}
-              class="hover:text-cream"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {siteConfig.clientPortalLabel}
             </a>
           </li>
         </ul>

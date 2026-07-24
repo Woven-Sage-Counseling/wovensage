@@ -2806,6 +2806,77 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   border-radius: 1rem;
 }
 
+.book-section-break {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  padding-block: 2.25rem 0.5rem;
+}
+
+.book-section-break__rule {
+  display: block;
+  width: min(6.5rem, 22vw);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(152 169 149 / 0.55) 50%,
+    transparent 100%
+  );
+}
+
+.book-section-break__mark {
+  position: relative;
+  flex-shrink: 0;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 9999px;
+  background-color: rgb(152 169 149 / 0.55);
+  box-shadow: 0 0 0 4px rgb(152 169 149 / 0.12);
+}
+
+.book-section-break__mark::before,
+.book-section-break__mark::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 0.22rem;
+  height: 0.22rem;
+  border-radius: 9999px;
+  background-color: rgb(152 169 149 / 0.35);
+  transform: translateY(-50%);
+}
+
+.book-section-break__mark::before {
+  left: -0.7rem;
+}
+
+.book-section-break__mark::after {
+  right: -0.7rem;
+}
+
+.book-gfe-section.why-section {
+  padding-top: 2rem;
+  padding-bottom: 4.5rem;
+}
+
+@media (min-width: 640px) {
+  .book-section-break {
+    padding-block: 2.75rem 0.75rem;
+    gap: 1rem;
+  }
+
+  .book-section-break__rule {
+    width: min(8rem, 18vw);
+  }
+
+  .book-gfe-section.why-section {
+    padding-top: 2.5rem;
+    padding-bottom: 5.5rem;
+  }
+}
+
 /* Abstract botanical background pattern */
 .bg-nature {
   background-color: theme('colors.cream.DEFAULT');

@@ -89,7 +89,7 @@ export const siteConfig = {
     clinician: {
       name: 'Michele L. Evans',
       title: 'Co-Founder & LMHC',
-      credentials: 'LMHC · MCAP · EMDR Trained',
+      credentials: 'LMHC · MCAR · EMDR Trained',
       pronouns: 'she/her/hers',
       languages: ['English'],
       license: 'Florida',

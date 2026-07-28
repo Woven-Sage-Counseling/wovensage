@@ -8,7 +8,14 @@ const clinician = {
   name: 'Michele L. Evans',
   credentials: 'LMHC · MCAR · EMDR Trained',
   focus: 'Adults · Young Adults · English · Florida',
-  bio: 'Michele provides collaborative, compassionate therapy for adults and young adults navigating anxiety, trauma, depression, relationship challenges, life transitions, and substance use concerns. Her approach combines evidence-based care with warmth, curiosity, and genuine connection.',
+  bio: [
+    'Michele graduated from Nova Southeastern University with a Masters in Mental Health Counseling. She is a Licensed Mental Health Counselor in the state of Florida, working in Boca Raton, Coral Springs, Delray Beach and virtually throughout the state.',
+    'Michele is a lifelong learner and stays up to date with the latest research and development in the field of mental health. She actively seeks opportunities for professional development to enhance her knowledge and skills, ensuring to provide the highest quality of care to her clients. She has attained a second Masters in Conflict Analysis and Resolution and is currently enrolled in a Ph.D. program in the field.',
+    'With expertise in various modalities such as cognitive behavioral therapy, dialectical behavioral therapy, and specializing in EMDR, Michele works with teens and adults to meet the individual needs of each client. Michele has successfully supported clients in overcoming challenges related to anxiety, depression, trauma, relationship issues, addictions, and more.',
+    'Michele is a compassionate and dedicated mental health therapist with a deep understanding of the human mind and a genuine desire to help others. With over 6 years of experience in the field she has developed a unique approach to therapy that combines evidence-based techniques with a person-centered approach.',
+    'Beyond her technical skills, Michele possesses exceptional interpersonal skills, allowing her to build strong therapeutic relationships based on trust, empathy, and respect. She is known for her ability to listen attentively and provide genuine support, guiding her clients towards self-discovery and improved mental wellbeing.',
+    'As a therapist, Michele is committed to creating a safe and non-judgmental space for her clients to explore their thoughts, emotions, and experiences. Michele is empathetic, knowledgeable, and committed to her clients’ well-being. She believes in the power of collaboration and actively involves her clients in the therapeutic process, encouraging them to set goals and work toward achieving them.',
+  ],
   photo: '/images/michele-evans-v2.jpg',
 } as const;
 
@@ -68,9 +75,20 @@ const founder = {
                 <p class="team-member__meta mt-1 text-sm leading-relaxed text-sage-dark/65 sm:text-[0.9375rem]">
                   {clinician.focus}
                 </p>
-                <p class="mt-5 text-[1.0625rem] leading-relaxed text-sage-dark/78 sm:mt-6 sm:text-lg">
-                  {clinician.bio}
-                </p>
+                <div class="team-member__bio mt-5 sm:mt-6" data-bio-expand>
+                  <div class="team-member__bio-content">
+                    {
+                      clinician.bio.map((paragraph) => (
+                        <p class="team-member__bio-paragraph text-[1.0625rem] leading-relaxed text-sage-dark/78 sm:text-lg">
+                          {paragraph}
+                        </p>
+                      ))
+                    }
+                  </div>
+                  <button type="button" class="team-member__bio-toggle" data-bio-toggle aria-expanded="false">
+                    Read more
+                  </button>
+                </div>
                 <div class="mt-6">
                   <PsychologyTodayBadge variant="light" />
                 </div>
@@ -197,5 +215,16 @@ const founder = {
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     initScrollReveal(reduceMotion);
+
+    document.querySelectorAll('[data-bio-expand]').forEach((root) => {
+      const toggle = root.querySelector('[data-bio-toggle]');
+      if (!(toggle instanceof HTMLButtonElement)) return;
+
+      toggle.addEventListener('click', () => {
+        const expanded = root.classList.toggle('is-expanded');
+        toggle.setAttribute('aria-expanded', String(expanded));
+        toggle.textContent = expanded ? 'Read less' : 'Read more';
+      });
+    });
   </script>
 </BaseLayout>

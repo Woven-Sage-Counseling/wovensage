@@ -8,9 +8,9 @@ export default {
           DEFAULT: '#F7F4EE',
         },
         sage: {
-          DEFAULT: '#839880',
-          light: '#A1AF9E',
-          dark: '#5D6A5A',
+          DEFAULT: '#788F75',
+          light: '#96A693',
+          dark: '#535F51',
         },
         accent: {
           DEFAULT: '#B9B5AE',

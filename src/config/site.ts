@@ -20,10 +20,10 @@ export const siteConfig = {
   /** Existing-client SimplePractice client portal */
   clientPortalUrl: 'https://wovensage.clientsecure.me',
   clientPortalLabel: 'Client portal',
-  /** Provider portal — placeholder until live */
-  providerPortalUrl: '',
+  /** Invite-only employee / provider portal */
+  providerPortalUrl: 'https://portal.wovensage.com',
   providerPortalLabel: 'Provider portal',
-  providerPortalComingSoon: true,
+  providerPortalComingSoon: false,
   /** SimplePractice online appointment request widget */
   simplePractice: {
     portalUrl: 'https://michele-evans.clientsecure.me',

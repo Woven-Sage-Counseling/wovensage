@@ -9,6 +9,7 @@ dist/
 # env
 .env
 .env.*
+.dev.vars
 
 # logs
 *.log

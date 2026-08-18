@@ -1,0 +1,39 @@
+# Deploy employee portal PREVIEW only
+# This does not touch wovensage.com or the wovensage Pages project.
+
+name: Deploy portal preview (not production)
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: portal-preview-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    name: Deploy portal preview Worker
+    defaults:
+      run:
+        working-directory: portal
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: portal/package-lock.json
+      - name: Install portal dependencies
+        run: npm ci
+      - name: Build portal
+        run: npm run build
+      - name: Deploy PREVIEW Worker (wovensage-portal-preview)
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: portal
+          command: pages deploy dist --project-name=wovensage-portal-preview --branch=feat/employee-portal-preview

@@ -2406,6 +2406,8 @@ export const footerLinks = [
   { href: '/blog', label: 'Blog' },
   { href: '/careers', label: 'Careers' },
   { href: '/privacy', label: 'Privacy Policy' },
+  { href: '/portal-privacy', label: 'Portal privacy' },
+  { href: '/portal-terms', label: 'Portal terms' },
 ] as const;
 
 export const socialLinks = [

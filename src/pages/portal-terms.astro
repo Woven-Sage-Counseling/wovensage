@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout
+  title="Employee portal terms"
+  description={`Terms of use for the ${siteConfig.name} employee portal.`}
+>
+  <PageHero title="Employee portal terms" centered />
+
+  <Section>
+    <div class="privacy-notice mx-auto max-w-3xl prose-content text-sm">
+      <p class="text-center text-sage-dark/70">Effective August 19, 2026</p>
+
+      <p class="mt-6">
+        These terms cover the invite-only employee portal at portal.wovensage.com, provided by
+        {siteConfig.name} for current employees and contractors.
+      </p>
+
+      <h2 class="font-serif text-xl pt-8">License</h2>
+      <p>
+        If you are invited and have an active account, we grant you a limited, non-transferable
+        license to use the portal for Woven Sage work. You may not share your login, copy the
+        software, or use the portal to access records you are not authorized to see.
+      </p>
+
+      <h2 class="font-serif text-xl pt-8">Accounts</h2>
+      <p>
+        There is no public registration. Access can be changed or revoked at any time. You are
+        responsible for keeping your password confidential.
+      </p>
+
+      <h2 class="font-serif text-xl pt-8">QuickBooks and other apps</h2>
+      <p>
+        The portal may connect to QuickBooks Online and link out to tools such as SimplePractice.
+        Those products have their own terms. The portal does not store patient clinical records.
+      </p>
+
+      <h2 class="font-serif text-xl pt-8">Contact</h2>
+      <p>
+        <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>
+      </p>
+    </div>
+  </Section>
+</BaseLayout>

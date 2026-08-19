@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout
+  title="Employee portal privacy"
+  description={`Privacy practices for the ${siteConfig.name} employee portal.`}
+>
+  <PageHero title="Employee portal privacy" centered />
+
+  <Section>
+    <div class="privacy-notice mx-auto max-w-3xl prose-content text-sm">
+      <p class="text-center text-sage-dark/70">Effective August 19, 2026</p>
+
+      <p class="mt-6">
+        This policy covers the invite-only employee portal at portal.wovensage.com, operated by
+        {siteConfig.name}. It does not replace our patient{' '}
+        <a href="/privacy">Notice of Privacy Practices</a>.
+      </p>
+
+      <h2 class="font-serif text-xl pt-8">What we collect</h2>
+      <p>
+        The portal stores employee name, email, role, and sign-in session data. If an authorized
+        finance user connects QuickBooks, we store encrypted QuickBooks tokens and cash-basis
+        financial summaries for the practice. The portal does not store patient records, diagnoses,
+        clinical notes, or other protected health information.
+      </p>
+
+      <h2 class="font-serif text-xl pt-8">How we use it</h2>
+      <p>
+        We use this information to authenticate invited employees, assign permissions, and show
+        practice financial snapshots to people who already have financials access. QuickBooks data
+        is used only to display accounting figures inside the portal.
+      </p>
+
+      <h2 class="font-serif text-xl pt-8">Sharing</h2>
+      <p>
+        We do not sell portal data. QuickBooks Online is provided by Intuit. Hosting and storage run
+        on Cloudflare. We share information only as needed to operate the portal, comply with law, or
+        with a service provider under a confidentiality obligation.
+      </p>
+
+      <h2 class="font-serif text-xl pt-8">Retention and access</h2>
+      <p>
+        Employee accounts remain until an owner deactivates them. Questions:{' '}
+        <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>.
+      </p>
+    </div>
+  </Section>
+</BaseLayout>

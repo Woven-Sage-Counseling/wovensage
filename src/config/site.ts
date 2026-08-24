@@ -2202,8 +2202,11 @@ export const siteConfig = {
       {
         id: 'umr',
         name: 'UMR',
-        aliases: [],
-        featured: false,
+        aliases: [
+          'United Medical Resources',
+          'UMR Wausau',
+        ],
+        featured: true,
         status: 'active',
         logo: '',
       },

@@ -51,23 +51,23 @@ const detailCards = [
             data-api-url={insuranceApiUrl}
           >
             <p class="scroll-reveal scroll-reveal--delay-1 text-center text-sm text-sage-dark/65" data-insurance-loading>
-              Loading insurance plans…
+              Loading insurance networks…
             </p>
             <p class="mt-10 hidden text-center italic text-sage-dark/65 sm:mt-12" data-insurance-empty hidden>
-              Accepted insurance plans will appear here as they are added.
+              Accepted insurance networks will appear here as they are added.
             </p>
             <p class="mt-6 hidden text-center text-sm text-red-800" data-insurance-error hidden></p>
 
             <div class="hidden scroll-reveal scroll-reveal--delay-1" data-insurance-content hidden>
               <label for="carrier-search" class="why-kicker block text-center">
-                Search companies or plans
+                Search insurance companies
               </label>
               <div class="insurance-carriers__search mt-5">
                 <input
                   id="carrier-search"
                   type="search"
                   name="carrier-search"
-                  placeholder="Search by insurance company or plan…"
+                  placeholder="Search by insurance company…"
                   autocomplete="off"
                   spellcheck="false"
                   aria-controls="insurance-results"
@@ -78,7 +78,7 @@ const detailCards = [
               <div
                 class="insurance-carriers__filters mt-5"
                 role="group"
-                aria-label="Filter plans by availability"
+                aria-label="Filter networks by availability"
                 data-insurance-filters
               >
                 <span class="insurance-carriers__filters-label">Show:</span>
@@ -100,7 +100,7 @@ const detailCards = [
                 data-insurance-search-empty
                 hidden
               >
-                No plans match your search. Contact us and we&apos;ll help you check coverage.
+                No companies match your search. Contact us and we&apos;ll help you check coverage.
               </p>
             </div>
           </div>
@@ -164,13 +164,10 @@ const detailCards = [
   <script>
     import { initScrollReveal } from '../scripts/scroll-reveal';
 
-    type InsurancePlan = { planId: string; planName: string; sortOrder: number };
-    type InsuranceGroup = {
-      groupId: string;
-      groupName: string;
-      sortOrder: number;
-      inNetworkPlans: InsurancePlan[];
-      comingSoonPlans: InsurancePlan[];
+    type InsuranceNetwork = { groupId: string; groupName: string; sortOrder: number };
+    type InsurancePayload = {
+      inNetwork: InsuranceNetwork[];
+      comingSoon: InsuranceNetwork[];
     };
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -184,49 +181,36 @@ const detailCards = [
         .replaceAll('"', '&quot;');
     }
 
-    function renderGroupPlans(groupName: string, plans: InsurancePlan[]): string {
-      if (plans.length === 0) return '';
-      const items = plans
+    function renderNetworkList(networks: InsuranceNetwork[]): string {
+      if (networks.length === 0) return '';
+      const items = networks
         .map(
-          (plan) => `<li
+          (network) => `<li
             class="insurance-carriers__item"
-            data-insurance-plan
-            data-search-text="${escapeHtml(`${groupName} ${plan.planName}`.toLowerCase())}"
+            data-insurance-network
+            data-search-text="${escapeHtml(network.groupName.toLowerCase())}"
           >
-            <span class="insurance-carriers__item-name">${escapeHtml(plan.planName)}</span>
+            <span class="insurance-carriers__item-name">${escapeHtml(network.groupName)}</span>
           </li>`,
         )
         .join('');
-      return `<div class="insurance-carriers__list-panel" data-insurance-group data-search-text="${escapeHtml(groupName.toLowerCase())}">
-        <h3 class="mb-3 font-display text-[1.15rem] font-normal tracking-tight text-[#2E2D2A] sm:text-[1.35rem]">${escapeHtml(groupName)}</h3>
-        <ul class="insurance-carriers__list" role="list">${items}</ul>
-      </div>`;
+      return `<ul class="insurance-carriers__list" role="list">${items}</ul>`;
     }
 
-    function renderInsurance(groups: InsuranceGroup[]): string {
-      const inNetworkHtml = groups
-        .filter((group) => group.inNetworkPlans.length > 0)
-        .map((group) => renderGroupPlans(group.groupName, group.inNetworkPlans))
-        .join('');
-
-      const comingSoonHtml = groups
-        .filter((group) => group.comingSoonPlans.length > 0)
-        .map((group) => renderGroupPlans(group.groupName, group.comingSoonPlans))
-        .join('');
-
+    function renderInsurance(payload: InsurancePayload): string {
       const sections = [];
-      if (inNetworkHtml) {
+      if (payload.inNetwork.length > 0) {
         sections.push(`<section data-insurance-section="in-network">
           <h2 class="font-display text-[1.35rem] font-normal tracking-tight text-[#2E2D2A] sm:text-[1.55rem]">Currently in network</h2>
-          <div class="mt-5 space-y-6">${inNetworkHtml}</div>
+          <div class="mt-5">${renderNetworkList(payload.inNetwork)}</div>
         </section>`);
       }
-      if (comingSoonHtml) {
+      if (payload.comingSoon.length > 0) {
         sections.push(`<section data-insurance-section="coming-soon">
           <h2 class="font-display text-[1.35rem] font-normal tracking-tight text-[#2E2D2A] sm:text-[1.55rem]">Coming soon</h2>
-          <div class="mt-5 space-y-6">${comingSoonHtml}</div>
+          <div class="mt-5">${renderNetworkList(payload.comingSoon)}</div>
           <p class="mt-5 text-sm leading-relaxed text-sage-dark/65">
-            Plans listed as Coming soon are still undergoing credentialing and aren&apos;t currently available for in-network billing. Participation and effective dates aren&apos;t guaranteed until credentialing is complete.
+            Networks listed as Coming soon are still undergoing credentialing and aren&apos;t currently available for in-network billing. Participation and effective dates aren&apos;t guaranteed until credentialing is complete.
           </p>
         </section>`);
       }
@@ -243,7 +227,7 @@ const detailCards = [
           ? (root.querySelector('[data-insurance-filters] .is-active') as HTMLElement).dataset.sectionFilter ?? 'all'
           : 'all';
 
-      let visiblePlans = 0;
+      let visibleNetworks = 0;
       root.querySelectorAll('[data-insurance-section]').forEach((section) => {
         if (!(section instanceof HTMLElement)) return;
         const sectionKey = section.dataset.insuranceSection ?? '';
@@ -253,23 +237,16 @@ const detailCards = [
           (activeFilter === 'coming-soon' && sectionKey === 'coming-soon');
 
         let sectionVisible = 0;
-        section.querySelectorAll('[data-insurance-group]').forEach((group) => {
-          if (!(group instanceof HTMLElement)) return;
-          let groupVisible = 0;
-          group.querySelectorAll('[data-insurance-plan]').forEach((plan) => {
-            if (!(plan instanceof HTMLElement)) return;
-            const haystack = plan.dataset.searchText ?? group.dataset.searchText ?? '';
-            const show = sectionMatches && (!query || haystack.includes(query));
-            plan.hidden = !show;
-            plan.classList.toggle('is-hidden', !show);
-            if (show) {
-              groupVisible += 1;
-              visiblePlans += 1;
-            }
-          });
-          group.hidden = groupVisible === 0;
-          group.classList.toggle('is-hidden', groupVisible === 0);
-          if (groupVisible > 0) sectionVisible += 1;
+        section.querySelectorAll('[data-insurance-network]').forEach((network) => {
+          if (!(network instanceof HTMLElement)) return;
+          const haystack = network.dataset.searchText ?? '';
+          const show = sectionMatches && (!query || haystack.includes(query));
+          network.hidden = !show;
+          network.classList.toggle('is-hidden', !show);
+          if (show) {
+            sectionVisible += 1;
+            visibleNetworks += 1;
+          }
         });
 
         section.hidden = !sectionMatches || sectionVisible === 0;
@@ -278,7 +255,7 @@ const detailCards = [
 
       const searchEmpty = root.querySelector('[data-insurance-search-empty]');
       if (searchEmpty instanceof HTMLElement) {
-        const show = visiblePlans === 0;
+        const show = visibleNetworks === 0;
         searchEmpty.hidden = !show;
         searchEmpty.classList.toggle('hidden', !show);
       }
@@ -294,26 +271,32 @@ const detailCards = [
 
       try {
         const response = await fetch(apiUrl, { headers: { Accept: 'application/json' } });
-        const payload = (await response.json()) as { ok?: boolean; groups?: InsuranceGroup[]; error?: string };
+        const payload = (await response.json()) as {
+          ok?: boolean;
+          inNetwork?: InsuranceNetwork[];
+          comingSoon?: InsuranceNetwork[];
+          error?: string;
+        };
         loading?.classList.add('hidden');
         if (loading instanceof HTMLElement) loading.hidden = true;
 
-        if (!response.ok || !payload.ok || !payload.groups) {
-          throw new Error(payload.error || 'Unable to load insurance plans.');
+        if (!response.ok || !payload.ok || !payload.inNetwork || !payload.comingSoon) {
+          throw new Error(payload.error || 'Unable to load insurance networks.');
         }
 
-        const hasPlans = payload.groups.some(
-          (group) => group.inNetworkPlans.length > 0 || group.comingSoonPlans.length > 0,
-        );
+        const hasNetworks = payload.inNetwork.length > 0 || payload.comingSoon.length > 0;
 
-        if (!hasPlans) {
+        if (!hasNetworks) {
           empty?.classList.remove('hidden');
           if (empty instanceof HTMLElement) empty.hidden = false;
           return;
         }
 
         if (results instanceof HTMLElement) {
-          results.innerHTML = renderInsurance(payload.groups);
+          results.innerHTML = renderInsurance({
+            inNetwork: payload.inNetwork,
+            comingSoon: payload.comingSoon,
+          });
         }
         content?.classList.remove('hidden');
         if (content instanceof HTMLElement) content.hidden = false;
@@ -336,7 +319,7 @@ const detailCards = [
         if (loading instanceof HTMLElement) loading.hidden = true;
         if (error instanceof HTMLElement) {
           error.textContent =
-            loadError instanceof Error ? loadError.message : 'Unable to load insurance plans right now.';
+            loadError instanceof Error ? loadError.message : 'Unable to load insurance networks right now.';
           error.hidden = false;
           error.classList.remove('hidden');
         }

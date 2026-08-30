@@ -108,6 +108,37 @@ export const siteConfig = {
       status: 'active' | 'coming-soon';
       logo: string;
     }>,
+    featuredCarrierLogos: [
+      {
+        id: 'unitedhealthcare',
+        name: 'UnitedHealthcare',
+        logo: '/images/carriers/unitedhealthcare.svg',
+      },
+      {
+        id: 'blue-cross-blue-shield',
+        name: 'Blue Cross Blue Shield',
+      },
+      {
+        id: 'aetna',
+        name: 'Aetna',
+        logo: '/images/carriers/aetna.svg',
+      },
+      {
+        id: 'cigna',
+        name: 'Cigna',
+        logo: '/images/carriers/cigna.png',
+      },
+      {
+        id: 'humana',
+        name: 'Humana',
+        logo: '/images/carriers/humana.svg',
+      },
+      {
+        id: 'oscar',
+        name: 'Oscar Health',
+        logo: '/images/carriers/oscar.svg',
+      },
+    ] as const,
   },
 
   services: [

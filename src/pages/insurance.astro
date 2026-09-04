@@ -120,7 +120,7 @@ const detailCards = [
                 </button>
               </div>
 
-              <div id="insurance-results" class="mt-8 space-y-10" data-insurance-results></div>
+              <div id="insurance-results" class="insurance-carriers__columns mt-8" data-insurance-results></div>
 
               <p
                 class="insurance-carriers__empty mt-6 hidden text-center text-sm text-sage-dark/65"
@@ -213,7 +213,15 @@ const detailCards = [
         .replaceAll('"', '&quot;');
     }
 
-    function renderNetworkList(networks: InsuranceNetwork[]): string {
+    const scrollHintMarkup = `<div class="insurance-carriers__list-fade" aria-hidden="true" data-insurance-fade></div>
+      <p class="insurance-carriers__list-hint" aria-hidden="true" data-insurance-hint>
+        <span>Scroll for more</span>
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </p>`;
+
+    function renderNetworkList(networks: InsuranceNetwork[], ariaLabel: string): string {
       if (networks.length === 0) return '';
       const items = networks
         .map(
@@ -226,7 +234,18 @@ const detailCards = [
           </li>`,
         )
         .join('');
-      return `<ul class="insurance-carriers__list" role="list">${items}</ul>`;
+      return `<div class="insurance-carriers__list-panel mt-5">
+        <div
+          class="insurance-carriers__list-wrap"
+          tabindex="0"
+          role="region"
+          aria-label="${escapeHtml(ariaLabel)}"
+          data-insurance-scroll
+        >
+          <ul class="insurance-carriers__list" role="list">${items}</ul>
+        </div>
+        ${scrollHintMarkup}
+      </div>`;
     }
 
     function renderInsurance(payload: InsurancePayload): string {
@@ -234,19 +253,43 @@ const detailCards = [
       if (payload.inNetwork.length > 0) {
         sections.push(`<section data-insurance-section="in-network">
           <h2 class="font-display text-[1.35rem] font-normal tracking-tight text-[#2E2D2A] sm:text-[1.55rem]">Currently in network</h2>
-          <div class="mt-5">${renderNetworkList(payload.inNetwork)}</div>
+          ${renderNetworkList(payload.inNetwork, 'Currently in network')}
         </section>`);
       }
       if (payload.comingSoon.length > 0) {
         sections.push(`<section data-insurance-section="coming-soon">
           <h2 class="font-display text-[1.35rem] font-normal tracking-tight text-[#2E2D2A] sm:text-[1.55rem]">Coming soon</h2>
-          <div class="mt-5">${renderNetworkList(payload.comingSoon)}</div>
+          ${renderNetworkList(payload.comingSoon, 'Coming soon')}
           <p class="mt-5 text-sm leading-relaxed text-sage-dark/65">
             Networks listed as Coming soon are still undergoing credentialing and aren&apos;t currently available for in-network billing. Participation and effective dates aren&apos;t guaranteed until credentialing is complete.
           </p>
         </section>`);
       }
       return sections.join('');
+    }
+
+    function updateInsuranceScrollHints(root: HTMLElement): void {
+      root.querySelectorAll('[data-insurance-scroll]').forEach((wrap) => {
+        if (!(wrap instanceof HTMLElement)) return;
+        const panel = wrap.closest('.insurance-carriers__list-panel');
+        const hint = panel?.querySelector('[data-insurance-hint]');
+        const fade = panel?.querySelector('[data-insurance-fade]');
+        const canScroll = wrap.scrollHeight > wrap.clientHeight + 1;
+        const atBottom = wrap.scrollTop + wrap.clientHeight >= wrap.scrollHeight - 8;
+        const showHint = canScroll && !atBottom;
+        wrap.classList.toggle('is-scrollable', canScroll);
+        hint?.classList.toggle('is-visible', showHint);
+        fade?.classList.toggle('is-visible', showHint);
+      });
+    }
+
+    function bindInsuranceScrollHints(root: HTMLElement): void {
+      root.querySelectorAll('[data-insurance-scroll]').forEach((wrap) => {
+        if (!(wrap instanceof HTMLElement)) return;
+        wrap.addEventListener('scroll', () => updateInsuranceScrollHints(root), { passive: true });
+      });
+      window.addEventListener('resize', () => updateInsuranceScrollHints(root), { passive: true });
+      updateInsuranceScrollHints(root);
     }
 
     function applyInsuranceFilters(root: HTMLElement): void {
@@ -291,6 +334,11 @@ const detailCards = [
         searchEmpty.hidden = !show;
         searchEmpty.classList.toggle('hidden', !show);
       }
+
+      root.querySelectorAll('[data-insurance-scroll]').forEach((wrap) => {
+        if (wrap instanceof HTMLElement) wrap.scrollTop = 0;
+      });
+      requestAnimationFrame(() => updateInsuranceScrollHints(root));
     }
 
     async function loadPublicInsurance(root: HTMLElement): Promise<void> {
@@ -345,6 +393,7 @@ const detailCards = [
         });
 
         root.querySelector('[data-insurance-search]')?.addEventListener('input', () => applyInsuranceFilters(root));
+        bindInsuranceScrollHints(root);
         applyInsuranceFilters(root);
       } catch (loadError) {
         loading?.classList.add('hidden');

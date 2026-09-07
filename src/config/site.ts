@@ -21,7 +21,7 @@ export const siteConfig = {
   clientPortalUrl: 'https://wovensage.clientsecure.me',
   clientPortalLabel: 'Client portal',
   /** Invite-only employee / provider portal */
-  providerPortalUrl: 'https://portal.wovensage.com',
+  providerPortalUrl: 'https://wovensage.coordity.com',
   providerPortalLabel: 'Provider portal',
   providerPortalComingSoon: false,
   /** SimplePractice online appointment request widget */

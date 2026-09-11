@@ -81,13 +81,23 @@ Commit and push.
 cloudflareAnalyticsToken: 'YOUR_TOKEN',
 ```
 
-## 7. Verify after deploy
+## 7. Employee portal (Coordity)
+
+Woven Sage staff sign-in is hosted by **Coordity** in a separate repo:
+
+- Repo: https://github.com/Woven-Sage-Counseling/coordity
+- Tenant: https://wovensage.coordity.com
+
+Marketing-site links (`providerPortalUrl` in `src/config/site.ts`) and legal pages (`/portal-privacy`, `/portal-terms`) stay here. Deploy and Cloudflare secrets for the portal are configured on the Coordity repo.
+
+## 8. Verify after deploy
 
 - [ ] Homepage loads at wovensage.com
 - [ ] Sticky "Book on Headway" button works (opens Headway with UTM params)
 - [ ] Contact form sends email to admin@wovensage.com
 - [ ] All pages accessible (About, Team, Services, etc.)
 - [ ] Mobile layout looks correct
+- [ ] Provider portal link opens wovensage.coordity.com
 
 ## Local preview before deploy
 

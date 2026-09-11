@@ -2,6 +2,8 @@
 
 Marketing site for [Woven Sage Counseling](https://wovensage.com) — built with Astro, Tailwind CSS, deployed on Cloudflare Pages.
 
+The invite-only employee workspace (Coordity) lives in a separate repo: [Woven-Sage-Counseling/coordity](https://github.com/Woven-Sage-Counseling/coordity) → https://wovensage.coordity.com
+
 ## Quick start
 
 ```bash
@@ -18,6 +20,7 @@ Edit **`src/config/site.ts`** to update:
 - Headway booking URL (`headwayBaseUrl`)
 - Formspree form ID (`formspreeFormId`)
 - Contact email, service areas, insurance carriers
+- Provider portal URL (`providerPortalUrl` → Coordity tenant)
 - Team bios, social links
 - Cloudflare Analytics token (optional)
 

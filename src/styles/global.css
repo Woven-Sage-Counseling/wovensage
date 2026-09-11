@@ -2439,8 +2439,9 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 }
 
 .insurance-carriers__row-logo--carelon {
-  height: 1.85rem;
-  max-width: 8.5rem;
+  height: 2.05rem;
+  max-width: 9rem;
+  overflow: visible;
 }
 
 .insurance-carriers__bcbs {

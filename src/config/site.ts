@@ -115,6 +115,10 @@ export const siteConfig = {
         logo: '/images/carriers/unitedhealthcare.svg',
       },
       {
+        id: 'blue-cross-blue-shield',
+        name: 'Blue Cross Blue Shield',
+      },
+      {
         id: 'aetna',
         name: 'Aetna',
         logo: '/images/carriers/aetna.svg',

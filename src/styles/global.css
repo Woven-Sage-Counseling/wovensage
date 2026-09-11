@@ -2440,10 +2440,10 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 }
 
 .insurance-carriers__row-logo--carelon {
-  height: 1.9rem;
-  max-width: 9.5rem;
-  /* Keep full symbol petals + wordmark visible */
-  padding-bottom: 0.05rem;
+  height: 2rem;
+  max-width: 10rem;
+  object-fit: contain;
+  object-position: left center;
 }
 
 .insurance-carriers__bcbs {

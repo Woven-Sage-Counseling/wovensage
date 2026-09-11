@@ -131,7 +131,7 @@ export const siteConfig = {
       {
         id: 'carelon',
         name: 'Carelon',
-        logo: '/images/carriers/carelon.svg',
+        logo: '/images/carriers/carelon.svg?v=3',
       },
     ] as const,
   },

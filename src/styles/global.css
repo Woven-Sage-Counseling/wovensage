@@ -3476,7 +3476,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   line-height: 1.28;
   letter-spacing: 0.01em;
   color: theme('colors.sage.dark');
-  transform: skewX(-6deg) rotate(-1.25deg);
+  transform: skewX(-11deg) rotate(-1.75deg);
   transform-origin: left center;
 }
 
@@ -3487,6 +3487,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   font-weight: 500;
   letter-spacing: 0.02em;
   color: rgb(46 59 42 / 0.72);
+  text-align: right;
   transform: none;
 }
 
@@ -3524,12 +3525,16 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   .home-quote__copy {
     order: 2;
     max-width: none;
-    text-align: center;
+    text-align: left;
     justify-self: center;
   }
 
   .home-quote__text {
     transform-origin: center center;
+  }
+
+  .home-quote__attr {
+    text-align: right;
   }
 }
 

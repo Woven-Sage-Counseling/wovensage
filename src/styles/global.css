@@ -3120,6 +3120,17 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .home-landing__title {
   margin: 0;
   max-width: 38rem;
+  font-family: theme('fontFamily.display');
+  font-weight: 600;
+  font-size: clamp(2.35rem, 1.6rem + 2.8vw, 3.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: theme('colors.sage.dark');
+  text-align: center;
+}
+
+.home-landing__title-line {
+  display: block;
 }
 
 .home-landing__title-img {

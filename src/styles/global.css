@@ -3135,13 +3135,13 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .home-landing__cta {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  min-height: 2.7rem;
-  padding: 0.65rem 1.2rem;
-  border-radius: 0.2rem;
+  gap: 0.55rem;
+  min-height: 3.35rem;
+  padding: 0.9rem 1.65rem;
+  border-radius: 0.25rem;
   background: theme('colors.sage.dark');
   color: theme('colors.cream.DEFAULT');
-  font-size: 0.9375rem;
+  font-size: 1.0625rem;
   font-weight: 600;
   letter-spacing: 0.01em;
   text-decoration: none;

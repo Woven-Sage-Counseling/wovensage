@@ -3156,7 +3156,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   width: min(42%, 16rem);
   height: min(42%, 16rem);
   background-color: theme('colors.accent.DEFAULT');
-  opacity: 0.92;
+  opacity: 1;
 }
 
 .home-landing__leaves--main {
@@ -3176,10 +3176,10 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .home-landing__arch {
   position: absolute;
   /* Sit above/left of the square so the arch bottom-right overlaps the square top-left */
-  right: calc(min(42%, 16rem) - 4.25rem);
-  bottom: calc(min(42%, 16rem) - 5rem);
+  right: calc(min(42%, 16rem) - 5.5rem);
+  bottom: calc(min(42%, 16rem) - 6.5rem);
   z-index: 2;
-  width: min(34%, 12.75rem);
+  width: min(48%, 18.5rem);
   height: auto;
   object-fit: contain;
   object-position: bottom right;

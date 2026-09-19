@@ -117,33 +117,35 @@ const layers = siteConfig.logos.homeLayers;
 
       <div class="home-coverage__remnant" aria-hidden="true"></div>
       </section>
+
+      <section class="home-quote" aria-labelledby="home-quote-text">
+        <div class="home-quote__layout">
+          <figure class="home-quote__portrait">
+            <span class="home-quote__tape home-quote__tape--tl" aria-hidden="true"></span>
+            <span class="home-quote__tape home-quote__tape--br" aria-hidden="true"></span>
+            <img
+              src="/images/michele-editorial-portrait.jpg?v=1"
+              alt="Michele Evans, Founder and Clinical Director of Woven Sage Counseling"
+              width={819}
+              height={1024}
+              class="home-quote__img"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+
+          <blockquote class="home-quote__copy">
+            <p id="home-quote-text" class="home-quote__text">
+              &ldquo;You are more than what you&apos;ve been through. Let&apos;s rip the page and rewrite
+              your story together&rdquo;
+            </p>
+            <footer class="home-quote__attr">
+              — Michele Evans, Co-Founder &amp; Clinical Director
+            </footer>
+          </blockquote>
+        </div>
+      </section>
     </div>
-
-    <section class="home-quote" aria-labelledby="home-quote-text">
-      <div class="home-quote__layout">
-        <figure class="home-quote__portrait">
-          <img
-            src="/images/michele-editorial-portrait.jpg?v=1"
-            alt="Michele Evans, Founder and Clinical Director of Woven Sage Counseling"
-            width={819}
-            height={1024}
-            class="home-quote__img"
-            loading="lazy"
-            decoding="async"
-          />
-        </figure>
-
-        <blockquote class="home-quote__copy">
-          <p id="home-quote-text" class="home-quote__text">
-            &ldquo;You are more than what you&apos;ve been through. Let&apos;s rip the page and rewrite
-            your story together&rdquo;
-          </p>
-          <footer class="home-quote__attr">
-            — Michele Evans, Co-Founder &amp; Clinical Director
-          </footer>
-        </blockquote>
-      </div>
-    </section>
   </div>
 </BaseLayout>
 

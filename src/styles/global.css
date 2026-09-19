@@ -3082,7 +3082,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   width: clamp(6.8rem, 12.8vw, 9.15rem);
   height: clamp(1.7rem, 3.15vw, 2.25rem);
   max-width: min(17.5rem, 68vw);
-  object-fit: contain;
+  object-fit: fill;
   object-position: left center;
 }
 

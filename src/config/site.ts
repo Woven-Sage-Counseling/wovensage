@@ -141,7 +141,6 @@ export const siteConfig = {
       {
         id: 'anthem',
         name: 'Anthem',
-        logo: '/images/carriers/anthem.svg?v=5',
       },
       {
         id: 'oscar',

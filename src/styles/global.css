@@ -2517,14 +2517,28 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   white-space: nowrap;
 }
 
+.insurance-carriers__anthem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #000;
+  opacity: 0.9;
+  filter: brightness(0) saturate(100%) invert(54%) sepia(10%) saturate(560%) hue-rotate(73deg)
+    brightness(94%) contrast(88%);
+}
+
+.insurance-carriers__anthem-word {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
 .insurance-carriers__row-logo--cigna {
   height: 3.15rem;
   max-width: 7.75rem;
-}
-
-.insurance-carriers__row-logo--anthem {
-  height: 1.85rem;
-  max-width: 11.5rem;
 }
 
 .insurance-carriers__row-name {
@@ -3376,7 +3390,8 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 }
 
 .home-coverage__logos .insurance-carriers__row-logo,
-.home-coverage__logos .insurance-carriers__bcbs {
+.home-coverage__logos .insurance-carriers__bcbs,
+.home-coverage__logos .insurance-carriers__anthem {
   filter: brightness(0) saturate(100%) invert(93%) sepia(8%) saturate(320%) hue-rotate(359deg)
     brightness(1.02) contrast(92%);
   opacity: 0.92;

@@ -13,7 +13,7 @@ export default {
           dark: '#2E3B2A',
         },
         accent: {
-          DEFAULT: '#9A543C',
+          DEFAULT: '#A9533D',
         },
         charcoal: {
           DEFAULT: '#3A3A38',

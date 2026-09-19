@@ -1,37 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FeaturedCarrierLogos from '../components/FeaturedCarrierLogos.astro';
-import Logo from '../components/Logo.astro';
 import { siteConfig } from '../config/site';
+
+const layers = siteConfig.logos.homeLayers;
 ---
 
 <BaseLayout
   title={siteConfig.name}
   description="Whatever brought you here — we're glad you made it. Woven Sage Counseling provides therapy in South Florida in person and via secure telehealth throughout Florida."
   botanicalBg={false}
-  hideHeader
 >
-  <!--
-    Poster hero: the full reference plate + copy live in a fixed 16:9 frame.
-    The frame scales as one unit (no object-fit cover crop), so art never drifts on resize.
-  -->
   <section class="home-landing" aria-labelledby="home-landing-heading">
-    <div class="home-landing__poster">
-      <img
-        src={siteConfig.logos.homeHeroPlate}
-        alt=""
-        width={1024}
-        height={576}
-        class="home-landing__plate"
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-      />
+    <div class="home-landing__paper" aria-hidden="true"></div>
+    <div class="home-landing__grain" aria-hidden="true"></div>
 
-      <a href="/" class="home-landing__brand" aria-label={siteConfig.name}>
-        <Logo variant="text" class="brightness-0 invert" />
-      </a>
-
+    <div class="home-landing__stage">
       <div class="home-landing__copy">
         <h1 id="home-landing-heading" class="home-landing__title">
           Whatever brought you here…
@@ -51,18 +35,51 @@ import { siteConfig } from '../config/site';
         </div>
       </div>
 
-      <p class="home-landing__trust">
-        Florida-based · Secure telehealth · Inclusive &amp; affirming
-      </p>
+      <div class="home-landing__art" aria-hidden="true">
+        <div class="home-landing__shape home-landing__shape--rect"></div>
+        <img
+          src={layers.leavesMain}
+          alt=""
+          width={563}
+          height={576}
+          class="home-landing__leaves home-landing__leaves--main"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+        <img
+          src={layers.arch}
+          alt=""
+          width={508}
+          height={896}
+          class="home-landing__arch"
+          loading="eager"
+          decoding="async"
+        />
+        <img
+          src={layers.leavesAccent}
+          alt=""
+          width={521}
+          height={646}
+          class="home-landing__leaves home-landing__leaves--accent"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
     </div>
+
+    <p class="home-landing__trust">
+      Florida-based · Secure telehealth · Inclusive &amp; affirming
+    </p>
   </section>
 
   <section
     id="coverage"
-    class="border-t border-sage-dark/10 bg-cream px-5 py-16 sm:px-8 sm:py-20"
+    class="home-coverage border-t border-sage-dark/10 bg-cream px-5 py-16 sm:px-8 sm:py-20"
     aria-labelledby="coverage-teaser-heading"
   >
-    <div class="container-page mx-auto max-w-4xl text-center">
+    <div class="home-coverage__paper" aria-hidden="true"></div>
+    <div class="container-page relative z-10 mx-auto max-w-4xl text-center">
       <h2
         id="coverage-teaser-heading"
         class="font-display text-[1.65rem] font-normal tracking-tight text-sage-dark sm:text-[2rem]"

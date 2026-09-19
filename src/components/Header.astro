@@ -1,16 +1,22 @@
 ---
 import { siteConfig } from '../config/site';
-import Logo from './Logo.astro';
 ---
 
-<header class="site-header sticky top-0 z-[100] bg-sage-dark">
-  <div class="container-page flex h-12 items-center sm:h-14">
-    <a
-      href="/"
-      class="group flex shrink-0 items-center opacity-95 transition hover:opacity-100"
-      aria-label={siteConfig.name}
-    >
-      <Logo variant="text" class="brightness-0 invert" />
+<header class="site-header site-header--glass sticky top-0 z-[100]">
+  <div class="site-header__glass-inner container-page flex h-14 items-center justify-between sm:h-16">
+    <a href="/" class="site-header__brand-mark group flex shrink-0 items-center" aria-label={siteConfig.name}>
+      <img
+        src={siteConfig.logos.homeLayers.logoWordmark}
+        alt=""
+        width={407}
+        height={49}
+        class="site-header__wordmark"
+        decoding="async"
+      />
+    </a>
+
+    <a href={siteConfig.signInUrl} class="site-header__signin">
+      {siteConfig.signInLabel}
     </a>
   </div>
 </header>

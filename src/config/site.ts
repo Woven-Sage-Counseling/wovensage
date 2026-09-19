@@ -54,6 +54,12 @@ export const siteConfig = {
     homeHeroPlate: '/images/home-hero-plate.jpg',
     homeHeroArt: '/images/home-hero-art.jpg',
     homePaperTexture: '/images/home-paper-texture.jpg',
+    homeLayers: {
+      arch: '/images/home-layers/arch.png',
+      leavesMain: '/images/home-layers/leaves-main.png',
+      leavesAccent: '/images/home-layers/leaves-accent.png',
+      logoWordmark: '/images/home-layers/logo-wordmark.png',
+    },
     chapter2Rest: '/images/chapter-2-rest-cropped.jpg',
     servicesHero: '/images/services-hero-matcha.jpg',
     teamGrowing: '/images/team-growing-bg.jpg',

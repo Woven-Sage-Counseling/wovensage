@@ -3071,6 +3071,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   flex-direction: column;
   justify-content: center;
   max-width: min(32rem, 48%);
+  margin-left: clamp(1.5rem, 7vw, 6.5rem);
   padding-block: 0.5rem;
 }
 

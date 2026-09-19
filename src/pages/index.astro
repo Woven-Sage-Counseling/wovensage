@@ -48,8 +48,15 @@ const layers = siteConfig.logos.homeLayers;
       <div class="home-landing__stage">
         <div class="home-landing__copy">
           <h1 id="home-landing-heading" class="home-landing__title">
-            <span class="home-landing__title-line">You are</span>
-            <span class="home-landing__title-line">welcome here</span>
+            <img
+              src={`${layers.welcomeHeadline}?v=3`}
+              alt="You are welcome here"
+              width={958}
+              height={290}
+              class="home-landing__title-img"
+              decoding="async"
+              fetchpriority="high"
+            />
           </h1>
 
           <div class="home-landing__actions">

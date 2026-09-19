@@ -141,7 +141,7 @@ export const siteConfig = {
       {
         id: 'anthem',
         name: 'Anthem',
-        logo: '/images/carriers/anthem.svg?v=3',
+        logo: '/images/carriers/anthem.svg?v=4',
       },
       {
         id: 'oscar',
@@ -151,7 +151,7 @@ export const siteConfig = {
       {
         id: 'carelon',
         name: 'Carelon',
-        logo: '/images/carriers/carelon.svg?v=4',
+        logo: '/images/carriers/carelon.svg?v=5',
       },
     ] as const,
   },

@@ -10,9 +10,11 @@ interface Props {
   description?: string;
   /** Hide the site-wide sage leaf background pattern (e.g. minimal homepage chapters) */
   botanicalBg?: boolean;
+  /** Hide the sticky site header (home uses the hero plate bar instead) */
+  hideHeader?: boolean;
 }
 
-const { title, description, botanicalBg = true } = Astro.props;
+const { title, description, botanicalBg = true, hideHeader = false } = Astro.props;
 const fullTitle = title === siteConfig.name ? title : `${title} | ${siteConfig.name}`;
 const metaDescription =
   description ||
@@ -48,7 +50,7 @@ const metaDescription =
     }
   </head>
   <body class="flex min-h-screen flex-col">
-    <Header />
+    {!hideHeader && <Header />}
     <main class="relative flex-1 overflow-x-hidden">
       {botanicalBg && <SageLeavesBackground />}
       <div class="relative z-10">

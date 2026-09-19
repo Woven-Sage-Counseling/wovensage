@@ -121,7 +121,7 @@ const layers = siteConfig.logos.homeLayers;
       <section class="home-quote" aria-roledescription="carousel" aria-label="Therapist quotes" data-home-quote>
         <div class="home-quote__viewport">
           <div class="home-quote__track" data-quote-track>
-            <article class="home-quote__slide is-active" data-quote-slide aria-label="1 of 2" aria-hidden="false">
+            <article class="home-quote__slide is-active" data-quote-slide aria-label="1 of 3" aria-hidden="false">
               <div class="home-quote__layout">
                 <figure class="home-quote__portrait">
                   <img
@@ -163,7 +163,7 @@ const layers = siteConfig.logos.homeLayers;
               </div>
             </article>
 
-            <article class="home-quote__slide" data-quote-slide aria-label="2 of 2" aria-hidden="true">
+            <article class="home-quote__slide" data-quote-slide aria-label="2 of 3" aria-hidden="true">
               <div class="home-quote__layout">
                 <figure class="home-quote__portrait home-quote__portrait--placeholder">
                   <img
@@ -198,6 +198,15 @@ const layers = siteConfig.logos.homeLayers;
                 </blockquote>
               </div>
             </article>
+
+            <article class="home-quote__slide" data-quote-slide aria-label="3 of 3" aria-hidden="true">
+              <div class="home-quote__message">
+                <p class="home-quote__message-text">We are expanding our team.</p>
+                <p class="home-quote__message-sub">
+                  More therapists are joining Woven Sage soon — stay tuned.
+                </p>
+              </div>
+            </article>
           </div>
         </div>
 
@@ -222,6 +231,14 @@ const layers = siteConfig.logos.homeLayers;
               aria-label="Show quote 2"
             >
               2
+            </button>
+            <button
+              type="button"
+              class="home-quote__pager-page"
+              data-quote-page="2"
+              aria-label="Show quote 3"
+            >
+              3
             </button>
           </div>
           <button type="button" class="home-quote__pager-btn" data-quote-next aria-label="Next quote">

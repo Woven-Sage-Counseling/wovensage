@@ -72,6 +72,24 @@ const layers = siteConfig.logos.homeLayers;
           </p>
         </div>
       </div>
+
+      <a
+        href="#coverage"
+        class="home-landing__scroll"
+        data-home-scroll-hint
+        aria-label="Scroll to coverage"
+      >
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">
+          <path
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 9l6 6 6-6"
+          ></path>
+        </svg>
+      </a>
     </section>
 
     <div class="home-page__tear home-page__tear--hero" aria-hidden="true"></div>
@@ -100,3 +118,14 @@ const layers = siteConfig.logos.homeLayers;
     </section>
   </div>
 </BaseLayout>
+
+<script>
+  const hint = document.querySelector('[data-home-scroll-hint]');
+  if (hint instanceof HTMLElement) {
+    const update = () => {
+      hint.classList.toggle('is-hidden', window.scrollY > 36);
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+  }
+</script>

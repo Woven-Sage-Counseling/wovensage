@@ -3183,6 +3183,57 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   color: rgb(46 59 42 / 0.65);
 }
 
+.home-landing__scroll {
+  position: absolute;
+  z-index: 12;
+  left: 50%;
+  bottom: clamp(1rem, 3vh, 1.75rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  transform: translateX(-50%);
+  color: rgb(46 59 42 / 0.55);
+  text-decoration: none;
+  transition:
+    opacity 280ms ease,
+    visibility 280ms ease,
+    color 160ms ease;
+}
+
+.home-landing__scroll svg {
+  display: block;
+  animation: home-landing-scroll-bounce 1.7s ease-in-out infinite;
+}
+
+.home-landing__scroll:hover {
+  color: theme('colors.sage.dark');
+}
+
+.home-landing__scroll.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@keyframes home-landing-scroll-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(0.35rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-landing__scroll svg {
+    animation: none;
+  }
+}
+
 .home-landing__art {
   position: absolute;
   z-index: 1;

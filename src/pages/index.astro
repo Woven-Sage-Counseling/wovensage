@@ -14,29 +14,17 @@ const layers = siteConfig.logos.homeLayers;
 >
   <section class="home-landing" aria-labelledby="home-landing-heading">
     <div class="home-landing__paper" aria-hidden="true"></div>
-    <div class="home-landing__grain" aria-hidden="true"></div>
 
     <a href="/" class="home-landing__logo" aria-label={siteConfig.name}>
       <img
         src={layers.logoWordmark}
-        alt=""
-        width={906}
-        height={304}
+        alt="Woven Sage Counseling"
+        width={895}
+        height={292}
         class="home-landing__logo-img"
         decoding="async"
       />
     </a>
-
-    <img
-      src={layers.leavesAccent}
-      alt=""
-      width={521}
-      height={646}
-      class="home-landing__leaves home-landing__leaves--accent"
-      loading="eager"
-      decoding="async"
-      aria-hidden="true"
-    />
 
     <div class="home-landing__stage">
       <div class="home-landing__copy">
@@ -56,6 +44,10 @@ const layers = siteConfig.logos.homeLayers;
           </a>
           <p class="home-landing__consult">Complimentary 15-minute consultation</p>
         </div>
+
+        <p class="home-landing__trust">
+          Florida-based · Secure telehealth · Inclusive &amp; affirming
+        </p>
       </div>
 
       <div class="home-landing__art" aria-hidden="true">
@@ -63,7 +55,7 @@ const layers = siteConfig.logos.homeLayers;
         <img
           src={layers.leavesMain}
           alt=""
-          width={563}
+          width={559}
           height={576}
           class="home-landing__leaves home-landing__leaves--main"
           loading="eager"
@@ -73,8 +65,8 @@ const layers = siteConfig.logos.homeLayers;
         <img
           src={layers.arch}
           alt=""
-          width={508}
-          height={896}
+          width={502}
+          height={888}
           class="home-landing__arch"
           loading="eager"
           decoding="async"
@@ -82,9 +74,16 @@ const layers = siteConfig.logos.homeLayers;
       </div>
     </div>
 
-    <p class="home-landing__trust">
-      Florida-based · Secure telehealth · Inclusive &amp; affirming
-    </p>
+    <img
+      src={layers.leavesAccent}
+      alt=""
+      width={517}
+      height={638}
+      class="home-landing__leaves home-landing__leaves--accent"
+      loading="eager"
+      decoding="async"
+      aria-hidden="true"
+    />
   </section>
 
   <section
@@ -92,7 +91,6 @@ const layers = siteConfig.logos.homeLayers;
     class="home-coverage border-t border-sage-dark/10 bg-cream px-5 py-16 sm:px-8 sm:py-20"
     aria-labelledby="coverage-teaser-heading"
   >
-    <div class="home-coverage__paper" aria-hidden="true"></div>
     <div class="container-page relative z-10 mx-auto max-w-4xl text-center">
       <h2
         id="coverage-teaser-heading"

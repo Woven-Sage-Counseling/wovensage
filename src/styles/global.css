@@ -3187,7 +3187,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   position: absolute;
   z-index: 12;
   left: 50%;
-  bottom: clamp(2.5rem, 5vw, 3.75rem);
+  bottom: clamp(0.65rem, 1.8vh, 1.15rem);
   display: inline-flex;
   align-items: center;
   justify-content: center;

@@ -3244,57 +3244,60 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   user-select: none;
 }
 
+.home-page__tear {
+  position: relative;
+  z-index: 3;
+  height: clamp(3.75rem, 9vw, 6.5rem);
+  pointer-events: none;
+  background-color: theme('colors.cream.DEFAULT');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+.home-page__tear::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.58;
+  background-image: url('/images/home-paper-texture.jpg');
+  background-size: 260px 260px;
+  background-repeat: repeat;
+  mix-blend-mode: multiply;
+}
+
+.home-page__tear--hero {
+  z-index: 4;
+  margin-bottom: calc(clamp(3.75rem, 9vw, 6.5rem) * -0.55);
+  -webkit-mask-image: url('/images/home-layers/tear-hero.png');
+  mask-image: url('/images/home-layers/tear-hero.png');
+  filter: drop-shadow(0 10px 14px rgb(14 20 12 / 0.28));
+}
+
+.home-page__tear--bottom {
+  z-index: 3;
+  margin-top: calc(clamp(3.75rem, 9vw, 6.5rem) * -0.45);
+  -webkit-mask-image: url('/images/home-layers/tear-bottom.png');
+  mask-image: url('/images/home-layers/tear-bottom.png');
+  filter: drop-shadow(0 -10px 14px rgb(14 20 12 / 0.28));
+}
+
 .home-coverage {
   position: relative;
   z-index: 2;
   isolation: isolate;
-  margin-top: -0.35rem;
+  padding-top: clamp(2.5rem, 5vw, 3.75rem);
   background-color: theme('colors.sage.dark');
-}
-
-.home-coverage__tear {
-  position: relative;
-  z-index: 3;
-  height: clamp(2.5rem, 4.8vw, 3.5rem);
-  line-height: 0;
-  pointer-events: none;
-}
-
-.home-coverage__tear-svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.home-coverage__tear-fill {
-  fill: theme('colors.cream.DEFAULT');
-}
-
-.home-coverage__tear-grain {
-  opacity: 0.58;
-  mix-blend-mode: multiply;
-}
-
-.home-coverage__tear--top {
-  margin-bottom: -1px;
-}
-
-.home-coverage__tear--top .home-coverage__tear-svg {
-  filter: drop-shadow(0 7px 12px rgb(20 28 18 / 0.32));
-}
-
-.home-coverage__tear--bottom {
-  margin-top: -1px;
-}
-
-.home-coverage__tear--bottom .home-coverage__tear-svg {
-  filter: drop-shadow(0 -7px 12px rgb(20 28 18 / 0.32));
 }
 
 .home-coverage__reveal {
   position: relative;
   z-index: 1;
-  padding-block: clamp(3.25rem, 7vw, 5rem);
+  padding-block: clamp(2.75rem, 6vw, 4.25rem);
   background-color: transparent;
 }
 

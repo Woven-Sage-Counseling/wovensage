@@ -3036,10 +3036,12 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-page__textured {
   position: relative;
-  isolation: isolate;
+  background-color: theme('colors.cream.DEFAULT');
 }
 
-.home-page__paper {
+/* Grain behind content only — no mix-blend, so photos/rips stay true-color */
+.home-page__textured::before {
+  content: '';
   position: absolute;
   inset: 0;
   z-index: 0;
@@ -3048,7 +3050,10 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   background-image: url('/images/home-paper-texture.jpg');
   background-size: 260px 260px;
   background-repeat: repeat;
-  mix-blend-mode: multiply;
+}
+
+.home-page__paper {
+  display: none;
 }
 
 /* Home landing — layered build, art contained to the right column */
@@ -3328,6 +3333,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   mask-position: center;
 }
 
+/* Paper grain on the tear shape only — never blend with sage behind the rip */
 .home-page__tear::before {
   content: '';
   position: absolute;
@@ -3337,7 +3343,6 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   background-image: url('/images/home-paper-texture.jpg');
   background-size: 260px 260px;
   background-repeat: repeat;
-  mix-blend-mode: multiply;
 }
 
 .home-page__tear--hero {
@@ -3439,7 +3444,6 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   background-image: url('/images/home-paper-texture.jpg');
   background-size: 260px 260px;
   background-repeat: repeat;
-  mix-blend-mode: multiply;
 }
 
 .home-quote {
@@ -3478,7 +3482,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   line-height: 1.28;
   letter-spacing: 0.01em;
   color: theme('colors.sage.dark');
-  transform: skewX(-11deg) rotate(-1.75deg);
+  transform: skewX(-42deg) rotate(-2deg);
   transform-origin: left center;
 }
 
@@ -3499,8 +3503,8 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   margin: 0;
   justify-self: start;
   width: min(100%, 28rem);
+  /* Isolated layer so the photo never picks up page grain */
   isolation: isolate;
-  /* Keep the photo itself crisp above the paper grain */
   background-color: #fff;
   box-shadow: 0 1px 2px rgb(46 59 42 / 0.08);
 }
@@ -3514,7 +3518,6 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   aspect-ratio: 819 / 1024;
   object-fit: cover;
   object-position: center top;
-  mix-blend-mode: normal;
 }
 
 .home-quote__tape {

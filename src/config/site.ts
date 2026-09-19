@@ -136,12 +136,12 @@ export const siteConfig = {
       {
         id: 'cigna',
         name: 'Cigna',
-        logo: '/images/carriers/cigna.svg?v=3',
+        logo: '/images/carriers/cigna.svg?v=4',
       },
       {
         id: 'anthem',
         name: 'Anthem',
-        logo: '/images/carriers/anthem.svg?v=2',
+        logo: '/images/carriers/anthem.svg?v=3',
       },
       {
         id: 'oscar',

@@ -3078,12 +3078,12 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-landing__title {
   margin: 0;
-  max-width: 28rem;
+  max-width: 38rem;
 }
 
 .home-landing__title-img {
   display: block;
-  width: min(100%, 26rem);
+  width: min(100%, 36rem);
   height: auto;
 }
 

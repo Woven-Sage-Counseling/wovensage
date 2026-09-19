@@ -3098,6 +3098,10 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-landing__actions {
   margin-top: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(100%, 36rem);
 }
 
 .home-landing__cta {
@@ -3122,6 +3126,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-landing__consult {
   margin: 0.75rem 0 0;
+  text-align: center;
   font-family: theme('fontFamily.display');
   font-size: 0.875rem;
   color: rgb(46 59 42 / 0.62);

@@ -3152,7 +3152,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   position: absolute;
   right: 0;
   bottom: 0;
-  z-index: 1;
+  z-index: 3;
   width: min(42%, 16rem);
   height: min(42%, 16rem);
   background-color: theme('colors.accent.DEFAULT');
@@ -3175,16 +3175,15 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-landing__arch {
   position: absolute;
-  right: 8%;
-  top: 4%;
-  bottom: 8%;
-  z-index: 3;
-  width: min(38%, 13.5rem);
+  /* Sit above/left of the square so the arch bottom-right overlaps the square top-left */
+  right: calc(min(42%, 16rem) - 4.25rem);
+  bottom: calc(min(42%, 16rem) - 5rem);
+  z-index: 2;
+  width: min(34%, 12.75rem);
   height: auto;
   object-fit: contain;
-  object-position: center top;
-  opacity: 0.38;
-  mix-blend-mode: multiply;
+  object-position: bottom right;
+  opacity: 1;
   user-select: none;
 }
 

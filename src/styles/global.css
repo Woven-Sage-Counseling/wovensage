@@ -3187,7 +3187,8 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   position: absolute;
   z-index: 12;
   left: 50%;
-  bottom: clamp(1rem, 3vh, 1.75rem);
+  /* Sit above the raised hero rip */
+  bottom: clamp(7.5rem, 18vw, 12rem);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -3323,7 +3324,10 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-page__tear--hero {
   z-index: 4;
-  margin-bottom: calc(clamp(3.75rem, 9vw, 6.5rem) * -0.55);
+  /* Tall + pulled up so the rip cuts through the terracotta square */
+  height: clamp(9rem, 22vw, 14rem);
+  margin-top: calc(clamp(9rem, 22vw, 14rem) * -0.72);
+  margin-bottom: calc(clamp(9rem, 22vw, 14rem) * -0.28);
   -webkit-mask-image: url('/images/home-layers/tear-hero.png?v=2');
   mask-image: url('/images/home-layers/tear-hero.png?v=2');
   filter: drop-shadow(0 10px 14px rgb(14 20 12 / 0.28));

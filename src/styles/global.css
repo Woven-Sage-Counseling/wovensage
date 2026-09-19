@@ -3025,9 +3025,9 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.48;
+  opacity: 0.58;
   background-image: url('/images/home-paper-texture.jpg');
-  background-size: 280px 280px;
+  background-size: 260px 260px;
   background-repeat: repeat;
   mix-blend-mode: multiply;
 }

@@ -3175,15 +3175,15 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-landing__arch {
   position: absolute;
-  right: 6%;
-  top: 0;
-  bottom: 0;
+  right: 8%;
+  top: 4%;
+  bottom: 8%;
   z-index: 3;
-  width: min(48%, 17rem);
-  height: 100%;
+  width: min(38%, 13.5rem);
+  height: auto;
   object-fit: contain;
   object-position: center top;
-  opacity: 0.72;
+  opacity: 0.38;
   mix-blend-mode: multiply;
   user-select: none;
 }

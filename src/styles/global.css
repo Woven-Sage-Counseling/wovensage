@@ -3524,25 +3524,25 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   position: absolute;
   z-index: 2;
   display: block;
-  width: clamp(4.25rem, 11vw, 5.75rem);
+  width: clamp(4.5rem, 11vw, 6rem);
   height: auto;
   pointer-events: none;
   user-select: none;
   opacity: 0.8;
   filter: drop-shadow(0 1px 2px rgb(46 59 42 / 0.18));
+  transform-origin: center center;
 }
 
 .home-quote__tape--tl {
-  top: -0.2rem;
-  left: -0.25rem;
-  transform: rotate(-28deg);
+  top: 0;
+  left: 0;
+  transform: translate(-38%, -38%) rotate(-42deg);
 }
 
 .home-quote__tape--br {
-  right: -0.85rem;
-  bottom: -0.55rem;
-  width: clamp(4.75rem, 12vw, 6.25rem);
-  transform: rotate(-24deg);
+  right: 0;
+  bottom: 0;
+  transform: translate(38%, 38%) rotate(-42deg);
 }
 
 @media (max-width: 860px) {

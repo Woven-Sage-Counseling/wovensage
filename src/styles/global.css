@@ -3135,7 +3135,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   margin: 2rem 0 0;
   width: min(100%, 36rem);
   text-align: center;
-  font-size: 0.75rem;
+  font-size: clamp(0.95rem, 0.85rem + 0.35vw, 1.125rem);
   letter-spacing: 0.04em;
   color: rgb(46 59 42 / 0.65);
 }

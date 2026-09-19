@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 236 36" role="img" aria-label="Anthem">
+  <text
+    x="0"
+    y="26"
+    font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+    font-size="24"
+    font-weight="700"
+    fill="#000"
+    letter-spacing="-0.02em"
+  >Anthem</text>
+  <!-- Cross with transparent center -->
+  <path
+    fill="#000"
+    fill-rule="evenodd"
+    d="M150 2h7v9h9v7h-9v9h-7v-9h-9v-7h9V2zm3.5 10.5a2.8 2.8 0 1 0 .01 0z"
+  />
+  <!-- Shield with simple cutout bar -->
+  <path
+    fill="#000"
+    fill-rule="evenodd"
+    d="M186 1.5c3.8 1.2 7.4 1.8 10.8 1.8V15c0 4.6-3.2 8.3-10.8 12C178.4 23.3 175.2 19.6 175.2 15V3.3c3.4 0 7-.6 10.8-1.8zM195.2 10h1.4v11h-1.4V10zm-2.8 2.6 1-.75 1.9 2.5 1.9-2.5 1 .75-2.2 2.9 2.2 2.9-1 .75-1.9-2.5-1.9 2.5-1-.75 2.2-2.9-2.2-2.9z"
+  />
+</svg>

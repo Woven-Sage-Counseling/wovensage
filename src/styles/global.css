@@ -3528,12 +3528,13 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   height: auto;
   pointer-events: none;
   user-select: none;
+  opacity: 0.8;
   filter: drop-shadow(0 1px 2px rgb(46 59 42 / 0.18));
 }
 
 .home-quote__tape--tl {
-  top: -0.55rem;
-  left: -0.85rem;
+  top: -0.2rem;
+  left: -0.25rem;
   transform: rotate(-28deg);
 }
 

@@ -3150,11 +3150,11 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-landing__shape--rect {
   position: absolute;
-  right: 8%;
-  bottom: 8%;
+  right: 0;
+  bottom: 0;
   z-index: 1;
-  width: min(28%, 9rem);
-  height: min(28%, 11rem);
+  width: min(42%, 16rem);
+  height: min(42%, 16rem);
   background-color: theme('colors.accent.DEFAULT');
   opacity: 0.92;
 }

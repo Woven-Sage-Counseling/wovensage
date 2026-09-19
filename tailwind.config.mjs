@@ -5,15 +5,15 @@ export default {
     extend: {
       colors: {
         cream: {
-          DEFAULT: '#F7F4EE',
+          DEFAULT: '#E8E2D4',
         },
         sage: {
-          DEFAULT: '#788F75',
-          light: '#96A693',
-          dark: '#535F51',
+          DEFAULT: '#5C6B58',
+          light: '#7A8A76',
+          dark: '#2E3B2A',
         },
         accent: {
-          DEFAULT: '#B9B5AE',
+          DEFAULT: '#9A543C',
         },
         charcoal: {
           DEFAULT: '#3A3A38',

@@ -1,0 +1,301 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+
+const insuranceApiUrl = `${siteConfig.providerPortalUrl}/api/public/insurance`;
+---
+
+<BaseLayout
+  title="Check coverage"
+  description="Search accepted insurance networks at Woven Sage Counseling."
+  botanicalBg={false}
+>
+  <article class="bg-cream px-5 py-12 sm:px-8 sm:py-16">
+    <div class="container-page mx-auto max-w-3xl">
+      <a href="/" class="text-sm font-medium text-sage-dark/65 transition hover:text-sage-dark">
+        ← Home
+      </a>
+
+      <h1 class="mt-6 font-display text-[1.85rem] font-normal tracking-tight text-sage-dark sm:text-[2.25rem]">
+        See if you&apos;re covered
+      </h1>
+      <p class="mt-3 max-w-xl text-base leading-relaxed text-sage-dark/70">
+        Type your insurance company to check whether we&apos;re in network.
+      </p>
+
+      <div class="insurance-carriers mt-10" data-public-insurance data-api-url={insuranceApiUrl}>
+        <p class="text-center text-sm text-sage-dark/65" data-insurance-loading>
+          Loading insurance networks…
+        </p>
+        <p class="mt-10 hidden text-center italic text-sage-dark/65" data-insurance-empty hidden>
+          Accepted insurance networks will appear here as they are added.
+        </p>
+        <p class="mt-6 hidden text-center text-sm text-red-800" data-insurance-error hidden></p>
+
+        <div class="hidden" data-insurance-content hidden>
+          <label for="carrier-search" class="block text-center text-xs font-semibold uppercase tracking-[0.14em] text-sage-dark/55">
+            Search insurance companies
+          </label>
+          <div class="insurance-carriers__search mt-5">
+            <input
+              id="carrier-search"
+              type="search"
+              name="carrier-search"
+              placeholder="Search by insurance company…"
+              autocomplete="off"
+              spellcheck="false"
+              aria-controls="insurance-results"
+              data-insurance-search
+            />
+          </div>
+
+          <div
+            class="insurance-carriers__filters mt-5"
+            role="group"
+            aria-label="Filter networks by availability"
+            data-insurance-filters
+          >
+            <span class="insurance-carriers__filters-label">Show:</span>
+            <button type="button" class="insurance-carriers__filter is-active" data-section-filter="all" aria-pressed="true">
+              All
+            </button>
+            <button type="button" class="insurance-carriers__filter" data-section-filter="in-network" aria-pressed="false">
+              Currently in network
+            </button>
+            <button type="button" class="insurance-carriers__filter" data-section-filter="coming-soon" aria-pressed="false">
+              Coming soon
+            </button>
+          </div>
+
+          <div id="insurance-results" class="insurance-carriers__columns mt-8" data-insurance-results></div>
+
+          <p
+            class="insurance-carriers__empty mt-6 hidden text-center text-sm text-sage-dark/65"
+            data-insurance-search-empty
+            hidden
+          >
+            No companies match your search. Contact us and we&apos;ll help you check coverage.
+          </p>
+        </div>
+      </div>
+
+      <p class="mt-10 text-center text-sm text-sage-dark/60">
+        Coverage varies by plan. Confirm benefits with us before your first session.
+      </p>
+    </div>
+  </article>
+
+  <script>
+    type InsuranceNetwork = { groupId: string; groupName: string; sortOrder: number };
+    type InsurancePayload = {
+      inNetwork: InsuranceNetwork[];
+      comingSoon: InsuranceNetwork[];
+    };
+
+    function escapeHtml(value: string): string {
+      return value
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;');
+    }
+
+    const scrollHintMarkup = `<div class="insurance-carriers__list-fade" aria-hidden="true" data-insurance-fade></div>
+      <p class="insurance-carriers__list-hint" aria-hidden="true" data-insurance-hint>
+        <span>Scroll for more</span>
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </p>`;
+
+    function renderNetworkList(networks: InsuranceNetwork[], ariaLabel: string): string {
+      if (networks.length === 0) return '';
+      const items = networks
+        .map(
+          (network) => `<li
+            class="insurance-carriers__item"
+            data-insurance-network
+            data-search-text="${escapeHtml(network.groupName.toLowerCase())}"
+          >
+            <span class="insurance-carriers__item-name">${escapeHtml(network.groupName)}</span>
+          </li>`,
+        )
+        .join('');
+      return `<div class="insurance-carriers__list-panel mt-5">
+        <div
+          class="insurance-carriers__list-wrap"
+          tabindex="0"
+          role="region"
+          aria-label="${escapeHtml(ariaLabel)}"
+          data-insurance-scroll
+        >
+          <ul class="insurance-carriers__list" role="list">${items}</ul>
+        </div>
+        ${scrollHintMarkup}
+      </div>`;
+    }
+
+    function renderInsurance(payload: InsurancePayload): string {
+      const sections = [];
+      if (payload.inNetwork.length > 0) {
+        sections.push(`<section data-insurance-section="in-network">
+          <h2 class="font-display text-[1.35rem] font-normal tracking-tight text-sage-dark sm:text-[1.55rem]">Currently in network</h2>
+          ${renderNetworkList(payload.inNetwork, 'Currently in network')}
+        </section>`);
+      }
+      if (payload.comingSoon.length > 0) {
+        sections.push(`<section data-insurance-section="coming-soon">
+          <h2 class="font-display text-[1.35rem] font-normal tracking-tight text-sage-dark sm:text-[1.55rem]">Coming soon</h2>
+          ${renderNetworkList(payload.comingSoon, 'Coming soon')}
+          <p class="mt-5 text-sm leading-relaxed text-sage-dark/65">
+            Networks listed as Coming soon are still undergoing credentialing and aren&apos;t currently available for in-network billing.
+          </p>
+        </section>`);
+      }
+      return sections.join('');
+    }
+
+    function updateInsuranceScrollHints(root: HTMLElement): void {
+      root.querySelectorAll('[data-insurance-scroll]').forEach((wrap) => {
+        if (!(wrap instanceof HTMLElement)) return;
+        const panel = wrap.closest('.insurance-carriers__list-panel');
+        const hint = panel?.querySelector('[data-insurance-hint]');
+        const fade = panel?.querySelector('[data-insurance-fade]');
+        const canScroll = wrap.scrollHeight > wrap.clientHeight + 1;
+        const atBottom = wrap.scrollTop + wrap.clientHeight >= wrap.scrollHeight - 8;
+        const showHint = canScroll && !atBottom;
+        wrap.classList.toggle('is-scrollable', canScroll);
+        hint?.classList.toggle('is-visible', showHint);
+        fade?.classList.toggle('is-visible', showHint);
+      });
+    }
+
+    function bindInsuranceScrollHints(root: HTMLElement): void {
+      root.querySelectorAll('[data-insurance-scroll]').forEach((wrap) => {
+        if (!(wrap instanceof HTMLElement)) return;
+        wrap.addEventListener('scroll', () => updateInsuranceScrollHints(root), { passive: true });
+      });
+      window.addEventListener('resize', () => updateInsuranceScrollHints(root), { passive: true });
+      updateInsuranceScrollHints(root);
+    }
+
+    function applyInsuranceFilters(root: HTMLElement): void {
+      const query =
+        root.querySelector('[data-insurance-search]') instanceof HTMLInputElement
+          ? root.querySelector<HTMLInputElement>('[data-insurance-search]')!.value.trim().toLowerCase()
+          : '';
+      const activeFilter =
+        root.querySelector('[data-insurance-filters] .is-active') instanceof HTMLElement
+          ? (root.querySelector('[data-insurance-filters] .is-active') as HTMLElement).dataset.sectionFilter ?? 'all'
+          : 'all';
+
+      let visibleNetworks = 0;
+      root.querySelectorAll('[data-insurance-section]').forEach((section) => {
+        if (!(section instanceof HTMLElement)) return;
+        const sectionKey = section.dataset.insuranceSection ?? '';
+        const sectionMatches =
+          activeFilter === 'all' ||
+          (activeFilter === 'in-network' && sectionKey === 'in-network') ||
+          (activeFilter === 'coming-soon' && sectionKey === 'coming-soon');
+
+        let sectionVisible = 0;
+        section.querySelectorAll('[data-insurance-network]').forEach((network) => {
+          if (!(network instanceof HTMLElement)) return;
+          const haystack = network.dataset.searchText ?? '';
+          const show = sectionMatches && (!query || haystack.includes(query));
+          network.hidden = !show;
+          network.classList.toggle('is-hidden', !show);
+          if (show) {
+            sectionVisible += 1;
+            visibleNetworks += 1;
+          }
+        });
+
+        section.hidden = !sectionMatches || sectionVisible === 0;
+        section.classList.toggle('hidden', !sectionMatches || sectionVisible === 0);
+      });
+
+      const searchEmpty = root.querySelector('[data-insurance-search-empty]');
+      if (searchEmpty instanceof HTMLElement) {
+        const show = visibleNetworks === 0;
+        searchEmpty.hidden = !show;
+        searchEmpty.classList.toggle('hidden', !show);
+      }
+
+      root.querySelectorAll('[data-insurance-scroll]').forEach((wrap) => {
+        if (wrap instanceof HTMLElement) wrap.scrollTop = 0;
+      });
+      requestAnimationFrame(() => updateInsuranceScrollHints(root));
+    }
+
+    async function loadPublicInsurance(root: HTMLElement): Promise<void> {
+      const apiUrl = root.dataset.apiUrl ?? '';
+      const loading = root.querySelector('[data-insurance-loading]');
+      const empty = root.querySelector('[data-insurance-empty]');
+      const error = root.querySelector('[data-insurance-error]');
+      const content = root.querySelector('[data-insurance-content]');
+      const results = root.querySelector('[data-insurance-results]');
+
+      try {
+        const response = await fetch(apiUrl, { headers: { Accept: 'application/json' } });
+        const payload = (await response.json()) as {
+          ok?: boolean;
+          inNetwork?: InsuranceNetwork[];
+          comingSoon?: InsuranceNetwork[];
+          error?: string;
+        };
+        loading?.classList.add('hidden');
+        if (loading instanceof HTMLElement) loading.hidden = true;
+
+        if (!response.ok || !payload.ok || !payload.inNetwork || !payload.comingSoon) {
+          throw new Error(payload.error || 'Unable to load insurance networks.');
+        }
+
+        const hasNetworks = payload.inNetwork.length > 0 || payload.comingSoon.length > 0;
+
+        if (!hasNetworks) {
+          empty?.classList.remove('hidden');
+          if (empty instanceof HTMLElement) empty.hidden = false;
+          return;
+        }
+
+        if (results instanceof HTMLElement) {
+          results.innerHTML = renderInsurance({
+            inNetwork: payload.inNetwork,
+            comingSoon: payload.comingSoon,
+          });
+        }
+        content?.classList.remove('hidden');
+        if (content instanceof HTMLElement) content.hidden = false;
+
+        root.querySelectorAll('[data-section-filter]').forEach((button) => {
+          button.addEventListener('click', () => {
+            root.querySelectorAll('[data-section-filter]').forEach((other) => {
+              const isActive = other === button;
+              other.classList.toggle('is-active', isActive);
+              other.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            });
+            applyInsuranceFilters(root);
+          });
+        });
+
+        root.querySelector('[data-insurance-search]')?.addEventListener('input', () => applyInsuranceFilters(root));
+        bindInsuranceScrollHints(root);
+        applyInsuranceFilters(root);
+      } catch (loadError) {
+        loading?.classList.add('hidden');
+        if (loading instanceof HTMLElement) loading.hidden = true;
+        if (error instanceof HTMLElement) {
+          error.textContent =
+            loadError instanceof Error ? loadError.message : 'Unable to load insurance networks right now.';
+          error.hidden = false;
+          error.classList.remove('hidden');
+        }
+      }
+    }
+
+    document.querySelectorAll('[data-public-insurance]').forEach((root) => {
+      if (root instanceof HTMLElement) void loadPublicInsurance(root);
+    });
+  </script>
+</BaseLayout>

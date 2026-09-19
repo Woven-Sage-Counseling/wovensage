@@ -11,7 +11,7 @@ export const siteConfig = {
   contactPhoneHref: 'tel:+15615562229',
   contactFax: '(561) 328-4833',
 
-  bookingCtaLabel: 'Request an Appointment',
+  bookingCtaLabel: 'Find your therapist',
   /** Destination for appointment / consult CTAs */
   bookingUrl: '/book',
   /** Sign-in chooser for client vs provider portals */

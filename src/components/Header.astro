@@ -1,58 +1,16 @@
 ---
-import { siteConfig, navLinks } from '../config/site';
-import BookingButton from './BookingButton.astro';
+import { siteConfig } from '../config/site';
 import Logo from './Logo.astro';
-
-const currentPath = Astro.url.pathname;
-
-const shortLabels: Record<string, string> = {
-  '/about': 'Why',
-};
 ---
 
-<header class="site-header sticky top-0 z-[100] border-b border-accent/20 bg-cream/90 backdrop-blur-md">
-  <div class="site-header__bar container-page">
-    <a href="/" class="site-header__brand group flex shrink-0 items-center opacity-90 transition hover:opacity-100">
-      <Logo variant="text" />
-      <span class="sr-only">{siteConfig.name}</span>
+<header class="site-header sticky top-0 z-[100] bg-sage-dark">
+  <div class="container-page flex h-12 items-center sm:h-14">
+    <a
+      href="/"
+      class="group flex shrink-0 items-center opacity-95 transition hover:opacity-100"
+      aria-label={siteConfig.name}
+    >
+      <Logo variant="text" class="brightness-0 invert" />
     </a>
-
-    <nav class="site-header__nav" aria-label="Main navigation">
-      {
-        navLinks.map((link) => {
-          const isActive =
-            currentPath === link.href ||
-            (link.href !== '/' && currentPath.startsWith(link.href + '/')) ||
-            (link.href === '/' && currentPath === '/');
-          const shortLabel = shortLabels[link.href];
-
-          return (
-            <a
-              href={link.href}
-              class:list={[
-                'site-header__link',
-                isActive ? 'site-header__link--active' : '',
-              ]}
-            >
-              {shortLabel ? (
-                <>
-                  <span class="site-header__link-full">{link.label}</span>
-                  <span class="site-header__link-short">{shortLabel}</span>
-                </>
-              ) : (
-                link.label
-              )}
-            </a>
-          );
-        })
-      }
-    </nav>
-
-    <div class="site-header__actions">
-      <a href={siteConfig.signInUrl} class="site-header__portal">
-        {siteConfig.signInLabel}
-      </a>
-      <BookingButton class="header-cta site-header__cta" />
-    </div>
   </div>
 </header>

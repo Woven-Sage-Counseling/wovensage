@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FeaturedCarrierLogos from '../components/FeaturedCarrierLogos.astro';
+import Logo from '../components/Logo.astro';
 import { siteConfig } from '../config/site';
 ---
 
@@ -8,60 +9,54 @@ import { siteConfig } from '../config/site';
   title={siteConfig.name}
   description="Whatever brought you here — we're glad you made it. Woven Sage Counseling provides therapy in South Florida in person and via secure telehealth throughout Florida."
   botanicalBg={false}
+  hideHeader
 >
-  <!-- Landing: layered stage — paper + copy + locked art panel (no full-bleed cover crop) -->
+  <!--
+    Poster hero: the full reference plate + copy live in a fixed 16:9 frame.
+    The frame scales as one unit (no object-fit cover crop), so art never drifts on resize.
+  -->
   <section class="home-landing" aria-labelledby="home-landing-heading">
-    <div
-      class="home-landing__paper"
-      style={`background-image: url('${siteConfig.logos.homePaperTexture}')`}
-      aria-hidden="true"
-    ></div>
+    <div class="home-landing__poster">
+      <img
+        src={siteConfig.logos.homeHeroPlate}
+        alt=""
+        width={1024}
+        height={576}
+        class="home-landing__plate"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+      />
 
-    <div class="home-landing__stage">
+      <a href="/" class="home-landing__brand" aria-label={siteConfig.name}>
+        <Logo variant="text" class="brightness-0 invert" />
+      </a>
+
       <div class="home-landing__copy">
-        <h1
-          id="home-landing-heading"
-          class="font-display text-[2.1rem] font-normal leading-[1.12] tracking-tight text-sage-dark sm:text-[3rem] md:text-[3.5rem]"
-        >
+        <h1 id="home-landing-heading" class="home-landing__title">
           Whatever brought you here…
-          <span class="mt-1 block sm:mt-1.5">we&apos;re glad you made it.</span>
+          <span class="home-landing__title-line">we&apos;re glad you made it.</span>
         </h1>
 
-        <p class="mt-4 max-w-[18rem] font-display text-[1.05rem] leading-snug text-sage-dark/80 sm:mt-5 sm:max-w-md sm:text-xl">
+        <p class="home-landing__sub">
           A space to feel understood. Support for what comes next.
         </p>
 
-        <div class="mt-7 sm:mt-9">
-          <a href={siteConfig.bookingUrl} class="btn-primary home-landing__cta inline-flex gap-2">
+        <div class="home-landing__actions">
+          <a href={siteConfig.bookingUrl} class="home-landing__cta">
             Find your therapist
             <span aria-hidden="true">↗</span>
           </a>
-          <p class="mt-3 font-display text-sm text-sage-dark/65">
-            Complimentary 15-minute consultation
-          </p>
+          <p class="home-landing__consult">Complimentary 15-minute consultation</p>
         </div>
       </div>
 
-      <div class="home-landing__visual" aria-hidden="true">
-        <img
-          src={siteConfig.logos.homeHeroArt}
-          alt=""
-          width={594}
-          height={518}
-          class="home-landing__art"
-          loading="eager"
-          decoding="async"
-          fetchpriority="high"
-        />
-      </div>
+      <p class="home-landing__trust">
+        Florida-based · Secure telehealth · Inclusive &amp; affirming
+      </p>
     </div>
-
-    <p class="home-landing__trust">
-      Florida-based · Secure telehealth · Inclusive &amp; affirming
-    </p>
   </section>
 
-  <!-- Coverage teaser -->
   <section
     id="coverage"
     class="border-t border-sage-dark/10 bg-cream px-5 py-16 sm:px-8 sm:py-20"

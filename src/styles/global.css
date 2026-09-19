@@ -2983,120 +2983,135 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
     radial-gradient(ellipse at 60% 80%, theme('colors.accent.DEFAULT / 25%') 0%, transparent 45%);
 }
 
-/* Home landing — layered stage (paper + copy + locked art), no cover-crop drift */
+/* Home landing — poster frame (full plate + copy scale together; no cover-crop) */
 .home-landing {
-  position: relative;
-  isolation: isolate;
   display: flex;
-  flex-direction: column;
-  min-height: calc(100svh - 3.5rem);
+  justify-content: center;
+  align-items: flex-start;
+  background-color: theme('colors.cream.DEFAULT');
+}
+
+.home-landing__poster {
+  position: relative;
+  /* Fit inside the viewport without cropping the plate */
+  width: min(100%, calc(100svh * 1024 / 576));
+  aspect-ratio: 1024 / 576;
+  container-type: inline-size;
+  container-name: home-poster;
   overflow: hidden;
   background-color: theme('colors.cream.DEFAULT');
 }
 
-.home-landing__paper {
+.home-landing__plate {
   position: absolute;
   inset: 0;
   z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
   pointer-events: none;
-  opacity: 0.55;
-  background-size: 220px 220px;
-  background-repeat: repeat;
-  mix-blend-mode: multiply;
+  user-select: none;
 }
 
-.home-landing__stage {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  flex: 1 1 auto;
-  grid-template-columns: minmax(17rem, 1fr) minmax(15rem, 1.05fr);
-  align-items: stretch;
-  gap: clamp(0.5rem, 2vw, 1.5rem);
-  width: 100%;
-  max-width: 72rem;
-  margin-inline: auto;
-  padding-inline: clamp(1.25rem, 4vw, 2rem);
+.home-landing__brand {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 4.2%;
+  display: flex;
+  align-items: center;
+  height: 10%;
+  opacity: 0.96;
+  transition: opacity 160ms ease;
+}
+
+.home-landing__brand:hover {
+  opacity: 1;
+}
+
+.home-landing__brand .logo-header {
+  height: 3.2cqw;
+  max-width: none;
 }
 
 .home-landing__copy {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-block: clamp(2rem, 6vh, 4rem);
-  padding-right: 0.5rem;
+  position: absolute;
+  z-index: 1;
+  top: 22%;
+  left: 5.2%;
+  width: 42%;
 }
 
-.home-landing__visual {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  min-width: 0;
-  padding-block: clamp(1rem, 4vh, 2.5rem) 0;
+.home-landing__title {
+  margin: 0;
+  font-family: theme('fontFamily.display');
+  font-weight: 400;
+  font-size: clamp(1.35rem, 5.15cqw, 3.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: theme('colors.sage.dark');
 }
 
-.home-landing__art {
+.home-landing__title-line {
   display: block;
-  width: 100%;
-  max-width: 36rem;
-  height: auto;
-  max-height: min(78svh, 34rem);
-  object-fit: contain;
-  object-position: right bottom;
-  user-select: none;
-  pointer-events: none;
+  margin-top: 0.12em;
+}
+
+.home-landing__sub {
+  margin: 1.1em 0 0;
+  max-width: 22em;
+  font-family: theme('fontFamily.display');
+  font-size: clamp(0.85rem, 2.05cqw, 1.35rem);
+  line-height: 1.35;
+  color: rgb(46 59 42 / 0.8);
+}
+
+.home-landing__actions {
+  margin-top: 1.6em;
 }
 
 .home-landing__cta {
-  min-height: 2.65rem;
-  padding-inline: 1.25rem;
-  border-radius: 0.2rem;
-  font-size: 0.9375rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  min-height: 2.4em;
+  padding: 0.55em 1.05em;
+  border-radius: 0.15em;
+  background: theme('colors.sage.dark');
+  color: theme('colors.cream.DEFAULT');
+  font-size: clamp(0.75rem, 1.55cqw, 1rem);
+  font-weight: 600;
   letter-spacing: 0.01em;
-  box-shadow: none;
+  text-decoration: none;
+  transition: background-color 160ms ease;
+}
+
+.home-landing__cta:hover {
+  background: theme('colors.sage.DEFAULT');
+}
+
+.home-landing__consult {
+  margin: 0.7em 0 0;
+  font-family: theme('fontFamily.display');
+  font-size: clamp(0.7rem, 1.35cqw, 0.9rem);
+  color: rgb(46 59 42 / 0.65);
 }
 
 .home-landing__trust {
-  position: relative;
+  position: absolute;
   z-index: 1;
+  left: 5.2%;
+  bottom: 3.8%;
   margin: 0;
-  padding: 0.85rem clamp(1.25rem, 4vw, 2rem) 1.25rem;
-  max-width: 72rem;
-  margin-inline: auto;
-  width: 100%;
-  font-size: clamp(0.6875rem, 1.1vw, 0.8125rem);
+  font-size: clamp(0.62rem, 1.25cqw, 0.8125rem);
   letter-spacing: 0.04em;
   color: rgb(46 59 42 / 0.7);
 }
 
-@media (max-width: 799px) {
-  .home-landing {
-    min-height: auto;
-  }
-
-  .home-landing__stage {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  .home-landing__copy {
-    order: 1;
-    padding-block: 1.75rem 0.5rem;
-  }
-
-  .home-landing__visual {
-    order: 0;
-    justify-content: center;
-    padding: 0.75rem 0 0;
-  }
-
-  .home-landing__art {
-    max-width: 22rem;
-    max-height: 42vw;
-  }
-
-  .home-landing__trust {
-    padding-top: 0.5rem;
+@media (max-width: 520px) {
+  /* Narrow phones: full-width poster; copy stays locked in the frame */
+  .home-landing__poster {
+    width: 100%;
   }
 }
 

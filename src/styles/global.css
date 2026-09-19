@@ -3179,8 +3179,8 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .home-landing__arch {
   position: absolute;
   /* Sit above/left of the square so the arch bottom-right overlaps the square top-left */
-  right: calc(min(52%, 22rem) - 8rem);
-  bottom: calc(min(52%, 22rem) - 10rem);
+  right: calc(min(52%, 22rem) - 11rem);
+  bottom: calc(min(52%, 22rem) - 13.5rem);
   z-index: 4;
   width: min(48%, 18.5rem);
   height: auto;

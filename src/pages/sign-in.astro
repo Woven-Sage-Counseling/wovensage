@@ -31,7 +31,7 @@ import { siteConfig } from '../config/site';
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span class="sign-in-option__label">{siteConfig.clientPortalLabel}</span>
+                <span class="sign-in-option__label">Client login</span>
                 <span class="sign-in-option__hint">For existing clients</span>
               </a>
               <p class="mt-3 text-left text-xs leading-relaxed text-sage-dark/60 sm:text-[0.8125rem]">
@@ -43,7 +43,7 @@ import { siteConfig } from '../config/site';
             {
               siteConfig.providerPortalComingSoon || !siteConfig.providerPortalUrl ? (
                 <button type="button" class="sign-in-option sign-in-option--placeholder" disabled>
-                  <span class="sign-in-option__label">{siteConfig.providerPortalLabel}</span>
+                  <span class="sign-in-option__label">Employee login</span>
                   <span class="sign-in-option__hint">Coming soon</span>
                 </button>
               ) : (
@@ -53,7 +53,7 @@ import { siteConfig } from '../config/site';
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span class="sign-in-option__label">{siteConfig.providerPortalLabel}</span>
+                  <span class="sign-in-option__label">Employee login</span>
                   <span class="sign-in-option__hint">For clinicians and staff</span>
                 </a>
               )

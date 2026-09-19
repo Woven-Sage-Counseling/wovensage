@@ -27,6 +27,29 @@ const layers = siteConfig.logos.homeLayers;
       />
     </a>
 
+    <div class="home-landing__art" aria-hidden="true">
+      <div class="home-landing__shape home-landing__shape--rect"></div>
+      <img
+        src={layers.leavesMain}
+        alt=""
+        width={559}
+        height={576}
+        class="home-landing__leaves home-landing__leaves--main"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+      />
+      <img
+        src={layers.arch}
+        alt=""
+        width={502}
+        height={888}
+        class="home-landing__arch"
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+
     <div class="home-landing__stage">
       <div class="home-landing__copy">
         <h1 id="home-landing-heading" class="home-landing__title">
@@ -52,29 +75,6 @@ const layers = siteConfig.logos.homeLayers;
         <p class="home-landing__trust">
           Florida-based · Secure telehealth · Inclusive &amp; affirming
         </p>
-      </div>
-
-      <div class="home-landing__art" aria-hidden="true">
-        <div class="home-landing__shape home-landing__shape--rect"></div>
-        <img
-          src={layers.leavesMain}
-          alt=""
-          width={559}
-          height={576}
-          class="home-landing__leaves home-landing__leaves--main"
-          loading="eager"
-          decoding="async"
-          fetchpriority="high"
-        />
-        <img
-          src={layers.arch}
-          alt=""
-          width={502}
-          height={888}
-          class="home-landing__arch"
-          loading="eager"
-          decoding="async"
-        />
       </div>
     </div>
 

@@ -3347,15 +3347,23 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   position: relative;
   z-index: 2;
   isolation: isolate;
-  padding-top: clamp(2.5rem, 5vw, 3.75rem);
+  padding-top: 0;
   background-color: theme('colors.sage.dark');
 }
 
 .home-coverage__reveal {
   position: relative;
   z-index: 1;
-  padding-block: clamp(2.75rem, 6vw, 4.25rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(22rem, 52vh, 34rem);
+  padding-block: clamp(5rem, 10vw, 7.5rem);
   background-color: transparent;
+}
+
+.home-coverage__reveal > .container-page {
+  width: 100%;
 }
 
 .home-coverage__heading {

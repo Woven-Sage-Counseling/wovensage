@@ -3448,7 +3448,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-quote {
   position: relative;
-  z-index: 2;
+  z-index: 10;
   background-color: transparent;
 }
 
@@ -3482,8 +3482,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   line-height: 1.28;
   letter-spacing: 0.01em;
   color: theme('colors.sage.dark');
-  transform: skewX(-42deg) rotate(-2deg);
-  transform-origin: left center;
+  transform: none;
 }
 
 .home-quote__attr {
@@ -3499,14 +3498,15 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-quote__portrait {
   position: relative;
-  z-index: 3;
+  z-index: 20;
   margin: 0;
   justify-self: start;
   width: min(100%, 28rem);
-  /* Isolated layer so the photo never picks up page grain */
   isolation: isolate;
   background-color: #fff;
-  box-shadow: 0 1px 2px rgb(46 59 42 / 0.08);
+  box-shadow:
+    0 1px 2px rgb(46 59 42 / 0.1),
+    0 14px 32px rgb(46 59 42 / 0.16);
 }
 
 .home-quote__img {
@@ -3568,10 +3568,6 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
     max-width: none;
     text-align: left;
     justify-self: center;
-  }
-
-  .home-quote__text {
-    transform-origin: center center;
   }
 
   .home-quote__attr {

@@ -3273,16 +3273,16 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .home-page__tear--hero {
   z-index: 4;
   margin-bottom: calc(clamp(3.75rem, 9vw, 6.5rem) * -0.55);
-  -webkit-mask-image: url('/images/home-layers/tear-hero.png');
-  mask-image: url('/images/home-layers/tear-hero.png');
+  -webkit-mask-image: url('/images/home-layers/tear-hero.png?v=2');
+  mask-image: url('/images/home-layers/tear-hero.png?v=2');
   filter: drop-shadow(0 10px 14px rgb(14 20 12 / 0.28));
 }
 
 .home-page__tear--bottom {
   z-index: 3;
   margin-top: calc(clamp(3.75rem, 9vw, 6.5rem) * -0.45);
-  -webkit-mask-image: url('/images/home-layers/tear-bottom.png');
-  mask-image: url('/images/home-layers/tear-bottom.png');
+  -webkit-mask-image: url('/images/home-layers/tear-bottom.png?v=2');
+  mask-image: url('/images/home-layers/tear-bottom.png?v=2');
   filter: drop-shadow(0 -10px 14px rgb(14 20 12 / 0.28));
 }
 

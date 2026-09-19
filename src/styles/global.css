@@ -3014,7 +3014,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   isolation: isolate;
   display: flex;
   flex-direction: column;
-  min-height: calc(100svh - 3.5rem);
+  min-height: 100svh;
   overflow: hidden;
   background-color: theme('colors.cream.DEFAULT');
 }
@@ -3043,9 +3043,33 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   background-size: 180px 180px;
 }
 
+.home-landing__logo {
+  position: absolute;
+  z-index: 4;
+  top: clamp(1.1rem, 3vw, 1.75rem);
+  left: clamp(1.1rem, 4vw, 2.5rem);
+}
+
+.home-landing__logo-img {
+  display: block;
+  height: clamp(1.15rem, 2.4vw, 1.55rem);
+  width: auto;
+}
+
+.home-landing__leaves--accent {
+  position: absolute;
+  z-index: 2;
+  left: clamp(-1.5rem, -2vw, 0);
+  bottom: clamp(0.5rem, 4vh, 2.5rem);
+  width: min(22vw, 11rem);
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
 .home-landing__stage {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   display: grid;
   flex: 1 1 auto;
   grid-template-columns: minmax(16rem, 0.95fr) minmax(16rem, 1.05fr);
@@ -3053,7 +3077,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   width: 100%;
   max-width: 76rem;
   margin-inline: auto;
-  padding: clamp(1.5rem, 4vh, 3rem) clamp(1.25rem, 4vw, 2.5rem) 1rem;
+  padding: clamp(4.5rem, 10vh, 6.5rem) clamp(1.25rem, 4vw, 2.5rem) 1rem;
   gap: clamp(0.75rem, 2vw, 2rem);
 }
 
@@ -3181,19 +3205,18 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-landing__leaves--accent {
   position: absolute;
-  left: -18%;
-  bottom: -8%;
-  z-index: 1;
-  width: min(42%, 12rem);
+  z-index: 2;
+  left: clamp(-1.5rem, -2vw, 0);
+  bottom: clamp(0.5rem, 4vh, 2.5rem);
+  width: min(22vw, 11rem);
   height: auto;
-  opacity: 0.9;
   pointer-events: none;
   user-select: none;
 }
 
 .home-landing__trust {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   margin: 0 auto;
   width: 100%;
   max-width: 76rem;
@@ -3215,6 +3238,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
   .home-landing__stage {
     grid-template-columns: 1fr;
+    padding-top: clamp(4rem, 12vw, 5rem);
     padding-bottom: 0;
   }
 
@@ -3225,7 +3249,9 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   }
 
   .home-landing__leaves--accent {
-    display: none;
+    left: -0.5rem;
+    bottom: 0.25rem;
+    width: min(28vw, 7.5rem);
   }
 
   .home-landing__leaves--main {

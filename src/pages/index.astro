@@ -10,10 +10,33 @@ const layers = siteConfig.logos.homeLayers;
   title={siteConfig.name}
   description="Whatever brought you here — we're glad you made it. Woven Sage Counseling provides therapy in South Florida in person and via secure telehealth throughout Florida."
   botanicalBg={false}
+  hideHeader
 >
   <section class="home-landing" aria-labelledby="home-landing-heading">
     <div class="home-landing__paper" aria-hidden="true"></div>
     <div class="home-landing__grain" aria-hidden="true"></div>
+
+    <a href="/" class="home-landing__logo" aria-label={siteConfig.name}>
+      <img
+        src={layers.logoWordmark}
+        alt=""
+        width={906}
+        height={304}
+        class="home-landing__logo-img"
+        decoding="async"
+      />
+    </a>
+
+    <img
+      src={layers.leavesAccent}
+      alt=""
+      width={521}
+      height={646}
+      class="home-landing__leaves home-landing__leaves--accent"
+      loading="eager"
+      decoding="async"
+      aria-hidden="true"
+    />
 
     <div class="home-landing__stage">
       <div class="home-landing__copy">
@@ -54,15 +77,6 @@ const layers = siteConfig.logos.homeLayers;
           height={896}
           class="home-landing__arch"
           loading="eager"
-          decoding="async"
-        />
-        <img
-          src={layers.leavesAccent}
-          alt=""
-          width={521}
-          height={646}
-          class="home-landing__leaves home-landing__leaves--accent"
-          loading="lazy"
           decoding="async"
         />
       </div>

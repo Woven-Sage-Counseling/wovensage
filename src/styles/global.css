@@ -3450,6 +3450,25 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   position: relative;
   z-index: 10;
   background-color: transparent;
+  padding-bottom: clamp(3.5rem, 8vw, 6rem);
+}
+
+.home-quote__viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.home-quote__track {
+  display: flex;
+  width: 100%;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.home-quote__slide {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 0;
 }
 
 .home-quote__layout {
@@ -3462,7 +3481,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   padding:
     clamp(1.25rem, 3vw, 2.25rem)
     clamp(1.25rem, 4vw, 2.75rem)
-    clamp(4rem, 9vw, 7rem);
+    clamp(1.5rem, 3vw, 2.5rem);
 }
 
 .home-quote__copy {
@@ -3545,11 +3564,96 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   transform: translate(38%, 38%) rotate(-42deg);
 }
 
+.home-quote__placeholder {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 819 / 1024;
+  background:
+    linear-gradient(160deg, rgb(232 226 214 / 0.95), rgb(214 206 190 / 0.9)),
+    repeating-linear-gradient(
+      -12deg,
+      transparent,
+      transparent 11px,
+      rgb(46 59 42 / 0.04) 11px,
+      rgb(46 59 42 / 0.04) 12px
+    );
+  color: rgb(46 59 42 / 0.45);
+  font-family: theme('fontFamily.sans');
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.home-quote__pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: 0.25rem;
+  padding-inline: clamp(1.25rem, 4vw, 2.75rem);
+  font-family: theme('fontFamily.sans');
+  color: theme('colors.sage.dark');
+  user-select: none;
+}
+
+.home-quote__pager-btn,
+.home-quote__pager-page {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+  padding: 0.35rem 0.2rem;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.home-quote__pager-btn {
+  font-size: 1.15rem;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.home-quote__pager-btn:hover,
+.home-quote__pager-btn:focus-visible {
+  opacity: 1;
+  outline: none;
+}
+
+.home-quote__pager-pages {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.home-quote__pager-page {
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.45;
+  min-width: 1.1rem;
+  text-align: center;
+}
+
+.home-quote__pager-page.is-active {
+  opacity: 1;
+}
+
+.home-quote__pager-page:hover,
+.home-quote__pager-page:focus-visible {
+  opacity: 1;
+  outline: none;
+}
+
 @media (max-width: 860px) {
   .home-quote__layout {
     grid-template-columns: 1fr;
     gap: 2.25rem;
-    padding-block: 1.5rem 4rem;
+    padding-block: 1.5rem 1.75rem;
   }
 
   .home-quote__portrait {

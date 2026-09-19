@@ -3013,27 +3013,35 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
     radial-gradient(ellipse at 60% 80%, theme('colors.accent.DEFAULT / 25%') 0%, transparent 45%);
 }
 
+/* Home page — full-page paper grain behind content (not on text) */
+.home-page {
+  position: relative;
+  isolation: isolate;
+  background-color: theme('colors.cream.DEFAULT');
+}
+
+.home-page__paper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.32;
+  background-image: url('/images/home-paper-texture.jpg');
+  background-size: 320px 320px;
+  background-repeat: repeat;
+  mix-blend-mode: multiply;
+}
+
 /* Home landing — layered build, art contained to the right column */
 .home-landing {
   position: relative;
+  z-index: 1;
   isolation: isolate;
   display: flex;
   flex-direction: column;
   min-height: 100svh;
   overflow: hidden;
-  background-color: theme('colors.cream.DEFAULT');
-}
-
-.home-landing__paper {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.28;
-  background-image: url('/images/home-paper-texture.jpg');
-  background-size: 320px 320px;
-  background-repeat: repeat;
-  mix-blend-mode: multiply;
+  background-color: transparent;
 }
 
 .home-landing__logo {
@@ -3238,8 +3246,9 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-coverage {
   position: relative;
+  z-index: 1;
   isolation: isolate;
-  background-color: theme('colors.cream.DEFAULT');
+  background-color: transparent;
 }
 
 @media (max-width: 860px) {

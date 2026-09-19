@@ -12,88 +12,90 @@ const layers = siteConfig.logos.homeLayers;
   botanicalBg={false}
   hideHeader
 >
-  <section class="home-landing" aria-labelledby="home-landing-heading">
-    <div class="home-landing__paper" aria-hidden="true"></div>
+  <div class="home-page">
+    <div class="home-page__paper" aria-hidden="true"></div>
 
-    <a href="/" class="home-landing__logo" aria-label={siteConfig.name}>
-      <img
-        src={`${layers.logoWordmark}?v=3`}
-        alt="Woven Sage Counseling"
-        width={916}
-        height={313}
-        class="home-landing__logo-img"
-        decoding="async"
-        fetchpriority="high"
-      />
-    </a>
+    <section class="home-landing" aria-labelledby="home-landing-heading">
+      <a href="/" class="home-landing__logo" aria-label={siteConfig.name}>
+        <img
+          src={`${layers.logoWordmark}?v=3`}
+          alt="Woven Sage Counseling"
+          width={916}
+          height={313}
+          class="home-landing__logo-img"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </a>
 
-    <a href={siteConfig.signInUrl} class="home-landing__login">
-      Log-in
-    </a>
+      <a href={siteConfig.signInUrl} class="home-landing__login">
+        Log-in
+      </a>
 
-    <div class="home-landing__art" aria-hidden="true">
-      <img
-        src={`${layers.arch}?v=3`}
-        alt=""
-        width={380}
-        height={731}
-        class="home-landing__arch"
-        loading="eager"
-        decoding="async"
-      />
-      <div class="home-landing__shape home-landing__shape--rect"></div>
-    </div>
+      <div class="home-landing__art" aria-hidden="true">
+        <img
+          src={`${layers.arch}?v=3`}
+          alt=""
+          width={380}
+          height={731}
+          class="home-landing__arch"
+          loading="eager"
+          decoding="async"
+        />
+        <div class="home-landing__shape home-landing__shape--rect"></div>
+      </div>
 
-    <div class="home-landing__stage">
-      <div class="home-landing__copy">
-        <h1 id="home-landing-heading" class="home-landing__title">
-          <img
-            src={`${layers.welcomeHeadline}?v=2`}
-            alt="You are welcome here"
-            width={834}
-            height={258}
-            class="home-landing__title-img"
-            decoding="async"
-            fetchpriority="high"
-          />
-        </h1>
+      <div class="home-landing__stage">
+        <div class="home-landing__copy">
+          <h1 id="home-landing-heading" class="home-landing__title">
+            <img
+              src={`${layers.welcomeHeadline}?v=2`}
+              alt="You are welcome here"
+              width={834}
+              height={258}
+              class="home-landing__title-img"
+              decoding="async"
+              fetchpriority="high"
+            />
+          </h1>
 
-        <div class="home-landing__actions">
-          <a href={siteConfig.bookingUrl} class="home-landing__cta">
-            Find your therapist
+          <div class="home-landing__actions">
+            <a href={siteConfig.bookingUrl} class="home-landing__cta">
+              Find your therapist
+              <span aria-hidden="true">↗</span>
+            </a>
+            <p class="home-landing__consult">Complimentary 15-minute consultation</p>
+          </div>
+
+          <p class="home-landing__trust">
+            Florida-based · Secure telehealth · Inclusive &amp; affirming
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="coverage"
+      class="home-coverage border-t border-sage-dark/10 px-5 py-16 sm:px-8 sm:py-20"
+      aria-labelledby="coverage-teaser-heading"
+    >
+      <div class="container-page relative z-10 mx-auto max-w-4xl text-center">
+        <h2
+          id="coverage-teaser-heading"
+          class="font-display text-[1.65rem] font-normal tracking-tight text-sage-dark sm:text-[2rem]"
+        >
+          We work with major insurers
+        </h2>
+
+        <FeaturedCarrierLogos class="mt-10 sm:mt-12" />
+
+        <div class="mt-10 sm:mt-12">
+          <a href="/coverage" class="btn-primary inline-flex gap-2">
+            See if you&apos;re covered today
             <span aria-hidden="true">↗</span>
           </a>
-          <p class="home-landing__consult">Complimentary 15-minute consultation</p>
         </div>
-
-        <p class="home-landing__trust">
-          Florida-based · Secure telehealth · Inclusive &amp; affirming
-        </p>
       </div>
-    </div>
-  </section>
-
-  <section
-    id="coverage"
-    class="home-coverage border-t border-sage-dark/10 bg-cream px-5 py-16 sm:px-8 sm:py-20"
-    aria-labelledby="coverage-teaser-heading"
-  >
-    <div class="container-page relative z-10 mx-auto max-w-4xl text-center">
-      <h2
-        id="coverage-teaser-heading"
-        class="font-display text-[1.65rem] font-normal tracking-tight text-sage-dark sm:text-[2rem]"
-      >
-        We work with major insurers
-      </h2>
-
-      <FeaturedCarrierLogos class="mt-10 sm:mt-12" />
-
-      <div class="mt-10 sm:mt-12">
-        <a href="/coverage" class="btn-primary inline-flex gap-2">
-          See if you&apos;re covered today
-          <span aria-hidden="true">↗</span>
-        </a>
-      </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </BaseLayout>

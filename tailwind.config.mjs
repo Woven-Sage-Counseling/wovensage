@@ -23,7 +23,7 @@ export default {
         serif: ['Fraunces', 'Georgia', 'serif'],
         sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
         display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
-        editorial: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        editorial: ['"Playfair Display"', 'Georgia', 'serif'],
         signature: ['Ruthie', 'cursive'],
       },
     },

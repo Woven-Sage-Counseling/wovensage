@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Ruthie&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Ruthie&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -3078,17 +3078,12 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-landing__title {
   margin: 0;
-  font-family: theme('fontFamily.display');
-  font-weight: 400;
-  font-size: clamp(2.1rem, 1.35rem + 2.4vw, 3.5rem);
-  line-height: 1.14;
-  letter-spacing: -0.02em;
+  font-family: theme('fontFamily.editorial');
+  font-weight: 500;
+  font-size: clamp(2.35rem, 1.4rem + 3.2vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
   color: theme('colors.sage.dark');
-}
-
-.home-landing__title-line {
-  display: block;
-  margin-top: 0.12em;
 }
 
 .home-landing__sub {

@@ -13,9 +13,10 @@ const layers = siteConfig.logos.homeLayers;
   hideHeader
 >
   <div class="home-page">
-    <div class="home-page__paper" aria-hidden="true"></div>
+    <div class="home-page__textured">
+      <div class="home-page__paper" aria-hidden="true"></div>
 
-    <section class="home-landing" aria-labelledby="home-landing-heading">
+      <section class="home-landing" aria-labelledby="home-landing-heading">
       <a href="/" class="home-landing__logo" aria-label={siteConfig.name}>
         <img
           src={`${layers.logoWordmark}?v=3`}
@@ -115,20 +116,11 @@ const layers = siteConfig.logos.homeLayers;
       <div class="home-page__tear home-page__tear--bottom" aria-hidden="true"></div>
 
       <div class="home-coverage__remnant" aria-hidden="true"></div>
-    </section>
+      </section>
+    </div>
 
     <section class="home-quote" aria-labelledby="home-quote-text">
       <div class="home-quote__layout">
-        <blockquote class="home-quote__copy">
-          <p id="home-quote-text" class="home-quote__text">
-            You are more than what you&apos;ve been through. Let&apos;s rip the page and rewrite your
-            story together
-          </p>
-          <footer class="home-quote__attr">
-            — Michele Evans, Founder &amp; Clinical Director
-          </footer>
-        </blockquote>
-
         <figure class="home-quote__portrait">
           <img
             src="/images/michele-editorial-portrait.jpg?v=1"
@@ -140,6 +132,16 @@ const layers = siteConfig.logos.homeLayers;
             decoding="async"
           />
         </figure>
+
+        <blockquote class="home-quote__copy">
+          <p id="home-quote-text" class="home-quote__text">
+            You are more than what you&apos;ve been through. Let&apos;s rip the page and rewrite your
+            story together
+          </p>
+          <footer class="home-quote__attr">
+            — Michele Evans, Founder &amp; Clinical Director
+          </footer>
+        </blockquote>
       </div>
     </section>
   </div>

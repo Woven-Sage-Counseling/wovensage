@@ -3078,12 +3078,13 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-landing__title {
   margin: 0;
-  font-family: theme('fontFamily.editorial');
-  font-weight: 500;
-  font-size: clamp(2.35rem, 1.4rem + 3.2vw, 4rem);
-  line-height: 1.08;
-  letter-spacing: -0.03em;
-  color: theme('colors.sage.dark');
+  max-width: 28rem;
+}
+
+.home-landing__title-img {
+  display: block;
+  width: min(100%, 26rem);
+  height: auto;
 }
 
 .home-landing__sub {

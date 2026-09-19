@@ -59,6 +59,7 @@ export const siteConfig = {
       leavesMain: '/images/home-layers/leaves-main.png',
       leavesAccent: '/images/home-layers/leaves-accent.png',
       logoWordmark: '/images/logo-woven-sage.png',
+      welcomeHeadline: '/images/welcome-headline.png',
     },
     chapter2Rest: '/images/chapter-2-rest-cropped.jpg',
     servicesHero: '/images/services-hero-matcha.jpg',

@@ -17,12 +17,13 @@ const layers = siteConfig.logos.homeLayers;
 
     <a href="/" class="home-landing__logo" aria-label={siteConfig.name}>
       <img
-        src={layers.logoWordmark}
+        src={`${layers.logoWordmark}?v=3`}
         alt="Woven Sage Counseling"
         width={916}
         height={313}
         class="home-landing__logo-img"
         decoding="async"
+        fetchpriority="high"
       />
     </a>
 

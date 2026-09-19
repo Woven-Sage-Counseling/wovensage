@@ -3133,6 +3133,8 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-landing__trust {
   margin: 2rem 0 0;
+  width: min(100%, 36rem);
+  text-align: center;
   font-size: 0.75rem;
   letter-spacing: 0.04em;
   color: rgb(46 59 42 / 0.65);

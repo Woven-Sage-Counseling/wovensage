@@ -3035,12 +3035,12 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 /* Home landing — layered build, art contained to the right column */
 .home-landing {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   isolation: isolate;
   display: flex;
   flex-direction: column;
   min-height: 100svh;
-  overflow: hidden;
+  overflow: visible;
   background-color: transparent;
 }
 
@@ -3187,8 +3187,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   position: absolute;
   z-index: 12;
   left: 50%;
-  /* Sit above the raised hero rip */
-  bottom: clamp(7.5rem, 18vw, 12rem);
+  bottom: clamp(2.5rem, 5vw, 3.75rem);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -3249,7 +3248,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .home-landing__shape--rect {
   position: absolute;
   right: 0;
-  bottom: 0;
+  bottom: clamp(2.75rem, 6vw, 4.75rem);
   z-index: 2;
   width: min(52%, 22rem);
   height: min(52%, 22rem);
@@ -3275,7 +3274,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   position: absolute;
   /* Sit above/left of the square so the arch bottom-right overlaps the square top-left */
   right: calc(min(52%, 22rem) - 11rem);
-  bottom: calc(min(52%, 22rem) - 13.5rem);
+  bottom: calc(min(52%, 22rem) - 13.5rem + clamp(2.75rem, 6vw, 4.75rem));
   z-index: 4;
   width: min(48%, 18.5rem);
   height: auto;
@@ -3323,11 +3322,14 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 }
 
 .home-page__tear--hero {
-  z-index: 4;
-  /* Tall + pulled up so the rip cuts through the terracotta square */
-  height: clamp(9rem, 22vw, 14rem);
-  margin-top: calc(clamp(9rem, 22vw, 14rem) * -0.72);
-  margin-bottom: calc(clamp(9rem, 22vw, 14rem) * -0.28);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 6;
+  height: clamp(4.5rem, 10vw, 7.25rem);
+  margin: 0;
+  transform: translateY(42%);
   -webkit-mask-image: url('/images/home-layers/tear-hero.png?v=2');
   mask-image: url('/images/home-layers/tear-hero.png?v=2');
   filter: drop-shadow(0 10px 14px rgb(14 20 12 / 0.28));

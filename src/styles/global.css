@@ -2522,6 +2522,11 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   max-width: 4.75rem;
 }
 
+.insurance-carriers__row-logo--anthem {
+  height: 1.55rem;
+  max-width: 7.5rem;
+}
+
 .insurance-carriers__row-name {
   font-family: theme('fontFamily.display');
   font-size: 1rem;

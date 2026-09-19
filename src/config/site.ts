@@ -134,6 +134,16 @@ export const siteConfig = {
         logo: '/images/carriers/aetna.svg',
       },
       {
+        id: 'cigna',
+        name: 'Cigna',
+        logo: '/images/carriers/cigna.png?v=2',
+      },
+      {
+        id: 'anthem',
+        name: 'Anthem',
+        logo: '/images/carriers/anthem.png?v=1',
+      },
+      {
         id: 'oscar',
         name: 'Oscar Health',
         logo: '/images/carriers/oscar.svg',

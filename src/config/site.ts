@@ -52,6 +52,8 @@ export const siteConfig = {
     sageBranchHeroLeft: '/images/sage-branch-hero-left-transparent.png',
     sageBotanicalHero: '/images/sage-botanical-hero.png',
     homeHeroPlate: '/images/home-hero-plate.jpg',
+    homeHeroArt: '/images/home-hero-art.jpg',
+    homePaperTexture: '/images/home-paper-texture.jpg',
     chapter2Rest: '/images/chapter-2-rest-cropped.jpg',
     servicesHero: '/images/services-hero-matcha.jpg',
     teamGrowing: '/images/team-growing-bg.jpg',

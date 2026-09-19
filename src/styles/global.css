@@ -3246,9 +3246,112 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-coverage {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   isolation: isolate;
+  margin-top: -0.35rem;
+  background-color: theme('colors.sage.dark');
+}
+
+.home-coverage__tear {
+  position: relative;
+  z-index: 3;
+  height: clamp(2.5rem, 4.8vw, 3.5rem);
+  line-height: 0;
+  pointer-events: none;
+}
+
+.home-coverage__tear-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.home-coverage__tear-fill {
+  fill: theme('colors.cream.DEFAULT');
+}
+
+.home-coverage__tear-grain {
+  opacity: 0.58;
+  mix-blend-mode: multiply;
+}
+
+.home-coverage__tear--top {
+  margin-bottom: -1px;
+}
+
+.home-coverage__tear--top .home-coverage__tear-svg {
+  filter: drop-shadow(0 7px 12px rgb(20 28 18 / 0.32));
+}
+
+.home-coverage__tear--bottom {
+  margin-top: -1px;
+}
+
+.home-coverage__tear--bottom .home-coverage__tear-svg {
+  filter: drop-shadow(0 -7px 12px rgb(20 28 18 / 0.32));
+}
+
+.home-coverage__reveal {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(3.25rem, 7vw, 5rem);
   background-color: transparent;
+}
+
+.home-coverage__heading {
+  margin: 0;
+  font-family: theme('fontFamily.display');
+  font-size: clamp(1.65rem, 1.4rem + 0.8vw, 2rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: theme('colors.cream.DEFAULT');
+}
+
+.home-coverage__logos .insurance-carriers__row-logo,
+.home-coverage__logos .insurance-carriers__bcbs {
+  filter: brightness(0) saturate(100%) invert(93%) sepia(8%) saturate(320%) hue-rotate(359deg)
+    brightness(1.02) contrast(92%);
+  opacity: 0.92;
+}
+
+.home-coverage__cta {
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.85rem 1.45rem;
+  border-radius: 0.25rem;
+  background: theme('colors.cream.DEFAULT');
+  color: theme('colors.sage.dark');
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.home-coverage__cta:hover {
+  background: rgb(232 226 212 / 0.88);
+}
+
+.home-coverage__remnant {
+  position: relative;
+  z-index: 2;
+  height: clamp(2.75rem, 5vw, 4rem);
+  background-color: theme('colors.cream.DEFAULT');
+}
+
+.home-coverage__remnant::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.58;
+  background-image: url('/images/home-paper-texture.jpg');
+  background-size: 260px 260px;
+  background-repeat: repeat;
+  mix-blend-mode: multiply;
 }
 
 @media (max-width: 860px) {

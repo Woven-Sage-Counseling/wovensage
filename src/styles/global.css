@@ -3042,9 +3042,9 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-landing__logo-img {
   display: block;
-  height: clamp(3.25rem, 7vw, 4.75rem);
+  height: clamp(1.35rem, 2.8vw, 1.85rem);
   width: auto;
-  max-width: min(22rem, 80vw);
+  max-width: min(11rem, 48vw);
   object-fit: contain;
   object-position: left center;
 }
@@ -3204,8 +3204,8 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   }
 
   .home-landing__logo-img {
-    height: 2.75rem;
-    max-width: 14rem;
+    height: 1.25rem;
+    max-width: 9rem;
   }
 
   .home-landing__stage {

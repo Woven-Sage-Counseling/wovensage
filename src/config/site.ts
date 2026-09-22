@@ -56,7 +56,7 @@ export const siteConfig = {
     homePaperTexture: '/images/home-paper-texture.jpg',
     homeLayers: {
       arch: '/images/home-layers/arch.png',
-      leavesMain: '/images/home-layers/leaves-main.png',
+      leavesMain: '/images/home-layers/embossed-sage-leaves-right-cursor-compatible.png',
       leavesAccent: '/images/home-layers/leaves-accent.png',
       logoWordmark: '/images/logo-woven-sage.png',
       welcomeHeadline: '/images/welcome-headline.png',

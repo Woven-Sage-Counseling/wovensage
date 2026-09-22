@@ -3300,7 +3300,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   /* Sit above/left of the square so the arch bottom-right overlaps the square top-left */
   right: calc(min(52%, 22rem) - 11rem);
   bottom: calc(min(52%, 22rem) - 13.5rem);
-  z-index: 6;
+  z-index: 4;
   width: min(48%, 18.5rem);
   height: auto;
   object-fit: contain;

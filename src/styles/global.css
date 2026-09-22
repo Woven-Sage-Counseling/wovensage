@@ -3269,28 +3269,16 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   pointer-events: none;
 }
 
-.home-landing__shape--rect {
+.home-landing__figure {
   position: absolute;
-  right: 0;
+  right: -4%;
   bottom: 0;
   z-index: 2;
-  width: min(52%, 22rem);
-  height: min(52%, 22rem);
-  background-color: theme('colors.accent.DEFAULT');
-  opacity: 1;
-}
-
-.home-landing__arch {
-  position: absolute;
-  /* Sit above/left of the square so the arch bottom-right overlaps the square top-left */
-  right: calc(min(52%, 22rem) - 11rem);
-  bottom: calc(min(52%, 22rem) - 13.5rem);
-  z-index: 4;
-  width: min(48%, 18.5rem);
+  width: min(108%, 40rem);
   height: auto;
+  max-height: 92%;
   object-fit: contain;
-  object-position: bottom right;
-  opacity: 0.5;
+  object-position: right bottom;
   user-select: none;
 }
 

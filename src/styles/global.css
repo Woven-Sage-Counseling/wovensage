@@ -3264,7 +3264,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   top: 0;
   right: 0;
   bottom: 0;
-  width: min(58vw, 46rem);
+  width: min(64vw, 52rem);
   overflow: hidden;
   pointer-events: none;
 }
@@ -3272,7 +3272,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .home-landing__figure {
   position: absolute;
   top: 50%;
-  left: 0;
+  left: -10%;
   right: auto;
   bottom: auto;
   z-index: 2;

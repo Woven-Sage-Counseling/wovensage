@@ -3273,7 +3273,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   position: absolute;
   top: 50%;
   right: -2%;
-  z-index: 1;
+  z-index: 5;
   width: auto;
   height: 58%;
   max-width: none;

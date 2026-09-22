@@ -3271,14 +3271,14 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-landing__figure {
   position: absolute;
-  top: 50%;
+  top: 58%;
   left: -10%;
   right: auto;
   bottom: auto;
   z-index: 2;
-  width: min(112%, 52rem);
+  width: min(122%, 58rem);
   height: auto;
-  max-height: min(88vh, 44rem);
+  max-height: min(94vh, 50rem);
   transform: translateY(-50%);
   object-fit: contain;
   object-position: left center;

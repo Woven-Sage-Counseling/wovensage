@@ -3192,7 +3192,10 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-landing__consult {
   margin: 0.75rem 0 0;
+  width: max-content;
+  max-width: none;
   text-align: center;
+  white-space: nowrap;
   font-family: theme('fontFamily.display');
   font-size: clamp(1.35rem, 1.15rem + 0.9vw, 1.85rem);
   line-height: 1.35;

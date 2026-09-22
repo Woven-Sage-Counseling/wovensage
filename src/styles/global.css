@@ -194,6 +194,32 @@
     background-color: rgb(247 244 238 / 0.08);
   }
 
+  .site-footer {
+    position: relative;
+    isolation: isolate;
+    overflow: visible;
+  }
+
+  .site-footer__tear {
+    position: relative;
+    z-index: 2;
+    margin-top: clamp(-2.75rem, -5vw, -1.75rem);
+    line-height: 0;
+    pointer-events: none;
+  }
+
+  .site-footer__tear-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    user-select: none;
+  }
+
+  .site-footer__body {
+    position: relative;
+    z-index: 1;
+  }
+
   .site-header__cta.header-cta.btn-primary {
     padding-inline: clamp(0.55rem, 1.2vw, 0.875rem);
     font-size: clamp(0.5rem, 0.42rem + 0.28vw, 0.625rem);

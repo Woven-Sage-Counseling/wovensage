@@ -3271,11 +3271,11 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-landing__leaves--main {
   position: absolute;
-  top: 58%;
+  top: 52%;
   right: -2%;
   z-index: 5;
   width: auto;
-  height: 96%;
+  height: 108%;
   max-width: none;
   transform: translateY(-50%);
   object-fit: contain;
@@ -3712,9 +3712,9 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
     top: auto;
     bottom: 8%;
     right: -4%;
-    height: 110%;
+    height: 120%;
     width: auto;
-    max-width: 85%;
+    max-width: 92%;
     transform: none;
     object-fit: contain;
     object-position: right bottom;

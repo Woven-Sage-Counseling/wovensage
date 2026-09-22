@@ -3272,10 +3272,10 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .home-landing__leaves--main {
   position: absolute;
   top: 50%;
-  right: -8%;
+  right: -2%;
   z-index: 1;
   width: auto;
-  height: 118%;
+  height: 58%;
   max-width: none;
   transform: translateY(-50%);
   object-fit: contain;
@@ -3709,13 +3709,15 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   }
 
   .home-landing__leaves--main {
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
+    top: auto;
+    bottom: 8%;
+    right: -4%;
+    height: 72%;
+    width: auto;
+    max-width: 55%;
     transform: none;
-    object-fit: cover;
-    object-position: right center;
+    object-fit: contain;
+    object-position: right bottom;
   }
 
   .home-landing__leaves--accent {

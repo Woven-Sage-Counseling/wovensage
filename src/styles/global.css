@@ -3117,7 +3117,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-landing__stage {
   position: relative;
-  z-index: 4;
+  z-index: 6;
   display: flex;
   flex: 1 1 auto;
   align-items: center;

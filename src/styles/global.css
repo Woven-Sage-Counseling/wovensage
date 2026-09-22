@@ -3269,21 +3269,6 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   pointer-events: none;
 }
 
-.home-landing__leaves--main {
-  position: absolute;
-  top: 52%;
-  right: -2%;
-  z-index: 5;
-  width: auto;
-  height: 108%;
-  max-width: none;
-  transform: translateY(-50%);
-  object-fit: contain;
-  object-position: right center;
-  opacity: 0.92;
-  user-select: none;
-}
-
 .home-landing__shape--rect {
   position: absolute;
   right: 0;
@@ -3306,17 +3291,6 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   object-fit: contain;
   object-position: bottom right;
   opacity: 0.5;
-  user-select: none;
-}
-
-.home-landing__leaves--accent {
-  position: absolute;
-  z-index: 2;
-  left: 0;
-  bottom: 4%;
-  width: min(18vw, 9.5rem);
-  height: auto;
-  pointer-events: none;
   user-select: none;
 }
 
@@ -3706,23 +3680,6 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
     width: 100%;
     height: min(48vw, 18rem);
     min-height: 15rem;
-  }
-
-  .home-landing__leaves--main {
-    top: auto;
-    bottom: 8%;
-    right: -4%;
-    height: 120%;
-    width: auto;
-    max-width: 92%;
-    transform: none;
-    object-fit: contain;
-    object-position: right bottom;
-  }
-
-  .home-landing__leaves--accent {
-    width: min(26vw, 6.5rem);
-    bottom: 1rem;
   }
 
   .home-landing__copy {

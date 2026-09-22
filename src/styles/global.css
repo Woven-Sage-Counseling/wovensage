@@ -3275,7 +3275,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   right: -2%;
   z-index: 5;
   width: auto;
-  height: 58%;
+  height: 68%;
   max-width: none;
   transform: translateY(-50%);
   object-fit: contain;
@@ -3712,9 +3712,9 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
     top: auto;
     bottom: 8%;
     right: -4%;
-    height: 72%;
+    height: 82%;
     width: auto;
-    max-width: 55%;
+    max-width: 62%;
     transform: none;
     object-fit: contain;
     object-position: right bottom;

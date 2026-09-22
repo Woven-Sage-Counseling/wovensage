@@ -3264,7 +3264,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   top: 0;
   right: 0;
   bottom: 0;
-  width: min(64vw, 52rem);
+  width: min(72vw, 60rem);
   overflow: hidden;
   pointer-events: none;
 }
@@ -3272,13 +3272,13 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .home-landing__figure {
   position: absolute;
   top: 58%;
-  left: -10%;
+  left: -12%;
   right: auto;
   bottom: auto;
   z-index: 2;
-  width: min(122%, 58rem);
+  width: min(140%, 72rem);
   height: auto;
-  max-height: min(94vh, 50rem);
+  max-height: min(110vh, 62rem);
   transform: translateY(-50%);
   object-fit: contain;
   object-position: left center;

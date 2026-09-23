@@ -3652,13 +3652,13 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   position: relative;
   width: min(100%, 26rem);
   margin-inline: auto;
-  aspect-ratio: 1600 / 896;
+  aspect-ratio: 1600 / 897;
 }
 
 .home-facts__fill {
   position: absolute;
   z-index: 1;
-  inset: 16% 10%;
+  inset: 18% 12%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3666,7 +3666,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   gap: 0.65rem;
   padding: 0.85rem 1.1rem;
   border-radius: 42% / 48%;
-  background: theme('colors.sage.dark');
+  background: transparent;
   text-align: center;
 }
 

@@ -3093,7 +3093,6 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   left: 0;
   width: clamp(28rem, 40vw, 49rem);
   height: auto;
-  transform: scaleX(-1);
   pointer-events: none;
   user-select: none;
 }

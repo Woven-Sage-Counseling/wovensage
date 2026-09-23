@@ -56,7 +56,6 @@ export const siteConfig = {
     homePaperTexture: '/images/home-paper-texture.jpg',
     homeLayers: {
       threadFigure: '/images/home-layers/thread-figure-terracotta-cursor-compatible.png',
-      sageCorner: '/images/home-layers/sage-asymmetrical-scratch-transparent.png',
       logoWordmark: '/images/logo-woven-sage.png',
       welcomeHeadline: '/images/welcome-headline.png',
     },

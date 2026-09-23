@@ -3629,45 +3629,46 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .home-facts {
   position: relative;
   z-index: 8;
-  padding:
-    clamp(1.5rem, 4vw, 3rem)
-    clamp(1.25rem, 4vw, 2.75rem)
-    clamp(4rem, 9vw, 7rem);
+  padding: clamp(0.75rem, 2vw, 1.5rem) 0 clamp(3.5rem, 8vw, 6rem);
 }
 
 .home-facts__grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1rem, 3vw, 2.5rem);
-  align-items: center;
-  max-width: 78rem;
-  margin-inline: auto;
+  display: flex;
+  justify-content: flex-end;
+  max-width: none;
+  margin: 0;
 }
 
 .home-facts__slot {
   min-width: 0;
 }
 
+.home-facts__slot[aria-hidden='true'] {
+  display: none;
+}
+
 .home-facts__hole {
   position: relative;
-  width: min(100%, 26rem);
-  margin-inline: auto;
-  aspect-ratio: 1600 / 897;
+  width: 50vw;
+  margin: 0;
+  aspect-ratio: 2000 / 1121;
 }
 
 .home-facts__fill {
   position: absolute;
-  z-index: 1;
-  inset: 18% 12%;
+  z-index: 3;
+  left: 42%;
+  top: 54%;
+  width: min(68%, 26rem);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.65rem;
+  gap: 0.75rem;
   padding: 0.85rem 1.1rem;
-  border-radius: 42% / 48%;
-  background: transparent;
+  transform: translate(-50%, -50%);
   text-align: center;
+  pointer-events: none;
 }
 
 .home-facts__kicker {
@@ -3682,11 +3683,11 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-facts__text {
   margin: 0;
-  max-width: 14rem;
+  max-width: 22rem;
   font-family: theme('fontFamily.display');
-  font-size: clamp(0.95rem, 0.88rem + 0.3vw, 1.15rem);
+  font-size: clamp(1.2rem, 1.55vw, 2.05rem);
   font-weight: 500;
-  line-height: 1.35;
+  line-height: 1.3;
   letter-spacing: 0.01em;
   color: theme('colors.cream.DEFAULT');
 }
@@ -3725,17 +3726,13 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
     text-align: right;
   }
 
-  .home-facts__grid {
-    grid-template-columns: 1fr;
-    justify-items: center;
-  }
-
-  .home-facts__slot:not(:has(.home-facts__hole)) {
-    display: none;
-  }
-
   .home-facts__hole {
-    width: min(100%, 24rem);
+    width: 100%;
+  }
+
+  .home-facts__text {
+    max-width: 16rem;
+    font-size: clamp(1.05rem, 4.2vw, 1.35rem);
   }
 }
 

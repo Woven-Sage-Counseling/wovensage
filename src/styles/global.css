@@ -3086,6 +3086,17 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   object-position: left center;
 }
 
+.home-landing__sage-corner {
+  position: absolute;
+  z-index: 4;
+  top: calc(clamp(1.25rem, 3.5vw, 2rem) + clamp(1.9rem, 3.5vw, 2.55rem) + 0.35rem);
+  left: 0;
+  width: clamp(16rem, 22vw, 22rem);
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
 .home-landing__login {
   position: absolute;
   z-index: 20;
@@ -3740,11 +3751,17 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
     max-width: 14rem;
   }
 
+  .home-landing__sage-corner {
+    top: 4.6rem;
+    left: 0;
+    width: min(42vw, 8.5rem);
+  }
+
   .home-landing__stage {
     order: 1;
     flex: 0 0 auto;
     align-items: flex-start;
-    padding-top: 5.5rem;
+    padding-top: 9rem;
     padding-bottom: 1.25rem;
   }
 

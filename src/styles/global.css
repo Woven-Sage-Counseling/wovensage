@@ -3090,9 +3090,10 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   position: absolute;
   z-index: 6;
   top: calc(clamp(1.25rem, 3.5vw, 2rem) + clamp(1.9rem, 3.5vw, 2.55rem) + 0.15rem);
-  left: -0.15rem;
+  left: 0.35rem;
   width: clamp(16rem, 18vw, 20rem);
   height: auto;
+  transform: scaleX(-1);
   pointer-events: none;
   user-select: none;
 }
@@ -3753,7 +3754,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
   .home-landing__sage-corner {
     top: 4.35rem;
-    left: -0.15rem;
+    left: 0.2rem;
     width: min(78vw, 16rem);
   }
 

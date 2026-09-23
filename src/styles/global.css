@@ -3213,15 +3213,6 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   color: rgb(46 59 42 / 0.62);
 }
 
-.home-landing__trust {
-  margin: 2rem 0 0;
-  width: min(100%, 36rem);
-  text-align: center;
-  font-size: clamp(0.95rem, 0.85rem + 0.35vw, 1.125rem);
-  letter-spacing: 0.04em;
-  color: rgb(46 59 42 / 0.65);
-}
-
 .home-landing__scroll {
   position: absolute;
   z-index: 12;
@@ -3809,9 +3800,5 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
     transform: none;
     object-fit: contain;
     object-position: center center;
-  }
-
-  .home-landing__trust {
-    margin-top: 1.5rem;
   }
 }

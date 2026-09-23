@@ -3088,10 +3088,10 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-landing__sage-corner {
   position: absolute;
-  z-index: 4;
-  top: calc(clamp(1.25rem, 3.5vw, 2rem) + clamp(1.9rem, 3.5vw, 2.55rem) + 0.15rem);
-  left: clamp(0.35rem, 1.5vw, 1.15rem);
-  width: clamp(16rem, 32vw, 26rem);
+  z-index: 6;
+  top: calc(clamp(1.25rem, 3.5vw, 2rem) + 2.85rem);
+  right: -0.2rem;
+  width: clamp(28rem, 40vw, 49rem);
   height: auto;
   pointer-events: none;
   user-select: none;
@@ -3761,14 +3761,15 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   }
 
   .home-landing__sage-corner {
-    width: min(68vw, 18rem);
+    top: 4.6rem;
+    width: min(78vw, 18rem);
   }
 
   .home-landing__stage {
     order: 1;
     flex: 0 0 auto;
     align-items: flex-start;
-    padding-top: 8.75rem;
+    padding-top: 9.25rem;
     padding-bottom: 1.25rem;
   }
 

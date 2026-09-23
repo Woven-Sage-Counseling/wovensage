@@ -3091,7 +3091,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   z-index: 4;
   top: calc(clamp(1.25rem, 3.5vw, 2rem) + clamp(1.9rem, 3.5vw, 2.55rem) + 0.35rem);
   left: 0;
-  width: clamp(16rem, 22vw, 22rem);
+  width: clamp(32rem, 46vw, 46rem);
   height: auto;
   pointer-events: none;
   user-select: none;
@@ -3754,14 +3754,14 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   .home-landing__sage-corner {
     top: 4.6rem;
     left: 0;
-    width: min(42vw, 8.5rem);
+    width: min(78vw, 18rem);
   }
 
   .home-landing__stage {
     order: 1;
     flex: 0 0 auto;
     align-items: flex-start;
-    padding-top: 9rem;
+    padding-top: 16rem;
     padding-bottom: 1.25rem;
   }
 

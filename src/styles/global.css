@@ -3139,7 +3139,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   max-width: min(32rem, 48%);
   margin-left: clamp(2.75rem, 10vw, 9rem);
   padding-block: 0.5rem;
-  transform: translate(1.75rem, -3.25rem);
+  transform: translate(1.75rem, -2.25rem);
 }
 
 .home-landing__title {

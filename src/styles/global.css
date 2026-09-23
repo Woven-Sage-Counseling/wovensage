@@ -3139,7 +3139,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   max-width: min(32rem, 48%);
   margin-left: clamp(2.75rem, 10vw, 9rem);
   padding-block: 0.5rem;
-  transform: translateY(-3.25rem);
+  transform: translate(1.75rem, -3.25rem);
 }
 
 .home-landing__title {
@@ -3649,7 +3649,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-facts__hole {
   position: relative;
-  width: 50vw;
+  width: 66vw;
   margin: 0;
   aspect-ratio: 2000 / 1121;
 }
@@ -3659,7 +3659,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   z-index: 3;
   left: 42%;
   top: 54%;
-  width: min(68%, 26rem);
+  width: min(72%, 32rem);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3683,9 +3683,9 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-facts__text {
   margin: 0;
-  max-width: 22rem;
+  max-width: 26rem;
   font-family: theme('fontFamily.display');
-  font-size: clamp(1.2rem, 1.55vw, 2.05rem);
+  font-size: clamp(1.35rem, 1.85vw, 2.35rem);
   font-weight: 500;
   line-height: 1.3;
   letter-spacing: 0.01em;

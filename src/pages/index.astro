@@ -355,11 +355,6 @@ const layers = siteConfig.logos.homeLayers;
     insuranceStat.querySelector('.home-facts__stat-plus')?.removeAttribute('aria-hidden');
   };
 
-  const revealInsurance = () => {
-    if (!(insuranceStat instanceof HTMLElement)) return;
-    insuranceStat.classList.add('is-playing');
-  };
-
   const playInsurance = () => {
     if (!(insuranceStat instanceof HTMLElement) || !(insuranceNum instanceof HTMLElement)) return;
     if (insuranceStat.dataset.started === 'true') return;
@@ -387,29 +382,45 @@ const layers = siteConfig.logos.homeLayers;
     requestAnimationFrame(tick);
   };
 
-  if (floridaSection instanceof HTMLElement) {
+  const insuranceHole = document.querySelector('.home-facts__extra--left');
+  if (floridaSection instanceof HTMLElement || insuranceHole instanceof HTMLElement) {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const floridaLeadMs = 23 * 46 + 380;
-    const play = () => {
+    const playFlorida = () => {
       if (floridaMap instanceof HTMLElement) floridaMap.classList.add('is-playing');
-      revealInsurance();
-      window.setTimeout(playInsurance, floridaLeadMs);
     };
     if (reduceMotion) {
       if (floridaMap instanceof HTMLElement) floridaMap.classList.add('is-filled');
       showInsuranceFinal();
     } else if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          if (!entries.some((entry) => entry.isIntersecting)) return;
-          play();
-          observer.disconnect();
-        },
-        { threshold: 0.4 },
-      );
-      observer.observe(floridaSection);
+      if (floridaSection instanceof HTMLElement) {
+        const floridaObserver = new IntersectionObserver(
+          (entries) => {
+            if (!entries.some((entry) => entry.isIntersecting)) return;
+            playFlorida();
+            floridaObserver.disconnect();
+          },
+          { threshold: 0.4 },
+        );
+        floridaObserver.observe(floridaSection);
+      } else {
+        playFlorida();
+      }
+      if (insuranceHole instanceof HTMLElement) {
+        const insuranceObserver = new IntersectionObserver(
+          (entries) => {
+            if (!entries.some((entry) => entry.isIntersecting)) return;
+            playInsurance();
+            insuranceObserver.disconnect();
+          },
+          { threshold: 0.35 },
+        );
+        insuranceObserver.observe(insuranceHole);
+      } else {
+        playInsurance();
+      }
     } else {
-      play();
+      playFlorida();
+      playInsurance();
     }
   }
 </script>

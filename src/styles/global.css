@@ -3620,7 +3620,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .home-facts {
   position: relative;
   z-index: 8;
-  padding: clamp(0.75rem, 2vw, 1.5rem) 0 clamp(10rem, 22vw, 22rem);
+  padding: clamp(0.75rem, 2vw, 1.5rem) 0 clamp(12rem, 28vw, 32rem);
 }
 
 .home-facts__cluster {
@@ -3637,14 +3637,14 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-facts__extra--left {
   left: 9vw;
-  bottom: -14vw;
+  bottom: -21vw;
   z-index: 1;
   width: 32vw;
 }
 
 .home-facts__extra--tuck {
   left: 44vw;
-  bottom: -11vw;
+  bottom: -18vw;
   z-index: 4;
   width: 15vw;
 }
@@ -3810,14 +3810,14 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   .home-facts__extra--left {
     width: 36vw;
     left: 6vw;
-    bottom: -18vw;
+    bottom: -26vw;
     z-index: 4;
   }
 
   .home-facts__extra--tuck {
     width: 20vw;
     left: 28vw;
-    bottom: -12vw;
+    bottom: -20vw;
     z-index: 5;
   }
 

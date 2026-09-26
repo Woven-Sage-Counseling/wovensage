@@ -3650,6 +3650,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 }
 
 .home-facts__hole {
+  --hole-tilt: 7deg;
   position: absolute;
   right: 0;
   bottom: 0;
@@ -3657,7 +3658,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   width: 62vw;
   margin: 0;
   aspect-ratio: 2000 / 1121;
-  transform: rotate(7deg);
+  transform: rotate(var(--hole-tilt));
   transform-origin: center center;
 }
 
@@ -3666,6 +3667,8 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   z-index: 3;
   inset: 0;
   pointer-events: none;
+  transform: rotate(calc(var(--hole-tilt) * -1));
+  transform-origin: center center;
 }
 
 .home-facts__map {

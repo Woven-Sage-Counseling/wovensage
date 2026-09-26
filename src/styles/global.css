@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Ruthie&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Ruthie&family=Fredoka:wght@500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -3680,10 +3680,11 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-facts__stat-figure {
   margin: 0;
-  font-family: theme('fontFamily.display');
-  font-size: clamp(3.6rem, 4.8vw, 5.4rem);
-  font-weight: 500;
-  line-height: 0.85;
+  font-family: Fredoka, system-ui, sans-serif;
+  font-size: clamp(3.4rem, 4.4vw, 5rem);
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: 0.01em;
   font-variant-numeric: tabular-nums;
 }
 

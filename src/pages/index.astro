@@ -352,6 +352,11 @@ const layers = siteConfig.logos.homeLayers;
     insuranceStat.querySelector('.home-facts__stat-plus')?.removeAttribute('aria-hidden');
   };
 
+  const revealInsurance = () => {
+    if (!(insuranceStat instanceof HTMLElement)) return;
+    insuranceStat.classList.add('is-playing');
+  };
+
   const playInsurance = () => {
     if (!(insuranceStat instanceof HTMLElement) || !(insuranceNum instanceof HTMLElement)) return;
     if (insuranceStat.dataset.started === 'true') return;
@@ -381,9 +386,11 @@ const layers = siteConfig.logos.homeLayers;
 
   if (floridaSection instanceof HTMLElement) {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const floridaFillMs = 66 * 46 + 400;
     const play = () => {
       if (floridaMap instanceof HTMLElement) floridaMap.classList.add('is-playing');
-      playInsurance();
+      revealInsurance();
+      window.setTimeout(playInsurance, floridaFillMs);
     };
     if (reduceMotion) {
       if (floridaMap instanceof HTMLElement) floridaMap.classList.add('is-filled');

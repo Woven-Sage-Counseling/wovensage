@@ -3636,14 +3636,14 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 }
 
 .home-facts__extra--left {
-  left: -1vw;
+  left: 9vw;
   bottom: -14vw;
   z-index: 1;
   width: 32vw;
 }
 
 .home-facts__extra--tuck {
-  left: 34vw;
+  left: 44vw;
   bottom: -11vw;
   z-index: 4;
   width: 15vw;
@@ -3809,14 +3809,14 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
   .home-facts__extra--left {
     width: 36vw;
-    left: -5vw;
+    left: 6vw;
     bottom: -18vw;
     z-index: 4;
   }
 
   .home-facts__extra--tuck {
     width: 20vw;
-    left: 16vw;
+    left: 28vw;
     bottom: -12vw;
     z-index: 5;
   }

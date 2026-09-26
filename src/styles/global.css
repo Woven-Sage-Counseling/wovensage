@@ -3662,32 +3662,24 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .home-facts__fill {
   position: absolute;
   z-index: 3;
-  left: 46%;
-  top: 54%;
-  width: min(88%, 44rem);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translate(-50%, -50%);
-  text-align: center;
+  inset: 0;
   pointer-events: none;
 }
 
 .home-facts__map {
+  position: absolute;
+  inset: 0;
   margin: 0;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(1rem, 2.2vw, 2rem);
 }
 
 .home-facts__florida {
+  position: absolute;
+  left: 40%;
+  top: 54%;
   display: block;
-  width: min(52%, 24rem);
+  width: 14rem;
   height: auto;
-  flex: none;
+  transform: translate(-50%, -50%);
   overflow: visible;
 }
 
@@ -3715,16 +3707,19 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 }
 
 .home-facts__map-label {
+  position: absolute;
+  left: 64%;
+  top: 54%;
+  width: 8rem;
   margin: 0;
-  max-width: 8.5rem;
   text-align: center;
   font-family: theme('fontFamily.display');
-  font-size: clamp(1.2rem, 1.5vw, 1.7rem);
+  font-size: clamp(1.15rem, 1.35vw, 1.5rem);
   font-weight: 500;
   line-height: 1.2;
   color: theme('colors.cream.DEFAULT');
   opacity: 0;
-  transform: translateY(0.35rem);
+  transform: translate(-50%, calc(-50% + 0.35rem));
   transition:
     opacity 0.7s ease 0.3s,
     transform 0.7s ease 0.3s;
@@ -3733,7 +3728,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .home-facts__map.is-playing .home-facts__map-label,
 .home-facts__map.is-filled .home-facts__map-label {
   opacity: 1;
-  transform: none;
+  transform: translate(-50%, -50%);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -3745,7 +3740,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
   .home-facts__map-label {
     opacity: 1;
-    transform: none;
+    transform: translate(-50%, -50%);
     transition: none;
   }
 }
@@ -3793,26 +3788,17 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
     right: 0;
   }
 
-  .home-facts__fill {
-    left: 58%;
-    top: 50%;
-    width: min(78%, 18rem);
-    z-index: 6;
-  }
-
-  .home-facts__map {
-    flex-direction: column;
-    gap: 0.45rem;
-  }
-
   .home-facts__florida {
-    width: min(100%, 9.5rem);
+    width: 8.25rem;
+    left: 52%;
+    top: 46%;
   }
 
   .home-facts__map-label {
-    max-width: 9rem;
-    font-size: 0.95rem;
-    text-align: center;
+    left: 52%;
+    top: 78%;
+    width: 7.5rem;
+    font-size: 0.9rem;
   }
 
   .home-facts__extra--left {

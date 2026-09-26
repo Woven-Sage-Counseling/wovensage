@@ -249,15 +249,22 @@ const layers = siteConfig.logos.homeLayers;
 
       <section class="home-facts" aria-label="Therapy facts">
         <div class="home-facts__cluster">
-          <img
-            src="/images/home-layers/paper-punch-left.png?v=5"
-            alt=""
-            width={2326}
-            height={2609}
-            class="home-facts__extra home-facts__extra--left"
-            loading="lazy"
-            decoding="async"
-          />
+          <div class="home-facts__extra home-facts__extra--left">
+            <img
+              src="/images/home-layers/paper-punch-left.png?v=5"
+              alt=""
+              width={2326}
+              height={2609}
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="home-facts__stat" data-insurance-stat>
+              <p class="home-facts__stat-label">Insurances accepted</p>
+              <p class="home-facts__stat-figure">
+                <span data-insurance-num>0</span><span class="home-facts__stat-plus" aria-hidden="true">+</span>
+              </p>
+            </div>
+          </div>
           <img
             src="/images/home-layers/paper-punch-tuck.png?v=4"
             alt=""
@@ -335,22 +342,64 @@ const layers = siteConfig.logos.homeLayers;
 
   const floridaMap = document.querySelector('[data-florida-map]');
   const floridaSection = document.querySelector('.home-facts');
-  if (floridaMap instanceof HTMLElement && floridaSection instanceof HTMLElement) {
+  const insuranceStat = document.querySelector('[data-insurance-stat]');
+  const insuranceNum = document.querySelector('[data-insurance-num]');
+
+  const showInsuranceFinal = () => {
+    if (!(insuranceStat instanceof HTMLElement) || !(insuranceNum instanceof HTMLElement)) return;
+    insuranceNum.textContent = '250';
+    insuranceStat.classList.add('is-playing', 'is-done');
+    insuranceStat.querySelector('.home-facts__stat-plus')?.removeAttribute('aria-hidden');
+  };
+
+  const playInsurance = () => {
+    if (!(insuranceStat instanceof HTMLElement) || !(insuranceNum instanceof HTMLElement)) return;
+    if (insuranceStat.dataset.started === 'true') return;
+    insuranceStat.dataset.started = 'true';
+    insuranceStat.classList.add('is-playing');
+    const duration = 1800;
+    const started = performance.now();
+    let shown = -1;
+    const tick = (now: number) => {
+      const progress = Math.min(1, (now - started) / duration);
+      const eased = 1 - (1 - progress) ** 2;
+      const value = Math.round(eased * 250);
+      if (value !== shown) {
+        insuranceNum.textContent = String(value);
+        shown = value;
+      }
+      if (progress < 1) {
+        requestAnimationFrame(tick);
+        return;
+      }
+      insuranceNum.textContent = '250';
+      insuranceStat.classList.add('is-done');
+      insuranceStat.querySelector('.home-facts__stat-plus')?.removeAttribute('aria-hidden');
+    };
+    requestAnimationFrame(tick);
+  };
+
+  if (floridaSection instanceof HTMLElement) {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const play = () => {
+      if (floridaMap instanceof HTMLElement) floridaMap.classList.add('is-playing');
+      playInsurance();
+    };
     if (reduceMotion) {
-      floridaMap.classList.add('is-filled');
+      if (floridaMap instanceof HTMLElement) floridaMap.classList.add('is-filled');
+      showInsuranceFinal();
     } else if ('IntersectionObserver' in window) {
       const observer = new IntersectionObserver(
         (entries) => {
           if (!entries.some((entry) => entry.isIntersecting)) return;
-          floridaMap.classList.add('is-playing');
+          play();
           observer.disconnect();
         },
         { threshold: 0.4 },
       );
       observer.observe(floridaSection);
     } else {
-      floridaMap.classList.add('is-playing');
+      play();
     }
   }
 </script>

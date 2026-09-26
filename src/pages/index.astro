@@ -360,7 +360,7 @@ const layers = siteConfig.logos.homeLayers;
     if (insuranceStat.dataset.started === 'true') return;
     insuranceStat.dataset.started = 'true';
     insuranceStat.classList.add('is-playing');
-    const duration = 1800;
+    const duration = 3600;
     const started = performance.now();
     let shown = -1;
     const tick = (now: number) => {

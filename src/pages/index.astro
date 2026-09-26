@@ -259,7 +259,10 @@ const layers = siteConfig.logos.homeLayers;
               decoding="async"
             />
             <div class="home-facts__stat" data-insurance-stat>
-              <p class="home-facts__stat-label">Insurances accepted</p>
+              <p class="home-facts__stat-label">
+                <span>Insurances</span>
+                <span>accepted</span>
+              </p>
               <p class="home-facts__stat-figure">
                 <span data-insurance-num>0</span><span class="home-facts__stat-plus" aria-hidden="true">+</span>
               </p>
@@ -386,11 +389,11 @@ const layers = siteConfig.logos.homeLayers;
 
   if (floridaSection instanceof HTMLElement) {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const floridaFillMs = 66 * 46 + 400;
+    const floridaLeadMs = 23 * 46 + 380;
     const play = () => {
       if (floridaMap instanceof HTMLElement) floridaMap.classList.add('is-playing');
       revealInsurance();
-      window.setTimeout(playInsurance, floridaFillMs);
+      window.setTimeout(playInsurance, floridaLeadMs);
     };
     if (reduceMotion) {
       if (floridaMap instanceof HTMLElement) floridaMap.classList.add('is-filled');

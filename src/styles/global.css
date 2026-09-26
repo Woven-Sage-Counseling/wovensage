@@ -3653,7 +3653,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   z-index: 2;
   left: 49%;
   top: 50%;
-  width: 13.5rem;
+  width: 16rem;
   margin: 0;
   text-align: center;
   color: theme('colors.cream.DEFAULT');
@@ -3671,11 +3671,15 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 }
 
 .home-facts__stat-label {
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.45rem;
   font-family: theme('fontFamily.display');
-  font-size: clamp(1.35rem, 1.65vw, 1.8rem);
+  font-size: clamp(2rem, 2.45vw, 2.7rem);
   font-weight: 500;
-  line-height: 1.12;
+  line-height: 1.02;
+}
+
+.home-facts__stat-label span {
+  display: block;
 }
 
 .home-facts__stat-figure {
@@ -3879,12 +3883,12 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   }
 
   .home-facts__stat {
-    width: 8.2rem;
+    width: 10rem;
   }
 
   .home-facts__stat-label {
-    margin-bottom: 0.2rem;
-    font-size: 0.82rem;
+    margin-bottom: 0.25rem;
+    font-size: 1.15rem;
   }
 
   .home-facts__stat-figure {

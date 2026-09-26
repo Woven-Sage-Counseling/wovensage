@@ -3383,7 +3383,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   position: relative;
   z-index: 10;
   background-color: transparent;
-  padding-bottom: clamp(3.5rem, 8vw, 6rem);
+  padding-bottom: clamp(0.75rem, 2vw, 1.5rem);
 }
 
 .home-quote__viewport {
@@ -3620,12 +3620,12 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .home-facts {
   position: relative;
   z-index: 8;
-  padding: clamp(0.75rem, 2vw, 1.5rem) 0 clamp(12rem, 28vw, 32rem);
+  padding: 0 0 clamp(12rem, 28vw, 32rem);
 }
 
 .home-facts__cluster {
   position: relative;
-  min-height: 46vw;
+  min-height: 35vw;
 }
 
 .home-facts__extra {
@@ -3783,7 +3783,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   }
 
   .home-facts__cluster {
-    min-height: 92vw;
+    min-height: 58vw;
   }
 
   .home-facts__hole {

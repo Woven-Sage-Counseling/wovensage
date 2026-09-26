@@ -3657,6 +3657,8 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   width: 62vw;
   margin: 0;
   aspect-ratio: 2000 / 1121;
+  transform: rotate(7deg);
+  transform-origin: center center;
 }
 
 .home-facts__fill {

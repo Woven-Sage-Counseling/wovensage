@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FeaturedCarrierLogos from '../components/FeaturedCarrierLogos.astro';
+import FloridaCountyMap from '../components/FloridaCountyMap.astro';
 import { siteConfig } from '../config/site';
 
 const layers = siteConfig.logos.homeLayers;
@@ -268,11 +269,7 @@ const layers = siteConfig.logos.homeLayers;
           />
           <article class="home-facts__hole">
             <div class="home-facts__fill">
-              <p class="home-facts__kicker">Did you know?</p>
-              <p class="home-facts__text">
-                Consistent therapy can reshape how the brain responds to stress — small weekly
-                sessions compound into lasting change.
-              </p>
+              <FloridaCountyMap />
             </div>
             <img
               src="/images/home-layers/paper-punch-hole.png?v=5"
@@ -334,6 +331,27 @@ const layers = siteConfig.logos.homeLayers;
         if (!Number.isNaN(pageIndex)) goTo(pageIndex);
       });
     });
+  }
+
+  const floridaMap = document.querySelector('[data-florida-map]');
+  const floridaSection = document.querySelector('.home-facts');
+  if (floridaMap instanceof HTMLElement && floridaSection instanceof HTMLElement) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) {
+      floridaMap.classList.add('is-filled');
+    } else if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          floridaMap.classList.add('is-playing');
+          observer.disconnect();
+        },
+        { threshold: 0.4 },
+      );
+      observer.observe(floridaSection);
+    } else {
+      floridaMap.classList.add('is-playing');
+    }
   }
 </script>
 

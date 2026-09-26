@@ -3710,13 +3710,13 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   position: absolute;
   left: 32%;
   top: 58%;
-  width: 8rem;
+  width: 15rem;
   margin: 0;
   text-align: center;
   font-family: theme('fontFamily.display');
-  font-size: clamp(1.15rem, 1.35vw, 1.5rem);
+  font-size: clamp(2.2rem, 2.9vw, 3.15rem);
   font-weight: 500;
-  line-height: 1.2;
+  line-height: 1.12;
   color: theme('colors.cream.DEFAULT');
   opacity: 0;
   transform: translate(-50%, calc(-50% + 0.35rem));
@@ -3797,8 +3797,8 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   .home-facts__map-label {
     left: 44%;
     top: 38%;
-    width: 7.5rem;
-    font-size: 0.9rem;
+    width: 11rem;
+    font-size: 1.65rem;
   }
 
   .home-facts__extra--left {

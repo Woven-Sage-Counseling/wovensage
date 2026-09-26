@@ -3675,7 +3675,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .home-facts__florida {
   position: absolute;
   left: 40%;
-  top: 54%;
+  top: 66%;
   display: block;
   width: 14rem;
   height: auto;
@@ -3709,7 +3709,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .home-facts__map-label {
   position: absolute;
   left: 64%;
-  top: 54%;
+  top: 66%;
   width: 8rem;
   margin: 0;
   text-align: center;

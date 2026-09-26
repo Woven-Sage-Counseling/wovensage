@@ -360,12 +360,12 @@ const layers = siteConfig.logos.homeLayers;
     if (insuranceStat.dataset.started === 'true') return;
     insuranceStat.dataset.started = 'true';
     insuranceStat.classList.add('is-playing');
-    const duration = 3600;
+    const duration = 6200;
     const started = performance.now();
     let shown = -1;
     const tick = (now: number) => {
       const progress = Math.min(1, (now - started) / duration);
-      const eased = 1 - (1 - progress) ** 2;
+      const eased = 1 - (1 - progress) ** 1.35;
       const value = Math.round(eased * 250);
       if (value !== shown) {
         insuranceNum.textContent = String(value);

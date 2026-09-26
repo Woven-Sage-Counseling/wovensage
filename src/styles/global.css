@@ -3714,7 +3714,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .home-facts__map-label {
   position: absolute;
   left: 32%;
-  top: 58%;
+  top: 53%;
   width: 15rem;
   margin: 0;
   text-align: center;
@@ -3801,7 +3801,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
   .home-facts__map-label {
     left: 44%;
-    top: 38%;
+    top: 34%;
     width: 11rem;
     font-size: 1.65rem;
   }

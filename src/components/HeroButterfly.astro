@@ -10,76 +10,87 @@
   class="home-butterfly"
   data-home-butterfly
   aria-label="Move butterfly"
-  style="left: 7.5%; top: 21%;"
+  style="left: 8%; top: 20%;"
 >
   <svg
     class="home-butterfly__svg"
-    viewBox="0 0 64 48"
-    width="64"
-    height="48"
+    viewBox="0 0 80 60"
+    width="80"
+    height="60"
     aria-hidden="true"
     focusable="false"
   >
+    <!-- Left wings: one continuous delicate path -->
     <g class="home-butterfly__wing home-butterfly__wing--left">
       <path
-        d="M30.5 24.2 C 24 21.5, 14.5 14.8, 10.2 9.6 C 7.8 6.7, 9.4 4.2, 12.6 5.1 C 18.2 6.7, 24.8 13.2, 28.4 18.8 C 26.1 15.2, 18.6 8.4, 13.8 6.9 C 11.4 6.2, 10.6 8.1, 12.2 10.2 C 15.8 14.9, 24.2 21.2, 29.8 23.6"
+        d="M38 29.5
+           C 32 26.5, 22 18.5, 16.5 12.5
+           C 13.8 9.4, 15.2 6.8, 18.6 7.6
+           C 24.5 9.1, 32 16.2, 36.2 22.8
+           C 33.2 18.2, 24.8 10.4, 19.6 8.8
+           C 17.2 8.1, 16.4 9.8, 18 12
+           C 21.8 17.2, 31.2 25.2, 37.4 28.2
+           C 31 30.8, 21.5 35.2, 17.2 40.2
+           C 14.8 43, 16.6 45.4, 19.8 44.2
+           C 25.2 42.2, 32.4 36.2, 36.4 31.6
+           C 33.6 35.4, 25.2 41.6, 20.4 42.8
+           C 18 43.4, 17.4 41.6, 18.8 39.4
+           C 22 35, 31 30.4, 37.6 28.8"
         fill="none"
         stroke="currentColor"
-        stroke-width="1.15"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M30.2 25.4 C 23.8 27.8, 14.2 31.6, 10.6 36.2 C 8.6 38.8, 10.4 41.2, 13.4 40.1 C 18.6 38.2, 25.2 32.4, 28.8 28.1 C 26.2 31.8, 18.4 37.6, 14 38.8 C 11.8 39.4, 11.1 37.6, 12.6 35.6 C 15.8 31.4, 24.4 27.2, 29.6 25.1"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.15"
+        stroke-width="0.85"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
     </g>
+    <!-- Right wings -->
     <g class="home-butterfly__wing home-butterfly__wing--right">
       <path
-        d="M33.5 24.2 C 40 21.5, 49.5 14.8, 53.8 9.6 C 56.2 6.7, 54.6 4.2, 51.4 5.1 C 45.8 6.7, 39.2 13.2, 35.6 18.8 C 37.9 15.2, 45.4 8.4, 50.2 6.9 C 52.6 6.2, 53.4 8.1, 51.8 10.2 C 48.2 14.9, 39.8 21.2, 34.2 23.6"
+        d="M42 29.5
+           C 48 26.5, 58 18.5, 63.5 12.5
+           C 66.2 9.4, 64.8 6.8, 61.4 7.6
+           C 55.5 9.1, 48 16.2, 43.8 22.8
+           C 46.8 18.2, 55.2 10.4, 60.4 8.8
+           C 62.8 8.1, 63.6 9.8, 62 12
+           C 58.2 17.2, 48.8 25.2, 42.6 28.2
+           C 49 30.8, 58.5 35.2, 62.8 40.2
+           C 65.2 43, 63.4 45.4, 60.2 44.2
+           C 54.8 42.2, 47.6 36.2, 43.6 31.6
+           C 46.4 35.4, 54.8 41.6, 59.6 42.8
+           C 62 43.4, 62.6 41.6, 61.2 39.4
+           C 58 35, 49 30.4, 42.4 28.8"
         fill="none"
         stroke="currentColor"
-        stroke-width="1.15"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M33.8 25.4 C 40.2 27.8, 49.8 31.6, 53.4 36.2 C 55.4 38.8, 53.6 41.2, 50.6 40.1 C 45.4 38.2, 38.8 32.4, 35.2 28.1 C 37.8 31.8, 45.6 37.6, 50 38.8 C 52.2 39.4, 52.9 37.6, 51.4 35.6 C 48.2 31.4, 39.6 27.2, 34.4 25.1"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.15"
+        stroke-width="0.85"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
     </g>
+    <!-- Body + antennae -->
     <g class="home-butterfly__body">
       <path
-        d="M32 16.2 C 31.55 19.8, 31.55 28.4, 32 33.4"
+        d="M40 18.5 C 39.55 23.2, 39.55 36.2, 40 42"
         fill="none"
         stroke="currentColor"
-        stroke-width="1.2"
+        stroke-width="0.9"
         stroke-linecap="round"
       />
       <path
-        d="M32 16.4 C 29.8 13.2, 27.2 11.1, 25.4 10.2"
+        d="M40 18.8 C 37.4 15.2, 34.4 12.8, 32.2 11.6"
         fill="none"
         stroke="currentColor"
-        stroke-width="1"
+        stroke-width="0.75"
         stroke-linecap="round"
       />
       <path
-        d="M32 16.4 C 34.2 13.2, 36.8 11.1, 38.6 10.2"
+        d="M40 18.8 C 42.6 15.2, 45.6 12.8, 47.8 11.6"
         fill="none"
         stroke="currentColor"
-        stroke-width="1"
+        stroke-width="0.75"
         stroke-linecap="round"
       />
-      <circle cx="25.2" cy="9.9" r="0.7" fill="currentColor" />
-      <circle cx="38.8" cy="9.9" r="0.7" fill="currentColor" />
+      <circle cx="32" cy="11.4" r="0.55" fill="currentColor" />
+      <circle cx="48" cy="11.4" r="0.55" fill="currentColor" />
     </g>
   </svg>
 </button>
@@ -95,23 +106,21 @@
 
     /** Five safe landing spots as % of the hero — avoid logo, login, copy, CTA, and figure. */
     const landings = [
-      { left: 7.5, top: 21, rotate: -8 },
-      { left: 44, top: 9.5, rotate: 6 },
-      { left: 86, top: 17, rotate: -4 },
-      { left: 10, top: 76, rotate: 10 },
-      { left: 90, top: 46, rotate: -10 },
+      { left: 8, top: 20, rotate: -6 },
+      { left: 44, top: 9.5, rotate: 5 },
+      { left: 86, top: 17, rotate: -3 },
+      { left: 10, top: 76, rotate: 8 },
+      { left: 90, top: 46, rotate: -8 },
     ];
 
     let index = 0;
     let flying = false;
     let flightAnim: Animation | null = null;
 
-    const place = (spot: (typeof landings)[number], withTransform = true) => {
+    const place = (spot: (typeof landings)[number]) => {
       butterfly.style.left = `${spot.left}%`;
       butterfly.style.top = `${spot.top}%`;
-      if (withTransform) {
-        butterfly.style.transform = `translate(-50%, -50%) rotate(${spot.rotate}deg)`;
-      }
+      butterfly.style.transform = `translate(-50%, -50%) rotate(${spot.rotate}deg)`;
     };
 
     place(landings[0]!);
@@ -123,6 +132,14 @@
         next = Math.floor(Math.random() * landings.length);
       }
       return next;
+    };
+
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
+    /** Quadratic bezier for a soft lofted path. */
+    const curvePoint = (from: number, mid: number, to: number, t: number) => {
+      const u = 1 - t;
+      return u * u * from + 2 * u * t * mid + t * t * to;
     };
 
     const fly = () => {
@@ -144,47 +161,39 @@
       const dx = to.left - from.left;
       const dy = to.top - from.top;
       const distance = Math.hypot(dx, dy);
-      const duration = Math.min(2000, Math.max(1500, 1100 + distance * 12));
+      // Slow, unhurried drift — longer for farther hops.
+      const duration = Math.min(4200, Math.max(2800, 2400 + distance * 22));
 
-      // Arc control: lift perpendicular to the flight line for a gentle curve.
-      const midLeft = (from.left + to.left) / 2 - dy * 0.18;
-      const midTop = (from.top + to.top) / 2 - Math.abs(dx) * 0.12 - 6;
-      const midRotate = (from.rotate + to.rotate) / 2 + (dx >= 0 ? -14 : 14);
+      // High lofted arc with a slight sideways sway, like a butterfly wandering.
+      const loft = 10 + Math.min(16, distance * 0.18);
+      const sway = (dx >= 0 ? -1 : 1) * (6 + Math.min(10, distance * 0.08));
+      const midLeft = (from.left + to.left) / 2 + sway;
+      const midTop = Math.min(from.top, to.top) - loft;
+      const heading = (dx >= 0 ? -1 : 1) * 12;
+
+      const frames = [0, 0.14, 0.28, 0.42, 0.56, 0.7, 0.84, 1].map((t) => {
+        const left = curvePoint(from.left, midLeft, to.left, t);
+        const top = curvePoint(from.top, midTop, to.top, t);
+        // Soft vertical bob + gentle bank that eases out as it settles.
+        const bob = Math.sin(t * Math.PI * 3) * (1 - t) * 1.1;
+        const bank = lerp(from.rotate, to.rotate, t) + Math.sin(t * Math.PI) * heading;
+        const settle = t > 0.88 ? (t - 0.88) / 0.12 : 0;
+        const rotate = lerp(bank, to.rotate, settle * settle);
+        return {
+          left: `${left}%`,
+          top: `${top + bob}%`,
+          transform: `translate(-50%, -50%) rotate(${rotate}deg)`,
+          offset: t,
+        };
+      });
 
       flightAnim?.cancel();
-      flightAnim = butterfly.animate(
-        [
-          {
-            left: `${from.left}%`,
-            top: `${from.top}%`,
-            transform: `translate(-50%, -50%) rotate(${from.rotate}deg) translateY(0)`,
-            offset: 0,
-          },
-          {
-            left: `${midLeft}%`,
-            top: `${midTop}%`,
-            transform: `translate(-50%, -50%) rotate(${midRotate}deg) translateY(-0.35rem)`,
-            offset: 0.48,
-          },
-          {
-            left: `${(midLeft + to.left) / 2}%`,
-            top: `${(midTop + to.top) / 2 + 1.2}%`,
-            transform: `translate(-50%, -50%) rotate(${(midRotate + to.rotate) / 2}deg) translateY(0.2rem)`,
-            offset: 0.78,
-          },
-          {
-            left: `${to.left}%`,
-            top: `${to.top}%`,
-            transform: `translate(-50%, -50%) rotate(${to.rotate}deg) translateY(0)`,
-            offset: 1,
-          },
-        ],
-        {
-          duration,
-          easing: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
-          fill: 'forwards',
-        },
-      );
+      flightAnim = butterfly.animate(frames, {
+        duration,
+        // Slow start, floaty middle, soft settle — more butterfly than dart.
+        easing: 'cubic-bezier(0.33, 0.05, 0.2, 1)',
+        fill: 'forwards',
+      });
 
       flightAnim.finished
         .then(() => {

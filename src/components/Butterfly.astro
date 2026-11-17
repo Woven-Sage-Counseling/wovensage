@@ -175,6 +175,15 @@ const ASSET = '/animations/butterfly';
     animation-delay: 42ms;
   }
 
+  /* Slow the same flap keyframes during final settle — do not change amplitudes */
+  .ws-butterfly.is-flying.is-settling .ws-butterfly__wing--upper {
+    animation-duration: 0.7s;
+  }
+
+  .ws-butterfly.is-flying.is-settling .ws-butterfly__wing--lower {
+    animation-duration: 0.7s;
+  }
+
   @keyframes ws-butterfly-flap-upper {
     0%,
     100% {
@@ -223,7 +232,9 @@ const ASSET = '/animations/butterfly';
 
   @media (prefers-reduced-motion: reduce) {
     .ws-butterfly.is-flying .ws-butterfly__wing--upper,
-    .ws-butterfly.is-flying .ws-butterfly__wing--lower {
+    .ws-butterfly.is-flying .ws-butterfly__wing--lower,
+    .ws-butterfly.is-flying.is-settling .ws-butterfly__wing--upper,
+    .ws-butterfly.is-flying.is-settling .ws-butterfly__wing--lower {
       animation: none;
     }
   }
@@ -233,24 +244,23 @@ const ASSET = '/animations/butterfly';
   type Point = { x: number; y: number };
 
   const EDGE = 40;
-  const MIN_TRAVEL = 250;
-  const MAX_TRAVEL = 500;
+  const MIN_TRAVEL = 180;
   const PROXIMITY = 56;
-  const DEST_ATTEMPTS = 48;
+  const CANDIDATE_COUNT = 28;
+  const HISTORY_RADIUS = 140;
+  const FLIGHT_MIN_MS = 2500;
+  const FLIGHT_MAX_MS = 4000;
+  const SETTLE_MS_MIN = 300;
+  const SETTLE_MS_MAX = 500;
+  const MAX_TILT = 12;
 
   const hosts = document.querySelectorAll('[data-butterfly]');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
   const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-  const easeInOut = (t: number) =>
-    t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-
-  /** Quadratic bezier */
-  const curve = (a: number, b: number, c: number, t: number) => {
-    const u = 1 - t;
-    return u * u * a + 2 * u * t * b + t * t * c;
-  };
+  const rand = (min: number, max: number) => min + Math.random() * (max - min);
+  const dist = (a: Point, b: Point) => Math.hypot(b.x - a.x, b.y - a.y);
 
   const sizeOf = (el: HTMLElement) => {
     const styles = getComputedStyle(el);
@@ -283,7 +293,7 @@ const ASSET = '/animations/butterfly';
     '.home-landing__login',
   ].join(',');
 
-  const rectsOverlap = (a: DOMRect, b: DOMRect, pad = 12) =>
+  const rectsOverlap = (a: DOMRect, b: DOMRect, pad = 16) =>
     !(
       a.right + pad < b.left ||
       a.left - pad > b.right ||
@@ -304,49 +314,257 @@ const ASSET = '/animations/butterfly';
     return true;
   };
 
-  const pickDestination = (from: Point, size: number): Point => {
+  const nearAny = (point: Point, list: Point[], radius: number) =>
+    list.some((p) => dist(point, p) < radius);
+
+  /** Uniform samples across the usable viewport; relax distance if needed. */
+  const pickDestination = (from: Point, size: number, recent: Point[]): Point => {
     const { minX, minY, maxX, maxY } = viewportBounds(size);
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    const maxDist = Math.min(MAX_TRAVEL, Math.hypot(vw, vh) * 0.55);
-    const minDist = Math.min(MIN_TRAVEL, maxDist * 0.65);
+    const spanX = Math.max(1, maxX - minX);
+    const spanY = Math.max(1, maxY - minY);
+    const diagonal = Math.hypot(spanX, spanY);
 
-    let best: Point | null = null;
-    let bestScore = -1;
+    const minDistances = [
+      Math.min(MIN_TRAVEL, diagonal * 0.28),
+      Math.min(140, diagonal * 0.2),
+      Math.min(90, diagonal * 0.14),
+      55,
+      28,
+    ];
 
-    for (let i = 0; i < DEST_ATTEMPTS; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const dist = minDist + Math.random() * Math.max(8, maxDist - minDist);
-      const x = clamp(from.x + Math.cos(angle) * dist, minX, maxX);
-      const y = clamp(from.y + Math.sin(angle) * dist, minY, maxY);
-      const traveled = Math.hypot(x - from.x, y - from.y);
-      if (traveled < minDist * 0.55) continue;
-      if (!isSafeDestination(x, y, size)) continue;
-      const score = traveled + Math.random() * 40;
-      if (score > bestScore) {
-        bestScore = score;
-        best = { x, y };
+    for (const minDist of minDistances) {
+      const historyRadius = Math.max(72, Math.min(HISTORY_RADIUS, minDist * 0.75));
+      const valid: Point[] = [];
+
+      for (let i = 0; i < CANDIDATE_COUNT; i++) {
+        const x = minX + Math.random() * spanX;
+        const y = minY + Math.random() * spanY;
+        if (dist({ x, y }, from) < minDist) continue;
+        if (nearAny({ x, y }, recent, historyRadius)) continue;
+        if (!isSafeDestination(x, y, size)) continue;
+        valid.push({ x, y });
+      }
+
+      if (valid.length > 0) {
+        return valid[Math.floor(Math.random() * valid.length)]!;
       }
     }
 
-    if (best) return best;
-
-    // Fallback: clamp a far-ish point even if slightly overlapping sparse UI.
-    for (let i = 0; i < 24; i++) {
-      const x = minX + Math.random() * Math.max(1, maxX - minX);
-      const y = minY + Math.random() * Math.max(1, maxY - minY);
-      if (Math.hypot(x - from.x, y - from.y) < minDist * 0.4) continue;
+    // Last resort: any safe spot in-bounds, ignoring history/distance.
+    for (let i = 0; i < 40; i++) {
+      const x = minX + Math.random() * spanX;
+      const y = minY + Math.random() * spanY;
       if (isSafeDestination(x, y, size)) return { x, y };
     }
 
     return {
-      x: clamp(from.x < (minX + maxX) / 2 ? maxX - 8 : minX + 8, minX, maxX),
-      y: clamp(from.y < (minY + maxY) / 2 ? maxY - 8 : minY + 8, minY, maxY),
+      x: clamp((minX + maxX) / 2 + rand(-40, 40), minX, maxX),
+      y: clamp((minY + maxY) / 2 + rand(-40, 40), minY, maxY),
     };
   };
 
-  const place = (el: HTMLElement, point: Point, rotate = 0) => {
-    el.style.transform = `translate3d(${point.x}px, ${point.y}px, 0) rotate(${rotate}deg)`;
+  const clampPoint = (p: Point, size: number): Point => {
+    const { minX, minY, maxX, maxY } = viewportBounds(size);
+    return { x: clamp(p.x, minX, maxX), y: clamp(p.y, minY, maxY) };
+  };
+
+  /** Catmull-Rom interpolate between p1→p2 with neighbors p0, p3. */
+  const catmullRom = (p0: Point, p1: Point, p2: Point, p3: Point, t: number): Point => {
+    const t2 = t * t;
+    const t3 = t2 * t;
+    return {
+      x:
+        0.5 *
+        (2 * p1.x +
+          (-p0.x + p2.x) * t +
+          (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * t2 +
+          (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * t3),
+      y:
+        0.5 *
+        (2 * p1.y +
+          (-p0.y + p2.y) * t +
+          (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * t2 +
+          (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * t3),
+    };
+  };
+
+  const buildWaypoints = (from: Point, to: Point, size: number): Point[] => {
+    const dx = to.x - from.x;
+    const dy = to.y - from.y;
+    const length = Math.max(1, Math.hypot(dx, dy));
+    const ux = dx / length;
+    const uy = dy / length;
+    const px = -uy;
+    const py = ux;
+
+    const count = 6 + Math.floor(Math.random() * 5); // 6–10
+    const points: Point[] = [from];
+
+    // Small upward lift off the perch
+    const lift = clamp(28 + Math.random() * 36, 24, 70);
+    points.push(
+      clampPoint(
+        {
+          x: from.x + ux * length * rand(0.04, 0.1) + px * rand(-12, 12),
+          y: from.y - lift,
+        },
+        size,
+      ),
+    );
+
+    const midCount = count - 3; // lift + mids + overshoot handled separately; ensure totals ~6–10
+    const flutterCount = Math.max(3, midCount);
+
+    let side = Math.random() < 0.5 ? 1 : -1;
+    const bigArcSlots = new Set<number>();
+    bigArcSlots.add(1 + Math.floor(Math.random() * Math.max(1, flutterCount - 1)));
+    if (flutterCount > 4 && Math.random() < 0.85) {
+      let second = 1 + Math.floor(Math.random() * Math.max(1, flutterCount - 1));
+      while (second === [...bigArcSlots][0] && flutterCount > 2) {
+        second = 1 + Math.floor(Math.random() * Math.max(1, flutterCount - 1));
+      }
+      bigArcSlots.add(second);
+    }
+
+    for (let i = 1; i <= flutterCount; i++) {
+      const t = i / (flutterCount + 1);
+      // Progress along the chord with slight uneven spacing
+      const along = length * clamp(t + rand(-0.04, 0.04), 0.08, 0.92);
+      const baseX = from.x + ux * along;
+      const baseY = from.y + uy * along;
+
+      const isBig = bigArcSlots.has(i);
+      const amp = isBig ? rand(48, 92) : rand(14, 38);
+      const vert = isBig ? rand(-36, 28) : rand(-22, 26);
+      // Alternate side with occasional skip so it isn't a perfect zigzag
+      if (Math.random() > 0.18) side *= -1;
+
+      points.push(
+        clampPoint(
+          {
+            x: baseX + px * side * amp + rand(-10, 10),
+            y: baseY + py * side * amp * 0.55 + vert + rand(-8, 8),
+          },
+          size,
+        ),
+      );
+    }
+
+    // Brief overshoot / soft circle before settling
+    const overshoot = rand(18, 42);
+    const circleSide = Math.random() < 0.5 ? 1 : -1;
+    points.push(
+      clampPoint(
+        {
+          x: to.x + ux * overshoot + px * circleSide * rand(16, 36),
+          y: to.y + uy * overshoot * 0.35 + rand(-14, 10),
+        },
+        size,
+      ),
+    );
+    if (Math.random() < 0.65) {
+      points.push(
+        clampPoint(
+          {
+            x: to.x + px * -circleSide * rand(10, 28),
+            y: to.y - rand(6, 20),
+          },
+          size,
+        ),
+      );
+    }
+
+    points.push(to);
+    return points;
+  };
+
+  /** Densely sample a smooth path through waypoints; return points + cumulative length. */
+  const samplePath = (waypoints: Point[]) => {
+    if (waypoints.length < 2) {
+      return { samples: waypoints.slice(), cumulative: [0], totalLength: 0 };
+    }
+
+    const extended = [
+      waypoints[0]!,
+      ...waypoints,
+      waypoints[waypoints.length - 1]!,
+    ];
+
+    const samples: Point[] = [];
+    const stepsPerSegment = 10;
+
+    for (let i = 1; i < extended.length - 2; i++) {
+      const p0 = extended[i - 1]!;
+      const p1 = extended[i]!;
+      const p2 = extended[i + 1]!;
+      const p3 = extended[i + 2]!;
+      for (let s = 0; s < stepsPerSegment; s++) {
+        const t = s / stepsPerSegment;
+        samples.push(catmullRom(p0, p1, p2, p3, t));
+      }
+    }
+    samples.push(waypoints[waypoints.length - 1]!);
+
+    const cumulative: number[] = [0];
+    let total = 0;
+    for (let i = 1; i < samples.length; i++) {
+      total += dist(samples[i - 1]!, samples[i]!);
+      cumulative.push(total);
+    }
+
+    return { samples, cumulative, totalLength: total };
+  };
+
+  const pointAtLength = (
+    samples: Point[],
+    cumulative: number[],
+    totalLength: number,
+    target: number,
+  ): Point => {
+    if (samples.length === 0) return { x: 0, y: 0 };
+    if (target <= 0) return samples[0]!;
+    if (target >= totalLength) return samples[samples.length - 1]!;
+
+    let lo = 0;
+    let hi = cumulative.length - 1;
+    while (lo < hi) {
+      const mid = Math.floor((lo + hi) / 2);
+      if (cumulative[mid]! < target) lo = mid + 1;
+      else hi = mid;
+    }
+    const i = Math.max(1, lo);
+    const a = samples[i - 1]!;
+    const b = samples[i]!;
+    const ca = cumulative[i - 1]!;
+    const cb = cumulative[i]!;
+    const seg = Math.max(1e-6, cb - ca);
+    const t = (target - ca) / seg;
+    return { x: lerp(a.x, b.x, t), y: lerp(a.y, b.y, t) };
+  };
+
+  /**
+   * Map linear time → distance along path with variable speed:
+   * quicker in open mid-flight, slower near turns (path curvature proxy) and landing.
+   */
+  const distanceForTime = (u: number, totalLength: number) => {
+    // Piecewise ease: soft takeoff, freer middle, decelerate into landing
+    let shaped: number;
+    if (u < 0.18) {
+      const t = u / 0.18;
+      shaped = 0.14 * (t * t);
+    } else if (u < 0.78) {
+      const t = (u - 0.18) / 0.6;
+      shaped = 0.14 + 0.62 * (0.15 * t + 0.85 * t * t * (3 - 2 * t));
+    } else {
+      const t = (u - 0.78) / 0.22;
+      // Ease-out into perch
+      shaped = 0.76 + 0.24 * (1 - Math.pow(1 - t, 2.4));
+    }
+    return shaped * totalLength;
+  };
+
+  const place = (el: HTMLElement, point: Point, angle = 0) => {
+    el.style.transform = `translate3d(${point.x}px, ${point.y}px, 0) rotate(${angle}deg)`;
   };
 
   for (const host of hosts) {
@@ -355,19 +573,27 @@ const ASSET = '/animations/butterfly';
     const abort = new AbortController();
     const { signal } = abort;
     let position: Point = { x: EDGE + 24, y: EDGE + 96 };
-    let rotate = -6;
+    let angle = -6;
     let flying = false;
-    let flightAnim: Animation | null = null;
-    let settleWing: HTMLElement | null = null;
+    let rafId = 0;
+    let settleTimer = 0;
+    const recentLandings: Point[] = [];
 
     const applyReduced = () => {
       host.classList.toggle('is-reduced', reduceMotion.matches);
       if (reduceMotion.matches) {
-        host.classList.remove('is-flying');
-        flightAnim?.cancel();
-        flightAnim = null;
+        host.classList.remove('is-flying', 'is-settling');
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = 0;
+        if (settleTimer) window.clearTimeout(settleTimer);
+        settleTimer = 0;
         flying = false;
       }
+    };
+
+    const rememberLanding = (point: Point) => {
+      recentLandings.push({ ...point });
+      while (recentLandings.length > 3) recentLandings.shift();
     };
 
     const initialPlace = () => {
@@ -376,7 +602,6 @@ const ASSET = '/animations/butterfly';
       const hero = document.querySelector('.home-landing');
       if (hero instanceof HTMLElement) {
         const hr = hero.getBoundingClientRect();
-        // Near previous upper-left landing (~8% / 20% of hero), without covering the logo.
         position = {
           x: clamp(hr.left + hr.width * 0.08 - size / 2, minX, maxX),
           y: clamp(hr.top + hr.height * 0.2 - size / 2, minY, maxY),
@@ -384,7 +609,6 @@ const ASSET = '/animations/butterfly';
       } else {
         position = { x: clamp(72, minX, maxX), y: clamp(150, minY, maxY) };
       }
-      // Nudge down if overlapping the logo.
       const logo = document.querySelector('.home-landing__logo');
       if (logo instanceof Element) {
         const lr = logo.getBoundingClientRect();
@@ -393,36 +617,18 @@ const ASSET = '/animations/butterfly';
           position.y = clamp(lr.bottom + 12, minY, maxY);
         }
       }
-      rotate = -6;
-      place(host, position, rotate);
+      angle = -6;
+      place(host, position, angle);
+      rememberLanding(position);
     };
 
-    const stopFlappingAfterSpread = () => {
-      const wing =
-        host.querySelector<HTMLElement>('.ws-butterfly__wing--left-upper') ??
-        host.querySelector<HTMLElement>('.ws-butterfly__wing--upper');
-      if (!wing || reduceMotion.matches) {
-        host.classList.remove('is-flying');
-        flying = false;
-        return;
-      }
-      settleWing = wing;
-      const onIter = () => {
-        wing.removeEventListener('animationiteration', onIter);
-        if (settleWing === wing) settleWing = null;
-        host.classList.remove('is-flying');
-        flying = false;
-      };
-      wing.addEventListener('animationiteration', onIter, { once: true });
-      // Safety if animation is somehow not running
-      window.setTimeout(() => {
-        if (settleWing === wing) {
-          wing.removeEventListener('animationiteration', onIter);
-          settleWing = null;
-          host.classList.remove('is-flying');
-          flying = false;
-        }
-      }, 500);
+    const finishLanding = (to: Point) => {
+      position = to;
+      angle = 0;
+      place(host, position, angle);
+      rememberLanding(to);
+      host.classList.remove('is-flying', 'is-settling');
+      flying = false;
     };
 
     const fly = () => {
@@ -430,63 +636,83 @@ const ASSET = '/animations/butterfly';
 
       const size = sizeOf(host);
       const from = { ...position };
-      const to = pickDestination(from, size);
-      const dx = to.x - from.x;
-      const dy = to.y - from.y;
-      const distance = Math.hypot(dx, dy);
-      if (distance < 8) return;
+      const to = pickDestination(from, size, recentLandings);
+      if (dist(from, to) < 12) return;
+
+      const waypoints = buildWaypoints(from, to, size);
+      const { samples, cumulative, totalLength } = samplePath(waypoints);
+      if (totalLength < 8 || samples.length < 2) return;
+
+      // Duration from path length + wander, clamped to 2.5–4s
+      const duration = clamp(
+        2100 + totalLength * 2.1 + rand(-220, 320),
+        FLIGHT_MIN_MS,
+        FLIGHT_MAX_MS,
+      );
+      const settleMs = rand(SETTLE_MS_MIN, SETTLE_MS_MAX);
+      const settleAt = duration - settleMs;
 
       flying = true;
       host.classList.add('is-flying');
+      host.classList.remove('is-settling');
 
-      const duration = clamp(900 + distance * 0.7, 900, 1400);
-      const loft = clamp(28 + distance * 0.06, 24, 64);
-      const sway = (dx >= 0 ? -1 : 1) * clamp(18 + distance * 0.04, 16, 48);
-      const mid: Point = {
-        x: (from.x + to.x) / 2 + sway,
-        y: Math.min(from.y, to.y) - loft,
+      const startAngle = angle;
+      let prev = from;
+      let smoothedAngle = startAngle;
+      let settled = false;
+      const t0 = performance.now();
+
+      const tick = (now: number) => {
+        const elapsed = now - t0;
+        const u = clamp(elapsed / duration, 0, 1);
+        const along = distanceForTime(u, totalLength);
+        const point = pointAtLength(samples, cumulative, totalLength, along);
+
+        const vx = point.x - prev.x;
+        const vy = point.y - prev.y;
+        const speed = Math.hypot(vx, vy);
+
+        if (speed > 0.05) {
+          // Bank with travel direction; +x → slight positive tilt
+          const headingDeg = (Math.atan2(vy, vx) * 180) / Math.PI;
+          // Map screen heading into a gentle bank (±MAX_TILT), not nose-pointing
+          const targetTilt = clamp((headingDeg / 90) * MAX_TILT, -MAX_TILT, MAX_TILT);
+          const blend = u > 0.88 ? 0.12 : 0.18;
+          smoothedAngle = lerp(smoothedAngle, targetTilt, blend);
+        }
+
+        // Level out into the perch
+        if (u > 0.9) {
+          const landT = (u - 0.9) / 0.1;
+          smoothedAngle = lerp(smoothedAngle, 0, landT * landT);
+        }
+
+        place(host, point, smoothedAngle);
+        prev = point;
+        angle = smoothedAngle;
+
+        if (!settled && elapsed >= settleAt) {
+          settled = true;
+          host.classList.add('is-settling');
+        }
+
+        if (u < 1) {
+          rafId = requestAnimationFrame(tick);
+          return;
+        }
+
+        rafId = 0;
+        // Hold spread pose briefly after the slowed flaps, then unlock hover
+        place(host, to, 0);
+        host.classList.add('is-settling');
+        if (settleTimer) window.clearTimeout(settleTimer);
+        settleTimer = window.setTimeout(() => {
+          settleTimer = 0;
+          finishLanding(to);
+        }, Math.min(180, settleMs * 0.35));
       };
-      const heading = (dx >= 0 ? 1 : -1) * clamp(6 + Math.abs(dx) * 0.015, 5, 14);
-      const endRotate = clamp(heading * 0.35, -8, 8);
 
-      const frames = [0, 0.12, 0.28, 0.45, 0.62, 0.78, 0.9, 1].map((t) => {
-        const eased = easeInOut(t);
-        const x = curve(from.x, mid.x, to.x, eased);
-        const y = curve(from.y, mid.y, to.y, eased);
-        const bob = Math.sin(t * Math.PI * 2.2) * (1 - t) * 10;
-        const bank = Math.sin(t * Math.PI) * heading;
-        const settle = t > 0.85 ? (t - 0.85) / 0.15 : 0;
-        const r = lerp(rotate + bank, endRotate, settle * settle);
-        return {
-          transform: `translate3d(${x}px, ${y + bob}px, 0) rotate(${r}deg)`,
-          offset: t,
-        };
-      });
-
-      flightAnim?.cancel();
-      flightAnim = host.animate(frames, {
-        duration,
-        easing: 'linear',
-        fill: 'forwards',
-      });
-
-      flightAnim.finished
-        .then(() => {
-          position = to;
-          rotate = endRotate;
-          place(host, position, rotate);
-          flightAnim?.cancel();
-          flightAnim = null;
-          stopFlappingAfterSpread();
-        })
-        .catch(() => {
-          /* cancelled */
-          position = to;
-          rotate = endRotate;
-          place(host, position, rotate);
-          host.classList.remove('is-flying');
-          flying = false;
-        });
+      rafId = requestAnimationFrame(tick);
     };
 
     const nearButterfly = (clientX: number, clientY: number) => {
@@ -519,7 +745,7 @@ const ASSET = '/animations/butterfly';
           x: clamp(position.x, minX, maxX),
           y: clamp(position.y, minY, maxY),
         };
-        if (!flying) place(host, position, rotate);
+        if (!flying) place(host, position, angle);
       },
       { signal, passive: true },
     );
@@ -533,7 +759,8 @@ const ASSET = '/animations/butterfly';
     );
 
     const cleanup = () => {
-      flightAnim?.cancel();
+      if (rafId) cancelAnimationFrame(rafId);
+      if (settleTimer) window.clearTimeout(settleTimer);
       abort.abort();
       watcher.disconnect();
     };

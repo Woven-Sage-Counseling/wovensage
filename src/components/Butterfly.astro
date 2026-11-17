@@ -242,17 +242,28 @@ const ASSET = '/animations/butterfly';
 
 <script>
   type Point = { x: number; y: number };
+  type Cell = { col: number; row: number; key: string };
+  type PickResult = {
+    point: Point;
+    cell: Cell;
+    distance: number;
+    reason: string;
+  };
 
   const EDGE = 40;
-  const MIN_TRAVEL = 180;
+  const MIN_TRAVEL_FLOOR = 160;
   const PROXIMITY = 56;
-  const CANDIDATE_COUNT = 28;
-  const HISTORY_RADIUS = 140;
+  const REARM_DISTANCE = 90;
+  const LANDING_COOLDOWN_MS = 500;
+  const CANDIDATES_PER_PASS = 100;
+  const GRID_COLS = 4;
+  const GRID_ROWS = 3;
   const FLIGHT_MIN_MS = 2500;
   const FLIGHT_MAX_MS = 4000;
   const SETTLE_MS_MIN = 300;
   const SETTLE_MS_MAX = 500;
   const MAX_TILT = 12;
+  const IS_DEV = import.meta.env.DEV;
 
   const hosts = document.querySelectorAll('[data-butterfly]');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -262,6 +273,10 @@ const ASSET = '/animations/butterfly';
   const rand = (min: number, max: number) => min + Math.random() * (max - min);
   const dist = (a: Point, b: Point) => Math.hypot(b.x - a.x, b.y - a.y);
 
+  const devLog = (...args: unknown[]) => {
+    if (IS_DEV) console.info('[butterfly]', ...args);
+  };
+
   const sizeOf = (el: HTMLElement) => {
     const styles = getComputedStyle(el);
     const raw = styles.getPropertyValue('--ws-butterfly-size').trim();
@@ -270,10 +285,21 @@ const ASSET = '/animations/butterfly';
     return el.getBoundingClientRect().width || 120;
   };
 
+  /** Usable top-left positions for a fixed element sized `size` (viewport px). */
   const viewportBounds = (size: number) => {
     const maxX = Math.max(EDGE, window.innerWidth - EDGE - size);
     const maxY = Math.max(EDGE, window.innerHeight - EDGE - size);
     return { minX: EDGE, minY: EDGE, maxX, maxY, size };
+  };
+
+  const preferredMinTravel = () => Math.max(220, window.innerWidth * 0.22);
+
+  const cellOf = (point: Point, bounds: ReturnType<typeof viewportBounds>): Cell => {
+    const spanX = Math.max(1, bounds.maxX - bounds.minX);
+    const spanY = Math.max(1, bounds.maxY - bounds.minY);
+    const col = clamp(Math.floor(((point.x - bounds.minX) / spanX) * GRID_COLS), 0, GRID_COLS - 1);
+    const row = clamp(Math.floor(((point.y - bounds.minY) / spanY) * GRID_ROWS), 0, GRID_ROWS - 1);
+    return { col, row, key: `${col},${row}` };
   };
 
   const avoidSelector = [
@@ -314,52 +340,179 @@ const ASSET = '/animations/butterfly';
     return true;
   };
 
-  const nearAny = (point: Point, list: Point[], radius: number) =>
-    list.some((p) => dist(point, p) < radius);
+  const wouldAlternate = (candidateKey: string, recentCells: string[]) => {
+    if (recentCells.length < 2) return false;
+    const current = recentCells[recentCells.length - 1]!;
+    const previous = recentCells[recentCells.length - 2]!;
+    // About to go current → candidate where candidate === previous (A↔B ping-pong)
+    return candidateKey === previous && current !== previous;
+  };
 
-  /** Uniform samples across the usable viewport; relax distance if needed. */
-  const pickDestination = (from: Point, size: number, recent: Point[]): Point => {
-    const { minX, minY, maxX, maxY } = viewportBounds(size);
-    const spanX = Math.max(1, maxX - minX);
-    const spanY = Math.max(1, maxY - minY);
-    const diagonal = Math.hypot(spanX, spanY);
+  const pickWeighted = <T,>(items: T[], weightOf: (item: T) => number): T => {
+    const weights = items.map((item) => Math.max(0.001, weightOf(item)));
+    const total = weights.reduce((sum, w) => sum + w, 0);
+    let r = Math.random() * total;
+    for (let i = 0; i < items.length; i++) {
+      r -= weights[i]!;
+      if (r <= 0) return items[i]!;
+    }
+    return items[items.length - 1]!;
+  };
 
-    const minDistances = [
-      Math.min(MIN_TRAVEL, diagonal * 0.28),
-      Math.min(140, diagonal * 0.2),
-      Math.min(90, diagonal * 0.14),
-      55,
-      28,
+  type Candidate = { point: Point; cell: Cell; distance: number; novel: boolean };
+
+  const sampleCandidates = (
+    from: Point,
+    size: number,
+    bounds: ReturnType<typeof viewportBounds>,
+    minDist: number,
+    recentCells: string[],
+    requireNovelCell: boolean,
+  ): Candidate[] => {
+    const spanX = Math.max(1, bounds.maxX - bounds.minX);
+    const spanY = Math.max(1, bounds.maxY - bounds.minY);
+    const currentKey = recentCells[recentCells.length - 1];
+    const found: Candidate[] = [];
+
+    for (let i = 0; i < CANDIDATES_PER_PASS; i++) {
+      const x = bounds.minX + Math.random() * spanX;
+      const y = bounds.minY + Math.random() * spanY;
+      const point = { x, y };
+      const distance = dist(from, point);
+      if (distance < minDist) continue;
+      if (!isSafeDestination(x, y, size)) continue;
+
+      const cell = cellOf(point, bounds);
+      const novel = !recentCells.includes(cell.key) && cell.key !== currentKey;
+      if (requireNovelCell && !novel) continue;
+      if (wouldAlternate(cell.key, recentCells)) continue;
+
+      found.push({ point, cell, distance, novel });
+    }
+
+    return found;
+  };
+
+  /**
+   * Prefer far, novel grid cells. Never relax below 160px.
+   * Exhaust 100-sample passes before softening cell/distance rules.
+   */
+  const pickDestination = (
+    from: Point,
+    size: number,
+    recentCells: string[],
+  ): PickResult => {
+    const bounds = viewportBounds(size);
+    const preferred = preferredMinTravel();
+
+    const passes: Array<{
+      minDist: number;
+      requireNovel: boolean;
+      label: string;
+    }> = [
+      { minDist: preferred, requireNovel: true, label: 'preferred-distance + novel cell' },
+      { minDist: preferred, requireNovel: false, label: 'preferred-distance (cell soft)' },
+      { minDist: MIN_TRAVEL_FLOOR, requireNovel: true, label: 'floor-distance + novel cell' },
+      { minDist: MIN_TRAVEL_FLOOR, requireNovel: false, label: 'floor-distance' },
     ];
 
-    for (const minDist of minDistances) {
-      const historyRadius = Math.max(72, Math.min(HISTORY_RADIUS, minDist * 0.75));
-      const valid: Point[] = [];
-
-      for (let i = 0; i < CANDIDATE_COUNT; i++) {
-        const x = minX + Math.random() * spanX;
-        const y = minY + Math.random() * spanY;
-        if (dist({ x, y }, from) < minDist) continue;
-        if (nearAny({ x, y }, recent, historyRadius)) continue;
-        if (!isSafeDestination(x, y, size)) continue;
-        valid.push({ x, y });
+    for (const pass of passes) {
+      const batch = sampleCandidates(
+        from,
+        size,
+        bounds,
+        pass.minDist,
+        recentCells,
+        pass.requireNovel,
+      );
+      if (batch.length === 0) {
+        devLog('pass empty — sampling more', pass.label, { minDist: pass.minDist });
+        continue;
       }
 
-      if (valid.length > 0) {
-        return valid[Math.floor(Math.random() * valid.length)]!;
+      const chosen = pickWeighted(batch, (c) => {
+        const distanceWeight = c.distance / preferred;
+        const noveltyWeight = c.novel ? 2.4 : recentCells.includes(c.cell.key) ? 0.35 : 1;
+        // Light bonus for leaving the current cell even when not fully novel
+        const leaveBonus =
+          recentCells[recentCells.length - 1] &&
+          c.cell.key !== recentCells[recentCells.length - 1]
+            ? 1.35
+            : 1;
+        return distanceWeight * noveltyWeight * leaveBonus;
+      });
+
+      const reason =
+        pass.label === 'preferred-distance + novel cell'
+          ? 'primary'
+          : `fallback: ${pass.label}`;
+
+      return {
+        point: chosen.point,
+        cell: chosen.cell,
+        distance: chosen.distance,
+        reason,
+      };
+    }
+
+    // Still nothing: keep sampling at the floor until a far-enough safe point appears.
+    // Never intentionally return a nearby fallback.
+    for (let round = 0; round < 8; round++) {
+      const batch = sampleCandidates(
+        from,
+        size,
+        bounds,
+        MIN_TRAVEL_FLOOR,
+        recentCells,
+        false,
+      );
+      if (batch.length > 0) {
+        const chosen = pickWeighted(batch, (c) => c.distance);
+        return {
+          point: chosen.point,
+          cell: chosen.cell,
+          distance: chosen.distance,
+          reason: `fallback: extended sampling round ${round + 1}`,
+        };
+      }
+      devLog('extended sampling empty', { round: round + 1, floor: MIN_TRAVEL_FLOOR });
+    }
+
+    // Absolute last resort: farthest safe random among a dense sweep (still ≥ floor when possible)
+    let best: Candidate | null = null;
+    const spanX = Math.max(1, bounds.maxX - bounds.minX);
+    const spanY = Math.max(1, bounds.maxY - bounds.minY);
+    for (let i = 0; i < CANDIDATES_PER_PASS * 2; i++) {
+      const point = {
+        x: bounds.minX + Math.random() * spanX,
+        y: bounds.minY + Math.random() * spanY,
+      };
+      if (!isSafeDestination(point.x, point.y, size)) continue;
+      const distance = dist(from, point);
+      if (distance < MIN_TRAVEL_FLOOR && best) continue;
+      if (!best || distance > best.distance) {
+        best = { point, cell: cellOf(point, bounds), distance, novel: true };
       }
     }
 
-    // Last resort: any safe spot in-bounds, ignoring history/distance.
-    for (let i = 0; i < 40; i++) {
-      const x = minX + Math.random() * spanX;
-      const y = minY + Math.random() * spanY;
-      if (isSafeDestination(x, y, size)) return { x, y };
+    if (best) {
+      return {
+        point: best.point,
+        cell: best.cell,
+        distance: best.distance,
+        reason: 'fallback: densest farthest safe point',
+      };
     }
 
+    const center = {
+      x: clamp((bounds.minX + bounds.maxX) / 2, bounds.minX, bounds.maxX),
+      y: clamp((bounds.minY + bounds.maxY) / 2, bounds.minY, bounds.maxY),
+    };
     return {
-      x: clamp((minX + maxX) / 2 + rand(-40, 40), minX, maxX),
-      y: clamp((minY + maxY) / 2 + rand(-40, 40), minY, maxY),
+      point: center,
+      cell: cellOf(center, bounds),
+      distance: dist(from, center),
+      reason: 'fallback: viewport center (no safe samples)',
     };
   };
 
@@ -563,8 +716,18 @@ const ASSET = '/animations/butterfly';
     return shaped * totalLength;
   };
 
-  const place = (el: HTMLElement, point: Point, angle = 0) => {
+  /**
+   * Single transform writer. Element stays `position: fixed; left:0; top:0`
+   * so translate X/Y ARE viewport top-left coordinates (no double-counting).
+   */
+  const writeTransform = (el: HTMLElement, point: Point, angle = 0) => {
     el.style.transform = `translate3d(${point.x}px, ${point.y}px, 0) rotate(${angle}deg)`;
+  };
+
+  /** Read the element's current viewport top-left after transforms. */
+  const readViewportTopLeft = (el: HTMLElement): Point => {
+    const r = el.getBoundingClientRect();
+    return { x: r.left, y: r.top };
   };
 
   for (const host of hosts) {
@@ -572,12 +735,19 @@ const ASSET = '/animations/butterfly';
 
     const abort = new AbortController();
     const { signal } = abort;
+    /** Settled position in absolute viewport coordinates (element top-left). */
     let position: Point = { x: EDGE + 24, y: EDGE + 96 };
     let angle = -6;
     let flying = false;
     let rafId = 0;
     let settleTimer = 0;
-    const recentLandings: Point[] = [];
+    const recentCells: string[] = [];
+
+    // Hover rearm: after landing, stay disarmed until pointer leaves far enough
+    let armed = true;
+    let pointerIsAway = true;
+    let landTime = 0;
+    let lastPointer: Point = { x: -9999, y: -9999 };
 
     const applyReduced = () => {
       host.classList.toggle('is-reduced', reduceMotion.matches);
@@ -588,62 +758,140 @@ const ASSET = '/animations/butterfly';
         if (settleTimer) window.clearTimeout(settleTimer);
         settleTimer = 0;
         flying = false;
+        armed = false;
       }
     };
 
-    const rememberLanding = (point: Point) => {
-      recentLandings.push({ ...point });
-      while (recentLandings.length > 3) recentLandings.shift();
+    const rememberCell = (point: Point) => {
+      const key = cellOf(point, viewportBounds(sizeOf(host))).key;
+      recentCells.push(key);
+      while (recentCells.length > 5) recentCells.shift();
+      return key;
+    };
+
+    /**
+     * Commit one clean settled transform (clears any prior flight matrix first).
+     * When leveled (angle 0), re-measure viewport top-left so stored coords match paint.
+     * While tilted, keep the intended translate — AABB ≠ translate origin when rotated.
+     */
+    const commitSettled = (point: Point, nextAngle = 0) => {
+      host.style.transform = '';
+      writeTransform(host, point, nextAngle);
+      if (nextAngle === 0) {
+        const measured = readViewportTopLeft(host);
+        writeTransform(host, measured, 0);
+        position = measured;
+      } else {
+        position = { x: point.x, y: point.y };
+      }
+      angle = nextAngle;
+      return { ...position };
+    };
+
+    const butterflyCenter = (): Point => {
+      const r = host.getBoundingClientRect();
+      return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+    };
+
+    const pointerDistance = (clientX: number, clientY: number) => {
+      const c = butterflyCenter();
+      return Math.hypot(clientX - c.x, clientY - c.y);
+    };
+
+    const nearButterfly = (clientX: number, clientY: number) => {
+      const r = host.getBoundingClientRect();
+      const radius = Math.max(r.width, r.height) / 2 + PROXIMITY;
+      return pointerDistance(clientX, clientY) <= radius;
+    };
+
+    const disarmAfterLanding = () => {
+      armed = false;
+      pointerIsAway = false;
+      landTime = performance.now();
+      // If the pointer is still on/near the butterfly, it must leave before rearm
+      if (pointerDistance(lastPointer.x, lastPointer.y) >= REARM_DISTANCE) {
+        pointerIsAway = true;
+      }
+    };
+
+    const tryRearm = (clientX: number, clientY: number) => {
+      if (armed || flying) return;
+      const away = pointerDistance(clientX, clientY) >= REARM_DISTANCE;
+      if (away) pointerIsAway = true;
+      const cooled = performance.now() - landTime >= LANDING_COOLDOWN_MS;
+      if (pointerIsAway && cooled && away) {
+        armed = true;
+        devLog('rearmed after leave + cooldown');
+      }
     };
 
     const initialPlace = () => {
       const size = sizeOf(host);
       const { minX, minY, maxX, maxY } = viewportBounds(size);
+      let next: Point;
       const hero = document.querySelector('.home-landing');
       if (hero instanceof HTMLElement) {
         const hr = hero.getBoundingClientRect();
-        position = {
+        next = {
           x: clamp(hr.left + hr.width * 0.08 - size / 2, minX, maxX),
           y: clamp(hr.top + hr.height * 0.2 - size / 2, minY, maxY),
         };
       } else {
-        position = { x: clamp(72, minX, maxX), y: clamp(150, minY, maxY) };
+        next = { x: clamp(72, minX, maxX), y: clamp(150, minY, maxY) };
       }
       const logo = document.querySelector('.home-landing__logo');
       if (logo instanceof Element) {
         const lr = logo.getBoundingClientRect();
-        const box = new DOMRect(position.x, position.y, size, size);
+        const box = new DOMRect(next.x, next.y, size, size);
         if (rectsOverlap(box, lr, 8)) {
-          position.y = clamp(lr.bottom + 12, minY, maxY);
+          next.y = clamp(lr.bottom + 12, minY, maxY);
         }
       }
-      angle = -6;
-      place(host, position, angle);
-      rememberLanding(position);
+      commitSettled(next, -6);
+      rememberCell(position);
+      armed = true;
+      pointerIsAway = true;
     };
 
     const finishLanding = (to: Point) => {
-      position = to;
-      angle = 0;
-      place(host, position, angle);
-      rememberLanding(to);
+      const settled = commitSettled(to, 0);
+      rememberCell(settled);
       host.classList.remove('is-flying', 'is-settling');
       flying = false;
+      disarmAfterLanding();
+      devLog('landed', {
+        position: settled,
+        cell: cellOf(settled, viewportBounds(sizeOf(host))).key,
+        recentCells: [...recentCells],
+      });
     };
 
     const fly = () => {
-      if (flying || reduceMotion.matches) return;
+      if (flying || reduceMotion.matches || !armed) return;
 
       const size = sizeOf(host);
-      const from = { ...position };
-      const to = pickDestination(from, size, recentLandings);
-      if (dist(from, to) < 12) return;
+      // Level and re-commit stored viewport translate — never stack a new transform on a residual
+      const from = commitSettled({ ...position }, 0);
+      const pick = pickDestination(from, size, recentCells);
+      const to = pick.point;
+
+      if (pick.distance < MIN_TRAVEL_FLOOR) {
+        devLog('abort flight — destination below floor', pick);
+        return;
+      }
+
+      devLog('flight', {
+        from,
+        to: pick.point,
+        distance: Math.round(pick.distance),
+        gridCell: pick.cell.key,
+        reason: pick.reason,
+      });
 
       const waypoints = buildWaypoints(from, to, size);
       const { samples, cumulative, totalLength } = samplePath(waypoints);
       if (totalLength < 8 || samples.length < 2) return;
 
-      // Duration from path length + wander, clamped to 2.5–4s
       const duration = clamp(
         2100 + totalLength * 2.1 + rand(-220, 320),
         FLIGHT_MIN_MS,
@@ -653,6 +901,7 @@ const ASSET = '/animations/butterfly';
       const settleAt = duration - settleMs;
 
       flying = true;
+      armed = false;
       host.classList.add('is-flying');
       host.classList.remove('is-settling');
 
@@ -673,21 +922,18 @@ const ASSET = '/animations/butterfly';
         const speed = Math.hypot(vx, vy);
 
         if (speed > 0.05) {
-          // Bank with travel direction; +x → slight positive tilt
           const headingDeg = (Math.atan2(vy, vx) * 180) / Math.PI;
-          // Map screen heading into a gentle bank (±MAX_TILT), not nose-pointing
           const targetTilt = clamp((headingDeg / 90) * MAX_TILT, -MAX_TILT, MAX_TILT);
           const blend = u > 0.88 ? 0.12 : 0.18;
           smoothedAngle = lerp(smoothedAngle, targetTilt, blend);
         }
 
-        // Level out into the perch
         if (u > 0.9) {
           const landT = (u - 0.9) / 0.1;
           smoothedAngle = lerp(smoothedAngle, 0, landT * landT);
         }
 
-        place(host, point, smoothedAngle);
+        writeTransform(host, point, smoothedAngle);
         prev = point;
         angle = smoothedAngle;
 
@@ -702,8 +948,7 @@ const ASSET = '/animations/butterfly';
         }
 
         rafId = 0;
-        // Hold spread pose briefly after the slowed flaps, then unlock hover
-        place(host, to, 0);
+        writeTransform(host, to, 0);
         host.classList.add('is-settling');
         if (settleTimer) window.clearTimeout(settleTimer);
         settleTimer = window.setTimeout(() => {
@@ -715,24 +960,40 @@ const ASSET = '/animations/butterfly';
       rafId = requestAnimationFrame(tick);
     };
 
-    const nearButterfly = (clientX: number, clientY: number) => {
-      const r = host.getBoundingClientRect();
-      const cx = r.left + r.width / 2;
-      const cy = r.top + r.height / 2;
-      const radius = Math.max(r.width, r.height) / 2 + PROXIMITY;
-      return Math.hypot(clientX - cx, clientY - cy) <= radius;
+    /** Genuine new entry after rearm — not while still hovering from the last landing. */
+    const onPointerActivity = (clientX: number, clientY: number, isEnter: boolean) => {
+      lastPointer = { x: clientX, y: clientY };
+      if (flying || reduceMotion.matches) return;
+
+      if (!armed) {
+        tryRearm(clientX, clientY);
+        return;
+      }
+
+      const near = nearButterfly(clientX, clientY);
+      if (!near) {
+        pointerIsAway = true;
+        return;
+      }
+
+      // Armed + currently near: only take off on a fresh entry from away
+      if (pointerIsAway || isEnter) {
+        pointerIsAway = false;
+        fly();
+      }
     };
 
     applyReduced();
     initialPlace();
 
-    host.addEventListener('pointerenter', fly, { signal });
+    host.addEventListener(
+      'pointerenter',
+      (event) => onPointerActivity(event.clientX, event.clientY, true),
+      { signal },
+    );
     window.addEventListener(
       'pointermove',
-      (event) => {
-        if (flying || reduceMotion.matches) return;
-        if (nearButterfly(event.clientX, event.clientY)) fly();
-      },
+      (event) => onPointerActivity(event.clientX, event.clientY, false),
       { signal, passive: true },
     );
 
@@ -741,11 +1002,11 @@ const ASSET = '/animations/butterfly';
       () => {
         const size = sizeOf(host);
         const { minX, minY, maxX, maxY } = viewportBounds(size);
-        position = {
+        const next = {
           x: clamp(position.x, minX, maxX),
           y: clamp(position.y, minY, maxY),
         };
-        if (!flying) place(host, position, angle);
+        if (!flying) commitSettled(next, angle);
       },
       { signal, passive: true },
     );

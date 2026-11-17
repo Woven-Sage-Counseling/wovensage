@@ -82,10 +82,10 @@ const ASSET = '/animations/butterfly';
 <style>
   .ws-butterfly {
     --ws-butterfly-size: 120px;
-    position: fixed;
+    position: absolute;
     left: 0;
     top: 0;
-    z-index: 35;
+    z-index: 14;
     width: var(--ws-butterfly-size);
     height: var(--ws-butterfly-size);
     margin: 0;
@@ -98,8 +98,11 @@ const ASSET = '/animations/butterfly';
     pointer-events: auto;
     cursor: default;
     will-change: transform;
-    /* Hit area a bit larger than the art for “approach” feel */
     touch-action: manipulation;
+  }
+
+  .ws-butterfly.is-inert {
+    pointer-events: none;
   }
 
   .ws-butterfly__art {
@@ -243,6 +246,7 @@ const ASSET = '/animations/butterfly';
 <script>
   type Point = { x: number; y: number };
   type Cell = { col: number; row: number; key: string };
+  type Bounds = { minX: number; minY: number; maxX: number; maxY: number; size: number };
   type PickResult = {
     point: Point;
     cell: Cell;
@@ -285,16 +289,23 @@ const ASSET = '/animations/butterfly';
     return el.getBoundingClientRect().width || 120;
   };
 
-  /** Usable top-left positions for a fixed element sized `size` (viewport px). */
-  const viewportBounds = (size: number) => {
-    const maxX = Math.max(EDGE, window.innerWidth - EDGE - size);
-    const maxY = Math.max(EDGE, window.innerHeight - EDGE - size);
-    return { minX: EDGE, minY: EDGE, maxX, maxY, size };
+  /** Usable top-left positions inside the hero (hero-local px). */
+  const heroBounds = (hero: HTMLElement, size: number): Bounds => {
+    const w = hero.clientWidth;
+    const h = hero.clientHeight;
+    return {
+      minX: EDGE,
+      minY: EDGE,
+      maxX: Math.max(EDGE, w - EDGE - size),
+      maxY: Math.max(EDGE, h - EDGE - size),
+      size,
+    };
   };
 
-  const preferredMinTravel = () => Math.max(220, window.innerWidth * 0.22);
+  const preferredMinTravel = (hero: HTMLElement) =>
+    Math.max(220, Math.min(hero.clientWidth, hero.clientHeight) * 0.22);
 
-  const cellOf = (point: Point, bounds: ReturnType<typeof viewportBounds>): Cell => {
+  const cellOf = (point: Point, bounds: Bounds): Cell => {
     const spanX = Math.max(1, bounds.maxX - bounds.minX);
     const spanY = Math.max(1, bounds.maxY - bounds.minY);
     const col = clamp(Math.floor(((point.x - bounds.minX) / spanX) * GRID_COLS), 0, GRID_COLS - 1);
@@ -313,6 +324,7 @@ const ASSET = '/animations/butterfly';
     '.home-landing__title',
     '.home-landing__title-img',
     '.home-landing__cta',
+    '.home-landing__consult',
     '.home-landing__figure',
     '.home-landing__art',
     '.home-landing__logo',
@@ -327,9 +339,15 @@ const ASSET = '/animations/butterfly';
       a.top - pad > b.bottom
     );
 
-  const isSafeDestination = (x: number, y: number, size: number) => {
-    const candidate = new DOMRect(x, y, size, size);
-    const nodes = document.querySelectorAll(avoidSelector);
+  /** Overlap test in viewport space; `local` is hero-local top-left. */
+  const isSafeDestination = (
+    hero: HTMLElement,
+    local: Point,
+    size: number,
+  ) => {
+    const hr = hero.getBoundingClientRect();
+    const candidate = new DOMRect(hr.left + local.x, hr.top + local.y, size, size);
+    const nodes = hero.querySelectorAll(avoidSelector);
     for (const node of nodes) {
       if (!(node instanceof Element)) continue;
       if (node.closest('[data-butterfly]')) continue;
@@ -344,7 +362,6 @@ const ASSET = '/animations/butterfly';
     if (recentCells.length < 2) return false;
     const current = recentCells[recentCells.length - 1]!;
     const previous = recentCells[recentCells.length - 2]!;
-    // About to go current → candidate where candidate === previous (A↔B ping-pong)
     return candidateKey === previous && current !== previous;
   };
 
@@ -362,9 +379,10 @@ const ASSET = '/animations/butterfly';
   type Candidate = { point: Point; cell: Cell; distance: number; novel: boolean };
 
   const sampleCandidates = (
+    hero: HTMLElement,
     from: Point,
     size: number,
-    bounds: ReturnType<typeof viewportBounds>,
+    bounds: Bounds,
     minDist: number,
     recentCells: string[],
     requireNovelCell: boolean,
@@ -375,12 +393,13 @@ const ASSET = '/animations/butterfly';
     const found: Candidate[] = [];
 
     for (let i = 0; i < CANDIDATES_PER_PASS; i++) {
-      const x = bounds.minX + Math.random() * spanX;
-      const y = bounds.minY + Math.random() * spanY;
-      const point = { x, y };
+      const point = {
+        x: bounds.minX + Math.random() * spanX,
+        y: bounds.minY + Math.random() * spanY,
+      };
       const distance = dist(from, point);
       if (distance < minDist) continue;
-      if (!isSafeDestination(x, y, size)) continue;
+      if (!isSafeDestination(hero, point, size)) continue;
 
       const cell = cellOf(point, bounds);
       const novel = !recentCells.includes(cell.key) && cell.key !== currentKey;
@@ -393,31 +412,29 @@ const ASSET = '/animations/butterfly';
     return found;
   };
 
-  /**
-   * Prefer far, novel grid cells. Never relax below 160px.
-   * Exhaust 100-sample passes before softening cell/distance rules.
-   */
   const pickDestination = (
+    hero: HTMLElement,
     from: Point,
     size: number,
     recentCells: string[],
   ): PickResult => {
-    const bounds = viewportBounds(size);
-    const preferred = preferredMinTravel();
+    const bounds = heroBounds(hero, size);
+    const preferred = Math.min(
+      preferredMinTravel(hero),
+      Math.hypot(bounds.maxX - bounds.minX, bounds.maxY - bounds.minY) * 0.85,
+    );
+    const floor = Math.min(MIN_TRAVEL_FLOOR, preferred);
 
-    const passes: Array<{
-      minDist: number;
-      requireNovel: boolean;
-      label: string;
-    }> = [
+    const passes: Array<{ minDist: number; requireNovel: boolean; label: string }> = [
       { minDist: preferred, requireNovel: true, label: 'preferred-distance + novel cell' },
       { minDist: preferred, requireNovel: false, label: 'preferred-distance (cell soft)' },
-      { minDist: MIN_TRAVEL_FLOOR, requireNovel: true, label: 'floor-distance + novel cell' },
-      { minDist: MIN_TRAVEL_FLOOR, requireNovel: false, label: 'floor-distance' },
+      { minDist: floor, requireNovel: true, label: 'floor-distance + novel cell' },
+      { minDist: floor, requireNovel: false, label: 'floor-distance' },
     ];
 
     for (const pass of passes) {
       const batch = sampleCandidates(
+        hero,
         from,
         size,
         bounds,
@@ -431,9 +448,8 @@ const ASSET = '/animations/butterfly';
       }
 
       const chosen = pickWeighted(batch, (c) => {
-        const distanceWeight = c.distance / preferred;
+        const distanceWeight = c.distance / Math.max(1, preferred);
         const noveltyWeight = c.novel ? 2.4 : recentCells.includes(c.cell.key) ? 0.35 : 1;
-        // Light bonus for leaving the current cell even when not fully novel
         const leaveBonus =
           recentCells[recentCells.length - 1] &&
           c.cell.key !== recentCells[recentCells.length - 1]
@@ -442,30 +458,19 @@ const ASSET = '/animations/butterfly';
         return distanceWeight * noveltyWeight * leaveBonus;
       });
 
-      const reason =
-        pass.label === 'preferred-distance + novel cell'
-          ? 'primary'
-          : `fallback: ${pass.label}`;
-
       return {
         point: chosen.point,
         cell: chosen.cell,
         distance: chosen.distance,
-        reason,
+        reason:
+          pass.label === 'preferred-distance + novel cell'
+            ? 'primary'
+            : `fallback: ${pass.label}`,
       };
     }
 
-    // Still nothing: keep sampling at the floor until a far-enough safe point appears.
-    // Never intentionally return a nearby fallback.
     for (let round = 0; round < 8; round++) {
-      const batch = sampleCandidates(
-        from,
-        size,
-        bounds,
-        MIN_TRAVEL_FLOOR,
-        recentCells,
-        false,
-      );
+      const batch = sampleCandidates(hero, from, size, bounds, floor, recentCells, false);
       if (batch.length > 0) {
         const chosen = pickWeighted(batch, (c) => c.distance);
         return {
@@ -475,10 +480,8 @@ const ASSET = '/animations/butterfly';
           reason: `fallback: extended sampling round ${round + 1}`,
         };
       }
-      devLog('extended sampling empty', { round: round + 1, floor: MIN_TRAVEL_FLOOR });
     }
 
-    // Absolute last resort: farthest safe random among a dense sweep (still ≥ floor when possible)
     let best: Candidate | null = null;
     const spanX = Math.max(1, bounds.maxX - bounds.minX);
     const spanY = Math.max(1, bounds.maxY - bounds.minY);
@@ -487,9 +490,9 @@ const ASSET = '/animations/butterfly';
         x: bounds.minX + Math.random() * spanX,
         y: bounds.minY + Math.random() * spanY,
       };
-      if (!isSafeDestination(point.x, point.y, size)) continue;
+      if (!isSafeDestination(hero, point, size)) continue;
       const distance = dist(from, point);
-      if (distance < MIN_TRAVEL_FLOOR && best) continue;
+      if (distance < floor && best) continue;
       if (!best || distance > best.distance) {
         best = { point, cell: cellOf(point, bounds), distance, novel: true };
       }
@@ -512,12 +515,12 @@ const ASSET = '/animations/butterfly';
       point: center,
       cell: cellOf(center, bounds),
       distance: dist(from, center),
-      reason: 'fallback: viewport center (no safe samples)',
+      reason: 'fallback: hero center (no safe samples)',
     };
   };
 
-  const clampPoint = (p: Point, size: number): Point => {
-    const { minX, minY, maxX, maxY } = viewportBounds(size);
+  const clampPoint = (hero: HTMLElement, p: Point, size: number): Point => {
+    const { minX, minY, maxX, maxY } = heroBounds(hero, size);
     return { x: clamp(p.x, minX, maxX), y: clamp(p.y, minY, maxY) };
   };
 
@@ -541,7 +544,12 @@ const ASSET = '/animations/butterfly';
     };
   };
 
-  const buildWaypoints = (from: Point, to: Point, size: number): Point[] => {
+  const buildWaypoints = (
+    hero: HTMLElement,
+    from: Point,
+    to: Point,
+    size: number,
+  ): Point[] => {
     const dx = to.x - from.x;
     const dy = to.y - from.y;
     const length = Math.max(1, Math.hypot(dx, dy));
@@ -553,10 +561,10 @@ const ASSET = '/animations/butterfly';
     const count = 6 + Math.floor(Math.random() * 5); // 6–10
     const points: Point[] = [from];
 
-    // Small upward lift off the perch
     const lift = clamp(28 + Math.random() * 36, 24, 70);
     points.push(
       clampPoint(
+        hero,
         {
           x: from.x + ux * length * rand(0.04, 0.1) + px * rand(-12, 12),
           y: from.y - lift,
@@ -565,8 +573,7 @@ const ASSET = '/animations/butterfly';
       ),
     );
 
-    const midCount = count - 3; // lift + mids + overshoot handled separately; ensure totals ~6–10
-    const flutterCount = Math.max(3, midCount);
+    const flutterCount = Math.max(3, count - 3);
 
     let side = Math.random() < 0.5 ? 1 : -1;
     const bigArcSlots = new Set<number>();
@@ -581,7 +588,6 @@ const ASSET = '/animations/butterfly';
 
     for (let i = 1; i <= flutterCount; i++) {
       const t = i / (flutterCount + 1);
-      // Progress along the chord with slight uneven spacing
       const along = length * clamp(t + rand(-0.04, 0.04), 0.08, 0.92);
       const baseX = from.x + ux * along;
       const baseY = from.y + uy * along;
@@ -589,11 +595,11 @@ const ASSET = '/animations/butterfly';
       const isBig = bigArcSlots.has(i);
       const amp = isBig ? rand(48, 92) : rand(14, 38);
       const vert = isBig ? rand(-36, 28) : rand(-22, 26);
-      // Alternate side with occasional skip so it isn't a perfect zigzag
       if (Math.random() > 0.18) side *= -1;
 
       points.push(
         clampPoint(
+          hero,
           {
             x: baseX + px * side * amp + rand(-10, 10),
             y: baseY + py * side * amp * 0.55 + vert + rand(-8, 8),
@@ -603,11 +609,11 @@ const ASSET = '/animations/butterfly';
       );
     }
 
-    // Brief overshoot / soft circle before settling
     const overshoot = rand(18, 42);
     const circleSide = Math.random() < 0.5 ? 1 : -1;
     points.push(
       clampPoint(
+        hero,
         {
           x: to.x + ux * overshoot + px * circleSide * rand(16, 36),
           y: to.y + uy * overshoot * 0.35 + rand(-14, 10),
@@ -618,6 +624,7 @@ const ASSET = '/animations/butterfly';
     if (Math.random() < 0.65) {
       points.push(
         clampPoint(
+          hero,
           {
             x: to.x + px * -circleSide * rand(10, 28),
             y: to.y - rand(6, 20),
@@ -717,85 +724,111 @@ const ASSET = '/animations/butterfly';
   };
 
   /**
-   * Single transform writer. Element stays `position: fixed; left:0; top:0`
-   * so translate X/Y ARE viewport top-left coordinates (no double-counting).
+   * `position: absolute; left:0; top:0` inside the hero — translate X/Y are hero-local.
    */
   const writeTransform = (el: HTMLElement, point: Point, angle = 0) => {
     el.style.transform = `translate3d(${point.x}px, ${point.y}px, 0) rotate(${angle}deg)`;
   };
 
-  /** Read the element's current viewport top-left after transforms. */
-  const readViewportTopLeft = (el: HTMLElement): Point => {
-    const r = el.getBoundingClientRect();
-    return { x: r.left, y: r.top };
-  };
-
   for (const host of hosts) {
     if (!(host instanceof HTMLElement)) continue;
 
+    const hero =
+      host.closest<HTMLElement>('[data-butterfly-hero]') ??
+      host.closest<HTMLElement>('.home-landing');
+    if (!hero) continue;
+
     const abort = new AbortController();
     const { signal } = abort;
-    /** Settled position in absolute viewport coordinates (element top-left). */
+
+    /** Settled top-left in hero-local coordinates. */
     let position: Point = { x: EDGE + 24, y: EDGE + 96 };
-    let angle = -6;
+    let angle = 0;
     let flying = false;
+    let heroVisible = true;
     let rafId = 0;
     let settleTimer = 0;
+    let rearmTimer = 0;
     const recentCells: string[] = [];
 
-    // Hover rearm: after landing, stay disarmed until pointer leaves far enough
     let armed = true;
     let pointerIsAway = true;
     let landTime = 0;
     let lastPointer: Point = { x: -9999, y: -9999 };
 
+    const setInteractive = (on: boolean) => {
+      host.style.pointerEvents = on ? 'auto' : 'none';
+      host.classList.toggle('is-inert', !on);
+    };
+
+    const logState = (label: string, extra: Record<string, unknown> = {}) => {
+      devLog(label, {
+        heroVisible,
+        flying,
+        armed,
+        pointerIsAway,
+        ...extra,
+      });
+    };
+
+    const clearFlightTimers = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = 0;
+      if (settleTimer) window.clearTimeout(settleTimer);
+      settleTimer = 0;
+      if (rearmTimer) window.clearTimeout(rearmTimer);
+      rearmTimer = 0;
+    };
+
     const applyReduced = () => {
       host.classList.toggle('is-reduced', reduceMotion.matches);
       if (reduceMotion.matches) {
         host.classList.remove('is-flying', 'is-settling');
-        if (rafId) cancelAnimationFrame(rafId);
-        rafId = 0;
-        if (settleTimer) window.clearTimeout(settleTimer);
-        settleTimer = 0;
+        clearFlightTimers();
         flying = false;
         armed = false;
+        setInteractive(false);
       }
     };
 
     const rememberCell = (point: Point) => {
-      const key = cellOf(point, viewportBounds(sizeOf(host))).key;
+      const key = cellOf(point, heroBounds(hero, sizeOf(host))).key;
       recentCells.push(key);
       while (recentCells.length > 5) recentCells.shift();
       return key;
     };
 
-    /**
-     * Commit one clean settled transform (clears any prior flight matrix first).
-     * When leveled (angle 0), re-measure viewport top-left so stored coords match paint.
-     * While tilted, keep the intended translate — AABB ≠ translate origin when rotated.
-     */
+    /** Measure painted top-left in hero-local space (level pose only). */
+    const readLocalTopLeft = (): Point => {
+      const hr = hero.getBoundingClientRect();
+      const r = host.getBoundingClientRect();
+      return { x: r.left - hr.left, y: r.top - hr.top };
+    };
+
     const commitSettled = (point: Point, nextAngle = 0) => {
       host.style.transform = '';
-      writeTransform(host, point, nextAngle);
+      const bounds = heroBounds(hero, sizeOf(host));
+      const clamped = {
+        x: clamp(point.x, bounds.minX, bounds.maxX),
+        y: clamp(point.y, bounds.minY, bounds.maxY),
+      };
+      writeTransform(host, clamped, nextAngle);
       if (nextAngle === 0) {
-        const measured = readViewportTopLeft(host);
+        const measured = readLocalTopLeft();
         writeTransform(host, measured, 0);
         position = measured;
       } else {
-        position = { x: point.x, y: point.y };
+        position = clamped;
       }
       angle = nextAngle;
       return { ...position };
     };
 
-    const butterflyCenter = (): Point => {
-      const r = host.getBoundingClientRect();
-      return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
-    };
-
     const pointerDistance = (clientX: number, clientY: number) => {
-      const c = butterflyCenter();
-      return Math.hypot(clientX - c.x, clientY - c.y);
+      const r = host.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      return Math.hypot(clientX - cx, clientY - cy);
     };
 
     const nearButterfly = (clientX: number, clientY: number) => {
@@ -804,83 +837,119 @@ const ASSET = '/animations/butterfly';
       return pointerDistance(clientX, clientY) <= radius;
     };
 
-    const disarmAfterLanding = () => {
-      armed = false;
-      pointerIsAway = false;
-      landTime = performance.now();
-      // If the pointer is still on/near the butterfly, it must leave before rearm
-      if (pointerDistance(lastPointer.x, lastPointer.y) >= REARM_DISTANCE) {
-        pointerIsAway = true;
-      }
+    const rearm = (via: 'automatic' | 'pointermove') => {
+      if (armed || flying || !heroVisible || reduceMotion.matches) return;
+      armed = true;
+      pointerIsAway = true;
+      setInteractive(true);
+      logState('rearmed', {
+        via,
+        pointerDistance: pointerDistance(lastPointer.x, lastPointer.y),
+      });
     };
 
-    const tryRearm = (clientX: number, clientY: number) => {
-      if (armed || flying) return;
-      const away = pointerDistance(clientX, clientY) >= REARM_DISTANCE;
+    const tryRearmFromPointer = (clientX: number, clientY: number) => {
+      if (armed || flying || !heroVisible) return;
+      const distance = pointerDistance(clientX, clientY);
+      const away = distance >= REARM_DISTANCE;
       if (away) pointerIsAway = true;
       const cooled = performance.now() - landTime >= LANDING_COOLDOWN_MS;
-      if (pointerIsAway && cooled && away) {
-        armed = true;
-        devLog('rearmed after leave + cooldown');
-      }
+      if (away && cooled) rearm('pointermove');
+    };
+
+    /** After cooldown, auto-rearm if the butterfly already left the pointer behind. */
+    const scheduleRearmCheck = () => {
+      if (rearmTimer) window.clearTimeout(rearmTimer);
+      rearmTimer = window.setTimeout(() => {
+        rearmTimer = 0;
+        if (armed || flying || !heroVisible) return;
+        const distance = pointerDistance(lastPointer.x, lastPointer.y);
+        logState('rearm cooldown elapsed', { pointerDistance: distance });
+        if (distance >= REARM_DISTANCE) {
+          rearm('automatic');
+        }
+      }, LANDING_COOLDOWN_MS);
+    };
+
+    const disarmAfterLanding = (pointerDistAtLand: number) => {
+      armed = false;
+      pointerIsAway = pointerDistAtLand >= REARM_DISTANCE;
+      landTime = performance.now();
+      setInteractive(true); // keep hit-testing available once rearmed; never leave none stuck
+      logState('disarmed after landing', { pointerDistance: pointerDistAtLand });
+      scheduleRearmCheck();
     };
 
     const initialPlace = () => {
       const size = sizeOf(host);
-      const { minX, minY, maxX, maxY } = viewportBounds(size);
-      let next: Point;
-      const hero = document.querySelector('.home-landing');
-      if (hero instanceof HTMLElement) {
-        const hr = hero.getBoundingClientRect();
-        next = {
-          x: clamp(hr.left + hr.width * 0.08 - size / 2, minX, maxX),
-          y: clamp(hr.top + hr.height * 0.2 - size / 2, minY, maxY),
-        };
-      } else {
-        next = { x: clamp(72, minX, maxX), y: clamp(150, minY, maxY) };
-      }
-      const logo = document.querySelector('.home-landing__logo');
+      const bounds = heroBounds(hero, size);
+      let next: Point = {
+        x: clamp(hero.clientWidth * 0.08 - size / 2, bounds.minX, bounds.maxX),
+        y: clamp(hero.clientHeight * 0.2 - size / 2, bounds.minY, bounds.maxY),
+      };
+
+      const logo = hero.querySelector('.home-landing__logo');
       if (logo instanceof Element) {
+        const hr = hero.getBoundingClientRect();
         const lr = logo.getBoundingClientRect();
+        const localLogo = {
+          left: lr.left - hr.left,
+          right: lr.right - hr.left,
+          top: lr.top - hr.top,
+          bottom: lr.bottom - hr.top,
+        };
         const box = new DOMRect(next.x, next.y, size, size);
-        if (rectsOverlap(box, lr, 8)) {
-          next.y = clamp(lr.bottom + 12, minY, maxY);
+        const logoBox = new DOMRect(
+          localLogo.left,
+          localLogo.top,
+          localLogo.right - localLogo.left,
+          localLogo.bottom - localLogo.top,
+        );
+        if (rectsOverlap(box, logoBox, 8)) {
+          next.y = clamp(localLogo.bottom + 12, bounds.minY, bounds.maxY);
         }
       }
+
       commitSettled(next, -6);
       rememberCell(position);
       armed = true;
       pointerIsAway = true;
+      setInteractive(true);
     };
 
     const finishLanding = (to: Point) => {
       const settled = commitSettled(to, 0);
       rememberCell(settled);
       host.classList.remove('is-flying', 'is-settling');
+      const pointerDistAtLand = pointerDistance(lastPointer.x, lastPointer.y);
       flying = false;
-      disarmAfterLanding();
-      devLog('landed', {
+      setInteractive(true);
+      disarmAfterLanding(pointerDistAtLand);
+      logState('landing committed', {
         position: settled,
-        cell: cellOf(settled, viewportBounds(sizeOf(host))).key,
-        recentCells: [...recentCells],
+        cell: cellOf(settled, heroBounds(hero, sizeOf(host))).key,
+        pointerDistance: pointerDistAtLand,
       });
     };
 
     const fly = () => {
-      if (flying || reduceMotion.matches || !armed) return;
+      if (flying || reduceMotion.matches || !armed || !heroVisible) return;
 
       const size = sizeOf(host);
-      // Level and re-commit stored viewport translate — never stack a new transform on a residual
       const from = commitSettled({ ...position }, 0);
-      const pick = pickDestination(from, size, recentCells);
+      const pick = pickDestination(hero, from, size, recentCells);
       const to = pick.point;
+      const floor = Math.min(
+        MIN_TRAVEL_FLOOR,
+        preferredMinTravel(hero),
+      );
 
-      if (pick.distance < MIN_TRAVEL_FLOOR) {
+      if (pick.distance < floor * 0.9) {
         devLog('abort flight — destination below floor', pick);
         return;
       }
 
-      devLog('flight', {
+      logState('flight start', {
         from,
         to: pick.point,
         distance: Math.round(pick.distance),
@@ -888,7 +957,7 @@ const ASSET = '/animations/butterfly';
         reason: pick.reason,
       });
 
-      const waypoints = buildWaypoints(from, to, size);
+      const waypoints = buildWaypoints(hero, from, to, size);
       const { samples, cumulative, totalLength } = samplePath(waypoints);
       if (totalLength < 8 || samples.length < 2) return;
 
@@ -902,13 +971,14 @@ const ASSET = '/animations/butterfly';
 
       flying = true;
       armed = false;
+      setInteractive(true);
       host.classList.add('is-flying');
       host.classList.remove('is-settling');
 
       const startAngle = angle;
       let prev = from;
       let smoothedAngle = startAngle;
-      let settled = false;
+      let settling = false;
       const t0 = performance.now();
 
       const tick = (now: number) => {
@@ -937,8 +1007,8 @@ const ASSET = '/animations/butterfly';
         prev = point;
         angle = smoothedAngle;
 
-        if (!settled && elapsed >= settleAt) {
-          settled = true;
+        if (!settling && elapsed >= settleAt) {
+          settling = true;
           host.classList.add('is-settling');
         }
 
@@ -960,13 +1030,12 @@ const ASSET = '/animations/butterfly';
       rafId = requestAnimationFrame(tick);
     };
 
-    /** Genuine new entry after rearm — not while still hovering from the last landing. */
     const onPointerActivity = (clientX: number, clientY: number, isEnter: boolean) => {
       lastPointer = { x: clientX, y: clientY };
-      if (flying || reduceMotion.matches) return;
+      if (flying || reduceMotion.matches || !heroVisible) return;
 
       if (!armed) {
-        tryRearm(clientX, clientY);
+        tryRearmFromPointer(clientX, clientY);
         return;
       }
 
@@ -976,7 +1045,6 @@ const ASSET = '/animations/butterfly';
         return;
       }
 
-      // Armed + currently near: only take off on a fresh entry from away
       if (pointerIsAway || isEnter) {
         pointerIsAway = false;
         fly();
@@ -991,6 +1059,8 @@ const ASSET = '/animations/butterfly';
       (event) => onPointerActivity(event.clientX, event.clientY, true),
       { signal },
     );
+
+    // Document-level moves: rearm even when the pointer never re-enters the butterfly
     window.addEventListener(
       'pointermove',
       (event) => onPointerActivity(event.clientX, event.clientY, false),
@@ -1000,16 +1070,35 @@ const ASSET = '/animations/butterfly';
     window.addEventListener(
       'resize',
       () => {
-        const size = sizeOf(host);
-        const { minX, minY, maxX, maxY } = viewportBounds(size);
+        const bounds = heroBounds(hero, sizeOf(host));
         const next = {
-          x: clamp(position.x, minX, maxX),
-          y: clamp(position.y, minY, maxY),
+          x: clamp(position.x, bounds.minX, bounds.maxX),
+          y: clamp(position.y, bounds.minY, bounds.maxY),
         };
         if (!flying) commitSettled(next, angle);
       },
       { signal, passive: true },
     );
+
+    const visibility = new IntersectionObserver(
+      ([entry]) => {
+        heroVisible = Boolean(entry?.isIntersecting);
+        logState('hero visibility', { ratio: entry?.intersectionRatio ?? 0 });
+        if (!heroVisible) {
+          // Disable interaction while scrolled away; do not cancel an in-flight animation mid-air
+          if (!flying) {
+            armed = false;
+            setInteractive(false);
+          }
+        } else if (!flying && !reduceMotion.matches) {
+          setInteractive(true);
+          // Re-evaluate rearm against last known pointer now that hero is back
+          scheduleRearmCheck();
+        }
+      },
+      { threshold: 0.05 },
+    );
+    visibility.observe(hero);
 
     reduceMotion.addEventListener(
       'change',
@@ -1020,8 +1109,8 @@ const ASSET = '/animations/butterfly';
     );
 
     const cleanup = () => {
-      if (rafId) cancelAnimationFrame(rafId);
-      if (settleTimer) window.clearTimeout(settleTimer);
+      clearFlightTimers();
+      visibility.disconnect();
       abort.abort();
       watcher.disconnect();
     };

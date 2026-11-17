@@ -3064,6 +3064,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   display: flex;
   flex-direction: column;
   min-height: 100svh;
+  /* Keep visible so the thread figure can bleed; butterfly stays in-bounds via JS. */
   overflow: visible;
   background-color: transparent;
 }

@@ -1,0 +1,547 @@
+---
+/**
+ * Layered PNG butterfly — wings flap via CSS; flight via Web Animations API.
+ * Assets share a 2048×2048 registration; stack at identical size/position.
+ */
+interface Props {
+  class?: string;
+  /** Display width in CSS pixels (square artboard). */
+  width?: number;
+}
+
+const { class: className = '', width = 120 } = Astro.props;
+const ASSET = '/animations/butterfly';
+---
+
+<div
+  class:list={['ws-butterfly', className]}
+  data-butterfly
+  aria-hidden="true"
+  style={`--ws-butterfly-size: ${width}px;`}
+>
+  <div class="ws-butterfly__art" data-butterfly-art>
+    <img
+      class="ws-butterfly__full"
+      src={`${ASSET}/full-butterfly.png`}
+      alt=""
+      width="2048"
+      height="2048"
+      draggable="false"
+      decoding="async"
+    />
+    <div class="ws-butterfly__layers" data-butterfly-layers>
+      <img
+        class="ws-butterfly__layer ws-butterfly__wing ws-butterfly__wing--lower ws-butterfly__wing--left-lower"
+        src={`${ASSET}/left-lower-wing.png`}
+        alt=""
+        width="2048"
+        height="2048"
+        draggable="false"
+        decoding="async"
+      />
+      <img
+        class="ws-butterfly__layer ws-butterfly__wing ws-butterfly__wing--lower ws-butterfly__wing--right-lower"
+        src={`${ASSET}/right-lower-wing.png`}
+        alt=""
+        width="2048"
+        height="2048"
+        draggable="false"
+        decoding="async"
+      />
+      <img
+        class="ws-butterfly__layer ws-butterfly__wing ws-butterfly__wing--upper ws-butterfly__wing--left-upper"
+        src={`${ASSET}/left-upper-wing.png`}
+        alt=""
+        width="2048"
+        height="2048"
+        draggable="false"
+        decoding="async"
+      />
+      <img
+        class="ws-butterfly__layer ws-butterfly__wing ws-butterfly__wing--upper ws-butterfly__wing--right-upper"
+        src={`${ASSET}/right-upper-wing.png`}
+        alt=""
+        width="2048"
+        height="2048"
+        draggable="false"
+        decoding="async"
+      />
+      <img
+        class="ws-butterfly__layer ws-butterfly__body"
+        src={`${ASSET}/body-and-antennae.png`}
+        alt=""
+        width="2048"
+        height="2048"
+        draggable="false"
+        decoding="async"
+      />
+    </div>
+  </div>
+</div>
+
+<style>
+  .ws-butterfly {
+    --ws-butterfly-size: 120px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 35;
+    width: var(--ws-butterfly-size);
+    height: var(--ws-butterfly-size);
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background: transparent;
+    background-color: transparent;
+    pointer-events: auto;
+    cursor: default;
+    will-change: transform;
+    /* Hit area a bit larger than the art for “approach” feel */
+    touch-action: manipulation;
+  }
+
+  .ws-butterfly__art {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .ws-butterfly__layers,
+  .ws-butterfly__full {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .ws-butterfly__layers {
+    display: block;
+  }
+
+  .ws-butterfly__full {
+    display: none;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .ws-butterfly__layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .ws-butterfly__wing {
+    transform-origin: 50% 47%;
+    transform: scaleX(1);
+  }
+
+  .ws-butterfly__body {
+    z-index: 5;
+  }
+
+  .ws-butterfly__wing--lower {
+    z-index: 1;
+  }
+
+  .ws-butterfly__wing--upper {
+    z-index: 2;
+  }
+
+  .ws-butterfly.is-flying .ws-butterfly__wing--upper {
+    animation: ws-butterfly-flap-upper 0.38s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  }
+
+  .ws-butterfly.is-flying .ws-butterfly__wing--lower {
+    animation: ws-butterfly-flap-lower 0.38s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    /* ~2.5 frames at 60fps */
+    animation-delay: 42ms;
+  }
+
+  @keyframes ws-butterfly-flap-upper {
+    0%,
+    100% {
+      transform: scaleX(1);
+    }
+    25% {
+      transform: scaleX(0.18);
+    }
+    50% {
+      transform: scaleX(1);
+    }
+    75% {
+      transform: scaleX(0.18);
+    }
+  }
+
+  @keyframes ws-butterfly-flap-lower {
+    0%,
+    100% {
+      transform: scaleX(1);
+    }
+    25% {
+      transform: scaleX(0.25);
+    }
+    50% {
+      transform: scaleX(1);
+    }
+    75% {
+      transform: scaleX(0.25);
+    }
+  }
+
+  .ws-butterfly.is-reduced .ws-butterfly__layers {
+    display: none;
+  }
+
+  .ws-butterfly.is-reduced .ws-butterfly__full {
+    display: block;
+  }
+
+  @media (max-width: 640px) {
+    .ws-butterfly {
+      --ws-butterfly-size: 88px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ws-butterfly.is-flying .ws-butterfly__wing--upper,
+    .ws-butterfly.is-flying .ws-butterfly__wing--lower {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  type Point = { x: number; y: number };
+
+  const EDGE = 40;
+  const MIN_TRAVEL = 250;
+  const MAX_TRAVEL = 500;
+  const PROXIMITY = 56;
+  const DEST_ATTEMPTS = 48;
+
+  const hosts = document.querySelectorAll('[data-butterfly]');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
+  const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+  const easeInOut = (t: number) =>
+    t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+  /** Quadratic bezier */
+  const curve = (a: number, b: number, c: number, t: number) => {
+    const u = 1 - t;
+    return u * u * a + 2 * u * t * b + t * t * c;
+  };
+
+  const sizeOf = (el: HTMLElement) => {
+    const styles = getComputedStyle(el);
+    const raw = styles.getPropertyValue('--ws-butterfly-size').trim();
+    const parsed = Number.parseFloat(raw);
+    if (Number.isFinite(parsed) && parsed > 0) return parsed;
+    return el.getBoundingClientRect().width || 120;
+  };
+
+  const viewportBounds = (size: number) => {
+    const maxX = Math.max(EDGE, window.innerWidth - EDGE - size);
+    const maxY = Math.max(EDGE, window.innerHeight - EDGE - size);
+    return { minX: EDGE, minY: EDGE, maxX, maxY, size };
+  };
+
+  const avoidSelector = [
+    'a',
+    'button',
+    'input',
+    'select',
+    'textarea',
+    'summary',
+    '[role="button"]',
+    '.home-landing__title',
+    '.home-landing__title-img',
+    '.home-landing__cta',
+    '.home-landing__figure',
+    '.home-landing__art',
+    '.home-landing__logo',
+    '.home-landing__login',
+  ].join(',');
+
+  const rectsOverlap = (a: DOMRect, b: DOMRect, pad = 12) =>
+    !(
+      a.right + pad < b.left ||
+      a.left - pad > b.right ||
+      a.bottom + pad < b.top ||
+      a.top - pad > b.bottom
+    );
+
+  const isSafeDestination = (x: number, y: number, size: number) => {
+    const candidate = new DOMRect(x, y, size, size);
+    const nodes = document.querySelectorAll(avoidSelector);
+    for (const node of nodes) {
+      if (!(node instanceof Element)) continue;
+      if (node.closest('[data-butterfly]')) continue;
+      const r = node.getBoundingClientRect();
+      if (r.width < 2 || r.height < 2) continue;
+      if (rectsOverlap(candidate, r)) return false;
+    }
+    return true;
+  };
+
+  const pickDestination = (from: Point, size: number): Point => {
+    const { minX, minY, maxX, maxY } = viewportBounds(size);
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const maxDist = Math.min(MAX_TRAVEL, Math.hypot(vw, vh) * 0.55);
+    const minDist = Math.min(MIN_TRAVEL, maxDist * 0.65);
+
+    let best: Point | null = null;
+    let bestScore = -1;
+
+    for (let i = 0; i < DEST_ATTEMPTS; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const dist = minDist + Math.random() * Math.max(8, maxDist - minDist);
+      const x = clamp(from.x + Math.cos(angle) * dist, minX, maxX);
+      const y = clamp(from.y + Math.sin(angle) * dist, minY, maxY);
+      const traveled = Math.hypot(x - from.x, y - from.y);
+      if (traveled < minDist * 0.55) continue;
+      if (!isSafeDestination(x, y, size)) continue;
+      const score = traveled + Math.random() * 40;
+      if (score > bestScore) {
+        bestScore = score;
+        best = { x, y };
+      }
+    }
+
+    if (best) return best;
+
+    // Fallback: clamp a far-ish point even if slightly overlapping sparse UI.
+    for (let i = 0; i < 24; i++) {
+      const x = minX + Math.random() * Math.max(1, maxX - minX);
+      const y = minY + Math.random() * Math.max(1, maxY - minY);
+      if (Math.hypot(x - from.x, y - from.y) < minDist * 0.4) continue;
+      if (isSafeDestination(x, y, size)) return { x, y };
+    }
+
+    return {
+      x: clamp(from.x < (minX + maxX) / 2 ? maxX - 8 : minX + 8, minX, maxX),
+      y: clamp(from.y < (minY + maxY) / 2 ? maxY - 8 : minY + 8, minY, maxY),
+    };
+  };
+
+  const place = (el: HTMLElement, point: Point, rotate = 0) => {
+    el.style.transform = `translate3d(${point.x}px, ${point.y}px, 0) rotate(${rotate}deg)`;
+  };
+
+  for (const host of hosts) {
+    if (!(host instanceof HTMLElement)) continue;
+
+    const abort = new AbortController();
+    const { signal } = abort;
+    let position: Point = { x: EDGE + 24, y: EDGE + 96 };
+    let rotate = -6;
+    let flying = false;
+    let flightAnim: Animation | null = null;
+    let settleWing: HTMLElement | null = null;
+
+    const applyReduced = () => {
+      host.classList.toggle('is-reduced', reduceMotion.matches);
+      if (reduceMotion.matches) {
+        host.classList.remove('is-flying');
+        flightAnim?.cancel();
+        flightAnim = null;
+        flying = false;
+      }
+    };
+
+    const initialPlace = () => {
+      const size = sizeOf(host);
+      const { minX, minY, maxX, maxY } = viewportBounds(size);
+      const hero = document.querySelector('.home-landing');
+      if (hero instanceof HTMLElement) {
+        const hr = hero.getBoundingClientRect();
+        // Near previous upper-left landing (~8% / 20% of hero), without covering the logo.
+        position = {
+          x: clamp(hr.left + hr.width * 0.08 - size / 2, minX, maxX),
+          y: clamp(hr.top + hr.height * 0.2 - size / 2, minY, maxY),
+        };
+      } else {
+        position = { x: clamp(72, minX, maxX), y: clamp(150, minY, maxY) };
+      }
+      // Nudge down if overlapping the logo.
+      const logo = document.querySelector('.home-landing__logo');
+      if (logo instanceof Element) {
+        const lr = logo.getBoundingClientRect();
+        const box = new DOMRect(position.x, position.y, size, size);
+        if (rectsOverlap(box, lr, 8)) {
+          position.y = clamp(lr.bottom + 12, minY, maxY);
+        }
+      }
+      rotate = -6;
+      place(host, position, rotate);
+    };
+
+    const stopFlappingAfterSpread = () => {
+      const wing =
+        host.querySelector<HTMLElement>('.ws-butterfly__wing--left-upper') ??
+        host.querySelector<HTMLElement>('.ws-butterfly__wing--upper');
+      if (!wing || reduceMotion.matches) {
+        host.classList.remove('is-flying');
+        flying = false;
+        return;
+      }
+      settleWing = wing;
+      const onIter = () => {
+        wing.removeEventListener('animationiteration', onIter);
+        if (settleWing === wing) settleWing = null;
+        host.classList.remove('is-flying');
+        flying = false;
+      };
+      wing.addEventListener('animationiteration', onIter, { once: true });
+      // Safety if animation is somehow not running
+      window.setTimeout(() => {
+        if (settleWing === wing) {
+          wing.removeEventListener('animationiteration', onIter);
+          settleWing = null;
+          host.classList.remove('is-flying');
+          flying = false;
+        }
+      }, 500);
+    };
+
+    const fly = () => {
+      if (flying || reduceMotion.matches) return;
+
+      const size = sizeOf(host);
+      const from = { ...position };
+      const to = pickDestination(from, size);
+      const dx = to.x - from.x;
+      const dy = to.y - from.y;
+      const distance = Math.hypot(dx, dy);
+      if (distance < 8) return;
+
+      flying = true;
+      host.classList.add('is-flying');
+
+      const duration = clamp(900 + distance * 0.7, 900, 1400);
+      const loft = clamp(28 + distance * 0.06, 24, 64);
+      const sway = (dx >= 0 ? -1 : 1) * clamp(18 + distance * 0.04, 16, 48);
+      const mid: Point = {
+        x: (from.x + to.x) / 2 + sway,
+        y: Math.min(from.y, to.y) - loft,
+      };
+      const heading = (dx >= 0 ? 1 : -1) * clamp(6 + Math.abs(dx) * 0.015, 5, 14);
+      const endRotate = clamp(heading * 0.35, -8, 8);
+
+      const frames = [0, 0.12, 0.28, 0.45, 0.62, 0.78, 0.9, 1].map((t) => {
+        const eased = easeInOut(t);
+        const x = curve(from.x, mid.x, to.x, eased);
+        const y = curve(from.y, mid.y, to.y, eased);
+        const bob = Math.sin(t * Math.PI * 2.2) * (1 - t) * 10;
+        const bank = Math.sin(t * Math.PI) * heading;
+        const settle = t > 0.85 ? (t - 0.85) / 0.15 : 0;
+        const r = lerp(rotate + bank, endRotate, settle * settle);
+        return {
+          transform: `translate3d(${x}px, ${y + bob}px, 0) rotate(${r}deg)`,
+          offset: t,
+        };
+      });
+
+      flightAnim?.cancel();
+      flightAnim = host.animate(frames, {
+        duration,
+        easing: 'linear',
+        fill: 'forwards',
+      });
+
+      flightAnim.finished
+        .then(() => {
+          position = to;
+          rotate = endRotate;
+          place(host, position, rotate);
+          flightAnim?.cancel();
+          flightAnim = null;
+          stopFlappingAfterSpread();
+        })
+        .catch(() => {
+          /* cancelled */
+          position = to;
+          rotate = endRotate;
+          place(host, position, rotate);
+          host.classList.remove('is-flying');
+          flying = false;
+        });
+    };
+
+    const nearButterfly = (clientX: number, clientY: number) => {
+      const r = host.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const radius = Math.max(r.width, r.height) / 2 + PROXIMITY;
+      return Math.hypot(clientX - cx, clientY - cy) <= radius;
+    };
+
+    applyReduced();
+    initialPlace();
+
+    host.addEventListener('pointerenter', fly, { signal });
+    window.addEventListener(
+      'pointermove',
+      (event) => {
+        if (flying || reduceMotion.matches) return;
+        if (nearButterfly(event.clientX, event.clientY)) fly();
+      },
+      { signal, passive: true },
+    );
+
+    window.addEventListener(
+      'resize',
+      () => {
+        const size = sizeOf(host);
+        const { minX, minY, maxX, maxY } = viewportBounds(size);
+        position = {
+          x: clamp(position.x, minX, maxX),
+          y: clamp(position.y, minY, maxY),
+        };
+        if (!flying) place(host, position, rotate);
+      },
+      { signal, passive: true },
+    );
+
+    reduceMotion.addEventListener(
+      'change',
+      () => {
+        applyReduced();
+      },
+      { signal },
+    );
+
+    const cleanup = () => {
+      flightAnim?.cancel();
+      abort.abort();
+      watcher.disconnect();
+    };
+
+    const watcher = new MutationObserver(() => {
+      if (!document.contains(host)) cleanup();
+    });
+    watcher.observe(document.documentElement, { childList: true, subtree: true });
+    window.addEventListener('pagehide', cleanup, { signal });
+  }
+</script>

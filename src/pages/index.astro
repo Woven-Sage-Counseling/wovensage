@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FeaturedCarrierLogos from '../components/FeaturedCarrierLogos.astro';
 import FloridaCountyMap from '../components/FloridaCountyMap.astro';
+import HeroButterfly from '../components/HeroButterfly.astro';
 import { siteConfig } from '../config/site';
 
 const layers = siteConfig.logos.homeLayers;
@@ -34,6 +35,17 @@ const layers = siteConfig.logos.homeLayers;
         Log-in
       </a>
 
+      <img
+        src="/images/home-layers/sage-upper-left-corner-cursor-compatible.png?v=1"
+        alt=""
+        width={2048}
+        height={512}
+        class="home-landing__sage"
+        aria-hidden="true"
+        loading="eager"
+        decoding="async"
+      />
+
       <div class="home-landing__art" aria-hidden="true">
         <img
           src={`${layers.threadFigure}?v=1`}
@@ -45,6 +57,8 @@ const layers = siteConfig.logos.homeLayers;
           decoding="async"
         />
       </div>
+
+      <HeroButterfly />
 
       <div class="home-landing__stage">
         <div class="home-landing__copy">

@@ -1,0 +1,231 @@
+---
+/**
+ * Interactive continuous-line butterfly for the homepage hero.
+ * Flies between predetermined safe landing spots on hover / focus / tap.
+ */
+---
+
+<button
+  type="button"
+  class="home-butterfly"
+  data-home-butterfly
+  aria-label="Move butterfly"
+  style="left: 7.5%; top: 21%;"
+>
+  <svg
+    class="home-butterfly__svg"
+    viewBox="0 0 64 48"
+    width="64"
+    height="48"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <g class="home-butterfly__wing home-butterfly__wing--left">
+      <path
+        d="M30.5 24.2 C 24 21.5, 14.5 14.8, 10.2 9.6 C 7.8 6.7, 9.4 4.2, 12.6 5.1 C 18.2 6.7, 24.8 13.2, 28.4 18.8 C 26.1 15.2, 18.6 8.4, 13.8 6.9 C 11.4 6.2, 10.6 8.1, 12.2 10.2 C 15.8 14.9, 24.2 21.2, 29.8 23.6"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.15"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M30.2 25.4 C 23.8 27.8, 14.2 31.6, 10.6 36.2 C 8.6 38.8, 10.4 41.2, 13.4 40.1 C 18.6 38.2, 25.2 32.4, 28.8 28.1 C 26.2 31.8, 18.4 37.6, 14 38.8 C 11.8 39.4, 11.1 37.6, 12.6 35.6 C 15.8 31.4, 24.4 27.2, 29.6 25.1"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.15"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </g>
+    <g class="home-butterfly__wing home-butterfly__wing--right">
+      <path
+        d="M33.5 24.2 C 40 21.5, 49.5 14.8, 53.8 9.6 C 56.2 6.7, 54.6 4.2, 51.4 5.1 C 45.8 6.7, 39.2 13.2, 35.6 18.8 C 37.9 15.2, 45.4 8.4, 50.2 6.9 C 52.6 6.2, 53.4 8.1, 51.8 10.2 C 48.2 14.9, 39.8 21.2, 34.2 23.6"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.15"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M33.8 25.4 C 40.2 27.8, 49.8 31.6, 53.4 36.2 C 55.4 38.8, 53.6 41.2, 50.6 40.1 C 45.4 38.2, 38.8 32.4, 35.2 28.1 C 37.8 31.8, 45.6 37.6, 50 38.8 C 52.2 39.4, 52.9 37.6, 51.4 35.6 C 48.2 31.4, 39.6 27.2, 34.4 25.1"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.15"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </g>
+    <g class="home-butterfly__body">
+      <path
+        d="M32 16.2 C 31.55 19.8, 31.55 28.4, 32 33.4"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.2"
+        stroke-linecap="round"
+      />
+      <path
+        d="M32 16.4 C 29.8 13.2, 27.2 11.1, 25.4 10.2"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1"
+        stroke-linecap="round"
+      />
+      <path
+        d="M32 16.4 C 34.2 13.2, 36.8 11.1, 38.6 10.2"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1"
+        stroke-linecap="round"
+      />
+      <circle cx="25.2" cy="9.9" r="0.7" fill="currentColor" />
+      <circle cx="38.8" cy="9.9" r="0.7" fill="currentColor" />
+    </g>
+  </svg>
+</button>
+
+<script>
+  const butterfly = document.querySelector('[data-home-butterfly]');
+  const hero = butterfly?.closest('.home-landing');
+
+  if (butterfly instanceof HTMLButtonElement && hero instanceof HTMLElement) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const abort = new AbortController();
+    const { signal } = abort;
+
+    /** Five safe landing spots as % of the hero — avoid logo, login, copy, CTA, and figure. */
+    const landings = [
+      { left: 7.5, top: 21, rotate: -8 },
+      { left: 44, top: 9.5, rotate: 6 },
+      { left: 86, top: 17, rotate: -4 },
+      { left: 10, top: 76, rotate: 10 },
+      { left: 90, top: 46, rotate: -10 },
+    ];
+
+    let index = 0;
+    let flying = false;
+    let flightAnim: Animation | null = null;
+
+    const place = (spot: (typeof landings)[number], withTransform = true) => {
+      butterfly.style.left = `${spot.left}%`;
+      butterfly.style.top = `${spot.top}%`;
+      if (withTransform) {
+        butterfly.style.transform = `translate(-50%, -50%) rotate(${spot.rotate}deg)`;
+      }
+    };
+
+    place(landings[0]!);
+
+    const nextIndex = () => {
+      if (landings.length < 2) return 0;
+      let next = index;
+      while (next === index) {
+        next = Math.floor(Math.random() * landings.length);
+      }
+      return next;
+    };
+
+    const fly = () => {
+      if (flying) return;
+      const from = landings[index]!;
+      const next = nextIndex();
+      const to = landings[next]!;
+
+      if (reduceMotion.matches) {
+        index = next;
+        place(to);
+        return;
+      }
+
+      flying = true;
+      butterfly.classList.add('is-flying');
+      butterfly.setAttribute('aria-busy', 'true');
+
+      const dx = to.left - from.left;
+      const dy = to.top - from.top;
+      const distance = Math.hypot(dx, dy);
+      const duration = Math.min(2000, Math.max(1500, 1100 + distance * 12));
+
+      // Arc control: lift perpendicular to the flight line for a gentle curve.
+      const midLeft = (from.left + to.left) / 2 - dy * 0.18;
+      const midTop = (from.top + to.top) / 2 - Math.abs(dx) * 0.12 - 6;
+      const midRotate = (from.rotate + to.rotate) / 2 + (dx >= 0 ? -14 : 14);
+
+      flightAnim?.cancel();
+      flightAnim = butterfly.animate(
+        [
+          {
+            left: `${from.left}%`,
+            top: `${from.top}%`,
+            transform: `translate(-50%, -50%) rotate(${from.rotate}deg) translateY(0)`,
+            offset: 0,
+          },
+          {
+            left: `${midLeft}%`,
+            top: `${midTop}%`,
+            transform: `translate(-50%, -50%) rotate(${midRotate}deg) translateY(-0.35rem)`,
+            offset: 0.48,
+          },
+          {
+            left: `${(midLeft + to.left) / 2}%`,
+            top: `${(midTop + to.top) / 2 + 1.2}%`,
+            transform: `translate(-50%, -50%) rotate(${(midRotate + to.rotate) / 2}deg) translateY(0.2rem)`,
+            offset: 0.78,
+          },
+          {
+            left: `${to.left}%`,
+            top: `${to.top}%`,
+            transform: `translate(-50%, -50%) rotate(${to.rotate}deg) translateY(0)`,
+            offset: 1,
+          },
+        ],
+        {
+          duration,
+          easing: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+          fill: 'forwards',
+        },
+      );
+
+      flightAnim.finished
+        .then(() => {
+          index = next;
+          place(to);
+          flightAnim?.cancel();
+          flightAnim = null;
+        })
+        .catch(() => {
+          /* cancelled */
+        })
+        .finally(() => {
+          flying = false;
+          butterfly.classList.remove('is-flying');
+          butterfly.removeAttribute('aria-busy');
+        });
+    };
+
+    const onActivate = (event: Event) => {
+      if (event instanceof KeyboardEvent) {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+      }
+      fly();
+    };
+
+    butterfly.addEventListener('pointerenter', fly, { signal });
+    butterfly.addEventListener('focus', fly, { signal });
+    butterfly.addEventListener('click', onActivate, { signal });
+    butterfly.addEventListener('keydown', onActivate, { signal });
+
+    const cleanup = () => {
+      flightAnim?.cancel();
+      abort.abort();
+      watcher.disconnect();
+    };
+
+    const watcher = new MutationObserver(() => {
+      if (!document.contains(butterfly)) cleanup();
+    });
+    watcher.observe(document.documentElement, { childList: true, subtree: true });
+    window.addEventListener('pagehide', cleanup, { signal });
+  }
+</script>

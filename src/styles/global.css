@@ -3262,6 +3262,19 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   pointer-events: none;
 }
 
+.home-landing__sage {
+  position: absolute;
+  z-index: 4;
+  top: clamp(3.75rem, 8vh, 5.5rem);
+  left: clamp(-1.5rem, -1vw, 0);
+  width: min(42vw, 28rem);
+  max-width: 34rem;
+  height: auto;
+  opacity: 0.92;
+  pointer-events: none;
+  user-select: none;
+}
+
 .home-landing__figure {
   position: absolute;
   top: 58%;
@@ -3277,6 +3290,85 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   object-fit: contain;
   object-position: left center;
   user-select: none;
+}
+
+/* Interactive hero butterfly — continuous-line, forest sage */
+.home-butterfly {
+  position: absolute;
+  z-index: 14;
+  left: 7.5%;
+  top: 21%;
+  width: clamp(2.35rem, 4.2vw, 3.35rem);
+  height: auto;
+  margin: 0;
+  padding: 0.2rem;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  color: theme('colors.sage.dark');
+  cursor: pointer;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  transform-origin: center center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  will-change: left, top, transform;
+}
+
+.home-butterfly:focus {
+  outline: none;
+}
+
+.home-butterfly:focus-visible {
+  outline: 2px solid theme('colors.sage.dark');
+  outline-offset: 4px;
+}
+
+.home-butterfly__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.home-butterfly__wing--left {
+  transform-origin: 30.5px 24.5px;
+}
+
+.home-butterfly__wing--right {
+  transform-origin: 33.5px 24.5px;
+}
+
+.home-butterfly.is-flying .home-butterfly__wing--left {
+  animation: home-butterfly-flap-left 0.11s ease-in-out infinite alternate;
+}
+
+.home-butterfly.is-flying .home-butterfly__wing--right {
+  animation: home-butterfly-flap-right 0.11s ease-in-out infinite alternate;
+}
+
+@keyframes home-butterfly-flap-left {
+  from {
+    transform: scaleX(1) rotate(0deg);
+  }
+  to {
+    transform: scaleX(0.42) rotate(-10deg);
+  }
+}
+
+@keyframes home-butterfly-flap-right {
+  from {
+    transform: scaleX(1) rotate(0deg);
+  }
+  to {
+    transform: scaleX(0.42) rotate(10deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-butterfly.is-flying .home-butterfly__wing--left,
+  .home-butterfly.is-flying .home-butterfly__wing--right {
+    animation: none;
+  }
 }
 
 .home-coverage {
@@ -3945,6 +4037,13 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
     overflow: visible;
   }
 
+  .home-landing__sage {
+    top: 4.75rem;
+    left: -0.75rem;
+    width: min(58vw, 14rem);
+    opacity: 0.88;
+  }
+
   .home-landing__figure {
     position: relative;
     top: auto;
@@ -3960,5 +4059,9 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
     transform: none;
     object-fit: contain;
     object-position: center center;
+  }
+
+  .home-butterfly {
+    width: clamp(2.1rem, 7vw, 2.75rem);
   }
 }

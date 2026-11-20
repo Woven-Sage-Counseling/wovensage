@@ -1,7 +1,7 @@
 ---
 /**
- * Layered PNG butterfly — wings flap via CSS; flight via Web Animations API.
- * Assets share a 2048×2048 registration; stack at identical size/position.
+ * Hero butterfly: Rive V2 visual inside the existing hero-local flight container.
+ * Layered PNGs remain as a load-failure fallback only.
  */
 interface Props {
   class?: string;
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { class: className = '', width = 120 } = Astro.props;
-const ASSET = '/animations/butterfly';
+const PNG = '/animations/butterfly';
 ---
 
 <div
@@ -20,61 +20,71 @@ const ASSET = '/animations/butterfly';
   style={`--ws-butterfly-size: ${width}px;`}
 >
   <div class="ws-butterfly__art" data-butterfly-art>
-    <img
-      class="ws-butterfly__full"
-      src={`${ASSET}/full-butterfly.png`}
-      alt=""
-      width="2048"
-      height="2048"
-      draggable="false"
-      decoding="async"
-    />
-    <div class="ws-butterfly__layers" data-butterfly-layers>
+    <canvas
+      class="ws-butterfly__rive"
+      data-butterfly-rive
+      width={width}
+      height={width}
+    ></canvas>
+
+    <!-- Fallback: layered PNGs (hidden once Rive is ready) -->
+    <div class="ws-butterfly__fallback" data-butterfly-fallback>
       <img
-        class="ws-butterfly__layer ws-butterfly__wing ws-butterfly__wing--lower ws-butterfly__wing--left-lower"
-        src={`${ASSET}/left-lower-wing.png`}
+        class="ws-butterfly__full"
+        src={`${PNG}/full-butterfly.png`}
         alt=""
         width="2048"
         height="2048"
         draggable="false"
         decoding="async"
       />
-      <img
-        class="ws-butterfly__layer ws-butterfly__wing ws-butterfly__wing--lower ws-butterfly__wing--right-lower"
-        src={`${ASSET}/right-lower-wing.png`}
-        alt=""
-        width="2048"
-        height="2048"
-        draggable="false"
-        decoding="async"
-      />
-      <img
-        class="ws-butterfly__layer ws-butterfly__wing ws-butterfly__wing--upper ws-butterfly__wing--left-upper"
-        src={`${ASSET}/left-upper-wing.png`}
-        alt=""
-        width="2048"
-        height="2048"
-        draggable="false"
-        decoding="async"
-      />
-      <img
-        class="ws-butterfly__layer ws-butterfly__wing ws-butterfly__wing--upper ws-butterfly__wing--right-upper"
-        src={`${ASSET}/right-upper-wing.png`}
-        alt=""
-        width="2048"
-        height="2048"
-        draggable="false"
-        decoding="async"
-      />
-      <img
-        class="ws-butterfly__layer ws-butterfly__body"
-        src={`${ASSET}/body-and-antennae.png`}
-        alt=""
-        width="2048"
-        height="2048"
-        draggable="false"
-        decoding="async"
-      />
+      <div class="ws-butterfly__layers" data-butterfly-layers>
+        <img
+          class="ws-butterfly__layer ws-butterfly__wing ws-butterfly__wing--lower"
+          src={`${PNG}/left-lower-wing.png`}
+          alt=""
+          width="2048"
+          height="2048"
+          draggable="false"
+          decoding="async"
+        />
+        <img
+          class="ws-butterfly__layer ws-butterfly__wing ws-butterfly__wing--lower"
+          src={`${PNG}/right-lower-wing.png`}
+          alt=""
+          width="2048"
+          height="2048"
+          draggable="false"
+          decoding="async"
+        />
+        <img
+          class="ws-butterfly__layer ws-butterfly__wing ws-butterfly__wing--upper"
+          src={`${PNG}/left-upper-wing.png`}
+          alt=""
+          width="2048"
+          height="2048"
+          draggable="false"
+          decoding="async"
+        />
+        <img
+          class="ws-butterfly__layer ws-butterfly__wing ws-butterfly__wing--upper"
+          src={`${PNG}/right-upper-wing.png`}
+          alt=""
+          width="2048"
+          height="2048"
+          draggable="false"
+          decoding="async"
+        />
+        <img
+          class="ws-butterfly__layer ws-butterfly__body"
+          src={`${PNG}/body-and-antennae.png`}
+          alt=""
+          width="2048"
+          height="2048"
+          draggable="false"
+          decoding="async"
+        />
+      </div>
     </div>
   </div>
 </div>
@@ -109,9 +119,49 @@ const ASSET = '/animations/butterfly';
     position: relative;
     width: 100%;
     height: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-shadow: none;
     background: transparent;
+    background-color: transparent;
+  }
+
+  .ws-butterfly__rive {
+    display: none;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background: transparent;
+    background-color: transparent;
+    pointer-events: none;
+  }
+
+  .ws-butterfly.is-rive-ready .ws-butterfly__rive {
+    display: block;
+  }
+
+  .ws-butterfly.is-rive-ready .ws-butterfly__fallback {
+    display: none;
+  }
+
+  .ws-butterfly__fallback {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
     border: none;
     box-shadow: none;
+    background: transparent;
   }
 
   .ws-butterfly__layers,
@@ -168,22 +218,18 @@ const ASSET = '/animations/butterfly';
     z-index: 2;
   }
 
-  .ws-butterfly.is-flying .ws-butterfly__wing--upper {
+  /* Fallback-only CSS flap when Rive is unavailable */
+  .ws-butterfly:not(.is-rive-ready).is-flying .ws-butterfly__wing--upper {
     animation: ws-butterfly-flap-upper 0.38s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
   }
 
-  .ws-butterfly.is-flying .ws-butterfly__wing--lower {
+  .ws-butterfly:not(.is-rive-ready).is-flying .ws-butterfly__wing--lower {
     animation: ws-butterfly-flap-lower 0.38s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-    /* ~2.5 frames at 60fps */
     animation-delay: 42ms;
   }
 
-  /* Slow the same flap keyframes during final settle — do not change amplitudes */
-  .ws-butterfly.is-flying.is-settling .ws-butterfly__wing--upper {
-    animation-duration: 0.7s;
-  }
-
-  .ws-butterfly.is-flying.is-settling .ws-butterfly__wing--lower {
+  .ws-butterfly:not(.is-rive-ready).is-flying.is-settling .ws-butterfly__wing--upper,
+  .ws-butterfly:not(.is-rive-ready).is-flying.is-settling .ws-butterfly__wing--lower {
     animation-duration: 0.7s;
   }
 
@@ -219,11 +265,11 @@ const ASSET = '/animations/butterfly';
     }
   }
 
-  .ws-butterfly.is-reduced .ws-butterfly__layers {
+  .ws-butterfly.is-reduced:not(.is-rive-ready) .ws-butterfly__layers {
     display: none;
   }
 
-  .ws-butterfly.is-reduced .ws-butterfly__full {
+  .ws-butterfly.is-reduced:not(.is-rive-ready) .ws-butterfly__full {
     display: block;
   }
 
@@ -234,16 +280,17 @@ const ASSET = '/animations/butterfly';
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .ws-butterfly.is-flying .ws-butterfly__wing--upper,
-    .ws-butterfly.is-flying .ws-butterfly__wing--lower,
-    .ws-butterfly.is-flying.is-settling .ws-butterfly__wing--upper,
-    .ws-butterfly.is-flying.is-settling .ws-butterfly__wing--lower {
+    .ws-butterfly:not(.is-rive-ready).is-flying .ws-butterfly__wing--upper,
+    .ws-butterfly:not(.is-rive-ready).is-flying .ws-butterfly__wing--lower {
       animation: none;
     }
   }
 </style>
 
 <script>
+  import { Rive, Layout, Fit, Alignment } from '@rive-app/webgl2';
+  import type { StateMachineInput } from '@rive-app/webgl2';
+
   type Point = { x: number; y: number };
   type Cell = { col: number; row: number; key: string };
   type Bounds = { minX: number; minY: number; maxX: number; maxY: number; size: number };
@@ -268,6 +315,16 @@ const ASSET = '/animations/butterfly';
   const SETTLE_MS_MAX = 500;
   const MAX_TILT = 12;
   const IS_DEV = import.meta.env.DEV;
+
+  const RIVE_SRC = '/animations/woven-sage-butterfly-v2.riv';
+  const RIVE_ARTBOARD = 'Butterfly';
+  /** Preferred name from design docs; file currently ships as V2. */
+  const RIVE_STATE_MACHINE_PREFERRED = 'Butterfly Controller';
+  const RIVE_STATE_MACHINE_FALLBACK = 'Butterfly Controller V2';
+  const RIVE_INPUT_FLYING = 'isFlying';
+  const RIVE_INPUT_WING_ADJUST = 'wingAdjust';
+  const WING_ADJUST_MIN_MS = 7000;
+  const WING_ADJUST_MAX_MS = 15000;
 
   const hosts = document.querySelectorAll('[data-butterfly]');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -786,6 +843,15 @@ const ASSET = '/animations/butterfly';
     let landTime = 0;
     let lastPointer: Point = { x: -9999, y: -9999 };
 
+    const canvas = host.querySelector('[data-butterfly-rive]');
+    let riveInstance: Rive | null = null;
+    let riveReady = false;
+    let stateMachineName = RIVE_STATE_MACHINE_PREFERRED;
+    let isFlyingInput: StateMachineInput | null = null;
+    let wingAdjustInput: StateMachineInput | null = null;
+    let wingAdjustTimer = 0;
+    let foundReport: Record<string, unknown> | null = null;
+
     const setInteractive = (on: boolean) => {
       host.style.pointerEvents = on ? 'auto' : 'none';
       host.classList.toggle('is-inert', !on);
@@ -797,8 +863,14 @@ const ASSET = '/animations/butterfly';
         flying,
         armed,
         pointerIsAway,
+        riveReady,
         ...extra,
       });
+    };
+
+    const clearWingAdjust = () => {
+      if (wingAdjustTimer) window.clearTimeout(wingAdjustTimer);
+      wingAdjustTimer = 0;
     };
 
     const clearFlightTimers = () => {
@@ -808,6 +880,175 @@ const ASSET = '/animations/butterfly';
       settleTimer = 0;
       if (rearmTimer) window.clearTimeout(rearmTimer);
       rearmTimer = 0;
+      clearWingAdjust();
+    };
+
+    const setIsFlying = (value: boolean) => {
+      if (isFlyingInput) isFlyingInput.value = value;
+    };
+
+    const scheduleWingAdjust = () => {
+      clearWingAdjust();
+      if (
+        !riveReady ||
+        !wingAdjustInput ||
+        reduceMotion.matches ||
+        flying ||
+        !heroVisible
+      ) {
+        return;
+      }
+      wingAdjustTimer = window.setTimeout(() => {
+        wingAdjustTimer = 0;
+        if (
+          riveReady &&
+          wingAdjustInput &&
+          !flying &&
+          heroVisible &&
+          !reduceMotion.matches
+        ) {
+          wingAdjustInput.fire();
+          devLog('wingAdjust fired');
+        }
+        scheduleWingAdjust();
+      }, rand(WING_ADJUST_MIN_MS, WING_ADJUST_MAX_MS));
+    };
+
+    const showFallback = (reason: string) => {
+      riveReady = false;
+      host.classList.remove('is-rive-ready');
+      setIsFlying(false);
+      clearWingAdjust();
+      if (riveInstance) {
+        try {
+          riveInstance.cleanup();
+        } catch {
+          /* ignore */
+        }
+        riveInstance = null;
+      }
+      isFlyingInput = null;
+      wingAdjustInput = null;
+      console.warn('[butterfly] Rive unavailable — using PNG fallback:', reason);
+    };
+
+    const resizeRive = () => {
+      if (!riveInstance || !riveReady) return;
+      try {
+        riveInstance.resizeDrawingSurfaceToCanvas();
+      } catch {
+        /* ignore */
+      }
+    };
+
+    const bindRiveInputs = () => {
+      if (!riveInstance) {
+        showFallback('instance missing after load');
+        return;
+      }
+
+      resizeRive();
+
+      const names = riveInstance.stateMachineNames ?? [];
+      if (names.includes(RIVE_STATE_MACHINE_PREFERRED)) {
+        stateMachineName = RIVE_STATE_MACHINE_PREFERRED;
+      } else if (names.includes(RIVE_STATE_MACHINE_FALLBACK)) {
+        stateMachineName = RIVE_STATE_MACHINE_FALLBACK;
+      } else if (names.length > 0) {
+        stateMachineName = names[0]!;
+      }
+
+      const inputs = riveInstance.stateMachineInputs(stateMachineName) ?? [];
+      isFlyingInput = inputs.find((input) => input.name === RIVE_INPUT_FLYING) ?? null;
+      wingAdjustInput =
+        inputs.find((input) => input.name === RIVE_INPUT_WING_ADJUST) ?? null;
+
+      foundReport = {
+        artboard: RIVE_ARTBOARD,
+        stateMachines: names,
+        activeStateMachine: stateMachineName,
+        preferredStateMachinePresent: names.includes(RIVE_STATE_MACHINE_PREFERRED),
+        inputs: inputs.map((input) => input.name),
+        isFlying: Boolean(isFlyingInput),
+        wingAdjust: Boolean(wingAdjustInput),
+      };
+      devLog('rive bound', foundReport);
+
+      if (!isFlyingInput) {
+        console.warn('[butterfly] isFlying input not found on', stateMachineName);
+      }
+      if (!wingAdjustInput) {
+        console.warn('[butterfly] wingAdjust input not found on', stateMachineName);
+      }
+
+      riveReady = true;
+      host.classList.add('is-rive-ready');
+      setIsFlying(false);
+
+      if (reduceMotion.matches) {
+        clearWingAdjust();
+      } else {
+        scheduleWingAdjust();
+      }
+    };
+
+    const startRiveWithStateMachine = (smName: string, allowFallback: boolean) => {
+      if (!(canvas instanceof HTMLCanvasElement)) {
+        showFallback('missing canvas');
+        return;
+      }
+
+      try {
+        riveInstance = new Rive({
+          src: RIVE_SRC,
+          canvas,
+          artboard: RIVE_ARTBOARD,
+          stateMachines: smName,
+          autoplay: true,
+          layout: new Layout({
+            fit: Fit.Contain,
+            alignment: Alignment.Center,
+          }),
+          onLoad: () => {
+            stateMachineName = smName;
+            bindRiveInputs();
+          },
+          onLoadError: (error) => {
+            if (allowFallback && smName === RIVE_STATE_MACHINE_PREFERRED) {
+              devLog('preferred state machine failed; trying V2', String(error));
+              try {
+                riveInstance?.cleanup();
+              } catch {
+                /* ignore */
+              }
+              riveInstance = null;
+              startRiveWithStateMachine(RIVE_STATE_MACHINE_FALLBACK, false);
+              return;
+            }
+            showFallback(`load failed (${smName}): ${String(error)}`);
+          },
+        });
+      } catch (error) {
+        if (allowFallback && smName === RIVE_STATE_MACHINE_PREFERRED) {
+          startRiveWithStateMachine(RIVE_STATE_MACHINE_FALLBACK, false);
+          return;
+        }
+        showFallback(`init threw: ${String(error)}`);
+      }
+    };
+
+    const initRive = () => {
+      if (!(canvas instanceof HTMLCanvasElement)) {
+        showFallback('missing canvas');
+        return;
+      }
+
+      const size = Math.round(sizeOf(host));
+      canvas.width = size;
+      canvas.height = size;
+
+      // Asset embeds "Butterfly Controller V2" (not the unversioned preferred name).
+      startRiveWithStateMachine(RIVE_STATE_MACHINE_FALLBACK, false);
     };
 
     const applyReduced = () => {
@@ -817,7 +1058,12 @@ const ASSET = '/animations/butterfly';
         clearFlightTimers();
         flying = false;
         armed = false;
+        setIsFlying(false);
+        clearWingAdjust();
         setInteractive(false);
+      } else if (heroVisible) {
+        setInteractive(true);
+        if (!flying && riveReady) scheduleWingAdjust();
       }
     };
 
@@ -953,8 +1199,11 @@ const ASSET = '/animations/butterfly';
       host.classList.remove('is-flying', 'is-settling');
       const pointerDistAtLand = pointerDistance(lastPointer.x, lastPointer.y);
       flying = false;
+      // Blend back to Idle only after the settled transform is committed.
+      setIsFlying(false);
       setInteractive(true);
       disarmAfterLanding(pointerDistAtLand);
+      if (heroVisible && !reduceMotion.matches) scheduleWingAdjust();
       logState('landing committed', {
         position: settled,
         cell: cellOf(settled, heroBounds(hero, sizeOf(host))).key,
@@ -1001,6 +1250,8 @@ const ASSET = '/animations/butterfly';
 
       flying = true;
       armed = false;
+      clearWingAdjust();
+      setIsFlying(true);
       setInteractive(true);
       host.classList.add('is-flying');
       host.classList.remove('is-settling');
@@ -1081,9 +1332,6 @@ const ASSET = '/animations/butterfly';
       }
     };
 
-    applyReduced();
-    initialPlace();
-
     host.addEventListener(
       'pointerenter',
       (event) => onPointerActivity(event.clientX, event.clientY, true),
@@ -1106,6 +1354,12 @@ const ASSET = '/animations/butterfly';
           y: clamp(position.y, bounds.minY, bounds.maxY),
         };
         if (!flying) commitSettled(next, angle);
+        if (canvas instanceof HTMLCanvasElement) {
+          const size = Math.round(sizeOf(host));
+          canvas.width = size;
+          canvas.height = size;
+        }
+        resizeRive();
       },
       { signal, passive: true },
     );
@@ -1116,6 +1370,7 @@ const ASSET = '/animations/butterfly';
         logState('hero visibility', { ratio: entry?.intersectionRatio ?? 0 });
         if (!heroVisible) {
           // Disable interaction while scrolled away; do not cancel an in-flight animation mid-air
+          clearWingAdjust();
           if (!flying) {
             armed = false;
             setInteractive(false);
@@ -1124,6 +1379,7 @@ const ASSET = '/animations/butterfly';
           setInteractive(true);
           // Re-evaluate rearm against last known pointer now that hero is back
           scheduleRearmCheck();
+          scheduleWingAdjust();
         }
       },
       { threshold: 0.05 },
@@ -1140,6 +1396,15 @@ const ASSET = '/animations/butterfly';
 
     const cleanup = () => {
       clearFlightTimers();
+      setIsFlying(false);
+      if (riveInstance) {
+        try {
+          riveInstance.cleanup();
+        } catch {
+          /* ignore */
+        }
+        riveInstance = null;
+      }
       visibility.disconnect();
       abort.abort();
       watcher.disconnect();
@@ -1150,5 +1415,9 @@ const ASSET = '/animations/butterfly';
     });
     watcher.observe(document.documentElement, { childList: true, subtree: true });
     window.addEventListener('pagehide', cleanup, { signal });
+
+    applyReduced();
+    initialPlace();
+    initRive();
   }
 </script>

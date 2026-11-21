@@ -894,6 +894,7 @@ const PNG = '/animations/butterfly';
     let wingAdjustTimer = 0;
     let riveLoadTimer = 0;
     let foundReport: Record<string, unknown> | null = null;
+    let resizeObserver: ResizeObserver | null = null;
     const fallbackEl = host.querySelector('[data-butterfly-fallback]');
 
     const setInteractive = (on: boolean) => {
@@ -989,12 +990,50 @@ const PNG = '/animations/butterfly';
     };
 
     const resizeRive = () => {
-      if (!riveInstance || !riveReady) return;
+      if (!riveInstance) return;
       try {
         riveInstance.resizeDrawingSurfaceToCanvas();
       } catch {
         /* ignore */
       }
+    };
+
+    const logRiveSurface = (label: string) => {
+      if (!(canvas instanceof HTMLCanvasElement)) return;
+      const css = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      console.info('[butterfly] surface', label, {
+        cssWidth: Math.round(css.width),
+        cssHeight: Math.round(css.height),
+        bufferWidth: canvas.width,
+        bufferHeight: canvas.height,
+        devicePixelRatio: dpr,
+        bufferMatchesDpr:
+          canvas.width >= Math.round(css.width * dpr) - 1 &&
+          canvas.height >= Math.round(css.height * dpr) - 1,
+      });
+    };
+
+    const revealRive = () => {
+      clearRiveLoadTimer();
+      riveReady = true;
+      host.classList.remove('is-rive-fallback');
+      if (fallbackEl instanceof HTMLElement) {
+        fallbackEl.hidden = true;
+      }
+      // Resize before opacity fade so the first painted frame is sharp.
+      resizeRive();
+      requestAnimationFrame(() => {
+        resizeRive();
+        logRiveSurface('ready');
+        host.classList.add('is-rive-ready');
+        setIsFlying(false);
+        if (reduceMotion.matches) {
+          clearWingAdjust();
+        } else {
+          scheduleWingAdjust();
+        }
+      });
     };
 
     const bindRiveInputs = () => {
@@ -1003,6 +1042,7 @@ const PNG = '/animations/butterfly';
         return;
       }
 
+      // First resize as soon as Rive has loaded, while canvas is still invisible.
       resizeRive();
 
       const names = riveInstance.stateMachineNames ?? [];
@@ -1037,20 +1077,7 @@ const PNG = '/animations/butterfly';
         console.warn('[butterfly] wingAdjust input not found on', stateMachineName);
       }
 
-      clearRiveLoadTimer();
-      riveReady = true;
-      host.classList.remove('is-rive-fallback');
-      if (fallbackEl instanceof HTMLElement) {
-        fallbackEl.hidden = true;
-      }
-      host.classList.add('is-rive-ready');
-      setIsFlying(false);
-
-      if (reduceMotion.matches) {
-        clearWingAdjust();
-      } else {
-        scheduleWingAdjust();
-      }
+      revealRive();
     };
 
     const startRiveWithStateMachine = (smName: string, allowFallback: boolean) => {
@@ -1104,9 +1131,8 @@ const PNG = '/animations/butterfly';
         return;
       }
 
-      const size = Math.round(sizeOf(host));
-      canvas.width = size;
-      canvas.height = size;
+      // Leave canvas CSS at 100%/100%; resizeDrawingSurfaceToCanvas sets the
+      // DPR-scaled backing buffer after load — do not assign 1× width/height here.
 
       clearRiveLoadTimer();
       riveLoadTimer = window.setTimeout(() => {
@@ -1423,15 +1449,20 @@ const PNG = '/animations/butterfly';
           y: clamp(position.y, bounds.minY, bounds.maxY),
         };
         if (!flying) commitSettled(next, angle);
-        if (canvas instanceof HTMLCanvasElement) {
-          const size = Math.round(sizeOf(host));
-          canvas.width = size;
-          canvas.height = size;
-        }
         resizeRive();
       },
       { signal, passive: true },
     );
+
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(() => {
+        resizeRive();
+      });
+      resizeObserver.observe(host);
+      if (canvas instanceof HTMLCanvasElement) {
+        resizeObserver.observe(canvas);
+      }
+    }
 
     const visibility = new IntersectionObserver(
       ([entry]) => {
@@ -1466,6 +1497,10 @@ const PNG = '/animations/butterfly';
     const cleanup = () => {
       clearFlightTimers();
       setIsFlying(false);
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+        resizeObserver = null;
+      }
       if (riveInstance) {
         try {
           riveInstance.cleanup();

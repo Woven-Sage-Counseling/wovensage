@@ -6,6 +6,7 @@ import Butterfly from '../components/Butterfly.astro';
 import { siteConfig } from '../config/site';
 
 const layers = siteConfig.logos.homeLayers;
+const RIVE_HREF = '/animations/woven-sage-butterfly-v2.riv?v=paid-1';
 ---
 
 <BaseLayout
@@ -14,11 +15,26 @@ const layers = siteConfig.logos.homeLayers;
   botanicalBg={false}
   hideHeader
 >
+  <Fragment slot="head">
+    {/* Start the 3.6MB Rive file before hero images compete for bandwidth */}
+    <link rel="preload" href={RIVE_HREF} as="fetch" crossorigin="anonymous" fetchpriority="high" />
+    <style is:inline>
+      .home-landing[data-await-butterfly]:not([data-butterfly-ready]) {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .home-landing[data-await-butterfly][data-butterfly-ready] {
+        opacity: 1;
+        visibility: visible;
+      }
+    </style>
+  </Fragment>
   <div class="home-page">
     <noscript>
       <style>
         .home-landing[data-await-butterfly] {
           opacity: 1 !important;
+          visibility: visible !important;
         }
       </style>
     </noscript>

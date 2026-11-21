@@ -11,10 +11,7 @@ interface Props {
 
 const { class: className = '', width = 120 } = Astro.props;
 const PNG = '/animations/butterfly';
-const RIVE_HREF = '/animations/woven-sage-butterfly-v2.riv?v=paid-1';
 ---
-
-<link rel="preload" href={RIVE_HREF} as="fetch" crossorigin="anonymous" />
 
 <div
   class:list={['ws-butterfly', className]}
@@ -30,11 +27,11 @@ const RIVE_HREF = '/animations/woven-sage-butterfly-v2.riv?v=paid-1';
       height={width}
     ></canvas>
 
-    <!-- Fallback: hidden in static CSS; revealed only on Rive failure/timeout -->
+    <!-- Fallback: no src until needed so PNGs don't compete with the .riv download -->
     <div class="ws-butterfly__fallback" data-butterfly-fallback hidden>
       <img
         class="ws-butterfly__full"
-        src={`${PNG}/full-butterfly.png`}
+        data-src={`${PNG}/full-butterfly.png`}
         alt=""
         width="2048"
         height="2048"
@@ -44,7 +41,7 @@ const RIVE_HREF = '/animations/woven-sage-butterfly-v2.riv?v=paid-1';
       <div class="ws-butterfly__layers" data-butterfly-layers>
         <img
           class="ws-butterfly__layer ws-butterfly__wing ws-butterfly__wing--lower"
-          src={`${PNG}/left-lower-wing.png`}
+          data-src={`${PNG}/left-lower-wing.png`}
           alt=""
           width="2048"
           height="2048"
@@ -53,7 +50,7 @@ const RIVE_HREF = '/animations/woven-sage-butterfly-v2.riv?v=paid-1';
         />
         <img
           class="ws-butterfly__layer ws-butterfly__wing ws-butterfly__wing--lower"
-          src={`${PNG}/right-lower-wing.png`}
+          data-src={`${PNG}/right-lower-wing.png`}
           alt=""
           width="2048"
           height="2048"
@@ -62,7 +59,7 @@ const RIVE_HREF = '/animations/woven-sage-butterfly-v2.riv?v=paid-1';
         />
         <img
           class="ws-butterfly__layer ws-butterfly__wing ws-butterfly__wing--upper"
-          src={`${PNG}/left-upper-wing.png`}
+          data-src={`${PNG}/left-upper-wing.png`}
           alt=""
           width="2048"
           height="2048"
@@ -71,7 +68,7 @@ const RIVE_HREF = '/animations/woven-sage-butterfly-v2.riv?v=paid-1';
         />
         <img
           class="ws-butterfly__layer ws-butterfly__wing ws-butterfly__wing--upper"
-          src={`${PNG}/right-upper-wing.png`}
+          data-src={`${PNG}/right-upper-wing.png`}
           alt=""
           width="2048"
           height="2048"
@@ -80,7 +77,7 @@ const RIVE_HREF = '/animations/woven-sage-butterfly-v2.riv?v=paid-1';
         />
         <img
           class="ws-butterfly__layer ws-butterfly__body"
-          src={`${PNG}/body-and-antennae.png`}
+          data-src={`${PNG}/body-and-antennae.png`}
           alt=""
           width="2048"
           height="2048"
@@ -331,7 +328,7 @@ const RIVE_HREF = '/animations/woven-sage-butterfly-v2.riv?v=paid-1';
 </style>
 
 <script>
-  import { Rive, Layout, Fit, Alignment } from '@rive-app/webgl2';
+  import { Rive, Layout, Fit, Alignment, EventType } from '@rive-app/webgl2';
   import type { StateMachineInput } from '@rive-app/webgl2';
 
   type Point = { x: number; y: number };
@@ -973,12 +970,22 @@ const RIVE_HREF = '/animations/woven-sage-butterfly-v2.riv?v=paid-1';
       }
     };
 
+    const activateFallbackAssets = () => {
+      if (!(fallbackEl instanceof HTMLElement)) return;
+      fallbackEl.querySelectorAll('img[data-src]').forEach((img) => {
+        if (!(img instanceof HTMLImageElement)) return;
+        const src = img.getAttribute('data-src');
+        if (src && !img.getAttribute('src')) img.src = src;
+      });
+    };
+
     const showFallback = (reason: string) => {
       if (host.classList.contains('is-rive-fallback')) return;
       clearRiveLoadTimer();
       riveReady = false;
       host.classList.remove('is-rive-ready');
       host.classList.add('is-rive-fallback');
+      activateFallbackAssets();
       if (fallbackEl instanceof HTMLElement) {
         fallbackEl.hidden = false;
       }
@@ -1030,21 +1037,48 @@ const RIVE_HREF = '/animations/woven-sage-butterfly-v2.riv?v=paid-1';
       if (fallbackEl instanceof HTMLElement) {
         fallbackEl.hidden = true;
       }
-      // Resize before reveal so the first painted frame is sharp.
-      resizeRive();
-      requestAnimationFrame(() => {
-        resizeRive();
-        logRiveSurface('ready');
-        host.classList.add('is-rive-ready');
-        // Reveal hero + butterfly in the same frame so they appear together.
-        markHeroReady();
-        setIsFlying(false);
-        if (reduceMotion.matches) {
-          clearWingAdjust();
-        } else {
-          scheduleWingAdjust();
+      host.classList.add('is-rive-ready');
+      // Hero + butterfly become visible together only after a drawn frame exists.
+      markHeroReady();
+      setIsFlying(false);
+      if (reduceMotion.matches) {
+        clearWingAdjust();
+      } else {
+        scheduleWingAdjust();
+      }
+    };
+
+    const revealAfterFirstDraw = () => {
+      if (!riveInstance) {
+        revealRive();
+        return;
+      }
+
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        window.clearTimeout(drawWaitTimer);
+        try {
+          riveInstance?.off(EventType.Draw, onDraw);
+        } catch {
+          /* ignore */
         }
-      });
+        logRiveSurface('ready');
+        revealRive();
+      };
+
+      const onDraw = () => {
+        // One more frame so the just-drawn buffer is committed before reveal.
+        requestAnimationFrame(finish);
+      };
+
+      const drawWaitTimer = window.setTimeout(finish, 500);
+      try {
+        riveInstance.on(EventType.Draw, onDraw);
+      } catch {
+        finish();
+      }
     };
 
     const bindRiveInputs = () => {
@@ -1053,8 +1087,11 @@ const RIVE_HREF = '/animations/woven-sage-butterfly-v2.riv?v=paid-1';
         return;
       }
 
-      // First resize as soon as Rive has loaded, while canvas is still invisible.
+      // Resize while hero is still hidden so the first visible frame is sharp.
       resizeRive();
+      requestAnimationFrame(() => {
+        resizeRive();
+      });
 
       const names = riveInstance.stateMachineNames ?? [];
       if (names.includes(RIVE_STATE_MACHINE_PREFERRED)) {
@@ -1088,7 +1125,7 @@ const RIVE_HREF = '/animations/woven-sage-butterfly-v2.riv?v=paid-1';
         console.warn('[butterfly] wingAdjust input not found on', stateMachineName);
       }
 
-      revealRive();
+      revealAfterFirstDraw();
     };
 
     const startRiveWithStateMachine = (smName: string, allowFallback: boolean) => {

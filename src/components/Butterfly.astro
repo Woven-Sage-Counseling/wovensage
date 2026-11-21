@@ -11,7 +11,10 @@ interface Props {
 
 const { class: className = '', width = 120 } = Astro.props;
 const PNG = '/animations/butterfly';
+const RIVE_HREF = '/animations/woven-sage-butterfly-v2.riv?v=paid-1';
 ---
+
+<link rel="preload" href={RIVE_HREF} as="fetch" crossorigin="anonymous" />
 
 <div
   class:list={['ws-butterfly', className]}
@@ -155,7 +158,6 @@ const PNG = '/animations/butterfly';
     background-color: transparent;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 120ms ease;
   }
 
   .ws-butterfly.is-rive-ready .ws-butterfly__rive {
@@ -965,6 +967,12 @@ const PNG = '/animations/butterfly';
       }, rand(WING_ADJUST_MIN_MS, WING_ADJUST_MAX_MS));
     };
 
+    const markHeroReady = () => {
+      if (hero.hasAttribute('data-await-butterfly')) {
+        hero.setAttribute('data-butterfly-ready', '');
+      }
+    };
+
     const showFallback = (reason: string) => {
       if (host.classList.contains('is-rive-fallback')) return;
       clearRiveLoadTimer();
@@ -986,6 +994,7 @@ const PNG = '/animations/butterfly';
       }
       isFlyingInput = null;
       wingAdjustInput = null;
+      markHeroReady();
       console.warn('[butterfly] Rive unavailable — using PNG fallback:', reason);
     };
 
@@ -1021,12 +1030,14 @@ const PNG = '/animations/butterfly';
       if (fallbackEl instanceof HTMLElement) {
         fallbackEl.hidden = true;
       }
-      // Resize before opacity fade so the first painted frame is sharp.
+      // Resize before reveal so the first painted frame is sharp.
       resizeRive();
       requestAnimationFrame(() => {
         resizeRive();
         logRiveSurface('ready');
         host.classList.add('is-rive-ready');
+        // Reveal hero + butterfly in the same frame so they appear together.
+        markHeroReady();
         setIsFlying(false);
         if (reduceMotion.matches) {
           clearWingAdjust();

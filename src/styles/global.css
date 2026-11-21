@@ -3069,6 +3069,23 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   background-color: transparent;
 }
 
+/* Hold the hero until the butterfly is ready so both appear together.
+   Noscript override lives on the homepage so non-JS still sees the landing. */
+.home-landing[data-await-butterfly]:not([data-butterfly-ready]) {
+  opacity: 0;
+}
+
+.home-landing[data-await-butterfly][data-butterfly-ready] {
+  opacity: 1;
+  transition: opacity 120ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-landing[data-await-butterfly][data-butterfly-ready] {
+    transition: none;
+  }
+}
+
 .home-landing__logo {
   position: absolute;
   z-index: 20;

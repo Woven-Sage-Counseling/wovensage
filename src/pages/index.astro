@@ -15,10 +15,22 @@ const layers = siteConfig.logos.homeLayers;
   hideHeader
 >
   <div class="home-page">
+    <noscript>
+      <style>
+        .home-landing[data-await-butterfly] {
+          opacity: 1 !important;
+        }
+      </style>
+    </noscript>
     <div class="home-page__textured">
       <div class="home-page__paper" aria-hidden="true"></div>
 
-      <section class="home-landing" data-butterfly-hero aria-labelledby="home-landing-heading">
+      <section
+        class="home-landing"
+        data-butterfly-hero
+        data-await-butterfly
+        aria-labelledby="home-landing-heading"
+      >
       <a href="/" class="home-landing__logo" aria-label={siteConfig.name}>
         <img
           src={`${layers.logoWordmark}?v=3`}

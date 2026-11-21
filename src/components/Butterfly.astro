@@ -27,8 +27,8 @@ const PNG = '/animations/butterfly';
       height={width}
     ></canvas>
 
-    <!-- Fallback: layered PNGs (hidden once Rive is ready) -->
-    <div class="ws-butterfly__fallback" data-butterfly-fallback>
+    <!-- Fallback: hidden in static CSS; revealed only on Rive failure/timeout -->
+    <div class="ws-butterfly__fallback" data-butterfly-fallback hidden>
       <img
         class="ws-butterfly__full"
         src={`${PNG}/full-butterfly.png`}
@@ -86,6 +86,17 @@ const PNG = '/animations/butterfly';
         />
       </div>
     </div>
+
+    <noscript>
+      <img
+        class="ws-butterfly__noscript"
+        src={`${PNG}/full-butterfly.png`}
+        alt=""
+        width="2048"
+        height="2048"
+        decoding="async"
+      />
+    </noscript>
   </div>
 </div>
 
@@ -128,8 +139,9 @@ const PNG = '/animations/butterfly';
     background-color: transparent;
   }
 
+  /* Canvas stays in-flow but invisible until Rive binds successfully */
   .ws-butterfly__rive {
-    display: none;
+    display: block;
     position: absolute;
     inset: 0;
     width: 100%;
@@ -142,17 +154,17 @@ const PNG = '/animations/butterfly';
     background: transparent;
     background-color: transparent;
     pointer-events: none;
+    opacity: 0;
+    transition: opacity 120ms ease;
   }
 
   .ws-butterfly.is-rive-ready .ws-butterfly__rive {
-    display: block;
+    opacity: 1;
   }
 
-  .ws-butterfly.is-rive-ready .ws-butterfly__fallback {
-    display: none;
-  }
-
+  /* Static default: never flash PNG while Rive is loading */
   .ws-butterfly__fallback {
+    display: none;
     position: absolute;
     inset: 0;
     width: 100%;
@@ -162,6 +174,31 @@ const PNG = '/animations/butterfly';
     border: none;
     box-shadow: none;
     background: transparent;
+  }
+
+  .ws-butterfly.is-rive-fallback .ws-butterfly__fallback {
+    display: block;
+  }
+
+  .ws-butterfly.is-rive-fallback .ws-butterfly__fallback[hidden] {
+    display: block;
+  }
+
+  .ws-butterfly.is-rive-fallback .ws-butterfly__rive {
+    display: none;
+    opacity: 0;
+  }
+
+  .ws-butterfly__noscript {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border: none;
+    background: transparent;
+    pointer-events: none;
   }
 
   .ws-butterfly__layers,
@@ -218,18 +255,18 @@ const PNG = '/animations/butterfly';
     z-index: 2;
   }
 
-  /* Fallback-only CSS flap when Rive is unavailable */
-  .ws-butterfly:not(.is-rive-ready).is-flying .ws-butterfly__wing--upper {
+  /* Fallback-only CSS flap when Rive failed and PNG is shown */
+  .ws-butterfly.is-rive-fallback.is-flying .ws-butterfly__wing--upper {
     animation: ws-butterfly-flap-upper 0.38s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
   }
 
-  .ws-butterfly:not(.is-rive-ready).is-flying .ws-butterfly__wing--lower {
+  .ws-butterfly.is-rive-fallback.is-flying .ws-butterfly__wing--lower {
     animation: ws-butterfly-flap-lower 0.38s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
     animation-delay: 42ms;
   }
 
-  .ws-butterfly:not(.is-rive-ready).is-flying.is-settling .ws-butterfly__wing--upper,
-  .ws-butterfly:not(.is-rive-ready).is-flying.is-settling .ws-butterfly__wing--lower {
+  .ws-butterfly.is-rive-fallback.is-flying.is-settling .ws-butterfly__wing--upper,
+  .ws-butterfly.is-rive-fallback.is-flying.is-settling .ws-butterfly__wing--lower {
     animation-duration: 0.7s;
   }
 
@@ -265,11 +302,11 @@ const PNG = '/animations/butterfly';
     }
   }
 
-  .ws-butterfly.is-reduced:not(.is-rive-ready) .ws-butterfly__layers {
+  .ws-butterfly.is-reduced.is-rive-fallback .ws-butterfly__layers {
     display: none;
   }
 
-  .ws-butterfly.is-reduced:not(.is-rive-ready) .ws-butterfly__full {
+  .ws-butterfly.is-reduced.is-rive-fallback .ws-butterfly__full {
     display: block;
   }
 
@@ -280,8 +317,12 @@ const PNG = '/animations/butterfly';
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .ws-butterfly:not(.is-rive-ready).is-flying .ws-butterfly__wing--upper,
-    .ws-butterfly:not(.is-rive-ready).is-flying .ws-butterfly__wing--lower {
+    .ws-butterfly__rive {
+      transition: none;
+    }
+
+    .ws-butterfly.is-rive-fallback.is-flying .ws-butterfly__wing--upper,
+    .ws-butterfly.is-rive-fallback.is-flying .ws-butterfly__wing--lower {
       animation: none;
     }
   }
@@ -325,6 +366,7 @@ const PNG = '/animations/butterfly';
   const RIVE_INPUT_WING_ADJUST = 'wingAdjust';
   const WING_ADJUST_MIN_MS = 7000;
   const WING_ADJUST_MAX_MS = 15000;
+  const RIVE_LOAD_TIMEOUT_MS = 8000;
 
   const hosts = document.querySelectorAll('[data-butterfly]');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -850,7 +892,9 @@ const PNG = '/animations/butterfly';
     let isFlyingInput: StateMachineInput | null = null;
     let wingAdjustInput: StateMachineInput | null = null;
     let wingAdjustTimer = 0;
+    let riveLoadTimer = 0;
     let foundReport: Record<string, unknown> | null = null;
+    const fallbackEl = host.querySelector('[data-butterfly-fallback]');
 
     const setInteractive = (on: boolean) => {
       host.style.pointerEvents = on ? 'auto' : 'none';
@@ -873,6 +917,11 @@ const PNG = '/animations/butterfly';
       wingAdjustTimer = 0;
     };
 
+    const clearRiveLoadTimer = () => {
+      if (riveLoadTimer) window.clearTimeout(riveLoadTimer);
+      riveLoadTimer = 0;
+    };
+
     const clearFlightTimers = () => {
       if (rafId) cancelAnimationFrame(rafId);
       rafId = 0;
@@ -881,6 +930,7 @@ const PNG = '/animations/butterfly';
       if (rearmTimer) window.clearTimeout(rearmTimer);
       rearmTimer = 0;
       clearWingAdjust();
+      clearRiveLoadTimer();
     };
 
     const setIsFlying = (value: boolean) => {
@@ -915,8 +965,14 @@ const PNG = '/animations/butterfly';
     };
 
     const showFallback = (reason: string) => {
+      if (host.classList.contains('is-rive-fallback')) return;
+      clearRiveLoadTimer();
       riveReady = false;
       host.classList.remove('is-rive-ready');
+      host.classList.add('is-rive-fallback');
+      if (fallbackEl instanceof HTMLElement) {
+        fallbackEl.hidden = false;
+      }
       setIsFlying(false);
       clearWingAdjust();
       if (riveInstance) {
@@ -981,7 +1037,12 @@ const PNG = '/animations/butterfly';
         console.warn('[butterfly] wingAdjust input not found on', stateMachineName);
       }
 
+      clearRiveLoadTimer();
       riveReady = true;
+      host.classList.remove('is-rive-fallback');
+      if (fallbackEl instanceof HTMLElement) {
+        fallbackEl.hidden = true;
+      }
       host.classList.add('is-rive-ready');
       setIsFlying(false);
 
@@ -1046,6 +1107,14 @@ const PNG = '/animations/butterfly';
       const size = Math.round(sizeOf(host));
       canvas.width = size;
       canvas.height = size;
+
+      clearRiveLoadTimer();
+      riveLoadTimer = window.setTimeout(() => {
+        riveLoadTimer = 0;
+        if (!riveReady) {
+          showFallback(`load timed out after ${RIVE_LOAD_TIMEOUT_MS}ms`);
+        }
+      }, RIVE_LOAD_TIMEOUT_MS);
 
       // Asset embeds "Butterfly Controller V2" (not the unversioned preferred name).
       startRiveWithStateMachine(RIVE_STATE_MACHINE_FALLBACK, false);

@@ -2,11 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FeaturedCarrierLogos from '../components/FeaturedCarrierLogos.astro';
 import FloridaCountyMap from '../components/FloridaCountyMap.astro';
-import Butterfly from '../components/Butterfly.astro';
+import ButterflyDrawn from '../components/ButterflyDrawn.astro';
 import { siteConfig } from '../config/site';
 
 const layers = siteConfig.logos.homeLayers;
-const RIVE_HREF = '/animations/woven-sage-butterfly-v2.riv?v=paid-1';
 ---
 
 <BaseLayout
@@ -16,35 +15,27 @@ const RIVE_HREF = '/animations/woven-sage-butterfly-v2.riv?v=paid-1';
   hideHeader
 >
   <Fragment slot="head">
-    {/* Start the 3.6MB Rive file before hero images compete for bandwidth */}
-    <link rel="preload" href={RIVE_HREF} as="fetch" crossorigin="anonymous" fetchpriority="high" />
-    <style is:inline>
-      .home-landing[data-await-butterfly]:not([data-butterfly-ready]) {
-        opacity: 0;
-        visibility: hidden;
-      }
-      .home-landing[data-await-butterfly][data-butterfly-ready] {
-        opacity: 1;
-        visibility: visible;
-      }
-    </style>
+    <link
+      rel="preload"
+      href="/animations/butterflyv3/butterfly-entrance.png"
+      as="image"
+      type="image/png"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      href="/animations/butterflyv3/butterfly-idle-01.png"
+      as="image"
+      type="image/png"
+    />
   </Fragment>
   <div class="home-page">
-    <noscript>
-      <style>
-        .home-landing[data-await-butterfly] {
-          opacity: 1 !important;
-          visibility: visible !important;
-        }
-      </style>
-    </noscript>
     <div class="home-page__textured">
       <div class="home-page__paper" aria-hidden="true"></div>
 
       <section
         class="home-landing"
         data-butterfly-hero
-        data-await-butterfly
         aria-labelledby="home-landing-heading"
       >
       <a href="/" class="home-landing__logo" aria-label={siteConfig.name}>
@@ -75,7 +66,7 @@ const RIVE_HREF = '/animations/woven-sage-butterfly-v2.riv?v=paid-1';
         />
       </div>
 
-      <Butterfly />
+      <ButterflyDrawn />
 
       <div class="home-landing__stage">
         <div class="home-landing__copy">

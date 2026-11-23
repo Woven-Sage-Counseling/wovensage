@@ -1,0 +1,124 @@
+---
+/**
+ * Hand-drawn Procreate APNG butterfly for the homepage hero.
+ * Plays entrance once, then loops idle-01. Flight clips / spots come later.
+ */
+---
+
+<div class="ws-butterfly-drawn" data-butterfly-drawn aria-hidden="true">
+  <canvas class="ws-butterfly-drawn__canvas" data-butterfly-drawn-canvas></canvas>
+  <!-- Future hover hit-target for Spot 1 → … → Spot 5 flights; inert for now. -->
+  <button
+    type="button"
+    class="ws-butterfly-drawn__hit"
+    data-butterfly-drawn-hit
+    tabindex="-1"
+    aria-hidden="true"
+    disabled
+  ></button>
+  <noscript>
+    <img
+      class="ws-butterfly-drawn__noscript"
+      src="/animations/butterflyv3/butterfly-idle-01.png"
+      alt=""
+      width="2452"
+      height="1432"
+      decoding="async"
+    />
+  </noscript>
+</div>
+
+<style>
+  .ws-butterfly-drawn {
+    position: absolute;
+    inset: 0;
+    z-index: 14;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .ws-butterfly-drawn__canvas {
+    position: absolute;
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    pointer-events: none;
+  }
+
+  .ws-butterfly-drawn__hit {
+    position: absolute;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .ws-butterfly-drawn__noscript {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  import { createButterflyDrawnController } from '../lib/butterfly-drawn';
+
+  const roots = document.querySelectorAll('[data-butterfly-drawn]');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  for (const root of roots) {
+    if (!(root instanceof HTMLElement)) continue;
+    const hero =
+      root.closest<HTMLElement>('[data-butterfly-hero]') ??
+      root.closest<HTMLElement>('.home-landing');
+    const canvas = root.querySelector('[data-butterfly-drawn-canvas]');
+    if (!hero || !(canvas instanceof HTMLCanvasElement)) continue;
+
+    let controller: Awaited<ReturnType<typeof createButterflyDrawnController>> | null = null;
+
+    const start = () => {
+      void createButterflyDrawnController({
+        canvas,
+        host: hero,
+        reduceMotion: reduceMotion.matches,
+      })
+        .then((next) => {
+          controller = next;
+        })
+        .catch((error) => {
+          console.warn('[butterfly-drawn] failed to start', error);
+        });
+    };
+
+    start();
+
+    const onMotionChange = () => {
+      controller?.destroy();
+      controller = null;
+      start();
+    };
+    reduceMotion.addEventListener('change', onMotionChange);
+
+    const cleanup = () => {
+      reduceMotion.removeEventListener('change', onMotionChange);
+      controller?.destroy();
+      controller = null;
+      watcher.disconnect();
+    };
+
+    const watcher = new MutationObserver(() => {
+      if (!document.contains(root)) cleanup();
+    });
+    watcher.observe(document.documentElement, { childList: true, subtree: true });
+    window.addEventListener('pagehide', cleanup, { once: true });
+  }
+</script>

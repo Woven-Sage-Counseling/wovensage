@@ -3069,25 +3069,6 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   background-color: transparent;
 }
 
-/* Hold the hero until the butterfly has drawn so both appear together.
-   Critical duplicate also lives inline in index <head>; noscript overrides on the page. */
-.home-landing[data-await-butterfly]:not([data-butterfly-ready]) {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.home-landing[data-await-butterfly][data-butterfly-ready] {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 120ms ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .home-landing[data-await-butterfly][data-butterfly-ready] {
-    transition: none;
-  }
-}
-
 .home-landing__logo {
   position: absolute;
   z-index: 20;

@@ -4,7 +4,7 @@ import type { APNG } from 'apng-js';
 /** Resting spots in the eventual hover-flight cycle (1 → 2 → 3 → 4 → 5 → 1). */
 export type ButterflySpotId = 1 | 2 | 3 | 4 | 5;
 
-export type ButterflyClipId = 'entrance' | 'idle-01';
+export type ButterflyClipId = 'entrance' | 'idle-01' | 'flight-01-02' | 'idle-02';
 
 export type ButterflyClip = {
   id: ButterflyClipId;
@@ -24,6 +24,16 @@ export const BUTTERFLY_CLIPS: Record<ButterflyClipId, ButterflyClip> = {
     src: '/animations/butterflyv3/butterfly-idle-01.png',
     loop: true,
   },
+  'flight-01-02': {
+    id: 'flight-01-02',
+    src: '/animations/butterflyv3/butterfly-flight-01-02.png',
+    loop: false,
+  },
+  'idle-02': {
+    id: 'idle-02',
+    src: '/animations/butterflyv3/butterfly-idle-02.png',
+    loop: true,
+  },
 };
 
 /** Artboard size from Procreate export (hero positioning reference). */
@@ -31,6 +41,9 @@ export const BUTTERFLY_ARTBOARD = { width: 2452, height: 1432 } as const;
 
 /** Fine-tune cover placement (artboard px): +x right, −y up. */
 export const BUTTERFLY_LAYOUT_NUDGE = { x: 6, y: -5 } as const;
+
+/** Extra hit padding around opaque butterfly pixels (artboard px). */
+const HIT_PAD = 28;
 
 type ApngPlayer = Awaited<ReturnType<APNG['getPlayer']>>;
 
@@ -40,7 +53,6 @@ type ParsedClip = {
 };
 
 export type ButterflyDrawnController = {
-  /** Current resting spot (always 1 until flights are added). */
   spot: ButterflySpotId;
   destroy: () => void;
   resize: () => void;
@@ -80,38 +92,118 @@ export function layoutButterflyCanvas(
   canvas.style.top = `${(rect.height - height) / 2 + BUTTERFLY_LAYOUT_NUDGE.y * scale}px`;
 }
 
+/** Opaque pixel bounds of the current canvas frame (artboard space). */
+export function measureButterflyBounds(
+  canvas: HTMLCanvasElement,
+  ctx: CanvasRenderingContext2D,
+): { minX: number; minY: number; maxX: number; maxY: number } | null {
+  const w = canvas.width;
+  const h = canvas.height;
+  if (w <= 0 || h <= 0) return null;
+  const { data } = ctx.getImageData(0, 0, w, h);
+  let minX = w;
+  let minY = h;
+  let maxX = 0;
+  let maxY = 0;
+  let found = false;
+  // Step by 2 for speed; hit pad covers the missing edge pixels.
+  for (let y = 0; y < h; y += 2) {
+    for (let x = 0; x < w; x += 2) {
+      if (data[(y * w + x) * 4 + 3] > 20) {
+        found = true;
+        if (x < minX) minX = x;
+        if (y < minY) minY = y;
+        if (x > maxX) maxX = x;
+        if (y > maxY) maxY = y;
+      }
+    }
+  }
+  if (!found) return null;
+  return {
+    minX: Math.max(0, minX - HIT_PAD),
+    minY: Math.max(0, minY - HIT_PAD),
+    maxX: Math.min(w, maxX + HIT_PAD),
+    maxY: Math.min(h, maxY + HIT_PAD),
+  };
+}
+
+function placeHitTarget(
+  hit: HTMLButtonElement,
+  canvas: HTMLCanvasElement,
+  bounds: { minX: number; minY: number; maxX: number; maxY: number } | null,
+): void {
+  if (!bounds) {
+    hit.style.pointerEvents = 'none';
+    hit.hidden = true;
+    return;
+  }
+  const scaleX = canvas.offsetWidth / canvas.width;
+  const scaleY = canvas.offsetHeight / canvas.height;
+  hit.hidden = false;
+  hit.style.left = `${canvas.offsetLeft + bounds.minX * scaleX}px`;
+  hit.style.top = `${canvas.offsetTop + bounds.minY * scaleY}px`;
+  hit.style.width = `${(bounds.maxX - bounds.minX) * scaleX}px`;
+  hit.style.height = `${(bounds.maxY - bounds.minY) * scaleY}px`;
+}
+
 export async function createButterflyDrawnController(options: {
   canvas: HTMLCanvasElement;
   host: HTMLElement;
+  hit: HTMLButtonElement;
   reduceMotion: boolean;
   onReady?: () => void;
 }): Promise<ButterflyDrawnController> {
-  const { canvas, host, reduceMotion, onReady } = options;
-  const ctx = canvas.getContext('2d');
+  const { canvas, host, hit, reduceMotion, onReady } = options;
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
   if (!ctx) throw new Error('2D canvas unavailable');
 
   let destroyed = false;
   let player: ApngPlayer | null = null;
+  let flying = false;
+  let idleReady = false;
+  let interactionReady = false;
+  let spot: ButterflySpotId = 1;
+
+  const clips: Partial<Record<ButterflyClipId, ParsedClip>> = {};
+
   const controller: ButterflyDrawnController = {
-    spot: 1,
+    get spot() {
+      return spot;
+    },
     destroy: () => undefined,
     resize: () => undefined,
   };
 
-  const [entrance, idle] = await Promise.all([
-    loadClip(BUTTERFLY_CLIPS.entrance),
-    loadClip(BUTTERFLY_CLIPS['idle-01']),
-  ]);
-  if (destroyed) return controller;
+  const setHitInteractive = (on: boolean) => {
+    if (on && idleReady && interactionReady && !flying && spot === 1 && !reduceMotion) {
+      hit.disabled = false;
+      hit.setAttribute('aria-hidden', 'false');
+      hit.tabIndex = 0;
+      hit.style.pointerEvents = 'auto';
+      hit.hidden = false;
+    } else {
+      hit.disabled = true;
+      hit.setAttribute('aria-hidden', 'true');
+      hit.tabIndex = -1;
+      hit.style.pointerEvents = 'none';
+      if (flying || spot !== 1) hit.hidden = true;
+    }
+  };
 
-  canvas.width = entrance.apng.width;
-  canvas.height = entrance.apng.height;
-  layoutButterflyCanvas(canvas, host, entrance.apng.width, entrance.apng.height);
+  const syncHitFromCanvas = () => {
+    if (destroyed || flying || !idleReady || spot !== 1) {
+      setHitInteractive(false);
+      return;
+    }
+    const bounds = measureButterflyBounds(canvas, ctx);
+    placeHitTarget(hit, canvas, bounds);
+    setHitInteractive(Boolean(bounds));
+  };
 
   const clearPlayer = () => {
     if (!player) return;
     try {
-      player.stop();
+      player.pause();
       player.removeAllListeners();
     } catch {
       /* ignore */
@@ -121,27 +213,93 @@ export async function createButterflyDrawnController(options: {
 
   const playClip = async (parsed: ParsedClip, autoPlay: boolean) => {
     clearPlayer();
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // getPlayer → stop() clears and draws frame 0 of the next clip (no blank gap).
     player = await parsed.apng.getPlayer(ctx, autoPlay);
     return player;
   };
 
-  const startIdleLoop = async () => {
+  const startIdleAtSpot = async (nextSpot: ButterflySpotId, idleId: ButterflyClipId) => {
     if (destroyed) return;
-    await playClip(idle, true);
+    const idle = clips[idleId];
+    if (!idle) return;
+    spot = nextSpot;
+    flying = false;
+    idleReady = true;
+    const idlePlayer = await playClip(idle, !reduceMotion);
+    if (reduceMotion) {
+      syncHitFromCanvas();
+      return;
+    }
+    idlePlayer.on('frame', () => {
+      if (spot === 1) syncHitFromCanvas();
+    });
+    syncHitFromCanvas();
   };
 
+  const flyToSpot2 = async () => {
+    if (destroyed || flying || reduceMotion || spot !== 1 || !interactionReady) return;
+    const flight = clips['flight-01-02'];
+    const idle02 = clips['idle-02'];
+    if (!flight || !idle02) return;
+
+    flying = true;
+    idleReady = false;
+    setHitInteractive(false);
+    placeHitTarget(hit, canvas, null);
+
+    const flightPlayer = await playClip(flight, true);
+    flightPlayer.once('end', () => {
+      void startIdleAtSpot(2, 'idle-02');
+    });
+  };
+
+  // Critical path: keep entrance → idle-01 timing identical.
+  const [entrance, idle01] = await Promise.all([
+    loadClip(BUTTERFLY_CLIPS.entrance),
+    loadClip(BUTTERFLY_CLIPS['idle-01']),
+  ]);
+  if (destroyed) return controller;
+  clips.entrance = entrance;
+  clips['idle-01'] = idle01;
+
+  canvas.width = entrance.apng.width;
+  canvas.height = entrance.apng.height;
+  layoutButterflyCanvas(canvas, host, entrance.apng.width, entrance.apng.height);
+
   if (reduceMotion) {
-    // getPlayer(false) calls stop(), which draws the first idle frame.
-    await playClip(idle, false);
+    await startIdleAtSpot(1, 'idle-01');
     onReady?.();
   } else {
     const entrancePlayer = await playClip(entrance, true);
     onReady?.();
     entrancePlayer.once('end', () => {
-      void startIdleLoop();
+      void startIdleAtSpot(1, 'idle-01');
     });
   }
+
+  // Background-load interactive clips so the first hover never waits on the network.
+  void Promise.all([
+    loadClip(BUTTERFLY_CLIPS['flight-01-02']),
+    loadClip(BUTTERFLY_CLIPS['idle-02']),
+  ])
+    .then(([flight, idle02]) => {
+      if (destroyed) return;
+      clips['flight-01-02'] = flight;
+      clips['idle-02'] = idle02;
+      interactionReady = true;
+      syncHitFromCanvas();
+    })
+    .catch((error) => {
+      console.warn('[butterfly-drawn] interactive clips failed to load', error);
+    });
+
+  const onHit = (event: Event) => {
+    event.preventDefault();
+    void flyToSpot2();
+  };
+  hit.addEventListener('pointerenter', onHit);
+  hit.addEventListener('pointerdown', onHit);
+  hit.addEventListener('focus', onHit);
 
   const resize = () => {
     layoutButterflyCanvas(
@@ -150,6 +308,7 @@ export async function createButterflyDrawnController(options: {
       canvas.width || BUTTERFLY_ARTBOARD.width,
       canvas.height || BUTTERFLY_ARTBOARD.height,
     );
+    syncHitFromCanvas();
   };
 
   let resizeObserver: ResizeObserver | null = null;
@@ -162,7 +321,11 @@ export async function createButterflyDrawnController(options: {
   controller.resize = resize;
   controller.destroy = () => {
     destroyed = true;
+    hit.removeEventListener('pointerenter', onHit);
+    hit.removeEventListener('pointerdown', onHit);
+    hit.removeEventListener('focus', onHit);
     clearPlayer();
+    setHitInteractive(false);
     resizeObserver?.disconnect();
     resizeObserver = null;
     window.removeEventListener('resize', resize);

@@ -1,20 +1,21 @@
 ---
 /**
  * Hand-drawn Procreate APNG butterfly for the homepage hero.
- * Plays entrance once, then loops idle-01. Flight clips / spots come later.
+ * Entrance → idle-01; hover at Spot 1 flies to Spot 2 and loops idle-02.
  */
 ---
 
-<div class="ws-butterfly-drawn" data-butterfly-drawn aria-hidden="true">
-  <canvas class="ws-butterfly-drawn__canvas" data-butterfly-drawn-canvas></canvas>
-  <!-- Future hover hit-target for Spot 1 → … → Spot 5 flights; inert for now. -->
+<div class="ws-butterfly-drawn" data-butterfly-drawn>
+  <canvas class="ws-butterfly-drawn__canvas" data-butterfly-drawn-canvas aria-hidden="true"></canvas>
   <button
     type="button"
     class="ws-butterfly-drawn__hit"
     data-butterfly-drawn-hit
     tabindex="-1"
+    aria-label="Send the butterfly to its next perch"
     aria-hidden="true"
     disabled
+    hidden
   ></button>
   <noscript>
     <img
@@ -49,13 +50,24 @@
 
   .ws-butterfly-drawn__hit {
     position: absolute;
-    width: 0;
-    height: 0;
+    z-index: 1;
     margin: 0;
     padding: 0;
     border: 0;
-    opacity: 0;
+    border-radius: 9999px;
+    background: transparent;
+    cursor: pointer;
     pointer-events: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .ws-butterfly-drawn__hit:focus {
+    outline: none;
+  }
+
+  .ws-butterfly-drawn__hit:focus-visible {
+    outline: 2px solid rgb(46 59 42 / 0.45);
+    outline-offset: 3px;
   }
 
   .ws-butterfly-drawn__noscript {
@@ -81,7 +93,8 @@
       root.closest<HTMLElement>('[data-butterfly-hero]') ??
       root.closest<HTMLElement>('.home-landing');
     const canvas = root.querySelector('[data-butterfly-drawn-canvas]');
-    if (!hero || !(canvas instanceof HTMLCanvasElement)) continue;
+    const hit = root.querySelector('[data-butterfly-drawn-hit]');
+    if (!hero || !(canvas instanceof HTMLCanvasElement) || !(hit instanceof HTMLButtonElement)) continue;
 
     let controller: Awaited<ReturnType<typeof createButterflyDrawnController>> | null = null;
 
@@ -89,6 +102,7 @@
       void createButterflyDrawnController({
         canvas,
         host: hero,
+        hit,
         reduceMotion: reduceMotion.matches,
       })
         .then((next) => {

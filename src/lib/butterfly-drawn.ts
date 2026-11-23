@@ -29,6 +29,9 @@ export const BUTTERFLY_CLIPS: Record<ButterflyClipId, ButterflyClip> = {
 /** Artboard size from Procreate export (hero positioning reference). */
 export const BUTTERFLY_ARTBOARD = { width: 2452, height: 1432 } as const;
 
+/** Fine-tune cover placement (artboard px): +x right, −y up. */
+export const BUTTERFLY_LAYOUT_NUDGE = { x: 22, y: -18 } as const;
+
 type ApngPlayer = Awaited<ReturnType<APNG['getPlayer']>>;
 
 type ParsedClip = {
@@ -73,8 +76,8 @@ export function layoutButterflyCanvas(
   const height = artH * scale;
   canvas.style.width = `${width}px`;
   canvas.style.height = `${height}px`;
-  canvas.style.left = `${(rect.width - width) / 2}px`;
-  canvas.style.top = `${(rect.height - height) / 2}px`;
+  canvas.style.left = `${(rect.width - width) / 2 + BUTTERFLY_LAYOUT_NUDGE.x * scale}px`;
+  canvas.style.top = `${(rect.height - height) / 2 + BUTTERFLY_LAYOUT_NUDGE.y * scale}px`;
 }
 
 export async function createButterflyDrawnController(options: {

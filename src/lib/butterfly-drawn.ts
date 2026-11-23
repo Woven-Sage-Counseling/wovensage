@@ -30,7 +30,7 @@ export const BUTTERFLY_CLIPS: Record<ButterflyClipId, ButterflyClip> = {
 export const BUTTERFLY_ARTBOARD = { width: 2452, height: 1432 } as const;
 
 /** Fine-tune cover placement (artboard px): +x right, −y up. */
-export const BUTTERFLY_LAYOUT_NUDGE = { x: 22, y: -18 } as const;
+export const BUTTERFLY_LAYOUT_NUDGE = { x: 6, y: -5 } as const;
 
 type ApngPlayer = Awaited<ReturnType<APNG['getPlayer']>>;
 

@@ -3263,13 +3263,14 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   pointer-events: none;
 }
 
+/* Same box as before — arch stays put; square is pinned to the page edge separately. */
 .home-landing__figure {
   position: absolute;
   top: 58%;
   left: 20%;
   right: auto;
   bottom: auto;
-  z-index: 2;
+  z-index: 4;
   width: min(88vw, 78rem);
   max-width: none;
   height: auto;
@@ -3277,6 +3278,20 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   transform: translateY(-50%);
   object-fit: contain;
   object-position: left center;
+  user-select: none;
+}
+
+/* Same pixel size as in the composite (556/1536 of the figure width); flush to the right edge. */
+.home-landing__square {
+  position: absolute;
+  top: 58%;
+  right: 0;
+  z-index: 2;
+  width: calc(min(88vw, 78rem) * 556 / 1536);
+  height: calc(min(88vw, 78rem) * 556 / 1536);
+  /* Square center sits 195px below the figure artboard center in the 1536×1024 asset. */
+  transform: translateY(calc(-50% + min(88vw, 78rem) * 195 / 1536));
+  object-fit: contain;
   user-select: none;
 }
 
@@ -4019,28 +4034,34 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
     inset: auto;
     z-index: 1;
     width: 100%;
-    height: auto;
-    min-height: 0;
+    height: min(62vw, 24rem);
+    min-height: 17rem;
     margin-top: 0.5rem;
     margin-bottom: 1.5rem;
     overflow: visible;
   }
 
   .home-landing__figure {
-    position: relative;
-    top: auto;
-    left: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
     right: auto;
     bottom: auto;
-    display: block;
     width: min(100%, 42rem);
     max-width: 100%;
     height: auto;
     max-height: none;
-    margin-inline: auto;
-    transform: none;
+    transform: translate(-55%, -50%);
     object-fit: contain;
-    object-position: center center;
+    object-position: left center;
+  }
+
+  .home-landing__square {
+    top: 50%;
+    right: 0;
+    width: calc(min(100%, 42rem) * 556 / 1536);
+    height: calc(min(100%, 42rem) * 556 / 1536);
+    transform: translateY(calc(-50% + min(100%, 42rem) * 195 / 1536));
   }
 
   .home-butterfly {

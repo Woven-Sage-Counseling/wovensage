@@ -3263,20 +3263,28 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   pointer-events: none;
 }
 
-.home-landing__figure {
+.home-landing__shape--rect {
   position: absolute;
-  top: 58%;
-  left: 20%;
-  right: auto;
-  bottom: auto;
+  right: 0;
+  bottom: 0;
   z-index: 2;
-  width: min(88vw, 78rem);
-  max-width: none;
+  width: min(42vw, 34rem);
+  height: min(42vw, 34rem);
+  background-color: theme('colors.accent.DEFAULT');
+  opacity: 0.72;
+}
+
+.home-landing__arch {
+  position: absolute;
+  /* Overlap the square; raised slightly above a flush bottom sit */
+  right: calc(min(42vw, 34rem) - 15rem);
+  bottom: calc(min(42vw, 34rem) - 11.5rem);
+  z-index: 4;
+  width: min(36vw, 28rem);
   height: auto;
-  max-height: none;
-  transform: translateY(-50%);
   object-fit: contain;
-  object-position: left center;
+  object-position: bottom right;
+  opacity: 0.55;
   user-select: none;
 }
 
@@ -4019,28 +4027,22 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
     inset: auto;
     z-index: 1;
     width: 100%;
-    height: auto;
-    min-height: 0;
+    height: min(62vw, 24rem);
+    min-height: 17rem;
     margin-top: 0.5rem;
     margin-bottom: 1.5rem;
     overflow: visible;
   }
 
-  .home-landing__figure {
-    position: relative;
-    top: auto;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    display: block;
-    width: min(100%, 42rem);
-    max-width: 100%;
-    height: auto;
-    max-height: none;
-    margin-inline: auto;
-    transform: none;
-    object-fit: contain;
-    object-position: center center;
+  .home-landing__shape--rect {
+    width: min(48%, 16rem);
+    height: min(48%, 16rem);
+  }
+
+  .home-landing__arch {
+    right: calc(min(48%, 16rem) - 7.5rem);
+    bottom: calc(min(48%, 16rem) - 6.5rem);
+    width: min(44%, 14rem);
   }
 
   .home-butterfly {

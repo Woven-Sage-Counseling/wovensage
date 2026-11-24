@@ -3265,18 +3265,19 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 
 .home-landing__figure {
   position: absolute;
-  top: 58%;
-  left: 30%;
+  top: 56%;
+  left: 46%;
   right: auto;
   bottom: auto;
   z-index: 2;
-  width: min(78vw, 70rem);
+  /* Tight portrait crop (was a wide transparent canvas with the figure on the right). */
+  width: min(46vw, 36rem);
   max-width: none;
   height: auto;
   max-height: none;
   transform: translateY(-50%);
   object-fit: contain;
-  object-position: left center;
+  object-position: center center;
   user-select: none;
 }
 

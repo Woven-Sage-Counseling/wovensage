@@ -55,7 +55,7 @@ export const siteConfig = {
     homeHeroArt: '/images/home-hero-art.jpg',
     homePaperTexture: '/images/home-paper-texture.jpg',
     homeLayers: {
-      threadFigure: '/images/home-layers/thread-figure-terracotta-cursor-compatible.png',
+      threadFigure: '/animations/hero-girl/girl-static.png',
       logoWordmark: '/images/logo-woven-sage.png',
       welcomeHeadline: '/images/welcome-headline.png',
     },

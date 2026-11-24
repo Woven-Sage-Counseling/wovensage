@@ -3257,28 +3257,56 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 .home-landing__art {
   position: absolute;
   z-index: 5;
-  inset: 0;
-  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(54vw, 42rem);
   overflow: visible;
   pointer-events: none;
 }
 
+.home-landing__shape--rect {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  width: min(52%, 22rem);
+  height: min(52%, 22rem);
+  background-color: theme('colors.accent.DEFAULT');
+}
+
+.home-landing__arch-stack {
+  position: absolute;
+  /* Sit above/left of the square so the arch bottom-right overlaps the square top-left */
+  right: calc(min(52%, 22rem) - 11rem);
+  bottom: calc(min(52%, 22rem) - 13.5rem);
+  z-index: 4;
+  width: min(48%, 18.5rem);
+}
+
+.home-landing__arch {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: bottom center;
+  opacity: 0.5;
+  user-select: none;
+}
+
 .home-landing__figure {
   position: absolute;
-  top: 56%;
-  left: 46%;
-  right: auto;
-  bottom: auto;
-  z-index: 2;
-  /* Tight portrait crop (was a wide transparent canvas with the figure on the right). */
-  width: min(46vw, 36rem);
+  left: 50%;
+  top: 54%;
+  z-index: 5;
+  width: 108%;
   max-width: none;
   height: auto;
-  max-height: none;
-  transform: translateY(-50%);
+  transform: translate(-50%, -50%);
   object-fit: contain;
   object-position: center center;
   user-select: none;
+  pointer-events: none;
 }
 
 /* Interactive hero butterfly — continuous-line, forest sage */
@@ -4017,31 +4045,32 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   .home-landing__art {
     position: relative;
     order: 2;
+    top: auto;
+    right: auto;
+    bottom: auto;
     inset: auto;
     z-index: 1;
     width: 100%;
-    height: auto;
-    min-height: 0;
+    height: min(58vw, 22rem);
+    min-height: 16rem;
     margin-top: 0.5rem;
     margin-bottom: 1.5rem;
     overflow: visible;
   }
 
+  .home-landing__arch-stack {
+    right: calc(min(52%, 14rem) - 6.5rem);
+    bottom: calc(min(52%, 14rem) - 8rem);
+    width: min(42%, 12rem);
+  }
+
+  .home-landing__shape--rect {
+    width: min(52%, 14rem);
+    height: min(52%, 14rem);
+  }
+
   .home-landing__figure {
-    position: relative;
-    top: auto;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    display: block;
-    width: min(100%, 36rem);
-    max-width: 100%;
-    height: auto;
-    max-height: none;
-    margin-inline: auto;
-    transform: none;
-    object-fit: contain;
-    object-position: center center;
+    width: 110%;
   }
 
   .home-butterfly {

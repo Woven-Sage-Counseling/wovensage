@@ -434,18 +434,17 @@ const PNG = '/animations/butterfly';
       a.top - pad > b.bottom
     );
 
-  /**
-   * Reserve the illustrated woman — subject is centered in a tight portrait crop.
-   */
+  /** Reserve the arch + girl stack on the right of the hero. */
   const figureCoreRect = (hero: HTMLElement): DOMRect | null => {
-    const figure = hero.querySelector('.home-landing__figure');
+    const stack = hero.querySelector('.home-landing__arch-stack');
+    const figure = stack ?? hero.querySelector('.home-landing__figure');
     if (!(figure instanceof Element)) return null;
     const r = figure.getBoundingClientRect();
     if (r.width < 2 || r.height < 2) return null;
-    const left = r.left + r.width * 0.12;
-    const top = r.top + r.height * 0.06;
-    const width = r.width * 0.76;
-    const height = r.height * 0.9;
+    const left = r.left + r.width * 0.05;
+    const top = r.top + r.height * 0.04;
+    const width = r.width * 0.9;
+    const height = r.height * 0.94;
     return new DOMRect(left, top, width, height);
   };
 

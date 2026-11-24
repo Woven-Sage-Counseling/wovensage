@@ -3291,7 +3291,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   aspect-ratio: 1 / 1;
   height: auto;
   background-color: theme('colors.accent.DEFAULT');
-  opacity: 0.72;
+  opacity: 0.58;
   /* Square center sits 195px below the figure artboard center in the 1536×1024 asset. */
   transform: translateY(calc(-50% + min(88vw, 78rem) * 195 / 1536));
   user-select: none;

@@ -3302,7 +3302,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   top: 52%;
   right: 2%;
   z-index: 5;
-  width: min(34vw, 28rem);
+  width: min(38vw, 31rem);
   height: auto;
   transform: translateY(-50%);
   object-fit: contain;
@@ -4084,7 +4084,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   .home-landing__girl {
     top: 52%;
     right: 4%;
-    width: min(48vw, 16rem);
+    width: min(52vw, 18rem);
   }
 
   .home-butterfly {

@@ -3281,17 +3281,19 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   user-select: none;
 }
 
-/* Same pixel size as in the composite (556/1536 of the figure width); flush to the right edge. */
+/* True square: side length matches the previous vertical edges; flush to the right. */
 .home-landing__square {
   position: absolute;
   top: 58%;
   right: 0;
   z-index: 2;
   width: calc(min(88vw, 78rem) * 556 / 1536);
-  height: calc(min(88vw, 78rem) * 556 / 1536);
+  aspect-ratio: 1 / 1;
+  height: auto;
+  background-color: theme('colors.accent.DEFAULT');
+  opacity: 0.72;
   /* Square center sits 195px below the figure artboard center in the 1536×1024 asset. */
   transform: translateY(calc(-50% + min(88vw, 78rem) * 195 / 1536));
-  object-fit: contain;
   user-select: none;
 }
 
@@ -4060,7 +4062,8 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
     top: 50%;
     right: 0;
     width: calc(min(100%, 42rem) * 556 / 1536);
-    height: calc(min(100%, 42rem) * 556 / 1536);
+    aspect-ratio: 1 / 1;
+    height: auto;
     transform: translateY(calc(-50% + min(100%, 42rem) * 195 / 1536));
   }
 

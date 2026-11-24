@@ -56,7 +56,6 @@ export const siteConfig = {
     homePaperTexture: '/images/home-paper-texture.jpg',
     homeLayers: {
       heroArch: '/images/home-layers/hero-arch.png',
-      heroSquare: '/images/home-layers/hero-square.png',
       logoWordmark: '/images/logo-woven-sage.png',
       welcomeHeadline: '/images/welcome-headline.png',
     },

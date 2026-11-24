@@ -3297,6 +3297,20 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   user-select: none;
 }
 
+.home-landing__girl {
+  position: absolute;
+  top: 52%;
+  right: 2%;
+  z-index: 5;
+  width: min(34vw, 28rem);
+  height: auto;
+  transform: translateY(-50%);
+  object-fit: contain;
+  object-position: center bottom;
+  user-select: none;
+  pointer-events: none;
+}
+
 /* Interactive hero butterfly — continuous-line, forest sage */
 .home-butterfly {
   position: absolute;
@@ -4065,6 +4079,12 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
     aspect-ratio: 1 / 1;
     height: auto;
     transform: translateY(calc(-50% + min(100%, 42rem) * 195 / 1536));
+  }
+
+  .home-landing__girl {
+    top: 52%;
+    right: 4%;
+    width: min(48vw, 16rem);
   }
 
   .home-butterfly {

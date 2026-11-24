@@ -3197,8 +3197,9 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
   max-width: none;
   text-align: center;
   white-space: nowrap;
-  font-family: theme('fontFamily.display');
+  font-family: Caveat, cursive;
   font-size: clamp(1.35rem, 1.15rem + 0.9vw, 1.85rem);
+  font-weight: 500;
   line-height: 1.35;
   color: rgb(46 59 42 / 0.62);
 }

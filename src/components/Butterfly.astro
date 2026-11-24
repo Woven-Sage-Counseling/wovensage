@@ -434,28 +434,21 @@ const PNG = '/animations/butterfly';
       a.top - pad > b.bottom
     );
 
-  /** Reserve the terracotta arch + square on the right of the hero. */
+  /**
+   * The figure image bbox covers most of the hero (large transparent canvas).
+   * Only reserve the right/central band where the woman actually sits.
+   */
   const figureCoreRect = (hero: HTMLElement): DOMRect | null => {
-    const art = hero.querySelector('.home-landing__art');
-    if (!(art instanceof Element)) return null;
-    const arch = art.querySelector('.home-landing__arch');
-    const square = art.querySelector('.home-landing__shape--rect');
-    const nodes = [arch, square].filter((n): n is Element => n instanceof Element);
-    if (!nodes.length) return null;
-    let left = Infinity;
-    let top = Infinity;
-    let right = -Infinity;
-    let bottom = -Infinity;
-    for (const node of nodes) {
-      const r = node.getBoundingClientRect();
-      if (r.width < 2 || r.height < 2) continue;
-      left = Math.min(left, r.left);
-      top = Math.min(top, r.top);
-      right = Math.max(right, r.right);
-      bottom = Math.max(bottom, r.bottom);
-    }
-    if (!Number.isFinite(left)) return null;
-    return new DOMRect(left, top, right - left, bottom - top);
+    const figure = hero.querySelector('.home-landing__figure');
+    if (!(figure instanceof Element)) return null;
+    const r = figure.getBoundingClientRect();
+    if (r.width < 2 || r.height < 2) return null;
+    // Woman reads on the right half of the art; keep a generous vertical core.
+    const left = r.left + r.width * 0.42;
+    const top = r.top + r.height * 0.12;
+    const width = r.width * 0.52;
+    const height = r.height * 0.78;
+    return new DOMRect(left, top, width, height);
   };
 
   /** Overlap test in viewport space; `local` is hero-local top-left. */

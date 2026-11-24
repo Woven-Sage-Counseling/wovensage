@@ -3266,7 +3266,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 /* Same box as before — arch stays put; square is pinned to the page edge separately. */
 .home-landing__figure {
   position: absolute;
-  top: 54%;
+  top: 51%;
   left: 23%;
   right: auto;
   bottom: auto;
@@ -3284,7 +3284,7 @@ html.scroll-reveal-enabled .scroll-reveal--delay-2 {
 /* True square: side length matches the previous vertical edges; flush to the right. */
 .home-landing__square {
   position: absolute;
-  top: 58%;
+  top: 55%;
   right: 0;
   z-index: 2;
   width: calc(min(88vw, 78rem) * 556 / 1536);
